@@ -7,11 +7,11 @@ using Unity.Transforms;
 using UnityEngine;
 using static Unity.Mathematics.math;
 
-[AlwaysUpdateSystem]
+[DisableAutoCreation]
 public class InputSystem : SystemBase
 {
     protected override void OnUpdate()
-     {
+    {
          bool interact = false;
              
          if (Input.GetKeyDown(KeyCode.Space))
@@ -24,6 +24,6 @@ public class InputSystem : SystemBase
          {
              interact = false;
          }
-         Entities.ForEach((ref InputComponent ic) => { ic.interact = interact; }).Schedule();
-     }
- }
+        Entities.ForEach((ref InputComponent ic) => { ic.interact = interact; }).Schedule();
+    }
+}

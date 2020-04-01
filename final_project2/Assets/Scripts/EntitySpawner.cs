@@ -36,7 +36,7 @@ public class EntitySpawner : MonoBehaviour
             move = new float2(0.0f, 0.0f),
             pause = false
         });
-        Debug.Log("LOL ENTITY PISS");
+        Debug.Log("Entity Created");
     }
     
 }

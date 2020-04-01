@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e215c219548f8745bed770df36eea04, type: 3}
+  m_Name: SwordsMan
+  m_EditorClassIdentifier: 
+  renderingData:
+    unitType: 0
+    bakingPrefab: {fileID: 0}
+    material: {fileID: 0}
+    lodData:
+      Lod1Mesh: {fileID: 0}
+      Lod2Mesh: {fileID: 0}
+      Lod3Mesh: {fileID: 0}
+      Lod1Distance: 0
+      Lod2Distance: 0
+      Lod3Distance: 0
+      Scale: 0

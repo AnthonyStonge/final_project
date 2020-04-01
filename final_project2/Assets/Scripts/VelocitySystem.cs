@@ -7,13 +7,15 @@ using Unity.Transforms;
 using UnityEngine;
 using static Unity.Mathematics.math;
 using Unity.Physics.Authoring;
+
 public class VelocitySystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        Entities.ForEach((ref InputComponent ic) =>
+        Entities
+            .WithoutBurst()
+            .ForEach((ref InputComponent ic) =>
         {
-         
             Test.TROLOLOL();
         }).Schedule();
     }
