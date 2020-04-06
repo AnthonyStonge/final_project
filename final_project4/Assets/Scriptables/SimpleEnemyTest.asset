@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9c14fe23ea168b45bd1964f9b1ae6bd, type: 3}
+  m_Name: SimpleEnemyTest
+  m_EditorClassIdentifier: 
+  position:
+    Value:
+      x: 0
+      y: 0
+      z: 0
+  rotation:
+    Value:
+      value:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+  scale:
+    Value: 0
+  localToWorld:
+    Value:
+      c0:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      c1:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      c2:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      c3:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+  renderMesh:
+    mesh: {fileID: 0}
+    material: {fileID: 0}
+    subMesh: 0
+    layer: 0
+    castShadows: 0
+    receiveShadows: 0
+    needMotionVectorPass: 0
+  animationSequence: {fileID: 11400000, guid: 1177f9c3c084031489042294454e9dd1, type: 2}
