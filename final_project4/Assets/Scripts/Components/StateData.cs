@@ -1,18 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
+using Unity.Entities;
 
-public class StateData : MonoBehaviour
+[Serializable]
+public struct StateData : IComponentData
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public FellowActions Value;
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+//TODO CHANGE THAT POOR NAME LOL
+public enum FellowActions
+{
+    IDLE,
+    MOVING,
+    ATTACKING,
+    DYING,
+    DASHING
 }

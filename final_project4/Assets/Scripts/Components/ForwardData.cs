@@ -1,18 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
+using Unity.Entities;
+using Unity.Mathematics;
 
-public class ForwardData : MonoBehaviour
+[Serializable]
+public struct ForwardData : IComponentData
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float3 Value;
 }

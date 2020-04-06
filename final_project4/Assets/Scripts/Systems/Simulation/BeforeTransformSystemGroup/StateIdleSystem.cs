@@ -1,18 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Unity.Entities;
 
-public class StateIdleSystem : MonoBehaviour
+public class StateIdleSystem : SystemBase
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void OnUpdate()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //Act on all StateData
+        Entities.ForEach((ref StateData state) =>
+        {
+            //Reset all states to Idle until proven opposite
+            state.Value = FellowActions.IDLE;
+        }).ScheduleParallel();
     }
 }
