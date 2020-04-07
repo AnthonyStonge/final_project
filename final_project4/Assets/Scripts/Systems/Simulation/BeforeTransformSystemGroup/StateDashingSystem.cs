@@ -2,14 +2,15 @@
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
+using UnityEngine;
 
+//TODO ADD TO GROUP SYSTEM
+//[UpdateInGroup(typeof())]
 public class StateDashingSystem : SystemBase
 {
     protected override void OnCreate()
     {
         //Debug.Log("Created StateDashingSystem System...");
-        
-        //TODO ADD TO GROUP SYSTEM
     }
 
     protected override void OnUpdate()
@@ -24,6 +25,7 @@ public class StateDashingSystem : SystemBase
                 //Make sure dash isnt in cooldown
                 if (dash.Timer.Available)
                 {
+                    //Debug.Log("Dashed");
                     dash.Timer.Reset();
                     
                     //Get Forward vector

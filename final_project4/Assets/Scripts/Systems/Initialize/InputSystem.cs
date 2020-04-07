@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-[UpdateInGroup(typeof(InitializationSystemGroup))]
+[DisableAutoCreation]
 public class InputSystem : SystemBase
 {
     protected override void OnUpdate()

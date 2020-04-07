@@ -15,7 +15,7 @@ public class PlayerAssetsScriptableObject : ScriptableObject
     public LocalToWorld localToWorld;
     
     [Header("Inputs")] 
-    public InputsComponent inputs;
+    public InputComponent inputs;
     
     [Header("Animation")] 
     public RenderMesh renderMesh;
