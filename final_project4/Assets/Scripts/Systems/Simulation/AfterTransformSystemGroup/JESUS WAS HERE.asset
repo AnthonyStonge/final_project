@@ -20,10 +20,10 @@ MonoBehaviour:
   rotation:
     Value:
       value:
-        x: 0.5
-        y: 0.5
-        z: 0.5
-        w: 0.5
+        x: 0.5003377
+        y: 0.4998874
+        z: 0.4998874
+        w: 0.4998874
   scale:
     Value: 33
   localToWorld:

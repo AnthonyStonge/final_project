@@ -3,7 +3,7 @@ using Unity.Transforms;
 
 [UpdateInGroup(typeof(SimulationSystemGroup))]
 [UpdateBefore(typeof(TransformSystemGroup))]
-public class BeforeTransformGroupManager : SystemBase
+public class BeforeTransformManager : SystemBase
 {
 
     private UpdatePlayerStateSystem updatePlayerStateSystem;

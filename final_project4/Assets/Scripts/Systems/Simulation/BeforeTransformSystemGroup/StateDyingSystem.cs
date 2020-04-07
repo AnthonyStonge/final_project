@@ -1,4 +1,5 @@
 ﻿using Unity.Entities;
+using Unity.Transforms;
 
 [DisableAutoCreation]
 [UpdateAfter(typeof(StateAttackingSystem))]
@@ -16,8 +17,7 @@ public class StateDyingSystem : SystemBase
     protected override void OnUpdate()
     {
         //Debug.Log("On HealthUpdate...");
-
-        //Act on all entities with HealthData.
+        ////Act on all entities with HealthData.
         Entities.ForEach((ref HealthData health, ref StateData state) =>
         {
             //If health <= 0 -> set state to dying

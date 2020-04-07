@@ -4,7 +4,7 @@ using Unity.Entities;
 using UnityEngine;
 
 [UpdateInGroup(typeof(PresentationSystemGroup))]
-public class PresentationManagerSystem : SystemBase
+public class PresentationManager : SystemBase
 {
 
     private UpdateGunRenderSystem updateGunRenderSystem;
