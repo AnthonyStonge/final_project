@@ -1,17 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
-public class PlayerTargetSystem : MonoBehaviour
+public class PlayerTargetSystem : SystemBase
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    protected override void OnUpdate()
     {
         
     }
