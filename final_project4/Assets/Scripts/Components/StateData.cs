@@ -4,11 +4,11 @@ using Unity.Entities;
 [Serializable]
 public struct StateData : IComponentData
 {
-    public FellowActions Value;
+    public StateActions Value;
 }
 
 //TODO CHANGE THAT POOR NAME LOL
-public enum FellowActions
+public enum StateActions
 {
     IDLE,
     MOVING,

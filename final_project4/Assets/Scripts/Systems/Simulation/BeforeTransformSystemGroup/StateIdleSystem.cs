@@ -20,7 +20,7 @@ public class StateIdleSystem : SystemBase
         Entities.ForEach((ref StateData state) =>
         {
             //Reset all states to Idle until proven opposite
-            state.Value = FellowActions.IDLE;
+            state.Value = StateActions.IDLE;
         }).ScheduleParallel();
     }
 }

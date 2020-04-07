@@ -24,9 +24,9 @@ public class StateAttackingSystem : SystemBase
             ref StateData state) =>
         {
             //Compare distance between current position and target position. If distance <= range -> set state to attack
-            if (math.distance(currentPosition.Value, targetPosition.Value) <= range.Value)
+            if(math.distancesq(currentPosition.Value, targetPosition.Value) <= range.Value * range.Value)
             {
-                state.Value = FellowActions.ATTACKING;
+                state.Value = StateActions.ATTACKING;
             }
         }).ScheduleParallel();
     }

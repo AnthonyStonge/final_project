@@ -1,18 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
 
-public class InputSystem : MonoBehaviour
+[UpdateInGroup(typeof(InitializationSystemGroup))]
+public class InputSystem : SystemBase
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void OnUpdate()
     {
-        
-    }
+        if (Input.GetKeyDown(keys.Forward_Key))
+        {
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (Input.GetKeyDown(keys.Backward_Key))
+        {
+        }
+
+        if (Input.GetKeyDown(keys.Left_Key))
+        {
+        }
+
+        if (Input.GetKeyDown(keys.Right_Key))
+        {
+        }
+
+        if (Input.GetKeyDown(keys.Attack_Key))
+        {
+        }
+
+        if (Input.GetKeyDown(keys.Reload_Key))
+        {
+        }
+
+        if (Input.GetKeyDown(keys.Dash_Key))
+        {
+        }
     }
 }
