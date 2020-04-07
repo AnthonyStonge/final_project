@@ -1,9 +1,8 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
 
-[UpdateInGroup(typeof(SimulationSystemGroup))]
-[UpdateBefore(typeof(TransformSystemGroup))]
-public class BeforeTransformManager : SystemBase
+[DisableAutoCreation]
+public class LateInitializeManager : SystemBase
 {
 
     private UpdatePlayerStateSystem updatePlayerStateSystem;
@@ -25,16 +24,26 @@ public class BeforeTransformManager : SystemBase
         enemyTargetSystem = world.GetOrCreateSystem<EnemyTargetSystem>();
         stateDyingSystem = world.GetOrCreateSystem<StateDyingSystem>();
         stateDashingSystem = world.GetOrCreateSystem<StateDashingSystem>();
+
+        var initialize = world.GetOrCreateSystem<InitializationSystemGroup>();
+        
+        initialize.AddSystemToUpdateList(updatePlayerStateSystem);
+        initialize.AddSystemToUpdateList(stateIdleSystem);
+        initialize.AddSystemToUpdateList(stateMovingSystem);
+        initialize.AddSystemToUpdateList(stateAttackingSystem);
+        initialize.AddSystemToUpdateList(enemyTargetSystem);
+        initialize.AddSystemToUpdateList(stateDyingSystem);
+        initialize.AddSystemToUpdateList(stateDashingSystem);
     }
 
     protected override void OnStartRunning()
     {
         #region AI&Behaviours
-        //Dependency : None
+        //Dependency : PlayerTargetSystem, DecrementTimeSystem
         updatePlayerStateSystem.Update();
-        //Dependency : None
+        //Dependency : PlayerTargetSystem, DecrementTimeSystem
         enemyTargetSystem.Update();
-        //Dependency : None
+        //Dependency : PlayerTargetSystem, DecrementTimeSystem
         stateIdleSystem.Update();
         //Dependency : EnemyTargetSystem, StateIdleSystem
         stateMovingSystem.Update();

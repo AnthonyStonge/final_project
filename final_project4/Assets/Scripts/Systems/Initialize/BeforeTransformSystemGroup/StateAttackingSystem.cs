@@ -3,6 +3,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using static GameVariables;
 
+[DisableAutoCreation]
 [UpdateAfter(typeof(StateMovingSystem))]
 public class StateAttackingSystem : SystemBase
 {

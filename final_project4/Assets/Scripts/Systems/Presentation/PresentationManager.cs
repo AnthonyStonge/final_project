@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-[UpdateInGroup(typeof(PresentationSystemGroup))]
+[DisableAutoCreation]
 public class PresentationManager : SystemBase
 {
 
@@ -13,6 +13,10 @@ public class PresentationManager : SystemBase
     {
         var world = World.DefaultGameObjectInjectionWorld;
         updateGunRenderSystem = world.GetOrCreateSystem<UpdateGunRenderSystem>();
+
+        var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();
+        
+        presentation.AddSystemToUpdateList(updateGunRenderSystem);
     }
     
     protected override void OnStartRunning()

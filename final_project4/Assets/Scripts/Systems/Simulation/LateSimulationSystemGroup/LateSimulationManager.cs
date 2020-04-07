@@ -1,7 +1,6 @@
 ﻿using Unity.Entities;
 
 [DisableAutoCreation]
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
 public class LateSimulationManager : SystemBase
 {
     private UpdateGunTransformSystem updateGunTransformSystem;
@@ -17,6 +16,13 @@ public class LateSimulationManager : SystemBase
         machineGunSystem = world.GetOrCreateSystem<MachineGunSystem>();
         pistolSystem = world.GetOrCreateSystem<PistolSystem>();
         shotgunSystem = world.GetOrCreateSystem<ShotgunSystem>();
+
+        var lateSimulation = world.GetOrCreateSystem<LateSimulationSystemGroup>();
+        
+        lateSimulation.AddSystemToUpdateList(updateGunTransformSystem);
+        lateSimulation.AddSystemToUpdateList(machineGunSystem);
+        lateSimulation.AddSystemToUpdateList(pistolSystem);
+        lateSimulation.AddSystemToUpdateList(shotgunSystem);
     }
 
     protected override void OnUpdate()

@@ -1,6 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
+[DisableAutoCreation]
 [UpdateAfter(typeof(EnemyTargetSystem))]
 [UpdateAfter(typeof(StateIdleSystem))]
 public class StateMovingSystem : SystemBase

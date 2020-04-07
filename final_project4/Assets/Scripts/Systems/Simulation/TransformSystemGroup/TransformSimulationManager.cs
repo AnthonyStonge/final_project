@@ -4,8 +4,7 @@ using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
-
-[UpdateInGroup(typeof(TransformSystemGroup))]
+[DisableAutoCreation]
 public class TransformSimulationManager : SystemBase
 {
 
@@ -20,6 +19,12 @@ public class TransformSimulationManager : SystemBase
         moveSystem = world.GetOrCreateSystem<MoveSystem>();
         rotateEnemySystem = world.GetOrCreateSystem<RotateEnemySystem>();
         rotatePlayerSystem = world.GetOrCreateSystem<RotatePlayerSystem>();
+
+        var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();
+        
+        presentation.AddSystemToUpdateList(moveSystem);
+        presentation.AddSystemToUpdateList(rotateEnemySystem);
+        presentation.AddSystemToUpdateList(rotatePlayerSystem);
     }
 
     protected override void OnStartRunning()

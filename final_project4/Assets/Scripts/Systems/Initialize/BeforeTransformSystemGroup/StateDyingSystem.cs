@@ -8,10 +8,6 @@ public class StateDyingSystem : SystemBase
 {
     protected override void OnCreate()
     {
-        //Add system to the group it belongs to
-        SimulationSystemGroup simulation = World.GetOrCreateSystem<SimulationSystemGroup>();
-        simulation.AddSystemToUpdateList(this);
-        simulation.SortSystemUpdateList();
     }
 
     protected override void OnUpdate()

@@ -2,6 +2,8 @@
 using UnityEngine;
 
 [DisableAutoCreation]
+[UpdateAfter(typeof(PlayerTargetSystem))]
+[UpdateAfter(typeof(DecrementTimeSystem))]
 public class EnemyTargetSystem : SystemBase
 {
     protected override void OnCreate()

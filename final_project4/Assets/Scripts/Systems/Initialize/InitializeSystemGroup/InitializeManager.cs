@@ -3,7 +3,6 @@
 [DisableAutoCreation]
 public class InitializeManager : SystemBase
 {
-
     private InputSystem inputSystem;
     private PlayerTargetSystem playerTargetSystem;
     private DecrementTimeSystem decrementTimeSystem;
@@ -15,6 +14,12 @@ public class InitializeManager : SystemBase
         inputSystem = world.GetOrCreateSystem<InputSystem>();
         playerTargetSystem = world.GetOrCreateSystem<PlayerTargetSystem>();
         decrementTimeSystem = world.GetOrCreateSystem<DecrementTimeSystem>();
+        
+        var initialize = world.GetOrCreateSystem<InitializationSystemGroup>();
+
+        initialize.AddSystemToUpdateList(inputSystem);
+        initialize.AddSystemToUpdateList(playerTargetSystem);
+        initialize.AddSystemToUpdateList(decrementTimeSystem);
     }
 
     protected override void OnStartRunning()
@@ -23,7 +28,6 @@ public class InitializeManager : SystemBase
 
     protected override void OnUpdate()
     {
-        
         if (GameVariables.InputEnabled)
         {
             //Dependency: None   
