@@ -1,6 +1,8 @@
-﻿using Unity.Entities;
+﻿using System;
+using Unity.Entities;
 using Unity.Mathematics;
 
+[Serializable]
 public struct InputComponent : IComponentData
 {
     public float2 Move;
