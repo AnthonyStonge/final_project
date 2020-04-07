@@ -2,7 +2,6 @@
 using UnityEngine;
 
 [DisableAutoCreation]
-//TODO ADD TO GROUP SYSTEM
 [UpdateAfter(typeof(InputSystem))]
 public class PlayerTargetSystem : SystemBase
 {

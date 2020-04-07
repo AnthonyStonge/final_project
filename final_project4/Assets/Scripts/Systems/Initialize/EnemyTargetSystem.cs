@@ -2,7 +2,6 @@
 using UnityEngine;
 
 [DisableAutoCreation]
-//[UpdateAfter(typeof(InputSystem))]
 public class EnemyTargetSystem : SystemBase
 {
     protected override void OnCreate()
