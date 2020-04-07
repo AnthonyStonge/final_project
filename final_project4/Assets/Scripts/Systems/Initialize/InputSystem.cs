@@ -7,6 +7,7 @@ public class InputSystem : SystemBase
 {
     protected override void OnUpdate()
     {
+        
         Entities.ForEach((ref InputComponent input) =>
         {
             ResetInputs(ref input);

@@ -1,4 +1,5 @@
 ﻿using Unity.Entities;
+using Unity.Entities.CodeGeneratedJobForEach;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
@@ -18,7 +19,7 @@ public class StateDashingSystem : SystemBase
         //Debug.Log("Updated StateDashingSystem System...");
         
         //Act on all entities with DashComponent, StateComponent and PhysicsVelocity
-        Entities.ForEach((ref StateData state, ref DashComponent dash, ref Rotation rotation, ref PhysicsVelocity velocity) =>
+        Entities.ForEach((ref PhysicsVelocity velocity, in StateData state, in DashComponent dash, in Rotation rotation) =>
         {
             if (state.Value == StateActions.DASHING)
             {

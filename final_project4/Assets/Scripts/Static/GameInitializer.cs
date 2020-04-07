@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Entities;
-using UnityEngine;
+﻿using Unity.Entities;
 
 public static class GameInitializer 
 {
@@ -9,11 +6,11 @@ public static class GameInitializer
     {
         var world = World.DefaultGameObjectInjectionWorld;
         
-        var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();
-        var simulation = world.GetOrCreateSystem<SimulationSystemGroup>();
         var initialization = world.GetOrCreateSystem<InitializationSystemGroup>();
+        var simulation = world.GetOrCreateSystem<SimulationSystemGroup>();
+        var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();
 
-        var initializeManagerSystem = world.GetOrCreateSystem<InitializeManagerSystem>();
+        var initializeManager = world.GetOrCreateSystem<InitializeManager>();
 
         var beforeTransformManager = world.GetOrCreateSystem<BeforeTransformManager>();
         var transformSimulationManager = world.GetOrCreateSystem<TransformSimulationManager>();
@@ -21,7 +18,16 @@ public static class GameInitializer
 
         var presentationManager = world.GetOrCreateSystem<PresentationManager>();
         
-        initialization.SortSystemUpdateList();
+        initialization.AddSystemToUpdateList(initializeManager);
         
+        simulation.AddSystemToUpdateList(beforeTransformManager);
+        simulation.AddSystemToUpdateList(transformSimulationManager);
+        simulation.AddSystemToUpdateList(lateSimulationManager);
+        
+        presentation.AddSystemToUpdateList(presentationManager);
+        
+        initialization.SortSystemUpdateList();
+        simulation.SortSystemUpdateList();
+        presentation.SortSystemUpdateList();
     }
 }

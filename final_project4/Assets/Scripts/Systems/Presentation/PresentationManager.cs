@@ -9,18 +9,18 @@ public class PresentationManager : SystemBase
 
     private UpdateGunRenderSystem updateGunRenderSystem;
     
-    protected override void OnUpdate()
-    {
-        
-    }
-
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
         updateGunRenderSystem = world.GetOrCreateSystem<UpdateGunRenderSystem>();
     }
-
+    
     protected override void OnStartRunning()
+    {
+       
+    }
+
+    protected override void OnUpdate()
     {
         updateGunRenderSystem.Update();
     }

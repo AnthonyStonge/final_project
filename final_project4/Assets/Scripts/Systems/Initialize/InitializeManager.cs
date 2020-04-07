@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 
 [DisableAutoCreation]
-public class InitializeManagerSystem : SystemBase
+public class InitializeManager : SystemBase
 {
 
     private InputSystem inputSystem;
@@ -10,15 +10,15 @@ public class InitializeManagerSystem : SystemBase
     
     protected override void OnCreate()
     {
-    }
-
-    protected override void OnStartRunning()
-    {
         var world = World.DefaultGameObjectInjectionWorld;
         
         inputSystem = world.GetOrCreateSystem<InputSystem>();
         playerTargetSystem = world.GetOrCreateSystem<PlayerTargetSystem>();
         decrementTimeSystem = world.GetOrCreateSystem<DecrementTimeSystem>();
+    }
+
+    protected override void OnStartRunning()
+    {
     }
 
     protected override void OnUpdate()
