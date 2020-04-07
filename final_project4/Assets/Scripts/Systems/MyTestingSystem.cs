@@ -9,14 +9,19 @@ public class MyTestingSystem : SystemBase
 
     protected override void OnCreate()
     {
-        /*this.entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        /*Debug.Log("Creating ur shitty entity");
+        this.entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
         //Create entity
         Entity e = this.entityManager.CreateEntity();
 
         this.entityManager.AddComponentData(e, new HealthData
         {
-            Value = 10
+            Value = 0
+        });
+        this.entityManager.AddComponentData(e, new StateData
+        {
+            Value = FellowActions.IDLE
         });*/
     }
 
