@@ -7,8 +7,8 @@ public static class GameInitializer
     {
         var world = World.DefaultGameObjectInjectionWorld;
         
-        //System Group Handles
-        var initialization = world.GetOrCreateSystem<InitializationSystemGroup>();
+        //System Group Handles (From Unity)
+        var initialization = world.GetOrCreateSystem<InitializationSystemGroup>(); 
         var transform = world.GetOrCreateSystem<TransformSystemGroup>();
         var simulation = world.GetOrCreateSystem<SimulationSystemGroup>();
         var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();
