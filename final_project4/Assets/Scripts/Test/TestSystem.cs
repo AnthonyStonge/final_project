@@ -59,11 +59,11 @@ public class TestSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        Debug.Log("Before");
+        //Debug.Log("Before");
         Entities.ForEach((ref MachineGun mg) =>
         {
-            Debug.Log("In Loop");
+            //Debug.Log("In Loop");
         }).ScheduleParallel();
-        Debug.Log("After");
+        //Debug.Log("After");
     }
 }

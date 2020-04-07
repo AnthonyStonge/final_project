@@ -5,5 +5,11 @@ using Unity.Entities;
 public struct TimeTrackerComponent : IComponentData
 {
     public float Current;
-    public float ResetValue;
+    public readonly float ResetValue;
+    public bool Available => Current < 0;
+
+    public void Reset()
+    {
+        this.Current = ResetValue;
+    }
 }

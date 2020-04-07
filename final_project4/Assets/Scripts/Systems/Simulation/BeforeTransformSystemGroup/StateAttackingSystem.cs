@@ -4,11 +4,9 @@ using Unity.Transforms;
 
 public class StateAttackingSystem : SystemBase
 {
-    private EntityManager entityManager;
-    
     protected override void OnCreate()
     {
-        this.entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        //Debug.Log("Created StateAttackingSystem System...");
         
         //Add system to the group it belongs to
         SimulationSystemGroup simulation = World.GetOrCreateSystem<SimulationSystemGroup>();
@@ -18,8 +16,11 @@ public class StateAttackingSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        //Act on all entities with AttackStateData
-        Entities.ForEach((ref Translation currentPosition, ref TargetData targetPosition, ref AttackStateData range,
+        //Debug.Log("Updated StateAttackingSystem System...");
+        
+        //Act on all entities with AttackStateData and EnemyTag
+        Entities.WithAll<EnemyTag>().ForEach((ref Translation currentPosition, ref TargetData targetPosition,
+            ref AttackStateData range,
             ref StateData state) =>
         {
             //Compare distance between current position and target position. If distance <= range -> set state to attack
