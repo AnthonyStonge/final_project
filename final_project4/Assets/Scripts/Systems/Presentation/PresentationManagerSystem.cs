@@ -28,7 +28,7 @@ public class PresentationManagerSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        if (GameVariables.inputEnabled)
+        if (GameVariables.InputEnabled)
         {
             inputSystem.Update();
         }
