@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Entities;
-using UnityEngine;
+﻿using Unity.Entities;
 
 [DisableAutoCreation]
-public class PresentationManagerSystem : SystemBase
+public class InitializeManagerSystem : SystemBase
 {
 
     private InputSystem inputSystem;
@@ -28,6 +25,7 @@ public class PresentationManagerSystem : SystemBase
 
     protected override void OnUpdate()
     {
+        
         if (GameVariables.InputEnabled)
         {
             inputSystem.Update();
