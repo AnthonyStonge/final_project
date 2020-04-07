@@ -1,13 +1,12 @@
 ﻿using Unity.Entities;
 
+[DisableAutoCreation]
 [UpdateAfter(typeof(StateAttackingSystem))]
 [UpdateAfter(typeof(UpdatePlayerStateSystem))]
 public class StateDyingSystem : SystemBase
 {
     protected override void OnCreate()
     {
-        //Debug.Log("Created Health System...");
-        
         //Add system to the group it belongs to
         SimulationSystemGroup simulation = World.GetOrCreateSystem<SimulationSystemGroup>();
         simulation.AddSystemToUpdateList(this);

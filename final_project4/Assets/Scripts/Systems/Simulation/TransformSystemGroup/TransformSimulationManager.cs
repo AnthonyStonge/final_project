@@ -29,8 +29,11 @@ public class TransformSimulationManager : SystemBase
     
     protected override void OnUpdate()
     {
-        moveSystem.Update();
+        //Dependency : None
         rotateEnemySystem.Update();
+        //Dependency : None
         rotatePlayerSystem.Update();
+        //Dependency : RotatePlayerEnemySystem
+        moveSystem.Update();
     }
 }
