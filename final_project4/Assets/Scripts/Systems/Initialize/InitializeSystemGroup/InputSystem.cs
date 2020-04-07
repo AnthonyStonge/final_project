@@ -14,6 +14,7 @@ public class InputSystem : SystemBase
             
             if (Input.GetKeyDown(KeyCode.W))
             {
+                Debug.Log("Test");
                 input.Move.y += 1;
             }
             else if (Input.GetKeyDown(KeyCode.S))
