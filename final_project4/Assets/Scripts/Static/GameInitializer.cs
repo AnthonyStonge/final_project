@@ -7,11 +7,13 @@ public static class GameInitializer
     {
         var world = World.DefaultGameObjectInjectionWorld;
         
+        //System Group Handles
         var initialization = world.GetOrCreateSystem<InitializationSystemGroup>();
         var transform = world.GetOrCreateSystem<TransformSystemGroup>();
         var simulation = world.GetOrCreateSystem<SimulationSystemGroup>();
         var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();
 
+        //Managers
         var initializeManager = world.GetOrCreateSystem<InitializeManager>();
         var afterInitialization = world.GetOrCreateSystem<LateInitializeManager>();
         
@@ -20,6 +22,7 @@ public static class GameInitializer
 
         var presentationManager = world.GetOrCreateSystem<PresentationManager>();
         
+        //Adding systems
         initialization.AddSystemToUpdateList(initializeManager);
         initialization.AddSystemToUpdateList(afterInitialization);
 
@@ -28,7 +31,9 @@ public static class GameInitializer
         
         presentation.AddSystemToUpdateList(presentationManager);
         
+        //Sorting
         initialization.SortSystemUpdateList();
+        transform.SortSystemUpdateList();
         simulation.SortSystemUpdateList();
         presentation.SortSystemUpdateList();
     }
