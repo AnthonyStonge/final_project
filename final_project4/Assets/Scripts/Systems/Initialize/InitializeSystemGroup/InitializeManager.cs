@@ -1,6 +1,8 @@
 ﻿using Unity.Entities;
+using UnityEngine;
 
 [DisableAutoCreation]
+[AlwaysUpdateSystem]
 public class InitializeManager : SystemBase
 {
     private InputSystem inputSystem;
@@ -28,6 +30,7 @@ public class InitializeManager : SystemBase
 
     protected override void OnUpdate()
     {
+        Debug.Log("Initialize Manager Update");
         if (GameVariables.InputEnabled)
         {
             //Dependency: None   

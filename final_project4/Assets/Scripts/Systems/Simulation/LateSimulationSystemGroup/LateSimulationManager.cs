@@ -1,4 +1,5 @@
 ﻿using Unity.Entities;
+using UnityEngine;
 
 [DisableAutoCreation]
 public class LateSimulationManager : SystemBase
@@ -27,6 +28,7 @@ public class LateSimulationManager : SystemBase
 
     protected override void OnUpdate()
     {
+        Debug.Log("LateSimulation Manager Update");
         //Dependency : None
         updateGunTransformSystem.Update();
         //Dependency : UpdateGunTransformSystem

@@ -34,6 +34,7 @@ public class TransformSimulationManager : SystemBase
     
     protected override void OnUpdate()
     {
+        Debug.Log("TransformSimulation Manager Update");
         //Dependency : None
         rotateEnemySystem.Update();
         //Dependency : None
