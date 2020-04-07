@@ -3,7 +3,7 @@ using UnityEngine;
 
 [DisableAutoCreation]
 //TODO ADD TO GROUP SYSTEM
-//[UpdateInGroup(typeof())]
+[UpdateAfter(typeof(InputSystem))]
 public class PlayerTargetSystem : SystemBase
 {
     protected override void OnCreate()

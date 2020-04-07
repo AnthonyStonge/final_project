@@ -6,7 +6,6 @@ public class InitializeManagerSystem : SystemBase
 
     private InputSystem inputSystem;
     private PlayerTargetSystem playerTargetSystem;
-    private EnemyTargetSystem enemyTargetSystem;
     private DecrementTimeSystem decrementTimeSystem;
     
     protected override void OnCreate()
@@ -19,7 +18,6 @@ public class InitializeManagerSystem : SystemBase
         
         inputSystem = world.GetOrCreateSystem<InputSystem>();
         playerTargetSystem = world.GetOrCreateSystem<PlayerTargetSystem>();
-        enemyTargetSystem = world.GetOrCreateSystem<EnemyTargetSystem>();
         decrementTimeSystem = world.GetOrCreateSystem<DecrementTimeSystem>();
     }
 
@@ -28,10 +26,12 @@ public class InitializeManagerSystem : SystemBase
         
         if (GameVariables.InputEnabled)
         {
+            //Dependency: None   
             inputSystem.Update();
+            //Dependency: InputSystem
+            playerTargetSystem.Update();
         }
-        playerTargetSystem.Update();
-        enemyTargetSystem.Update();
+        //Dependency: None 
         decrementTimeSystem.Update();
     }
 

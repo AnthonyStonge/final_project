@@ -1,5 +1,6 @@
 ﻿using Unity.Entities;
 
+[DisableAutoCreation]
 public class StateIdleSystem : SystemBase
 {
     protected override void OnCreate()

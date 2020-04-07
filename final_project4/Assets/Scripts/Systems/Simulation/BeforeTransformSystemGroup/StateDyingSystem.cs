@@ -1,5 +1,7 @@
 ﻿using Unity.Entities;
 
+[UpdateAfter(typeof(StateAttackingSystem))]
+[UpdateAfter(typeof(UpdatePlayerStateSystem))]
 public class StateDyingSystem : SystemBase
 {
     protected override void OnCreate()

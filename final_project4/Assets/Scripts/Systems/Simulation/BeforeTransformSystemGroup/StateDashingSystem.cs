@@ -4,8 +4,8 @@ using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
 
-//TODO ADD TO GROUP SYSTEM
-//[UpdateInGroup(typeof())]
+[DisableAutoCreation]
+[UpdateAfter(typeof(StateDyingSystem))]
 public class StateDashingSystem : SystemBase
 {
     protected override void OnCreate()

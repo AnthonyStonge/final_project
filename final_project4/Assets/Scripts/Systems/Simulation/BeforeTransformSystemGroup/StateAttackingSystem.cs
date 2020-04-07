@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using static GameVariables;
 
-[UpdateInGroup(typeof(SimulationSystemGroup))]
+[UpdateAfter(typeof(StateMovingSystem))]
 public class StateAttackingSystem : SystemBase
 {
     protected override void OnCreate()

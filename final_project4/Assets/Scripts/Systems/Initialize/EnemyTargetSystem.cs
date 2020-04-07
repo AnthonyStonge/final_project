@@ -2,8 +2,7 @@
 using UnityEngine;
 
 [DisableAutoCreation]
-//TODO ADD TO GROUP SYSTEM
-//[UpdateInGroup(typeof())]
+//[UpdateAfter(typeof(InputSystem))]
 public class EnemyTargetSystem : SystemBase
 {
     protected override void OnCreate()
