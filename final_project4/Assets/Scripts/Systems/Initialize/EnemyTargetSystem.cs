@@ -18,7 +18,7 @@ public class EnemyTargetSystem : SystemBase
         //Act on all entities with Target and EnemyTag. Update 
         Entities.WithAll<EnemyTag>().ForEach((ref TargetData target) =>
         {
-            
+            //TODO IMPLEMENT WITH NEXT NODE ENEMY SHOULD GO TO
         }).ScheduleParallel();
     }
 }

@@ -10,8 +10,8 @@ public static class GameVariables
 
     public static class PlayerVars
     {
-        public static float3 position;
-        public static bool isDead;
+        public static float3 Position;
+        public static bool IsDead;
     }
 
 }
