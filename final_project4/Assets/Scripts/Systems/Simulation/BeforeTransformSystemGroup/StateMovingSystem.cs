@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class StateMovingSystem : SystemBase
 {
+    
+    
     protected override void OnUpdate()
     {
         //Act on all entities with PlayerStateComponent (key links)
