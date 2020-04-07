@@ -5,7 +5,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-[UpdateInGroup(typeof(InitializationSystemGroup))]
+[DisableAutoCreation]
 public class InputSystem : SystemBase
 {
     protected override void OnUpdate()
