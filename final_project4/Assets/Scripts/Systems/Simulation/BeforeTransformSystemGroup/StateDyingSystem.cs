@@ -22,7 +22,7 @@ public class StateDyingSystem : SystemBase
         {
             //If health <= 0 -> set state to dying
             if (health.Value <= 0)
-                state.Value = FellowActions.DYING;
+                state.Value = StateActions.DYING;
         }).ScheduleParallel();
     }
 }

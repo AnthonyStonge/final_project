@@ -8,7 +8,7 @@ public class InputSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        if (Input.GetKeyDown(keys.Forward_Key))
+        /*if (Input.GetKeyDown(keys.Forward_Key))
         {
         }
 
@@ -34,6 +34,6 @@ public class InputSystem : SystemBase
 
         if (Input.GetKeyDown(keys.Dash_Key))
         {
-        }
+        }*/
     }
 }
