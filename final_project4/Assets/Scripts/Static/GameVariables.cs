@@ -20,4 +20,16 @@ public static class GameVariables
         public static float3 MousePos;
         public static bool IsDead;
     }
+    
+    
+    //Player initialization infos
+    public static float3 PlayerSpawnPosition = float3.zero;
+    public static quaternion PlayerSpawnRotation = quaternion.identity;
+
+    public static float PlayerSpeed = 2f;
+    public static short PlayerHealth = 3;
+    
+    //Player general infos
+    public static Entity PlayerEntity;
+    public static float3 PlayerCurrentPosition;
 }

@@ -6,10 +6,16 @@ public static class GameInitializer
 {
     public static void InitializeSystemWorkflow()
     {
+        //Init archetypes (must be done before creating any entities)*
+        StaticArchetypes.InitializeArchetypes();
+        
+        //Init map
+        MapInitializer.Initialize();
+        
         var world = World.DefaultGameObjectInjectionWorld;
         
         //System Group Handles (From Unity)
-        var initialization = world.GetOrCreateSystem<InitializationSystemGroup>(); 
+        var initialization = world.GetOrCreateSystem<InitializationSystemGroup>();
         var transform = world.GetOrCreateSystem<TransformSystemGroup>();
         var lateSimulation = world.GetOrCreateSystem<LateSimulationSystemGroup>();
         var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();

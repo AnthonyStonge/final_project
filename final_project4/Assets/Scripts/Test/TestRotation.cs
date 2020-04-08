@@ -27,7 +27,7 @@ public class TestRotation : MonoBehaviour
         em = World.DefaultGameObjectInjectionWorld.EntityManager;
         
         CreateArchetypes();
-        CreatePlayer();
+        //CreatePlayer();
         CreatePistol();
         GameVariables.BulletArchetype = bulletArchetype;
         GameVariables.BulletMesh = bulletMesh;
