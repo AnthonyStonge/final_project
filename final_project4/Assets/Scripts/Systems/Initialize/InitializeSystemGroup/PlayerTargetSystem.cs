@@ -40,7 +40,6 @@ public class PlayerTargetSystem : SystemBase
         
             if (pw.CastRay(rayInfo, out rayCastInfos))
             {
-                Debug.Log("Got a hit");
                 target.Value = rayCastInfos.Position;
             }
         }).Run();
