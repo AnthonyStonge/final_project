@@ -16,20 +16,25 @@ public static class GameVariables
     
     public static class PlayerVars
     {
-        public static float3 Position;
-        public static float3 MousePos;
-        public static bool IsDead;
+        //Player initialization infos
+        public static float3 SpawnPosition = float3.zero;
+        public static quaternion SpawnRotation = quaternion.identity;
+
+        public static float Speed = 2f;
+        public static short Health = 3;
+        
+        //Player general infos
+        public static Entity Entity;
+        public static float3 CurrentPosition;
+        public static StateActions CurrentState;
+        public static bool IsAlive;
+        
+        //Dash infos
+        public static readonly float DashDistanceBasic = 5f; //Value to comeback to when dash distance changes
+        public static float DashResetValue = 1f;
     }
     
     
-    //Player initialization infos
-    public static float3 PlayerSpawnPosition = float3.zero;
-    public static quaternion PlayerSpawnRotation = quaternion.identity;
 
-    public static float PlayerSpeed = 2f;
-    public static short PlayerHealth = 3;
     
-    //Player general infos
-    public static Entity PlayerEntity;
-    public static float3 PlayerCurrentPosition;
 }

@@ -3,6 +3,7 @@ using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
+using static GameVariables;
 
 public static class MapInitializer
 {
@@ -27,19 +28,31 @@ public static class MapInitializer
         //Set position
         entityManager.SetComponentData(player, new Translation
         {
-            Value = float3.zero
+            Value = PlayerVars.SpawnPosition
         });
         entityManager.SetComponentData(player, new Rotation
         {
-            Value = quaternion.identity
+            Value = PlayerVars.SpawnRotation
         });
         entityManager.SetComponentData(player, new HealthData
         {
-            Value = GameVariables.PlayerHealth
+            Value = PlayerVars.Health
         });
         entityManager.SetComponentData(player, new SpeedData
         {
-            Value = GameVariables.PlayerSpeed
+            Value = PlayerVars.Speed
+        });
+        entityManager.SetComponentData(player, new StateData
+        {
+            Value = StateActions.IDLE
+        });
+        entityManager.SetComponentData(player, new DashComponent
+        {
+            Distance = PlayerVars.DashDistanceBasic,
+            Timer = new TimeTrackerComponent
+            {
+                ResetValue = PlayerVars.DashResetValue
+            }
         });
         //TODO CHANGE MESH COMPONENT FOR AN "ANIMATOR"
         entityManager.SetSharedComponentData(player, new RenderMesh
@@ -49,7 +62,9 @@ public static class MapInitializer
         });
 
         //Set info in GameVariables
-        GameVariables.PlayerEntity = player;
-        GameVariables.PlayerCurrentPosition = GameVariables.PlayerSpawnPosition;
+        PlayerVars.Entity = player;
+        PlayerVars.CurrentPosition = PlayerVars.SpawnPosition;
+        PlayerVars.CurrentState = StateActions.IDLE;
+        PlayerVars.IsAlive = PlayerVars.Health > 0;
     }
 }
