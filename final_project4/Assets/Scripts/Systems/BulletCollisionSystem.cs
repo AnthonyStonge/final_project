@@ -44,7 +44,7 @@ public class NewBehaviourScript : SystemBase
 
         if (collisionWorld.CastRay(rayCastInfos, out raycastHits))
         {
-            Debug.Log(raycastHits.Entity.Index);
+            //Debug.Log(raycastHits.Entity.Index);
         }
     }
 }

@@ -1,17 +1,60 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
+using Unity.Physics.Systems;
 using Unity.Transforms;
-
+using UnityEngine;
+using Ray = Unity.Physics.Ray;
+using RaycastHit = Unity.Physics.RaycastHit;
 [DisableAutoCreation]
 public class RotatePlayerSystem : SystemBase
 {
+    private RaycastInput rayInfo;
+    private BuildPhysicsWorld physicSystem;
+    private PhysicsWorld pw;
+    private RaycastHit rayCastInfos;
+    private UnityEngine.Ray camRay;
+
+    protected override void OnStartRunning()
+    {
+        physicSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<BuildPhysicsWorld>();
+        pw = physicSystem.PhysicsWorld;
+    }
     protected override void OnUpdate()
     {
-        
-        Entities.ForEach((ref Rotation rotation, ref TargetData target, ref PlayerTag playerTag, ref Translation translation) =>
+        bool hitSomething = false;
+        camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        rayInfo = new RaycastInput
+        {
+            Start = camRay.origin,
+            End = camRay.GetPoint(100),
+            Filter = new CollisionFilter
             {
-                float3 relativePos = target.Value - translation.Value;
-                rotation.Value = quaternion.LookRotation(relativePos, new float3(0,1,0));
+                BelongsTo = ~0u,
+                CollidesWith = ~0u,
+                GroupIndex = 0
+            }
+        };
+        float3 hitPoint = float3.zero;
+        if (pw.CastRay(rayInfo, out rayCastInfos))
+        {
+            hitSomething = true;
+            hitPoint = rayCastInfos.Position;
+        }
+        
+        
+        
+        Entities.WithAll<PlayerTag>().ForEach((ref Rotation rotation, ref TargetData target, ref Translation translation) =>
+            {
+                if (hitSomething)
+                {
+                    float3 forward = hitPoint - translation.Value;
+                    quaternion rot = quaternion.LookRotation(forward, math.up());
+                    rotation.Value = math.normalize(new quaternion(0, rot.value.y, 0, rot.value.w));
+                }
+
+
             }).Schedule();
+       
     }
 }
