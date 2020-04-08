@@ -1,5 +1,6 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
+using UnityEngine;
 
 [DisableAutoCreation]
 public class LateInitializeManager : SystemBase
@@ -38,6 +39,12 @@ public class LateInitializeManager : SystemBase
 
     protected override void OnStartRunning()
     {
+        
+    }
+
+    protected override void OnUpdate()
+    {
+        Debug.Log("LateInitialize Manager Update");
         #region AI&Behaviours
         //Dependency : PlayerTargetSystem, DecrementTimeSystem
         updatePlayerStateSystem.Update();
@@ -54,9 +61,5 @@ public class LateInitializeManager : SystemBase
         #endregion
         //Dependency : StateDyingSystem
         stateDashingSystem.Update();
-    }
-
-    protected override void OnUpdate()
-    {
     }
 }

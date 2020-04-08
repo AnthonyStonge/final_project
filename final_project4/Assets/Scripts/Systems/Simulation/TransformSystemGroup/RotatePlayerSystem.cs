@@ -41,10 +41,7 @@ public class RotatePlayerSystem : SystemBase
             hitSomething = true;
             hitPoint = rayCastInfos.Position;
         }
-        
-        
-        
-        Entities.WithAll<PlayerTag>().ForEach((ref Rotation rotation, ref TargetData target, ref Translation translation) =>
+        Entities.WithAll<PlayerTag>().ForEach((ref Rotation rotation, in TargetData target, in Translation translation) =>
             {
                 if (hitSomething)
                 {
