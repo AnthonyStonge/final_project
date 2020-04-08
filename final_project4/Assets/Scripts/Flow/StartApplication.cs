@@ -2,9 +2,13 @@
 
 public class StartApplication : MonoBehaviour
 {
+
+    public Camera CurrentCamera;
+    
     void Start()
     {
-        //TestHolder.LoadAssets();
         GameInitializer.InitializeSystemWorkflow();
+
+        GameVariables.MainCamera = CurrentCamera;
     }
 }

@@ -11,6 +11,8 @@ public class InputSystem : SystemBase
         Entities.ForEach((ref InputComponent input) =>
         {
             ResetInputs(ref input);
+
+            input.Mouse = Input.mousePosition;
             
             if (Input.GetKeyDown(KeyCode.W))
             {

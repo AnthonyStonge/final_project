@@ -1,5 +1,6 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
+using UnityEngine;
 
 public static class GameInitializer 
 {
@@ -37,4 +38,10 @@ public static class GameInitializer
         lateSimulation.SortSystemUpdateList();
         presentation.SortSystemUpdateList();
     }
+
+    public static void SetMainCamera(Camera cam)
+    {
+        GameVariables.MainCamera = cam;
+    }
+    
 }

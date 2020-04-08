@@ -8,6 +8,8 @@ public static class GameVariables
 
     public static bool InputEnabled = true;
 
+    public static Camera MainCamera;
+    
     public static class PlayerVars
     {
         public static float3 Position;
