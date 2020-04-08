@@ -83,7 +83,7 @@ public class StaticArchetypes
             typeof(RenderBounds),
             typeof(LocalToParent),
             typeof(Parent),
-            typeof(GunComponent),
+            typeof(ForwardData),
             
             //Tags
             typeof(GunTag)

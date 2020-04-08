@@ -17,6 +17,7 @@ public static class MapInitializer
             return;
 
         InitializePlayer();
+        InitializePlayerWeapon();
     }
 
     private static void InitializePlayer()
@@ -25,7 +26,7 @@ public static class MapInitializer
         Entity player = entityManager.CreateEntity(StaticArchetypes.PlayerArchetype);
         entityManager.SetName(player, "Player");
 
-        //Set position
+        //Set Values
         entityManager.SetComponentData(player, new Translation
         {
             Value = PlayerVars.SpawnPosition
@@ -66,5 +67,49 @@ public static class MapInitializer
         PlayerVars.CurrentPosition = PlayerVars.SpawnPosition;
         PlayerVars.CurrentState = StateActions.IDLE;
         PlayerVars.IsAlive = PlayerVars.Health > 0;
+    }
+
+    private static void InitializePlayerWeapon()
+    {
+        //TODO INITIALIZE ANY WEAPON NOT ONLY PISTOL
+        //Create player entity
+        Entity weapon = entityManager.CreateEntity(StaticArchetypes.GunArchetype);
+        entityManager.SetName(weapon, "PlayerWeapon");
+
+        entityManager.AddComponent<PistolComponent>(weapon);
+
+        //Set Values
+        entityManager.SetComponentData(weapon, new Translation
+        {
+            //TODO PROBLEM IF PLAYER SPAWNS WITH A ROTATION
+            Value = PlayerVars.SpawnPosition + PistolVars.PlayerOffset
+        });
+        entityManager.SetComponentData(weapon, new Rotation
+        {
+            Value = PlayerVars.SpawnRotation
+        });
+        entityManager.SetComponentData(weapon, new Parent
+        {
+            Value = PlayerVars.Entity
+        });
+        entityManager.SetComponentData(weapon, new PistolComponent
+        {
+            MagasineSize = PistolVars.MagazineSize,
+            CurrentBulletInMagazine = PlayerVars.CurrentBulletAmount,
+            ReloadTime = new TimeTrackerComponent
+            {
+                ResetValue = PistolVars.RealodTime
+            },
+            BetweenShotTime = new TimeTrackerComponent
+            {
+                ResetValue = PistolVars.BetweenShotTime
+            }
+        });
+        entityManager.SetSharedComponentData(weapon, new RenderMesh
+        {
+            mesh = MonoGameVariables.instance.PistolMesh,
+            material = MonoGameVariables.instance.PistolMaterial
+        });
+
     }
 }

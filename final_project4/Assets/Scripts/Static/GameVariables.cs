@@ -28,10 +28,24 @@ public static class GameVariables
         public static float3 CurrentPosition;
         public static StateActions CurrentState;
         public static bool IsAlive;
+        public static int CurrentBulletAmount = 13;
         
         //Dash infos
         public static readonly float DashDistanceBasic = 5f; //Value to comeback to when dash distance changes
         public static float DashResetValue = 1f;
+    }
+
+    public static class CameraVars
+    {
+        public static float3 PlayerOffset = new float3(0, 5, 0);
+    }
+
+    public static class PistolVars
+    {
+        public static float3 PlayerOffset = new float3(0, 1, 1);
+        public static int MagazineSize = 24;
+        public static float RealodTime = 1f;
+        public static float BetweenShotTime = 0.02f;
     }
     
     
