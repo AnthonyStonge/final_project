@@ -6,6 +6,7 @@ using Unity.Mathematics;
 public struct InputComponent : IComponentData
 {
     public float2 Move;
+    public bool Shoot;
     public bool Reload;
     public bool Dash;
     public bool Interact;

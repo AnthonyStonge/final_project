@@ -36,6 +36,16 @@ public class InputSystem : SystemBase
             {
                 input.Interact = true;
             }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                input.Shoot = true;
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                input.Shoot = false;
+            }
             
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.LeftShift))
             {

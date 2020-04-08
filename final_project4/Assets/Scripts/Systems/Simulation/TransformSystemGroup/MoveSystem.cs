@@ -10,7 +10,7 @@ public class MoveSystem : SystemBase
     {
         float dt = Time.DeltaTime; 
         Entities.ForEach(
-            (ref Translation translation, in SpeedData speedData, in ForwardData forward, in StateData stateData) =>
+            (ref Translation translation, in SpeedData speedData, in ForwardData forward) =>
             {
                 translation.Value += forward.Value * speedData.Value * dt;
             }).ScheduleParallel();

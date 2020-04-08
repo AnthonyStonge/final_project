@@ -43,5 +43,4 @@ public static class GameInitializer
     {
         GameVariables.MainCamera = cam;
     }
-    
 }
