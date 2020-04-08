@@ -23,7 +23,7 @@ public class PlayerTargetSystem : SystemBase
     protected override void OnUpdate()
     {
         //Act on all entities with Target, Input and PlayerTag
-        Entities.WithAll<PlayerTag>().ForEach((ref TargetData target, ref InputComponent inputs) =>
+        Entities.WithoutBurst().WithAll<PlayerTag>().ForEach((ref TargetData target, ref InputComponent inputs) =>
         {
             camRay = GameVariables.MainCamera.ScreenPointToRay(inputs.Mouse);
         
