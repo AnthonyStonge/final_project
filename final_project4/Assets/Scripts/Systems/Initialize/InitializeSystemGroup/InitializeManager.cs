@@ -43,6 +43,7 @@ public class InitializeManager : SystemBase
         }
         //Dependency: None 
         decrementTimeSystem.Update();
+        updatePlayerInfoSystem.Update();
     }
 
 
