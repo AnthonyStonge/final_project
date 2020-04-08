@@ -8,7 +8,6 @@ using UnityEngine;
 
 public class TestRotation : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Mesh meshTest;
     public Material mat;
     void Start()
@@ -23,11 +22,5 @@ public class TestRotation : MonoBehaviour
             mesh = meshTest,
             material = mat
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

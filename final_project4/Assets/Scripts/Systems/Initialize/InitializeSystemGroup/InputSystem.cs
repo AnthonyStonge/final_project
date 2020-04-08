@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Unity.Collections;
+using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -7,16 +8,14 @@ public class InputSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        
         Entities.ForEach((ref InputComponent input) =>
         {
             ResetInputs(ref input);
 
             input.Mouse = Input.mousePosition;
-            
+
             if (Input.GetKeyDown(KeyCode.W))
             {
-                Debug.Log("Test");
                 input.Move.y += 1;
             }
             else if (Input.GetKeyDown(KeyCode.S))
@@ -53,6 +52,8 @@ public class InputSystem : SystemBase
                 input.Cancel = true;
             }
         }).Run();
+
+        
 
         //TODO add number 1 to numberofweapons for cycling/changing weapon
         //TODO AND Mouse wheel to do the same thing

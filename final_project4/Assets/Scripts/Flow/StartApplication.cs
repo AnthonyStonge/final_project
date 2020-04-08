@@ -7,8 +7,7 @@ public class StartApplication : MonoBehaviour
     
     void Start()
     {
+        GameInitializer.SetMainCamera(CurrentCamera);
         GameInitializer.InitializeSystemWorkflow();
-
-        GameVariables.MainCamera = CurrentCamera;
     }
 }

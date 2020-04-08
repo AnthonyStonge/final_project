@@ -44,7 +44,7 @@ public class LateInitializeManager : SystemBase
 
     protected override void OnUpdate()
     {
-        Debug.Log("LateInitialize Manager Update");
+        //Debug.Log("LateInitialize Manager Update");
         #region AI&Behaviours
         //Dependency : PlayerTargetSystem, DecrementTimeSystem
         updatePlayerStateSystem.Update();

@@ -30,7 +30,7 @@ public class InitializeManager : SystemBase
 
     protected override void OnUpdate()
     {
-        Debug.Log("Initialize Manager Update");
+        //Debug.Log("Initialize Manager Update");
         if (GameVariables.InputEnabled)
         {
             //Dependency: None   

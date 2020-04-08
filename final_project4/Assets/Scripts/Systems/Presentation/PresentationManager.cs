@@ -26,7 +26,7 @@ public class PresentationManager : SystemBase
 
     protected override void OnUpdate()
     {
-        Debug.Log("Presentation Manager Update");
+        //Debug.Log("Presentation Manager Update");
         updateGunRenderSystem.Update();
     }
 }

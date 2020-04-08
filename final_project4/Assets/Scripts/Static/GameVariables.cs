@@ -13,6 +13,7 @@ public static class GameVariables
     public static class PlayerVars
     {
         public static float3 Position;
+        public static float3 MousePos;
         public static bool IsDead;
     }
 

@@ -2,31 +2,30 @@
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
+using UnityEngine;
+using Ray = Unity.Physics.Ray;
 using RaycastHit = Unity.Physics.RaycastHit;
 
 [DisableAutoCreation]
 [UpdateAfter(typeof(InputSystem))]
 public class PlayerTargetSystem : SystemBase
 {
-    private RaycastInput rayInfo;
     private BuildPhysicsWorld physicSystem;
-    private PhysicsWorld pw;
-    private RaycastHit rayCastInfos;
-    private UnityEngine.Ray camRay;
-    
     protected override void OnCreate()
     {
         physicSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<BuildPhysicsWorld>();
-        pw = physicSystem.PhysicsWorld;
     }
 
     protected override void OnUpdate()
     {
+        RaycastHit rayCastInfos;
+        PhysicsWorld pw = physicSystem.PhysicsWorld;
+        RaycastInput rayInfo;
+        
         //Act on all entities with Target, Input and PlayerTag
         Entities.WithoutBurst().WithAll<PlayerTag>().ForEach((ref TargetData target, ref InputComponent inputs) =>
         {
-            camRay = GameVariables.MainCamera.ScreenPointToRay(inputs.Mouse);
-        
+            UnityEngine.Ray camRay = GameVariables.MainCamera.ScreenPointToRay(inputs.Mouse);
             rayInfo = new RaycastInput
             {
                 Start = camRay.origin,
@@ -41,6 +40,7 @@ public class PlayerTargetSystem : SystemBase
         
             if (pw.CastRay(rayInfo, out rayCastInfos))
             {
+                Debug.Log("Got a hit");
                 target.Value = rayCastInfos.Position;
             }
         }).Run();
