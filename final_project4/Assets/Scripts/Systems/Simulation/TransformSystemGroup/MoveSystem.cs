@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Entities;
+﻿using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 
 [DisableAutoCreation]
@@ -9,9 +8,11 @@ public class MoveSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        
-        
-        
-        
+        float dt = Time.DeltaTime; 
+        Entities.ForEach(
+            (ref Translation translation, in SpeedData speedData, in ForwardData forward, in StateData stateData) =>
+            {
+                translation.Value += forward.Value * speedData.Value * dt;
+            }).ScheduleParallel();
     }
 }

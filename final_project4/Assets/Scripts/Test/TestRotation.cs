@@ -15,8 +15,12 @@ public class TestRotation : MonoBehaviour
         EntityArchetype archetype = new EntityArchetype();
 
         EntityManager em = World.DefaultGameObjectInjectionWorld.EntityManager;
-        EntityArchetype bob = em.CreateArchetype(typeof(LocalToWorld), typeof(Rotation), typeof(TargetData), typeof(RenderBounds), typeof(Translation), typeof(PlayerTag), typeof(InputComponent), typeof(RenderMesh));
+        EntityArchetype bob = em.CreateArchetype(typeof(StateData), typeof(ForwardData), typeof(SpeedData), typeof(LocalToWorld), typeof(Rotation), typeof(TargetData), typeof(RenderBounds), typeof(Translation), typeof(PlayerTag), typeof(InputComponent), typeof(RenderMesh));
         Entity bob2 = em.CreateEntity(bob);
+        em.SetComponentData(bob2, new SpeedData
+        {
+            Value = 2f
+        });
         em.SetSharedComponentData(bob2, new RenderMesh 
         {
             mesh = meshTest,
