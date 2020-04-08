@@ -49,10 +49,10 @@ public static class MapInitializer
         });
         entityManager.SetComponentData(player, new DashComponent
         {
-            Distance = PlayerVars.DashDistanceBasic,
+            Distance = PlayerVars.DefaultDashDistance,
             Timer = new TimeTrackerComponent
             {
-                ResetValue = PlayerVars.DashResetValue
+                ResetValue = PlayerVars.DashResetTime
             }
         });
         //TODO CHANGE MESH COMPONENT FOR AN "ANIMATOR"
@@ -95,10 +95,10 @@ public static class MapInitializer
         entityManager.SetComponentData(weapon, new PistolComponent
         {
             MagasineSize = PistolVars.MagazineSize,
-            CurrentBulletInMagazine = PlayerVars.CurrentBulletAmount,
+            CurrentBulletInMagazine = PlayerVars.StartingBulletAmount,
             ReloadTime = new TimeTrackerComponent
             {
-                ResetValue = PistolVars.RealodTime
+                ResetValue = PistolVars.ReloadTime
             },
             BetweenShotTime = new TimeTrackerComponent
             {
