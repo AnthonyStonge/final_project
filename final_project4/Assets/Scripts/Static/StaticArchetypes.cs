@@ -35,13 +35,10 @@ public class StaticArchetypes
         PlayerArchetype = entityManager.CreateArchetype(
             typeof(Translation),
             typeof(Rotation),
-            //typeof(Scale),
-            //typeof(NonUniformScale),
             typeof(LocalToWorld),
             typeof(RenderMesh),
             typeof(RenderBounds),
             typeof(StateData),
-            typeof(ForwardData),
             typeof(SpeedData),
             typeof(HealthData),
             typeof(TargetData),
@@ -63,8 +60,6 @@ public class StaticArchetypes
         EnemyArchetype = entityManager.CreateArchetype(
             typeof(Translation),
             typeof(Rotation),
-            //typeof(Scale),
-            //typeof(NonUniformScale),
             typeof(LocalToWorld),
             typeof(RenderMesh),
             typeof(RenderBounds)
@@ -77,15 +72,12 @@ public class StaticArchetypes
         GunArchetype = entityManager.CreateArchetype(
             typeof(Translation),
             typeof(Rotation),
-            //typeof(Scale),
-            //typeof(NonUniformScale),
             typeof(LocalToWorld),
             typeof(RenderMesh),
             typeof(RenderBounds),
             typeof(LocalToParent),
             typeof(Parent),
-            typeof(ForwardData),
-            
+
             //Tags
             typeof(GunTag)
         );
@@ -96,15 +88,11 @@ public class StaticArchetypes
         BulletArchetype = entityManager.CreateArchetype(
             typeof(Translation),
             typeof(Rotation),
-            //typeof(Scale),
-            //typeof(NonUniformScale),
             typeof(LocalToWorld),
             typeof(RenderMesh),
             typeof(RenderBounds),
             typeof(SpeedData),
-            typeof(ForwardData),
-            typeof(TimeTrackerComponent),
-            
+
             //Tags
             typeof(BulletTag)
         );

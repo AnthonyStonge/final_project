@@ -8,7 +8,7 @@ using static GameVariables;
 public class PistolSystem : SystemBase
 {
     private EndSimulationEntityCommandBufferSystem endECB;
-   
+
     protected override void OnCreate()
     {
         endECB = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
@@ -17,7 +17,7 @@ public class PistolSystem : SystemBase
     protected override void OnUpdate()
     {
         EntityCommandBuffer.Concurrent ecb = endECB.CreateCommandBuffer().ToConcurrent();
-        
+
         float deltaTime = Time.DeltaTime;
 
         StateActions state = PlayerVars.CurrentState;
@@ -44,6 +44,7 @@ public class PistolSystem : SystemBase
                 {
                     pistol.ReloadTime = reloadTime;
                 }
+
                 CreateBullet(ecb, entityInQueryIndex, pistol.bullet, trans);
             }
             else if (pistol.IsBetweenShot)
@@ -55,7 +56,7 @@ public class PistolSystem : SystemBase
         endECB.AddJobHandleForProducer(Dependency);
     }
 
-    private static void CreateBullet(EntityCommandBuffer.Concurrent ecb, int index,Entity e,  in LocalToWorld trans)
+    private static void CreateBullet(EntityCommandBuffer.Concurrent ecb, int index, Entity e, in LocalToWorld trans)
     {
         ecb.Instantiate(index, e);
         ecb.SetComponent(index, e, new Translation
