@@ -92,7 +92,6 @@ public class StaticArchetypes
             typeof(RenderMesh),
             typeof(RenderBounds),
             typeof(SpeedData),
-            typeof(ForwardData),
             typeof(TimeTrackerComponent),
             //typeof(PhysicsVelocity),
             //typeof(PhysicsDamping),
