@@ -5,7 +5,7 @@ using Unity.Transforms;
 using UnityEngine;
 
 [DisableAutoCreation]
-public class TransformSimulationManager : SystemBase
+public class TransformSimulationManager : ComponentSystemGroup
 {
 
     private MoveSystem moveSystem;
@@ -20,11 +20,11 @@ public class TransformSimulationManager : SystemBase
         rotateEnemySystem = world.GetOrCreateSystem<RotateEnemySystem>();
         rotatePlayerSystem = world.GetOrCreateSystem<RotatePlayerSystem>();
 
-        var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();
+        var transform = world.GetOrCreateSystem<TransformSimulationManager>();
         
-        presentation.AddSystemToUpdateList(moveSystem);
-        presentation.AddSystemToUpdateList(rotateEnemySystem);
-        presentation.AddSystemToUpdateList(rotatePlayerSystem);
+        transform.AddSystemToUpdateList(moveSystem);
+        transform.AddSystemToUpdateList(rotateEnemySystem);
+        transform.AddSystemToUpdateList(rotatePlayerSystem);
     }
 
     protected override void OnStartRunning()

@@ -1,12 +1,16 @@
-﻿using Unity.Entities;
+﻿using System;
+using Unity.Entities;
 
+[Serializable]
 public struct PistolComponent : IComponentData
 {
     public int CurrentBulletInMagazine;
-    public int MagasineSize;
 
-    public TimeTrackerComponent BetweenShotTime;
-    public TimeTrackerComponent ReloadTime;
+    public float BetweenShotTime;
+    public float ReloadTime;
 
-    public bool CanShoot => CurrentBulletInMagazine > 0 && BetweenShotTime.Available;
+    public Entity bullet;
+
+    public bool IsBetweenShot => BetweenShotTime > 0;
+    public bool IsReloading => ReloadTime > 0 ;
 }

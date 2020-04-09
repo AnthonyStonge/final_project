@@ -8,50 +8,63 @@ using static GameVariables;
 public class PistolSystem : SystemBase
 {
     private EndSimulationEntityCommandBufferSystem endECB;
-    private static RenderMesh pistolRender;
+   
     protected override void OnCreate()
     {
         endECB = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-        pistolRender = new RenderMesh
-        {
-            mesh = PistolVars.Bullet.mesh,
-            material = PistolVars.Bullet.mat
-        };
     }
 
     protected override void OnUpdate()
     {
         EntityCommandBuffer.Concurrent ecb = endECB.CreateCommandBuffer().ToConcurrent();
-        Entities.ForEach((int entityInQueryIndex, ref PistolComponent pistol, in Translation trans, in Rotation rot) =>
+        
+        float deltaTime = Time.DeltaTime;
+
+        StateActions state = PlayerVars.CurrentState;
+
+        int magazineSize = PistolVars.MagazineSize;
+        float betweenShotTime = PistolVars.BetweenShotTime;
+        float reloadTime = PistolVars.ReloadTime;
+
+        Entities.ForEach((int entityInQueryIndex, ref PistolComponent pistol, in LocalToWorld trans) =>
         {
-           /* if (PlayerVars.CurrentState == StateActions.ATTACKING && pistol.CanShoot)
+            if (pistol.IsReloading)
             {
-                Debug.Log("PistolShooting");
-                pistol.BetweenShotTime.Reset();
+                pistol.ReloadTime -= deltaTime;
+                if (pistol.ReloadTime <= 0)
+                {
+                    pistol.CurrentBulletInMagazine = magazineSize;
+                }
+            }
+            else if (state == StateActions.ATTACKING && !pistol.IsBetweenShot)
+            {
+                pistol.BetweenShotTime = betweenShotTime;
                 pistol.CurrentBulletInMagazine--;
-                CreateBullet(ecb, entityInQueryIndex, trans, rot);
-            }*/
+                if (pistol.CurrentBulletInMagazine == 0)
+                {
+                    pistol.ReloadTime = reloadTime;
+                }
+                CreateBullet(ecb, entityInQueryIndex, pistol.bullet, trans);
+            }
+            else if (pistol.IsBetweenShot)
+            {
+                pistol.BetweenShotTime -= deltaTime;
+            }
         }).ScheduleParallel();
 
         endECB.AddJobHandleForProducer(Dependency);
     }
 
-    private static void CreateBullet(EntityCommandBuffer.Concurrent ecb, int index, in Translation trans, in Rotation rot)
+    private static void CreateBullet(EntityCommandBuffer.Concurrent ecb, int index,Entity e,  in LocalToWorld trans)
     {
-        Entity e = ecb.CreateEntity(index, StaticArchetypes.BulletArchetype);
-        //ecb.SetSharedComponent(index, e, pistolRender);
-        ecb.SetComponent(index, e, new TimeTrackerComponent(PistolVars.Bullet.LifeTime));
-        ecb.SetComponent(index, e, new SpeedData
-        {
-            Value = PistolVars.Bullet.Speed
-        });
+        ecb.Instantiate(index, e);
         ecb.SetComponent(index, e, new Translation
         {
-            Value = trans.Value
+            Value = trans.Position
         });
         ecb.SetComponent(index, e, new Rotation
         {
-            Value = rot.Value
+            Value = trans.Rotation
         });
     }
 }

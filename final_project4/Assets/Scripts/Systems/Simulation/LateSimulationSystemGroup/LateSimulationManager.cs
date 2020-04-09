@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [DisableAutoCreation]
-public class LateSimulationManager : SystemBase
+public class LateSimulationManager : ComponentSystemGroup
 {
     private MachineGunSystem machineGunSystem;
     private PistolSystem pistolSystem;
@@ -16,7 +16,7 @@ public class LateSimulationManager : SystemBase
         pistolSystem = world.GetOrCreateSystem<PistolSystem>();
         shotgunSystem = world.GetOrCreateSystem<ShotgunSystem>();
 
-        var lateSimulation = world.GetOrCreateSystem<LateSimulationSystemGroup>();
+        var lateSimulation = world.GetOrCreateSystem<LateSimulationManager>();
         
         lateSimulation.AddSystemToUpdateList(machineGunSystem);
         lateSimulation.AddSystemToUpdateList(pistolSystem);

@@ -4,7 +4,7 @@ using Unity.Entities;
 using UnityEngine;
 
 [DisableAutoCreation]
-public class PresentationManager : SystemBase
+public class PresentationManager : ComponentSystemGroup
 {
 
     private UpdateGunRenderSystem updateGunRenderSystem;
@@ -14,7 +14,7 @@ public class PresentationManager : SystemBase
         var world = World.DefaultGameObjectInjectionWorld;
         updateGunRenderSystem = world.GetOrCreateSystem<UpdateGunRenderSystem>();
 
-        var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();
+        var presentation = world.GetOrCreateSystem<PresentationManager>();
         
         presentation.AddSystemToUpdateList(updateGunRenderSystem);
     }

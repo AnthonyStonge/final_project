@@ -29,5 +29,8 @@ public class MonoGameVariables : MonoBehaviour
     public Mesh PistolMesh;
     public Material PistolMaterial;
 
+    public Mesh BulletMesh;
+    public Material BulletMaterial;
+
     public Camera MainCamera;
 }

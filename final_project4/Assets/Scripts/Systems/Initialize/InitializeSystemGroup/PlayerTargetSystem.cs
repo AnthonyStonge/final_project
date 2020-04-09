@@ -1,10 +1,10 @@
 ﻿using Unity.Entities;
 using Unity.Physics;
 using Unity.Physics.Systems;
+using UnityEngine;
 using RaycastHit = Unity.Physics.RaycastHit;
 
 [DisableAutoCreation]
-[UpdateAfter(typeof(InputSystem))]
 public class PlayerTargetSystem : SystemBase
 {
     private BuildPhysicsWorld physicSystem;
@@ -26,7 +26,7 @@ public class PlayerTargetSystem : SystemBase
             rayInfo = new RaycastInput
             {
                 Start = camRay.origin,
-                End = camRay.GetPoint(100),
+                End = camRay.GetPoint(2000),
                 Filter = new CollisionFilter
                 {
                     BelongsTo = ~0u,
@@ -34,7 +34,6 @@ public class PlayerTargetSystem : SystemBase
                     GroupIndex = 0
                 }
             };
-        
             if (pw.CastRay(rayInfo, out rayCastInfos))
             {
                 target.Value = rayCastInfos.Position;

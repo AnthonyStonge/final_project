@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConversionMode: 0
+  ConversionMode: 1
 --- !u!1 &497754092
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,8 +383,10 @@ MonoBehaviour:
   playerMat: {fileID: 2100000, guid: 1db15ed70d2b17b44baf6463773eff32, type: 2}
   gunMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   gunMat: {fileID: 2100000, guid: 1db15ed70d2b17b44baf6463773eff32, type: 2}
-  bulletMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  bulletMat: {fileID: 2100000, guid: 1db15ed70d2b17b44baf6463773eff32, type: 2}
+  bulletMesh: {fileID: -2432090755550338912, guid: e6a613a116db73d4a86f7eb08af6b94c,
+    type: 3}
+  bulletMat: {fileID: -3033667219593020291, guid: e6a613a116db73d4a86f7eb08af6b94c,
+    type: 3}
 --- !u!1 &968597341
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +448,10 @@ MonoBehaviour:
     type: 3}
   playerMaterial: {fileID: 2100000, guid: 1db15ed70d2b17b44baf6463773eff32, type: 2}
   PistolMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  PistolMaterial: {fileID: -3033667219593020291, guid: 48761c5b6707b1f44a59130faaa6ceba,
+  PistolMaterial: {fileID: -3033667219593020291, guid: e1e2980a06f92d84fbd193a4d41f02cd,
+    type: 3}
+  BulletMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  BulletMaterial: {fileID: -3033667219593020291, guid: e6a613a116db73d4a86f7eb08af6b94c,
     type: 3}
   MainCamera: {fileID: 1912010583}
 --- !u!1 &1067509478
@@ -716,11 +721,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: -1000
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
