@@ -104,6 +104,11 @@ public class StaticArchetypes
             typeof(SpeedData),
             typeof(ForwardData),
             typeof(TimeTrackerComponent),
+            //typeof(PhysicsVelocity),
+            //typeof(PhysicsDamping),
+            //typeof(PhysicsMass),
+            //typeof(PhysicsGravityFactor),
+            typeof(PhysicsCollider),
             
             //Tags
             typeof(BulletTag)
