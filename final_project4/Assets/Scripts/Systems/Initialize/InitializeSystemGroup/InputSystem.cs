@@ -33,11 +33,11 @@ public class InputSystem : SystemBase
         if (Input.GetKeyDown(KeyCode.E))
             input.Interact = true;
         
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
             input.Shoot = true;
-        
-        if (Input.GetMouseButtonUp(0))
-            input.Shoot = false;
+        //
+        // if (Input.GetMouseButtonUp(0))
+        //     input.Shoot = false;
         
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.LeftShift))
             input.Dash = true;
