@@ -4,7 +4,7 @@ using Unity.Physics;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
-
+using UnityEngine.Serialization;
 [CreateAssetMenu(menuName = "Scriptables/SimpleEnemy")]
 public class SimpleEnemyScriptableObject : ScriptableObject
 {
@@ -18,7 +18,7 @@ public class SimpleEnemyScriptableObject : ScriptableObject
     public RenderMesh renderMesh;
 
     [Header("Animation")] 
-    public AnimationScriptableObject animationSequence;
+    public AnimationTestScriptableObject animationTestSequence;
 
     [Header("Physics")] 
     public Velocity velocity;
