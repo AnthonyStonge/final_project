@@ -445,6 +445,10 @@ MonoBehaviour:
   PlayerMesh: {fileID: -2432090755550338912, guid: 3a9db73485929f94ea4310db61ebd2de,
     type: 3}
   playerMaterial: {fileID: 2100000, guid: 1db15ed70d2b17b44baf6463773eff32, type: 2}
+  PistolMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  PistolMaterial: {fileID: -3033667219593020291, guid: 48761c5b6707b1f44a59130faaa6ceba,
+    type: 3}
+  MainCamera: {fileID: 1912010583}
 --- !u!1 &1067509478
 GameObject:
   m_ObjectHideFlags: 0

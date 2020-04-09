@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
-//TODO TEMPORARY SYSTEM UNTIL WE INCLUDE CINEMACHINE
+[UpdateInGroup(typeof(PresentationSystemGroup))]
 public class CameraFollowSystem : SystemBase
 {
     protected override void OnUpdate()

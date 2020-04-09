@@ -44,11 +44,15 @@ public static class GameVariables
     {
         public static float3 PlayerOffset = new float3(0, 1, 1);
         public static int MagazineSize = 24;
-        public static float ReloadTime = 1f;
-        public static float BetweenShotTime = 0.02f;
-    }
-    
-    
+        public static float ReloadTime = 2f;
+        public static float BetweenShotTime = 0.5f;
 
-    
+        public static class Bullet
+        {
+            public static float Speed = 25f;
+            public static float LifeTime = 2.0f;
+            public static Mesh mesh;
+            public static Material mat;
+        }
+    }
 }

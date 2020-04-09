@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 
-public class PistolComponent : IComponentData
+public struct PistolComponent : IComponentData
 {
     public int CurrentBulletInMagazine;
     public int MagasineSize;
@@ -8,5 +8,5 @@ public class PistolComponent : IComponentData
     public TimeTrackerComponent BetweenShotTime;
     public TimeTrackerComponent ReloadTime;
 
-    public bool CanShoot => this.CurrentBulletInMagazine > 0 && BetweenShotTime.Available;
+    public bool CanShoot => CurrentBulletInMagazine > 0 && BetweenShotTime.Available;
 }

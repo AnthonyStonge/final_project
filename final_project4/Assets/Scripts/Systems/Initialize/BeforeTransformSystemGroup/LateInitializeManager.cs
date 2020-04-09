@@ -5,7 +5,6 @@ using UnityEngine;
 [DisableAutoCreation]
 public class LateInitializeManager : SystemBase
 {
-
     private UpdatePlayerStateSystem updatePlayerStateSystem;
     private StateIdleSystem stateIdleSystem;
     private StateMovingSystem stateMovingSystem;

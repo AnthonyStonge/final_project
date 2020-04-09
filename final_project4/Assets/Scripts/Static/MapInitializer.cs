@@ -9,6 +9,8 @@ public static class MapInitializer
 {
     private static EntityManager entityManager;
 
+    private static RenderMesh pistolRenderMesh;
+
     public static void Initialize()
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -110,6 +112,5 @@ public static class MapInitializer
             mesh = MonoGameVariables.instance.PistolMesh,
             material = MonoGameVariables.instance.PistolMaterial
         });
-
     }
 }
