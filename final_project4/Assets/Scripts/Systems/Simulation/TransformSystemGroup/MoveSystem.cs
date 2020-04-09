@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
-
+using UnityEngine.PlayerLoop;
 [DisableAutoCreation]
 [UpdateAfter(typeof(RotateEnemySystem))]
 public class MoveSystem : SystemBase

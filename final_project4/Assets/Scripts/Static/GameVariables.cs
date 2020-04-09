@@ -9,6 +9,7 @@ public static class GameVariables
     public static bool InputEnabled = true;
 
     public static Camera MainCamera;
+    public static Transform MouseToTransform;
 
     public static EntityArchetype BulletArchetype;
     public static Mesh BulletMesh;
@@ -33,6 +34,9 @@ public static class GameVariables
         //Dash infos
         public static readonly float DefaultDashDistance = 5f; //Value to comeback to when dash distance changes
         public static float DashResetTime = 1f;
+        
+        //Unity linker
+        public static Transform Transform;
     }
 
     public static class CameraVars

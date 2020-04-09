@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class MonoGameVariables : MonoBehaviour
@@ -30,4 +31,7 @@ public class MonoGameVariables : MonoBehaviour
     public Material PistolMaterial;
 
     public Camera MainCamera;
+
+    public CinemachineVirtualCamera VirtualCamera;
+    public CinemachineTargetGroup TargetGroupCamera;
 }
