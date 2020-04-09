@@ -1,9 +1,6 @@
 ﻿using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
-using UnityEngine;
-using Ray = Unity.Physics.Ray;
 using RaycastHit = Unity.Physics.RaycastHit;
 
 [DisableAutoCreation]

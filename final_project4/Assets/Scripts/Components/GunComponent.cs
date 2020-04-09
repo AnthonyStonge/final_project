@@ -5,5 +5,6 @@ public struct GunComponent : IComponentData
     public TimeTrackerComponent BetweenShotsTime;
     public TimeTrackerComponent ReloadTime;
     public int BulletAmountPerShot;
+    public int CurrentBulletInMagazine;
     public int MagasineSize;
 }

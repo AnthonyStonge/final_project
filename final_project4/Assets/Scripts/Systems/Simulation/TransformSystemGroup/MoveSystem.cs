@@ -8,7 +8,7 @@ public class MoveSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        float dt = Time.DeltaTime; 
+        float dt = Time.DeltaTime;
         Entities.ForEach(
             (ref Translation translation, in SpeedData speedData, in ForwardData forward) =>
             {

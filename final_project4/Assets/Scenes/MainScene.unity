@@ -380,13 +380,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-  playerMat: {fileID: -3033667219593020291, guid: 48761c5b6707b1f44a59130faaa6ceba,
-    type: 3}
+  playerMat: {fileID: 2100000, guid: 1db15ed70d2b17b44baf6463773eff32, type: 2}
   gunMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  gunMat: {fileID: -3033667219593020291, guid: 48761c5b6707b1f44a59130faaa6ceba, type: 3}
+  gunMat: {fileID: 2100000, guid: 1db15ed70d2b17b44baf6463773eff32, type: 2}
   bulletMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  bulletMat: {fileID: -3033667219593020291, guid: 48761c5b6707b1f44a59130faaa6ceba,
-    type: 3}
+  bulletMat: {fileID: 2100000, guid: 1db15ed70d2b17b44baf6463773eff32, type: 2}
 --- !u!1 &968597341
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 968597343}
   - component: {fileID: 968597342}
+  - component: {fileID: 968597344}
   m_Layer: 0
   m_Name: MainEntry
   m_TagString: Untagged
@@ -431,6 +430,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &968597344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968597341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d43c9eddecca39e428231c587fac3f4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerMesh: {fileID: -2432090755550338912, guid: 3a9db73485929f94ea4310db61ebd2de,
+    type: 3}
+  playerMaterial: {fileID: 2100000, guid: 1db15ed70d2b17b44baf6463773eff32, type: 2}
 --- !u!1 &1067509478
 GameObject:
   m_ObjectHideFlags: 0

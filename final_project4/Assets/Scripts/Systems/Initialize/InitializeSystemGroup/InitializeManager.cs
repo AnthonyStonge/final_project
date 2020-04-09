@@ -8,6 +8,7 @@ public class InitializeManager : SystemBase
     private InputSystem inputSystem;
     private PlayerTargetSystem playerTargetSystem;
     private DecrementTimeSystem decrementTimeSystem;
+    private UpdatePlayerInfoSystem updatePlayerInfoSystem;
     
     protected override void OnCreate()
     {
@@ -16,12 +17,14 @@ public class InitializeManager : SystemBase
         inputSystem = world.GetOrCreateSystem<InputSystem>();
         playerTargetSystem = world.GetOrCreateSystem<PlayerTargetSystem>();
         decrementTimeSystem = world.GetOrCreateSystem<DecrementTimeSystem>();
+        updatePlayerInfoSystem = world.GetOrCreateSystem<UpdatePlayerInfoSystem>();
         
         var initialize = world.GetOrCreateSystem<InitializationSystemGroup>();
 
         initialize.AddSystemToUpdateList(inputSystem);
         initialize.AddSystemToUpdateList(playerTargetSystem);
         initialize.AddSystemToUpdateList(decrementTimeSystem);
+        initialize.AddSystemToUpdateList(updatePlayerInfoSystem);
     }
 
     protected override void OnStartRunning()
@@ -40,6 +43,7 @@ public class InitializeManager : SystemBase
         }
         //Dependency: None 
         decrementTimeSystem.Update();
+        updatePlayerInfoSystem.Update();
     }
 
 

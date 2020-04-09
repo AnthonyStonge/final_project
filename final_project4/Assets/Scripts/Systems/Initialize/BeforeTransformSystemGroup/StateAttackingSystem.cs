@@ -20,7 +20,7 @@ public class StateAttackingSystem : SystemBase
         Entities.WithAll<EnemyTag>().ForEach((ref StateData state, in Translation currentPosition, in AttackStateData range) =>
         {
             //Compare distance between current position and target position. If distance <= range -> set state to attack
-            if (math.distancesq(currentPosition.Value, PlayerVars.Position) <= range.Value * range.Value)
+            if (math.distancesq(currentPosition.Value, PlayerVars.CurrentPosition) <= range.Value * range.Value)
             {
                 state.Value = StateActions.ATTACKING;
             }
