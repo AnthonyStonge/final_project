@@ -7,7 +7,6 @@ using UnityEngine;
 [DisableAutoCreation]
 public class TransformSimulationManager : ComponentSystemGroup
 {
-
     private MoveSystem moveSystem;
     private RotateEnemySystem rotateEnemySystem;
     private RotatePlayerSystem rotatePlayerSystem;

@@ -4,7 +4,7 @@ using Unity.Physics;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
-
+using UnityEngine.Serialization;
 [CreateAssetMenu(menuName = "Scriptables/Player")]
 public class PlayerAssetsScriptableObject : ScriptableObject
 {
@@ -19,7 +19,7 @@ public class PlayerAssetsScriptableObject : ScriptableObject
     
     [Header("Animation")] 
     public RenderMesh renderMesh;
-    public AnimationScriptableObject animationSequence;
+    public AnimationTestScriptableObject animationTestSequence;
     
     [Header("Physics")] 
     public Velocity velocity;

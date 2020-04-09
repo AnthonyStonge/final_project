@@ -3,7 +3,7 @@ using UnityEngine;
 
 [Serializable]
 [CreateAssetMenu(menuName = ( "Scriptables/Animation"))]
-public class AnimationScriptableObject : ScriptableObject
+public class AnimationTestScriptableObject : ScriptableObject
 {
     public Mesh[] meshes;
 }

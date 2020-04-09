@@ -1,17 +1,40 @@
-﻿using Unity.Entities;
+﻿using System.Linq;
+using Cinemachine;
+using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
-[UpdateInGroup(typeof(PresentationSystemGroup))]
+[DisableAutoCreation]
 public class CameraFollowSystem : SystemBase
 {
+    private EntityManager entityManager;
+    private float3 min, max;
+    protected override void OnCreate()
+    {
+        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        
+        //TODO Should be initialized elsewhere
+        GameObject player = new GameObject();
+        GameObject cursor = new GameObject();
+        player.name = "PlayerTransform";
+        cursor.name = "CursorTransform";
+        GameVariables.MouseToTransform = player.transform;
+        GameVariables.PlayerVars.Transform = cursor.transform;
+        
+        min = new float3(-8, 0, -8);
+        max = new float3(8, 0, 8);
+        
+        MonoGameVariables.instance.TargetGroupCamera.AddMember(GameVariables.PlayerVars.Transform, 2, 0);
+        MonoGameVariables.instance.TargetGroupCamera.AddMember(GameVariables.MouseToTransform, 1, 0);
+
+    }
+
     protected override void OnUpdate()
     {
-        //Debug.Log("On CameraFollowSystem Update");
-
-        //Update MainCamera to player position
-        if (MonoGameVariables.instance.MainCamera == null) return;
-
-        MonoGameVariables.instance.MainCamera.transform.position = 
-            GameVariables.PlayerVars.CurrentPosition + GameVariables.CameraVars.PlayerOffset;
+        // #Math#TransposeThatTransform#GroupSelfie
+        InputComponent input = entityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);
+        float3 pos = new float3(input.Mouse.x - Screen.width * 0.5f,0,input.Mouse.y - Screen.height * 0.5f) / 20;
+        float3 actualpos = math.clamp(pos, min, max);
+        GameVariables.MouseToTransform.position = GameVariables.PlayerVars.CurrentPosition + actualpos;
     }
 }

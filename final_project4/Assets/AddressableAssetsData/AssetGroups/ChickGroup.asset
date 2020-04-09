@@ -111,8 +111,8 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: SimpleEnemyScriptableObject, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: be5acf5abcafae440bd7123c520d6ba7, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: be5acf5abcafae440bd7123c520d6ba7, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: cb95b2fbb1f18164da4797ede94ff69b
     m_Address: firstMesh
     m_ReadOnly: 0
@@ -167,14 +167,22 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: PlayerAssetsScriptableObject, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: e58da6da156a7884f887b77aec1511d4, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: e58da6da156a7884f887b77aec1511d4, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e6a613a116db73d4a86f7eb08af6b94c
     m_Address: Chick3
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: ec4b46ba16a9162458892b7466e47853
+    m_Address: Assets/Scripts/ScriptableObjectScripts/PlayerAnimation.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: AnimationObject, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
