@@ -4,8 +4,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-//TODO TEMPORARY SYSTEM UNTIL WE INCLUDE CINEMACHINE
-[UpdateAfter(typeof(PlayerTargetSystem))]
+[UpdateInGroup(typeof(PresentationSystemGroup))]
 public class CameraFollowSystem : SystemBase
 {
     private EntityManager entityManager;

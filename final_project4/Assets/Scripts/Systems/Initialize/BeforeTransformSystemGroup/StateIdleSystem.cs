@@ -1,7 +1,6 @@
 ﻿using Unity.Entities;
 
 [DisableAutoCreation]
-[UpdateAfter(typeof(DecrementTimeSystem))]
 public class StateIdleSystem : SystemBase
 {
     protected override void OnCreate()

@@ -1,12 +1,11 @@
 ﻿using Unity.Entities;
+using UnityEngine;
 
 [DisableAutoCreation]
-[UpdateAfter(typeof(PlayerTargetSystem))]
-[UpdateAfter(typeof(DecrementTimeSystem))]
 public class UpdatePlayerStateSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        
+       
     }
 }

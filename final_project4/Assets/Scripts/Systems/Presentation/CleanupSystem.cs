@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-[DisableAutoCreation]
-public class ShotgunSystem : SystemBase
+public class CleanupSystem : SystemBase
 {
     protected override void OnUpdate()
     {
+        
     }
 }

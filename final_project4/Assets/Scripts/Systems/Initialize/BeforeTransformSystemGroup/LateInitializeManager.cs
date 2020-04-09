@@ -3,9 +3,9 @@ using Unity.Transforms;
 using UnityEngine;
 
 [DisableAutoCreation]
-public class LateInitializeManager : SystemBase
+[UpdateAfter(typeof(InitializeManager))]
+public class LateInitializeManager : ComponentSystemGroup
 {
-
     private UpdatePlayerStateSystem updatePlayerStateSystem;
     private StateIdleSystem stateIdleSystem;
     private StateMovingSystem stateMovingSystem;
@@ -26,8 +26,8 @@ public class LateInitializeManager : SystemBase
         stateDyingSystem = world.GetOrCreateSystem<StateDyingSystem>();
         stateDashingSystem = world.GetOrCreateSystem<StateDashingSystem>();
 
-        var initialize = world.GetOrCreateSystem<InitializationSystemGroup>();
-        
+        var initialize = world.GetOrCreateSystem<LateInitializeManager>();
+
         initialize.AddSystemToUpdateList(updatePlayerStateSystem);
         initialize.AddSystemToUpdateList(stateIdleSystem);
         initialize.AddSystemToUpdateList(stateMovingSystem);

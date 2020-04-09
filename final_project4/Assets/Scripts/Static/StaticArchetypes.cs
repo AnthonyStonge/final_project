@@ -3,6 +3,7 @@ using Unity.Entities;
 using Unity.Physics;
 using Unity.Rendering;
 using Unity.Transforms;
+using UnityEngine.Video;
 
 public class StaticArchetypes
 {
@@ -70,7 +71,7 @@ public class StaticArchetypes
         );
     }
 
-    //When using this archetype, dont forget to add a specific gun tag to the entity.
+    //When using this archetype, dont forget to add a specific gun tag + gun component to the entity.
     private static void InitGunArchetype()
     {
         GunArchetype = entityManager.CreateArchetype(
@@ -102,6 +103,7 @@ public class StaticArchetypes
             typeof(RenderBounds),
             typeof(SpeedData),
             typeof(ForwardData),
+            typeof(TimeTrackerComponent),
             
             //Tags
             typeof(BulletTag)

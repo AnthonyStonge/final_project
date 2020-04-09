@@ -1,13 +1,13 @@
 ﻿using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
-using UnityEngine;
 using static GameVariables;
 
 public static class MapInitializer
 {
     private static EntityManager entityManager;
+
+    private static RenderMesh pistolRenderMesh;
 
     public static void Initialize()
     {
@@ -62,6 +62,8 @@ public static class MapInitializer
             material = MonoGameVariables.instance.playerMaterial
         });
 
+        entityManager.AddComponentData(player, new TimeTrackerComponent(5));
+
         //Set info in GameVariables
         PlayerVars.Entity = player;
         PlayerVars.CurrentPosition = PlayerVars.SpawnPosition;
@@ -92,24 +94,31 @@ public static class MapInitializer
         {
             Value = PlayerVars.Entity
         });
-        entityManager.SetComponentData(weapon, new PistolComponent
-        {
-            MagasineSize = PistolVars.MagazineSize,
-            CurrentBulletInMagazine = PlayerVars.StartingBulletAmount,
-            ReloadTime = new TimeTrackerComponent
-            {
-                ResetValue = PistolVars.ReloadTime
-            },
-            BetweenShotTime = new TimeTrackerComponent
-            {
-                ResetValue = PistolVars.BetweenShotTime
-            }
-        });
+        
         entityManager.SetSharedComponentData(weapon, new RenderMesh
         {
             mesh = MonoGameVariables.instance.PistolMesh,
             material = MonoGameVariables.instance.PistolMaterial
         });
 
+        Entity e = entityManager.CreateEntity(StaticArchetypes.BulletArchetype);
+        entityManager.SetSharedComponentData(e, new RenderMesh
+        {
+            mesh = MonoGameVariables.instance.BulletMesh,
+            material = MonoGameVariables.instance.BulletMaterial
+        });
+        entityManager.SetComponentData(e, new SpeedData
+        {
+            Value = PistolVars.Bullet.Speed
+        });
+        //entityManager.SetEnabled(e, false);
+        
+        entityManager.SetComponentData(weapon, new PistolComponent
+        {
+            CurrentBulletInMagazine = PlayerVars.StartingBulletAmount,
+            ReloadTime = PistolVars.ReloadTime,
+            BetweenShotTime = PistolVars.BetweenShotTime,
+            bullet = e
+        });
     }
 }
