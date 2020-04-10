@@ -1,4 +1,6 @@
 ﻿using Unity.Entities;
+using Unity.Physics;
+using Unity.Physics.Systems;
 using Unity.Transforms;
 using UnityEngine;
 //TODO No need to do a foreach withoutburst when we have access to the player entity and thats all we want to update
