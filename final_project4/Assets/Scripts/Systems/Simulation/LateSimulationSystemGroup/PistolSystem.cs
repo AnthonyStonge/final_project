@@ -78,8 +78,8 @@ public class PistolSystem : SystemBase
             },
             new CollisionFilter
             {
-                BelongsTo = 1u << 1,
-                CollidesWith = 1u << 0,
+                BelongsTo = 1u << 0,
+                CollidesWith = 1u << 2,
                 GroupIndex = 0
             }
         );

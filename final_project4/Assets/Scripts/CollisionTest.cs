@@ -31,6 +31,7 @@ public class CollisionTest : SystemBase
         
         foreach (var i in events)
         {
+            //Debug.Log("Collision between " + i.Entities.EntityA + " and " + i.Entities.EntityB);
             if (getter.Exists(i.Entities.EntityB))
             {
                 //Debug.Log("Deleting entity... ID: " + i.Entities.EntityB);
