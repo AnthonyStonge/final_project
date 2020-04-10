@@ -60,16 +60,16 @@ public class PistolSystem : SystemBase
 
     private static void CreateBullet(EntityCommandBuffer.Concurrent ecb, int index, Entity e, in LocalToWorld trans)
     {
-        ecb.Instantiate(index, e);
-        ecb.SetComponent(index, e, new Translation
+        Entity entity = ecb.Instantiate(index, e);
+        //Debug.Log("Creating entity... ID: " + entity);
+        ecb.SetComponent(index, entity, new Translation
         {
             Value = trans.Position
         });
-        ecb.SetComponent(index, e, new Rotation
+        ecb.SetComponent(index, entity, new Rotation
         {
             Value = trans.Rotation
         });
-        ////////////////////////////////////////////////////////
         BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(
             new BoxGeometry
             {
@@ -78,13 +78,13 @@ public class PistolSystem : SystemBase
             },
             new CollisionFilter
             {
-                BelongsTo = ~0u,
-                CollidesWith = ~0u,
+                BelongsTo = 1u << 1,
+                CollidesWith = 1u << 0,
                 GroupIndex = 0
             }
         );
 
-        ecb.SetComponent(index, e, new PhysicsCollider
+        ecb.SetComponent(index, entity, new PhysicsCollider
         {
             Value = collider
         });
