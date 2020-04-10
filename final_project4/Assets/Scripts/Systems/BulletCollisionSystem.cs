@@ -27,7 +27,7 @@ public class NewBehaviourScript : SystemBase
 
     protected override void OnUpdate()
     { 
-        rayCastInfos = new RaycastInput
+        /*rayCastInfos = new RaycastInput
         {
             Start = new float3(0, 5, 0),
             End = new float3(0, -5, 0),
@@ -45,6 +45,6 @@ public class NewBehaviourScript : SystemBase
         if (collisionWorld.CastRay(rayCastInfos, out raycastHits))
         {
             //Debug.Log(raycastHits.Entity.Index);
-        }
+        }*/
     }
 }
