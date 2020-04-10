@@ -14,12 +14,11 @@ public class CameraFollowSystem : SystemBase
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         
         //TODO Should be initialized elsewhere
-        GameObject player = new GameObject();
-        GameObject cursor = new GameObject();
-        player.name = "PlayerTransform";
-        cursor.name = "CursorTransform";
-        GameVariables.MouseToTransform = player.transform;
-        GameVariables.PlayerVars.Transform = cursor.transform;
+        GameObject player = new GameObject("PlayerTransform");
+        GameObject cursor = new GameObject("CursorTransform");
+
+        GameVariables.MouseToTransform = cursor.transform;
+        GameVariables.PlayerVars.Transform = player.transform;
         
         min = new float3(-8, 0, -8);
         max = new float3(8, 0, 8);
