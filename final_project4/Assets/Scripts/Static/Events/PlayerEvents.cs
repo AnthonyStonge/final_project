@@ -113,6 +113,10 @@ namespace Static.Events
             {
                 Value = rotation
             });
+            entityManager.SetComponentData(player, new HealthData
+            {
+                Value = GameVariables.PlayerVars.DefaultHealth
+            });
         }
     }
 }

@@ -17,10 +17,11 @@ public static class MapInitializer
         if (entityManager == null)
             return;
 
+        //TODO CHANGE VALUE IN FUNCTION BELOW IF TRYING SPAWN PLAYER FROM SAVES
         PlayerEvents.OnPlayerSpawn.Invoke(
             PlayerVars.SpawnPosition,
             PlayerVars.SpawnRotation,
-            PlayerVars.Health
+            PlayerVars.DefaultHealth
             );
         //InitializePlayer();
         InitializePlayerWeapon();
