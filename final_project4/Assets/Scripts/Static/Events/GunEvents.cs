@@ -60,13 +60,14 @@ namespace Static.Events
             Entity e = CreateEntity(position, dir, renderMesh);
             
             //Set speed
-            entityManager.SetComponentData(e, new SpeedData
+            entityManager.SetComponentData(e, new DamageProjectile()
             {
-                Value = GameVariables.PistolVars.Bullet.Speed
+                Speed = GameVariables.PistolVars.Bullet.Speed
             });
             
             //Set name
             entityManager.SetName(e, "Pistol Bullet");
+            
             //Add personal tag
             entityManager.AddComponent<PistolTag>(e);
         }

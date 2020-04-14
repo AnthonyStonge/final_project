@@ -118,10 +118,6 @@ public static class MapInitializer
             mesh = MonoGameVariables.instance.BulletMesh,
             material = MonoGameVariables.instance.BulletMaterial
         });
-        entityManager.SetComponentData(e, new Scale
-       {
-           Value = 1
-       });
         
         entityManager.SetComponentData(e, new DamageProjectile
         {
