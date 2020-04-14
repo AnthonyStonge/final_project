@@ -68,45 +68,6 @@ public class PistolSystem : SystemBase
 
         //Terminate job before reading from array
         job.Complete();
-
-    private static void CreateBullet(EntityCommandBuffer.Concurrent ecb, int index, Entity e, in LocalToWorld trans)
-    {
-        Entity entity = ecb.Instantiate(index, e);
-        ecb.RemoveComponent(index, entity, typeof(Disabled));
-        //Debug.Log("Creating entity... ID: " + entity);
-        
-        ecb.SetComponent(index, entity, new Scale
-        {
-            Value = 0.35f
-        });
-        ecb.SetComponent(index, entity, new Translation
-        {
-            Value = trans.Position
-        });
-        ecb.SetComponent(index, entity, new Rotation
-        {
-            Value = trans.Rotation
-        });
-        
-        // BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(
-        // BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(
-        //     new BoxGeometry
-        //     {
-        //         Size = new float3(1),
-        //         Orientation = quaternion.identity
-        //     },
-        //     new CollisionFilter
-        //     {
-        //         BelongsTo = 1u << 0,
-        //         CollidesWith = 1u << 2,
-        //         GroupIndex = 0
-        //     }
-        // );
-
-        // ecb.SetComponent(index, entity, new PhysicsCollider
-        // {
-        //     Value = collider
-        // });
         BulletInfo bulletInfo;
         //Call events for each bullets
         while (this.bulletsToCreate.TryDequeue(out bulletInfo))
