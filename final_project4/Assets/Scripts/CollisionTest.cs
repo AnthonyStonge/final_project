@@ -4,6 +4,7 @@ using Unity.Entities;
 using Unity.Physics.Systems;
 using UnityEngine;
 
+//[DisableAutoCreation]
 [UpdateAfter(typeof(EndFramePhysicsSystem))]
 public class CollisionTest : SystemBase
 {
@@ -24,6 +25,8 @@ public class CollisionTest : SystemBase
 
         //Debug.Log("Simulation Type: " + stepPhysicsWorld.Simulation.GetType());
         var events = ((HavokSimulation) stepPhysicsWorld.Simulation).TriggerEvents;
+        if (stepPhysicsWorld.Simulation.GetType() != typeof(HavokSimulation))
+            return;
 
         var getter = GetComponentDataFromEntity<BulletTag>();
         

@@ -70,6 +70,17 @@ public class PistolSystem : SystemBase
         {
             Value = trans.Rotation
         });
+       /* var material = new Unity.Physics.Material
+        {
+            CustomTags = Unity.Physics.Material.Default.CustomTags,
+            Flags = Unity.Physics.Material.MaterialFlags.EnableCollisionEvents |
+                    Unity.Physics.Material.MaterialFlags.EnableMassFactors |
+                    Unity.Physics.Material.MaterialFlags.EnableSurfaceVelocity,
+            Friction = Unity.Physics.Material.Default.Friction,
+            FrictionCombinePolicy = Unity.Physics.Material.Default.FrictionCombinePolicy,
+            Restitution = Unity.Physics.Material.Default.Restitution,
+            RestitutionCombinePolicy = Unity.Physics.Material.Default.RestitutionCombinePolicy,
+        };*/
         BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(
             new BoxGeometry
             {
@@ -82,6 +93,7 @@ public class PistolSystem : SystemBase
                 CollidesWith = 1u << 2,
                 GroupIndex = 0
             }
+            //, material
         );
 
         ecb.SetComponent(index, entity, new PhysicsCollider
