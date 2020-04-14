@@ -13,14 +13,16 @@ namespace Static.Events
         public delegate void ShootPistol(float3 position, quaternion rotation);
 
         private static EntityManager entityManager;
-        private static MonoGameVariables gameVariables;
 
         public static ShootPistol OnShootPistol;
 
         public static void Initialize()
         {
+            //TODO REMOVE PLS ITS DISGUSTING LOL
+            GameVariables.PistolVars.Bullet.mesh = MonoGameVariables.instance.BulletMesh;
+            GameVariables.PistolVars.Bullet.mat = MonoGameVariables.instance.BulletMaterial;
+            
             entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            gameVariables = MonoGameVariables.instance;
 
             //OnShootPistol
             OnShootPistol = CreatePistolBullet;
@@ -52,15 +54,15 @@ namespace Static.Events
         {
             RenderMesh renderMesh = new RenderMesh
             {
-                mesh = gameVariables.BulletMesh,
-                material = gameVariables.BulletMaterial
+                mesh = GameVariables.PistolVars.Bullet.mesh,
+                material = GameVariables.PistolVars.Bullet.mat
             };
             Entity e = CreateEntity(position, dir, renderMesh);
             
             //Set speed
             entityManager.SetComponentData(e, new SpeedData
             {
-                Value = 300
+                Value = GameVariables.PistolVars.Bullet.Speed
             });
             
             //Set name
