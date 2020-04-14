@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Static.Events;
+using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ public static class GameInitializer
     {
         //Init archetypes (must be done before creating any entities)*
         StaticArchetypes.InitializeArchetypes();
+        
+        //Static Events
+        GunEvents.Initialize();
         
         //Init map
         MapInitializer.Initialize();
