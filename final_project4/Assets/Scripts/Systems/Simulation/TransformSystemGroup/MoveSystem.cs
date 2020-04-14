@@ -20,5 +20,11 @@ public class MoveSystem : SystemBase
             {
                 translation.Value += new float3(ic.Move.x, 0f, ic.Move.y) * speedData.Value * dt;
             }).Schedule();
+        
+        Entities.ForEach((ref Translation translation, ref DamageProjectile projectile, in Rotation rotation) =>
+        {
+            projectile.PreviousPosition = translation.Value;
+            translation.Value += math.forward(rotation.Value) * projectile.Speed * dt;
+        }).ScheduleParallel();
     }
 }

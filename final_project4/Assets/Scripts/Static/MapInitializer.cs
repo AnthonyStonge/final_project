@@ -76,7 +76,7 @@ public static class MapInitializer
         //TODO INITIALIZE ANY WEAPON NOT ONLY PISTOL
         //Create player entity
         Entity weapon = entityManager.CreateEntity(StaticArchetypes.GunArchetype);
-        entityManager.SetName(weapon, "PlayerWeapon");
+        entityManager.SetName(weapon, "Player Weapon");
 
         entityManager.AddComponent<PistolComponent>(weapon);
 
@@ -102,15 +102,25 @@ public static class MapInitializer
         });
 
         Entity e = entityManager.CreateEntity(StaticArchetypes.BulletArchetype);
+        
+        entityManager.SetName(e, "Pistol Bullet");
+        entityManager.SetEnabled(e, false);
+        
         entityManager.SetSharedComponentData(e, new RenderMesh
         {
             mesh = MonoGameVariables.instance.BulletMesh,
             material = MonoGameVariables.instance.BulletMaterial
         });
-        entityManager.SetComponentData(e, new SpeedData
+        entityManager.SetComponentData(e, new Scale
+       {
+           Value = 1
+       });
+        
+        entityManager.SetComponentData(e, new DamageProjectile
         {
-            Value = PistolVars.Bullet.Speed
+            Speed = PistolVars.Bullet.Speed
         });
+        
         //entityManager.SetEnabled(e, false);
         
         entityManager.SetComponentData(weapon, new PistolComponent

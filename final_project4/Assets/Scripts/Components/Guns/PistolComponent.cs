@@ -12,5 +12,5 @@ public struct PistolComponent : IComponentData
     public Entity bullet;
 
     public bool IsBetweenShot => BetweenShotTime > 0;
-    public bool IsReloading => ReloadTime > 0 ;
-}
+    public bool IsReloading => ReloadTime > 0;
+} 
