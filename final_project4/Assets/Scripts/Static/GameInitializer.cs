@@ -11,6 +11,7 @@ public static class GameInitializer
         StaticArchetypes.InitializeArchetypes();
         
         //Static Events
+        PlayerEvents.Initialize();
         GunEvents.Initialize();
         
         //Init map

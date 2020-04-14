@@ -6,6 +6,9 @@ namespace Static.Events
 {
     public static class SoundEvents
     {
-
+        public static void PlaySound()
+        {
+            
+        }
     }
 }

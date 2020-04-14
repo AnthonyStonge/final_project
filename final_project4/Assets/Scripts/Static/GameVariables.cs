@@ -22,7 +22,8 @@ public static class GameVariables
         public static quaternion SpawnRotation = quaternion.identity;
         public static int StartingBulletAmount = 13;
 
-        public static float Speed = 20f;
+        public static readonly float DefaultSpeed = 20f;
+        public static float Speed;
         public static short Health = 3;
         
         //Player general infos

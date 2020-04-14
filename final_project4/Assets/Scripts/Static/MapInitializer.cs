@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Static.Events;
+using Unity.Entities;
 using Unity.Rendering;
 using Unity.Transforms;
 using static GameVariables;
@@ -16,7 +17,12 @@ public static class MapInitializer
         if (entityManager == null)
             return;
 
-        InitializePlayer();
+        PlayerEvents.OnPlayerSpawn.Invoke(
+            PlayerVars.SpawnPosition,
+            PlayerVars.SpawnRotation,
+            PlayerVars.Health
+            );
+        //InitializePlayer();
         InitializePlayerWeapon();
     }
 
