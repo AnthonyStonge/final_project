@@ -10,7 +10,7 @@ namespace Static.Events
 {
     public static class GunEvents
     {
-        public delegate void ShootPistol(float3 position, quaternion dir);
+        public delegate void ShootPistol(float3 position, quaternion rotation);
 
         private static EntityManager entityManager;
         private static MonoGameVariables gameVariables;
@@ -24,10 +24,12 @@ namespace Static.Events
 
             //OnShootPistol
             OnShootPistol = CreatePistolBullet;
+            
         }
 
-        private static Entity CreateEntity(float3 position, quaternion dir, RenderMesh renderMesh)
+        private static Entity CreateEntity(float3 position, quaternion rotation, RenderMesh renderMesh)
         {
+            //TODO Instantiate from "Prefab"
             //Create entity
             Entity e = entityManager.CreateEntity(StaticArchetypes.BulletArchetype);
 
@@ -38,7 +40,7 @@ namespace Static.Events
             });
             entityManager.SetComponentData(e, new Rotation
             {
-                Value = dir
+                Value = rotation
             });
             entityManager.SetSharedComponentData(e, renderMesh);
             
@@ -54,6 +56,12 @@ namespace Static.Events
                 material = gameVariables.BulletMaterial
             };
             Entity e = CreateEntity(position, dir, renderMesh);
+            
+            //Set speed
+            entityManager.SetComponentData(e, new SpeedData
+            {
+                Value = 300
+            });
             
             //Set name
             entityManager.SetName(e, "Pistol Bullet");

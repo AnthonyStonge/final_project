@@ -89,7 +89,7 @@ public class StaticArchetypes
             typeof(Translation),
             typeof(Rotation),
             typeof(LocalToWorld),
-            typeof(Scale),
+            //typeof(Scale),
             typeof(RenderMesh),
             typeof(RenderBounds),
             typeof(SpeedData),

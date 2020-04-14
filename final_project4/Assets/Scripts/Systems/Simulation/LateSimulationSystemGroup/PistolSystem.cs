@@ -1,4 +1,7 @@
-﻿using Unity.Entities;
+﻿using Static.Events;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
@@ -7,17 +10,22 @@ using static GameVariables;
 [DisableAutoCreation]
 public class PistolSystem : SystemBase
 {
-    private EndSimulationEntityCommandBufferSystem endECB;
+    private NativeQueue<BulletInfo> bulletsToCreate;
 
     protected override void OnCreate()
     {
-        endECB = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        this.bulletsToCreate = new NativeQueue<BulletInfo>(Allocator.Persistent);
+    }
+
+    protected override void OnDestroy()
+    {
+        this.bulletsToCreate.Dispose();
     }
 
     protected override void OnUpdate()
     {
-        EntityCommandBuffer.Concurrent ecb = endECB.CreateCommandBuffer().ToConcurrent();
-
+        NativeQueue<BulletInfo>.ParallelWriter events = this.bulletsToCreate.AsParallelWriter();
+        
         float deltaTime = Time.DeltaTime;
 
         StateActions state = PlayerVars.CurrentState;
@@ -26,7 +34,7 @@ public class PistolSystem : SystemBase
         float betweenShotTime = PistolVars.BetweenShotTime;
         float reloadTime = PistolVars.ReloadTime;
 
-        Entities.ForEach((int entityInQueryIndex, ref PistolComponent pistol, in LocalToWorld trans) =>
+        JobHandle job = Entities.ForEach((int entityInQueryIndex, ref PistolComponent pistol, in LocalToWorld trans) =>
         {
             if (pistol.IsReloading)
             {
@@ -45,64 +53,33 @@ public class PistolSystem : SystemBase
                     pistol.ReloadTime = reloadTime;
                 }
 
-                CreateBullet(ecb, entityInQueryIndex, pistol.bullet, trans);
+                //Add event to queue
+                events.Enqueue(new BulletInfo
+                {
+                    position = trans.Position,
+                    rotation = trans.Rotation
+                });
             }
             else if (pistol.IsBetweenShot)
             {
                 pistol.BetweenShotTime -= deltaTime;
             }
-        }).ScheduleParallel();
+        }).ScheduleParallel(this.Dependency);
 
-        endECB.AddJobHandleForProducer(Dependency);
+        //Terminate job before reading from array
+        job.Complete();
+
+        BulletInfo bulletInfo;
+        //Call events for each bullets
+        while (this.bulletsToCreate.TryDequeue(out bulletInfo))
+        {
+            GunEvents.OnShootPistol.Invoke(bulletInfo.position, bulletInfo.rotation);
+        }
     }
 
-    private static void CreateBullet(EntityCommandBuffer.Concurrent ecb, int index, Entity e, in LocalToWorld trans)
+    private struct BulletInfo
     {
-        Entity entity = ecb.Instantiate(index, e);
-        //Debug.Log("Creating entity... ID: " + entity);
-        
-        ecb.SetComponent(index, entity, new Scale
-        {
-            Value = 0.35f
-        });
-        ecb.SetComponent(index, entity, new Translation
-        {
-            Value = trans.Position
-        });
-        ecb.SetComponent(index, entity, new Rotation
-        {
-            Value = trans.Rotation
-        });
-       /* var material = new Unity.Physics.Material
-        {
-            CustomTags = Unity.Physics.Material.Default.CustomTags,
-            Flags = Unity.Physics.Material.MaterialFlags.EnableCollisionEvents |
-                    Unity.Physics.Material.MaterialFlags.EnableMassFactors |
-                    Unity.Physics.Material.MaterialFlags.EnableSurfaceVelocity,
-            Friction = Unity.Physics.Material.Default.Friction,
-            FrictionCombinePolicy = Unity.Physics.Material.Default.FrictionCombinePolicy,
-            Restitution = Unity.Physics.Material.Default.Restitution,
-            RestitutionCombinePolicy = Unity.Physics.Material.Default.RestitutionCombinePolicy,
-        };*/
-        BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(
-            new BoxGeometry
-            {
-                Size = new float3(1),
-                Orientation = quaternion.identity
-            },
-            new CollisionFilter
-            {
-                BelongsTo = 1u << 0,
-                CollidesWith = 1u << 2,
-                GroupIndex = 0
-            }
-            //, material
-        );
-
-        ecb.SetComponent(index, entity, new PhysicsCollider
-        {
-            Value = collider
-        });
+        public float3 position;
+        public quaternion rotation;
     }
 }
-
