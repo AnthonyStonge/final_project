@@ -2,21 +2,19 @@
 using Havok.Physics;
 using Unity.Entities;
 using Unity.Physics.Systems;
-using UnityEngine;
 
 //[DisableAutoCreation]
 [UpdateAfter(typeof(EndFramePhysicsSystem))]
 public class CollisionTest : SystemBase
 {
     private EntityManager entityManager;
-
-
+    
     private StepPhysicsWorld stepPhysicsWorld;
 
     protected override void OnCreate()
     {
-        this.entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        this.stepPhysicsWorld = World.GetOrCreateSystem<StepPhysicsWorld>();
+        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        stepPhysicsWorld = World.GetOrCreateSystem<StepPhysicsWorld>();
     }
 
     protected override void OnUpdate()
@@ -31,7 +29,7 @@ public class CollisionTest : SystemBase
         var getter = GetComponentDataFromEntity<BulletTag>();
         
         Stack<Entity> toDelete = new Stack<Entity>();
-        
+
         foreach (var i in events)
         {
             //Debug.Log("Collision between " + i.Entities.EntityA + " and " + i.Entities.EntityB);

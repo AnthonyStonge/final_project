@@ -1,9 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
-using Unity.Rendering;
 using Unity.Transforms;
-using UnityEngine;
 using static GameVariables;
 
 [DisableAutoCreation]
@@ -62,6 +60,11 @@ public class PistolSystem : SystemBase
     {
         Entity entity = ecb.Instantiate(index, e);
         //Debug.Log("Creating entity... ID: " + entity);
+        
+        ecb.SetComponent(index, entity, new Scale
+        {
+            Value = 0.35f
+        });
         ecb.SetComponent(index, entity, new Translation
         {
             Value = trans.Position
@@ -102,3 +105,4 @@ public class PistolSystem : SystemBase
         });
     }
 }
+
