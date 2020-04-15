@@ -7,8 +7,10 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
+using UnityEngine;
 using static Unity.Mathematics.math;
-
+using quaternion = Unity.Mathematics.quaternion;
+using RaycastHit = Unity.Physics.RaycastHit;
 [UpdateAfter(typeof(MoveSystem))]
 [UpdateBefore(typeof(EndFramePhysicsSystem))]
 public class ProjectileHitDetectionSystem : JobComponentSystem
@@ -24,6 +26,8 @@ public class ProjectileHitDetectionSystem : JobComponentSystem
         public PhysicsWorld PhysicsWorld;
         public EntityCommandBuffer entityCommandBuffer;
 
+        public float deltaTime;
+
         [DeallocateOnJobCompletion]
         public NativeArray<RaycastHit> RaycastHits;
 
@@ -33,7 +37,8 @@ public class ProjectileHitDetectionSystem : JobComponentSystem
         public NativeArray<Entity> ProjectileEntities;
         [DeallocateOnJobCompletion]
         public NativeArray<Translation> ProjectileTranslations;
-
+        [DeallocateOnJobCompletion]
+        public NativeArray<Rotation> ProjectileRotations;
         // public ComponentDataFromEntity<Health> HealthsFromEntity;
 
         public void Execute()
@@ -48,10 +53,17 @@ public class ProjectileHitDetectionSystem : JobComponentSystem
             {
                 
 
+                // RaycastInput raycastInput = new RaycastInput
+                // {
+                //     Start = Projectiles[i].PreviousPosition,
+                //     End = ProjectileTranslations[i].Value,
+                //     Filter = filter
+                // };
+                
                 RaycastInput raycastInput = new RaycastInput
                 {
-                    Start = Projectiles[i].PreviousPosition,
-                    End = ProjectileTranslations[i].Value,
+                    Start = ProjectileTranslations[i].Value,
+                    End = ProjectileTranslations[i].Value + (math.forward(ProjectileRotations[i].Value) * Projectiles[i].Speed * deltaTime),
                     Filter = filter
                 };
                 MaxHitsCollector<RaycastHit> collector = new MaxHitsCollector<RaycastHit>(1.0f, ref RaycastHits);
@@ -119,6 +131,8 @@ public class ProjectileHitDetectionSystem : JobComponentSystem
             Projectiles = ProjectilesQuery.ToComponentDataArray<DamageProjectile>(Allocator.TempJob),
             ProjectileEntities = ProjectilesQuery.ToEntityArray(Allocator.TempJob),
             ProjectileTranslations = ProjectilesQuery.ToComponentDataArray<Translation>(Allocator.TempJob),
+            ProjectileRotations = ProjectilesQuery.ToComponentDataArray<Rotation>(Allocator.TempJob),
+            deltaTime = Time.DeltaTime
             // HealthsFromEntity = GetComponentDataFromEntity<Health>()
             
         };

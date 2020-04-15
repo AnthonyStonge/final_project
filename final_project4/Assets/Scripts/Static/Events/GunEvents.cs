@@ -66,7 +66,7 @@ namespace Static.Events
             });
             
             //Set name
-            entityManager.SetName(e, "Pistol Bullet");
+            entityManager.SetName(e, "Pistol Bullet " + e.Index + e.Version);
             
             //Add personal tag
             entityManager.AddComponent<PistolTag>(e);
