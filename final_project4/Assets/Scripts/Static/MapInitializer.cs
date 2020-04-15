@@ -1,5 +1,6 @@
 ﻿using Static.Events;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
 using static GameVariables;
@@ -17,65 +18,24 @@ public static class MapInitializer
         if (entityManager == null)
             return;
 
-        //TODO CHANGE VALUE IN FUNCTION BELOW IF TRYING SPAWN PLAYER FROM SAVES
-        PlayerEvents.OnPlayerSpawn.Invoke(
-            PlayerVars.SpawnPosition,
-            PlayerVars.SpawnRotation,
-            PlayerVars.DefaultHealth
-            );
-        //InitializePlayer();
+        //TODO CHANGE SPAWN POSITION HERE IF LOADING FROM SAVE
+        //Get value from scriptable object
+        float3 spawnPosition =
+            PlayerVars.Default.UseDebugVariables
+                ? PlayerVars.Default.StartingPosition.Value
+                : PlayerVars.Default.DefaultSpawnPosition.Value;
+        quaternion spawnRotation =
+            PlayerVars.Default.UseDebugVariables
+                ? PlayerVars.Default.StartingRotation.Value
+                : PlayerVars.Default.DefaultSpawnRotation.Value;
+        short spawnHealth = PlayerVars.Default.UseDebugVariables
+            ? PlayerVars.Default.StartingHealth
+            : PlayerVars.Default.DefaultHealth;
+
+        //Create player
+        PlayerEvents.OnPlayerSpawn.Invoke(spawnPosition, spawnRotation, spawnHealth);
+
         InitializePlayerWeapon();
-    }
-
-    private static void InitializePlayer()
-    {
-        //Create player entity
-        Entity player = entityManager.CreateEntity(StaticArchetypes.PlayerArchetype);
-        entityManager.SetName(player, "Player");
-
-        //Set Values
-        entityManager.SetComponentData(player, new Translation
-        {
-            Value = PlayerVars.SpawnPosition
-        });
-        entityManager.SetComponentData(player, new Rotation
-        {
-            Value = PlayerVars.SpawnRotation
-        });
-        entityManager.SetComponentData(player, new HealthData
-        {
-            Value = PlayerVars.Health
-        });
-        entityManager.SetComponentData(player, new SpeedData
-        {
-            Value = PlayerVars.Speed
-        });
-        entityManager.SetComponentData(player, new StateData
-        {
-            Value = StateActions.IDLE
-        });
-        entityManager.SetComponentData(player, new DashComponent
-        {
-            Distance = PlayerVars.DefaultDashDistance,
-            Timer = new TimeTrackerComponent
-            {
-                ResetValue = PlayerVars.DashResetTime
-            }
-        });
-        //TODO CHANGE MESH COMPONENT FOR AN "ANIMATOR"
-        entityManager.SetSharedComponentData(player, new RenderMesh
-        {
-            mesh = MonoGameVariables.instance.PlayerMesh,
-            material = MonoGameVariables.instance.playerMaterial
-        });
-
-        entityManager.AddComponentData(player, new TimeTrackerComponent(5));
-
-        //Set info in GameVariables
-        PlayerVars.Entity = player;
-        PlayerVars.CurrentPosition = PlayerVars.SpawnPosition;
-        PlayerVars.CurrentState = StateActions.IDLE;
-        PlayerVars.IsAlive = PlayerVars.Health > 0;
     }
 
     private static void InitializePlayerWeapon()
@@ -91,17 +51,17 @@ public static class MapInitializer
         entityManager.SetComponentData(weapon, new Translation
         {
             //TODO PROBLEM IF PLAYER SPAWNS WITH A ROTATION
-            Value = PlayerVars.SpawnPosition + PistolVars.PlayerOffset
+            Value = PlayerVars.Default.DefaultSpawnPosition.Value + PistolVars.PlayerOffset
         });
         entityManager.SetComponentData(weapon, new Rotation
         {
-            Value = PlayerVars.SpawnRotation
+            Value = PlayerVars.Default.DefaultSpawnRotation.Value
         });
         entityManager.SetComponentData(weapon, new Parent
         {
             Value = PlayerVars.Entity
         });
-        
+
         entityManager.SetSharedComponentData(weapon, new RenderMesh
         {
             mesh = MonoGameVariables.instance.PistolMesh,
@@ -119,10 +79,10 @@ public static class MapInitializer
             Value = PistolVars.Bullet.Speed
         });
         //entityManager.SetEnabled(e, false);
-        
+
         entityManager.SetComponentData(weapon, new PistolComponent
         {
-            CurrentBulletInMagazine = PlayerVars.StartingBulletAmount,
+            CurrentBulletInMagazine = 10, // TODO IMPLEMENT CORRECTLY
             ReloadTime = PistolVars.ReloadTime,
             BetweenShotTime = PistolVars.BetweenShotTime,
             bullet = e

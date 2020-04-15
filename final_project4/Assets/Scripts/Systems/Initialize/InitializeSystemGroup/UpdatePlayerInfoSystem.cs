@@ -11,8 +11,8 @@ public class UpdatePlayerInfoSystem : SystemBase
     {
         Entities.WithoutBurst().WithAll<PlayerTag>().ForEach((in Translation trans, in HealthData healthData, in SpeedData speedData, in StateData stateData) =>
         {
-            GameVariables.PlayerVars.Speed = speedData.Value;
-            GameVariables.PlayerVars.Health = healthData.Value;
+            GameVariables.PlayerVars.CurrentSpeed = speedData.Value;
+            GameVariables.PlayerVars.CurrentHealth = healthData.Value;
             GameVariables.PlayerVars.CurrentState = stateData.Value;
             GameVariables.PlayerVars.CurrentPosition = trans.Value;
             GameVariables.PlayerVars.Transform.position = trans.Value;

@@ -15,21 +15,16 @@ public static class GameVariables
     
     public static class PlayerVars
     {
-        //Player initialization infos
-        public static float3 SpawnPosition = float3.zero;
-        public static quaternion SpawnRotation = quaternion.identity;
-        public static int StartingBulletAmount = 13;
-
-        public static readonly float DefaultSpeed = 20f;
-        public static readonly short DefaultHealth = 3;
+        //Player static info
+        public static PlayerAssetsScriptableObject Default;
         
-        //Player general infos
+        //Player general infos (Can change during gameplay)
         public static Entity Entity;
         public static float3 CurrentPosition;
         public static StateActions CurrentState;
+        public static float CurrentSpeed;
+        public static short CurrentHealth;
         public static bool IsAlive;
-        public static float Speed;
-        public static short Health;
         
         //Dash infos
         public static readonly float DefaultDashDistance = 5f; //Value to comeback to when dash distance changes

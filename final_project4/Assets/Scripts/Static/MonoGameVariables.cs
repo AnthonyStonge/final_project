@@ -24,6 +24,15 @@ public class MonoGameVariables : MonoBehaviour
 
     #endregion
 
+    [Header("Player")]
+    public PlayerAssetsScriptableObject playerAssets;
+
+    [Header("Bullets")] 
+    public PistolBulletScriptableObject PistolBullet;
+    
+    
+    [Header("Extra")]
+    
     public Mesh PlayerMesh;
     public Material playerMaterial;
 
