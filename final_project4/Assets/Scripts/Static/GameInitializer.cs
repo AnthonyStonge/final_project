@@ -16,6 +16,7 @@ public static class GameInitializer
         
         //Init holder?
         GameVariables.PlayerVars.Default = MonoGameVariables.instance.playerAssets;
+        GameVariables.PlayerVars.Dash = MonoGameVariables.instance.playerDashAssets;
         
         //Init map
         MapInitializer.Initialize();

@@ -3,7 +3,7 @@ using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptables/Player", fileName = "new Player")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Player", fileName = "new Player")]
 public class PlayerAssetsScriptableObject : ScriptableObject
 {
     [Header("Internal Variables")]

@@ -17,6 +17,7 @@ public static class GameVariables
     {
         //Player static info
         public static PlayerAssetsScriptableObject Default;
+        public static DashScriptableObject Dash;
         
         //Player general infos (Can change during gameplay)
         public static Entity Entity;
@@ -25,11 +26,7 @@ public static class GameVariables
         public static float CurrentSpeed;
         public static short CurrentHealth;
         public static bool IsAlive;
-        
-        //Dash infos
-        public static readonly float DefaultDashDistance = 5f; //Value to comeback to when dash distance changes
-        public static float DashResetTime = 1f;
-        
+
         //Unity linker
         public static Transform Transform;
     }

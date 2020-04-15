@@ -26,6 +26,7 @@ public class MonoGameVariables : MonoBehaviour
 
     [Header("Player")]
     public PlayerAssetsScriptableObject playerAssets;
+    public DashScriptableObject playerDashAssets;
 
     [Header("Bullets")] 
     public PistolBulletScriptableObject PistolBullet;
