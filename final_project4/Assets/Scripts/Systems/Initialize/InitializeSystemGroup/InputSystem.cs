@@ -14,22 +14,29 @@ public class InputSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        InputComponent input = new InputComponent{Inventory = -1};
+        InputComponent input = entityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);
 
         input.Mouse = Input.mousePosition;
         
-        if (Input.GetKey(KeyCode.W))
-            input.Move.y += 1;
+        if (Input.GetKeyDown(KeyCode.W))
+            input.Move.y = 1;
+        if (Input.GetKeyUp(KeyCode.W))
+            input.Move.y = 0;
         
-        else if (Input.GetKey(KeyCode.S))
-            input.Move.y += -1;
+        if (Input.GetKeyDown(KeyCode.S))
+            input.Move.y = -1;
+        if (Input.GetKeyUp(KeyCode.S))
+            input.Move.y = 0;
         
-        if (Input.GetKey(KeyCode.A))
-            input.Move.x += -1;
+        if (Input.GetKeyDown(KeyCode.A))
+            input.Move.x = -1;
+        if (Input.GetKeyUp(KeyCode.A))
+            input.Move.x = 0;
         
-        else if (Input.GetKey(KeyCode.D))
-            input.Move.x += 1;
-        
+        else if (Input.GetKeyDown(KeyCode.D))
+            input.Move.x = 1;
+        else if (Input.GetKeyUp(KeyCode.D))
+            input.Move.x = 0;
         if (Input.GetKeyDown(KeyCode.E))
             input.Interact = true;
         

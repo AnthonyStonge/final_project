@@ -5,8 +5,6 @@ using Unity.Mathematics;
 using UnityEngine;
 
 [DisableAutoCreation]
-[AlwaysSynchronizeSystem]
-[AlwaysUpdateSystem]
 public class CameraFollowSystem : SystemBase
 {
     private EntityManager entityManager;
@@ -27,9 +25,6 @@ public class CameraFollowSystem : SystemBase
         
         MonoGameVariables.instance.TargetGroupCamera.AddMember(GameVariables.PlayerVars.Transform, 2, 0);
         MonoGameVariables.instance.TargetGroupCamera.AddMember(GameVariables.MouseToTransform, 1, 0);
-        var composer = MonoGameVariables.instance.VirtualCamera.GetCinemachineComponent<CinemachineComposer>();
-        composer.m_DeadZoneWidth = 0.30f;
-        composer.m_DeadZoneHeight = 0.35f;
 
     }
 
