@@ -1,18 +1,15 @@
-﻿using Unity.Burst;
-using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
+﻿using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
-using UnityEngine;
-using static Unity.Mathematics.math;
-using quaternion = Unity.Mathematics.quaternion;
 using RaycastHit = Unity.Physics.RaycastHit;
+
 [UpdateAfter(typeof(MoveSystem))]
 [UpdateBefore(typeof(EndFramePhysicsSystem))]
+[DisableAutoCreation]
 public class ProjectileHitDetectionSystem : JobComponentSystem
 {
     private BuildPhysicsWorld _physicsWorld;
@@ -51,21 +48,13 @@ public class ProjectileHitDetectionSystem : JobComponentSystem
             };
             for (int i = 0; i < Projectiles.Length; i++)
             {
-                
-
-                // RaycastInput raycastInput = new RaycastInput
-                // {
-                //     Start = Projectiles[i].PreviousPosition,
-                //     End = ProjectileTranslations[i].Value,
-                //     Filter = filter
-                // };
-                
                 RaycastInput raycastInput = new RaycastInput
                 {
                     Start = ProjectileTranslations[i].Value,
                     End = ProjectileTranslations[i].Value + (math.forward(ProjectileRotations[i].Value) * Projectiles[i].Speed * deltaTime),
                     Filter = filter
                 };
+                
                 MaxHitsCollector<RaycastHit> collector = new MaxHitsCollector<RaycastHit>(1.0f, ref RaycastHits);
 
                 if (PhysicsWorld.CastRay(raycastInput, ref collector))
