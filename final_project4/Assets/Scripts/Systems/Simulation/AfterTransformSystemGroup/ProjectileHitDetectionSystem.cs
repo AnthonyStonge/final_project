@@ -7,11 +7,12 @@ using Unity.Physics.Systems;
 using Unity.Transforms;
 using RaycastHit = Unity.Physics.RaycastHit;
 
+[UpdateAfter(typeof(BuildPhysicsWorld))]
 [UpdateBefore(typeof(EndFramePhysicsSystem))]
 public class ProjectileHitDetectionSystem : JobComponentSystem
 {
     private BuildPhysicsWorld _physicsWorld;
-    private PreTransformGroupBarrier preTransformBarrier;
+    private PostTransformGroupBarrier postTransformBarrier;
     private EntityQuery ProjectilesQuery;
     
     //[BurstCompile]
@@ -35,15 +36,12 @@ public class ProjectileHitDetectionSystem : JobComponentSystem
         [DeallocateOnJobCompletion]
         public NativeArray<Rotation> ProjectileRotations;
         // public ComponentDataFromEntity<Health> HealthsFromEntity;
+        public CollisionFilter filter;
+        
 
         public void Execute()
         {
-            CollisionFilter filter = new CollisionFilter
-            {
-                BelongsTo = 1u << 0,
-                CollidesWith = 1u << 2,
-                GroupIndex = 0
-            };
+            
             for (int i = 0; i < Projectiles.Length; i++)
             {
                 RaycastInput raycastInput = new RaycastInput
@@ -91,7 +89,7 @@ public class ProjectileHitDetectionSystem : JobComponentSystem
     {
         base.OnCreate();
 
-        preTransformBarrier = World.GetOrCreateSystem<PreTransformGroupBarrier>();
+        postTransformBarrier = World.GetOrCreateSystem<PostTransformGroupBarrier>();
         _physicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
 
         EntityQueryDesc queryDesc = new EntityQueryDesc
@@ -113,19 +111,25 @@ public class ProjectileHitDetectionSystem : JobComponentSystem
         HitDetectionJob hitDetectionJob = new HitDetectionJob
         {
             PhysicsWorld = _physicsWorld.PhysicsWorld,
-            entityCommandBuffer = preTransformBarrier.CreateCommandBuffer(),
+            entityCommandBuffer = postTransformBarrier.CreateCommandBuffer(),
             RaycastHits = new NativeArray<RaycastHit>(64, Allocator.TempJob),
             Projectiles = ProjectilesQuery.ToComponentDataArray<DamageProjectile>(Allocator.TempJob),
             ProjectileEntities = ProjectilesQuery.ToEntityArray(Allocator.TempJob),
             ProjectileTranslations = ProjectilesQuery.ToComponentDataArray<Translation>(Allocator.TempJob),
             ProjectileRotations = ProjectilesQuery.ToComponentDataArray<Rotation>(Allocator.TempJob),
-            deltaTime = Time.DeltaTime
+            deltaTime = Time.DeltaTime,
+            filter = new CollisionFilter
+            {
+                BelongsTo = 1u << 0,
+                CollidesWith = 1u << 2,
+                GroupIndex = 0
+            }
             // HealthsFromEntity = GetComponentDataFromEntity<Health>()
             
         };
         
         inputDependencies = hitDetectionJob.Schedule(inputDependencies);
-        preTransformBarrier.AddJobHandleForProducer(inputDependencies);
+        postTransformBarrier.AddJobHandleForProducer(inputDependencies);
 
         inputDependencies.Complete(); 
 

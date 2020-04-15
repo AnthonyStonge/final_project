@@ -29,7 +29,6 @@ public class PistolSystem : SystemBase
         float deltaTime = Time.DeltaTime;
 
         StateActions state = PlayerVars.CurrentState;
-
         int magazineSize = PistolVars.MagazineSize;
         float betweenShotTime = PistolVars.BetweenShotTime;
         float reloadTime = PistolVars.ReloadTime;
@@ -46,19 +45,21 @@ public class PistolSystem : SystemBase
             }
             else if (state == StateActions.ATTACKING && !pistol.IsBetweenShot)
             {
-                pistol.BetweenShotTime = betweenShotTime;
                 pistol.CurrentBulletInMagazine--;
                 if (pistol.CurrentBulletInMagazine == 0)
                 {
                     pistol.ReloadTime = reloadTime;
                 }
-
+                
+                
                 //Add event to queue
                 events.Enqueue(new BulletInfo
                 {
-                    position = trans.Position,
+                    position = trans.Position + trans.Forward * -pistol.BetweenShotTime,
                     rotation = trans.Rotation
                 });
+                pistol.BetweenShotTime = betweenShotTime;
+
             }
             else if (pistol.IsBetweenShot)
             {
@@ -68,9 +69,9 @@ public class PistolSystem : SystemBase
 
         //Terminate job before reading from array
         job.Complete();
-        BulletInfo bulletInfo;
+        
         //Call events for each bullets
-        while (this.bulletsToCreate.TryDequeue(out bulletInfo))
+        while (this.bulletsToCreate.TryDequeue(out var bulletInfo))
         {
             GunEvents.OnShootPistol.Invoke(bulletInfo.position, bulletInfo.rotation);
         }
