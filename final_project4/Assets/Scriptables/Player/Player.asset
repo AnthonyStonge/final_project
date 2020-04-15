@@ -34,6 +34,7 @@ MonoBehaviour:
     castShadows: 0
     receiveShadows: 0
     needMotionVectorPass: 0
+  PlayerAudioSource: {fileID: 0}
   UseDebugVariables: 0
   StartingPosition:
     Value:
