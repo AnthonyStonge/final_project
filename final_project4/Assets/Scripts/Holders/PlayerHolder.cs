@@ -6,8 +6,8 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public static class PlayerHolder
 {
-    private static PlayerAssetsScriptableObject playerAssets;
-    public static PlayerAssetsScriptableObject PlayerAssets => playerAssets;
+    private static PlayerAssetsScriptableObject playerAssetsAssets;
+    public static PlayerAssetsScriptableObject PlayerAssetsAssets => playerAssetsAssets;
 
     private static bool loaded = false;
     public static bool Loaded => loaded;
@@ -19,12 +19,12 @@ public static class PlayerHolder
     {
         //Set number of assets
         
-        if (playerAssets == null)
+        if (playerAssetsAssets == null)
         {
             Addressables.LoadAssetAsync<PlayerAssetsScriptableObject>("PlayerScriptableObject").Completed += 
                 obj =>
                 {
-                    playerAssets = obj.Result;
+                    playerAssetsAssets = obj.Result;
                     currentNumberOfLoadedAssets++;
                 };
         }

@@ -1,27 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Physics;
+﻿using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
-using UnityEngine.Serialization;
-[CreateAssetMenu(menuName = "Scriptables/Player")]
+
+[CreateAssetMenu(menuName = "Scriptables/Player", fileName = "new Player")]
 public class PlayerAssetsScriptableObject : ScriptableObject
 {
-    [Header("Transform")]
-    public Translation position;
-    public Rotation rotation;
-    public Scale scale;
-    public LocalToWorld localToWorld;
+    [Header("Internal Variables")]
+    public Translation DefaultSpawnPosition;
+    public Rotation DefaultSpawnRotation;
     
-    [Header("Inputs")] 
-    public InputComponent inputs;
+    [Space(5)]
+    public float DefaultSpeed = 20;
+    public short DefaultHealth = 3;
     
-    [Header("Animation")] 
-    public RenderMesh renderMesh;
-    public AnimationTestScriptableObject animationTestSequence;
-    
-    [Header("Physics")] 
-    public Velocity velocity;
-    public PhysicsCollider hitbox;
+    [Space(3)]
+    public RenderMesh renderMesh;    //TODO CHANGE FOR ANIMATION
+
+    [Header("Debug Variables")] 
+    public bool UseDebugVariables = false;
+
+    [Space(5)]
+    public Translation StartingPosition;
+    public Rotation StartingRotation;
+
+    [Space(5)]
+    public StateActions StartingState = StateActions.DYING;
+    public short StartingHealth = 1;
+
+    //[Header("Inputs")] 
+    //public InputComponent inputs;
 }

@@ -14,6 +14,9 @@ public static class GameInitializer
         PlayerEvents.Initialize();
         GunEvents.Initialize();
         
+        //Init holder?
+        GameVariables.PlayerVars.Default = MonoGameVariables.instance.playerAssets;
+        
         //Init map
         MapInitializer.Initialize();
         

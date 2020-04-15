@@ -3,6 +3,7 @@ using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
+using static GameVariables;
 
 namespace Static.Events
 {
@@ -34,11 +35,11 @@ namespace Static.Events
             //Play spawn shader?
 
             //Player death
-            OnPlayerDeath = (float3 position) => { DeathPlayer(); };        //Toggle to inactive
+            OnPlayerDeath = (float3 position) => { DeathPlayer(); }; //Toggle to inactive
             //Disable inputs
 
             //Player respawn
-            OnPlayerRespawn = RespawnPlayer;        //Toggle to active
+            OnPlayerRespawn = RespawnPlayer; //Toggle to active
             //Enable inputs
         }
 
@@ -47,7 +48,7 @@ namespace Static.Events
             //Create player entity
             Entity player = entityManager.CreateEntity(StaticArchetypes.PlayerArchetype);
             entityManager.SetName(player, "Player");
-            
+
             //Set Values
             entityManager.SetComponentData(player, new Translation
             {
@@ -63,32 +64,32 @@ namespace Static.Events
             });
             entityManager.SetComponentData(player, new SpeedData
             {
-                Value = GameVariables.PlayerVars.DefaultSpeed
+                Value = PlayerVars.Default.DefaultSpeed
             });
+            StateActions state = PlayerVars.Default.UseDebugVariables
+                ? PlayerVars.Default.StartingState
+                : StateActions.IDLE;
             entityManager.SetComponentData(player, new StateData
             {
-                Value = StateActions.IDLE
+                Value = state
             });
             entityManager.SetComponentData(player, new DashComponent
             {
-                Distance = GameVariables.PlayerVars.DefaultDashDistance,
+                Distance = PlayerVars.DefaultDashDistance,
                 Timer = new TimeTrackerComponent
                 {
-                    ResetValue = GameVariables.PlayerVars.DashResetTime
+                    ResetValue = PlayerVars.DashResetTime
                 }
             });
-            entityManager.SetSharedComponentData(player, new RenderMesh
-            {
-                mesh = MonoGameVariables.instance.PlayerMesh,
-                material = MonoGameVariables.instance.playerMaterial
-            });
-            
+            entityManager.SetSharedComponentData(player, PlayerVars.Default.renderMesh);
+
             //Set info in GameVariables
-            GameVariables.PlayerVars.Entity = player;
-            GameVariables.PlayerVars.CurrentPosition = GameVariables.PlayerVars.SpawnPosition;
-            GameVariables.PlayerVars.CurrentState = StateActions.IDLE;
-            GameVariables.PlayerVars.IsAlive = GameVariables.PlayerVars.Health > 0;
-            GameVariables.PlayerVars.Speed = GameVariables.PlayerVars.DefaultSpeed;
+            PlayerVars.Entity = player;
+            PlayerVars.CurrentPosition = position;
+            PlayerVars.CurrentState = state;
+            PlayerVars.CurrentHealth = health;
+            PlayerVars.IsAlive = PlayerVars.CurrentHealth > 0;
+            PlayerVars.CurrentSpeed = PlayerVars.Default.DefaultSpeed;
         }
 
         private static void DeathPlayer()
@@ -100,10 +101,10 @@ namespace Static.Events
         private static void RespawnPlayer(float3 position, quaternion rotation)
         {
             Entity player = GameVariables.PlayerVars.Entity;
-            
+
             //Toggle obj to active
             entityManager.SetEnabled(player, true);
-            
+
             //Set components values
             entityManager.SetComponentData(player, new Translation
             {
@@ -115,7 +116,7 @@ namespace Static.Events
             });
             entityManager.SetComponentData(player, new HealthData
             {
-                Value = GameVariables.PlayerVars.DefaultHealth
+                Value = GameVariables.PlayerVars.Default.DefaultHealth
             });
         }
     }
