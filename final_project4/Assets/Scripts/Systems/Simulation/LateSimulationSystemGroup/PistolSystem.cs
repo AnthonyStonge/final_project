@@ -65,7 +65,7 @@ public class PistolSystem : SystemBase
             {
                 pistol.BetweenShotTime -= deltaTime;
             }
-        }).ScheduleParallel(this.Dependency);
+        }).ScheduleParallel(Dependency);
 
         //Terminate job before reading from array
         job.Complete();

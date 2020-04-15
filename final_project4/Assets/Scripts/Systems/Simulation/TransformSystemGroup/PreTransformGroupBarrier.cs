@@ -5,8 +5,4 @@ using Unity.Entities;
 using Unity.Transforms;
 
 [UpdateAfter(typeof(ProjectileHitDetectionSystem))]
-//[UpdateBefore(typeof(TransformSystemGroup))]
-public class PostTransformGroupBarrier : EntityCommandBufferSystem
-{
-
-}
+public class PreTransformGroupBarrier : EntityCommandBufferSystem {}

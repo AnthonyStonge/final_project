@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 190807696}
   - component: {fileID: 190807692}
   - component: {fileID: 190807697}
+  - component: {fileID: 190807698}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -602,6 +603,25 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
+--- !u!114 &190807698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190807691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d30974bf68d61043b1572197db94cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SimulationType: 2
+  Gravity:
+    x: -0
+    y: -9.81
+    z: -0
+  SolverIterationCount: 4
+  ThreadCountHint: 8
 --- !u!1 &882793193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,7 +1254,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912010581}
-  m_LocalRotation: {x: 0.18910751, y: 0.0000033640126, z: -0.000017362985, w: 0.9819564}
+  m_LocalRotation: {x: 0.1891075, y: 0.000003364641, z: -0.000017363107, w: 0.9819564}
   m_LocalPosition: {x: -4.6614265, y: 40.80402, z: -131.15918}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1876,17 +1896,17 @@ PrefabInstance:
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18910751
+      value: 0.1891075
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000033640126
+      value: 0.000003364641
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000017362985
+      value: -0.000017363107
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
