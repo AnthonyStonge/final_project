@@ -40,8 +40,10 @@ public class ProjectileHitDetectionSystem : SystemBase
          };
         Entities.ForEach((Entity entity, int entityInQueryIndex, ref DamageProjectile projectile, in Translation translation, in Rotation rotation) =>
         {
-            NativeArray<RaycastHit> RaycastHits = new NativeArray<RaycastHit>(64, Allocator.Temp);
-
+            //System.IndexOutOfRangeException: Index {0} is out of range of '{4}' Length.
+            //If collides with more than 4 things
+            NativeArray<RaycastHit> raycastHits = new NativeArray<RaycastHit>(4, Allocator.Temp);
+            
             RaycastInput raycastInput = new RaycastInput
             {
                 Start = translation.Value,
@@ -49,7 +51,7 @@ public class ProjectileHitDetectionSystem : SystemBase
                 Filter = filter
             };
                 
-            MaxHitsCollector<RaycastHit> collector = new MaxHitsCollector<RaycastHit>(1.0f, ref RaycastHits);
+            MaxHitsCollector<RaycastHit> collector = new MaxHitsCollector<RaycastHit>(1.0f, ref raycastHits);
 
             if (PhysicsWorld.CastRay(raycastInput, ref collector))
             {
@@ -60,17 +62,18 @@ public class ProjectileHitDetectionSystem : SystemBase
 
                     for (int j = 0; j < collector.NumHits; j++)
                     {
-                        if(RaycastHits[j].Fraction < closestHit.Fraction)
+                        if(raycastHits[j].Fraction < closestHit.Fraction)
                         {
-                            closestHit = RaycastHits[j];
+                            closestHit = raycastHits[j];
                         }
                     }
                     
                     entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
                 }
             }
-            RaycastHits.Dispose();
+            raycastHits.Dispose();
         }).ScheduleParallel();
+        
         postTransformBarrier.AddJobHandleForProducer(Dependency);
 
     }

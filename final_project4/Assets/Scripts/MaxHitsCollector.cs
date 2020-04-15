@@ -29,32 +29,6 @@ public struct MaxHitsCollector<T> : ICollector<T> where T : struct, IQueryResult
         m_NumHits++;
         return true;
     }
-
-    // #region IQueryResult implementation
-    //
-    // public bool AddHit(T hit)
-    // {
-    //     
-    // }
-    //
-    // public void TransformNewHits(int oldNumHits, float oldFraction, Unity.Physics.Math.MTransform transform, uint numSubKeyBits, uint subKey)
-    // {
-    //     for (int i = oldNumHits; i < m_NumHits; i++)
-    //     {
-    //         T hit = AllHits[i];
-    //         hit.Transform(transform, numSubKeyBits, subKey);
-    //         AllHits[i] = hit;
-    //     }
-    // }
-    //
-    // public void TransformNewHits(int oldNumHits, float oldFraction, Unity.Physics.Math.MTransform transform, int rigidBodyIndex)
-    // {
-    //     for (int i = oldNumHits; i < m_NumHits; i++)
-    //     {
-    //         T hit = AllHits[i];
-    //         hit.Transform(transform, rigidBodyIndex);
-    //         AllHits[i] = hit;
-    //     }
-    // }
-    // #endregion
+    
+    
 }
