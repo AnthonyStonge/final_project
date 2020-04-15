@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Player", fileName = "new Player")]
 public class PlayerAssetsScriptableObject : ScriptableObject
 {
-    [Header("Internal Variables")]
+    [Header("Variables")]
     public Translation DefaultSpawnPosition;
     public Rotation DefaultSpawnRotation;
     
@@ -15,7 +15,10 @@ public class PlayerAssetsScriptableObject : ScriptableObject
     public short DefaultHealth = 3;
     
     [Space(3)]
-    public RenderMesh renderMesh;    //TODO CHANGE FOR ANIMATION
+    public RenderMesh RenderMesh;    //TODO CHANGE FOR ANIMATION
+
+    [Header("Internal Variables")] 
+    public AudioSource PlayerAudioSource;
 
     [Header("Debug Variables")] 
     public bool UseDebugVariables = false;

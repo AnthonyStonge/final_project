@@ -81,7 +81,7 @@ namespace Static.Events
                     ResetValue = PlayerVars.Dash.DefaultResetTime
                 }
             });
-            entityManager.SetSharedComponentData(player, PlayerVars.Default.renderMesh);
+            entityManager.SetSharedComponentData(player, PlayerVars.Default.RenderMesh);
 
             //Set info in GameVariables
             PlayerVars.Entity = player;

@@ -21,12 +21,16 @@ namespace Static.Events
             //TODO REMOVE PLS ITS DISGUSTING LOL
             GameVariables.PistolVars.Bullet.mesh = MonoGameVariables.instance.BulletMesh;
             GameVariables.PistolVars.Bullet.mat = MonoGameVariables.instance.BulletMaterial;
-            
+
             entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
             //OnShootPistol
             OnShootPistol = CreatePistolBullet;
-            
+            OnShootPistol += (p, r) =>
+            {
+                SoundEvents.PlaySound(GameVariables.PlayerVars.Default.PlayerAudioSource,
+                    GameVariables.PlayerVars.Pistol.ShootSound);
+            }; //TODO CHANGE
         }
 
         private static Entity CreateEntity(float3 position, quaternion rotation, RenderMesh renderMesh)
@@ -45,7 +49,7 @@ namespace Static.Events
                 Value = rotation
             });
             entityManager.SetSharedComponentData(e, renderMesh);
-            
+
             //
             return e;
         }
@@ -58,16 +62,16 @@ namespace Static.Events
                 material = GameVariables.PistolVars.Bullet.mat
             };
             Entity e = CreateEntity(position, dir, renderMesh);
-            
+
             //Set speed
             entityManager.SetComponentData(e, new DamageProjectile()
             {
                 Speed = GameVariables.PistolVars.Bullet.Speed
             });
-            
+
             //Set name
             entityManager.SetName(e, "Pistol Bullet " + e.Index + e.Version);
-            
+
             //Add personal tag
             entityManager.AddComponent<PistolTag>(e);
         }

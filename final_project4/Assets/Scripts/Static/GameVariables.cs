@@ -18,6 +18,7 @@ public static class GameVariables
         //Player static info
         public static PlayerAssetsScriptableObject Default;
         public static DashScriptableObject Dash;
+        public static PistolScriptableObject Pistol;
         
         //Player general infos (Can change during gameplay)
         public static Entity Entity;
