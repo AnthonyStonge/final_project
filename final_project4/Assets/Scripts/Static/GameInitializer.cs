@@ -15,11 +15,23 @@ public static class GameInitializer
         GunEvents.Initialize();
         
         //Init holder?
+        //TODO change Singleton to holders
         GameVariables.PlayerVars.Default = MonoGameVariables.instance.playerAssets;
         
         //Init map
+        //TODO change this to a more appropriate name.
         MapInitializer.Initialize();
         
+        InitializeSystems();
+    }
+
+    public static void SetMainCamera(Camera cam)
+    {
+        GameVariables.MainCamera = cam;
+    }
+
+    private static void InitializeSystems()
+    {
         var world = World.DefaultGameObjectInjectionWorld;
         
         //System Group Handles (From Unity)
@@ -52,9 +64,5 @@ public static class GameInitializer
         lateSimulation.SortSystemUpdateList();
         presentation.SortSystemUpdateList();
     }
-
-    public static void SetMainCamera(Camera cam)
-    {
-        GameVariables.MainCamera = cam;
-    }
+    
 }

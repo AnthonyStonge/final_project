@@ -9,13 +9,12 @@ namespace Static.Events
 {
     public static class PlayerEvents
     {
-        public delegate void PlayerSpawn(float3 position, quaternion rotation, short health);
+        public delegate void PlayerSpawn(float3 position, quaternion rotation);
 
         public delegate void PlayerDeath(float3 position);
 
         public delegate void PlayerRespawn(float3 position, quaternion rotation);
-
-
+        
         //Variables
         private static EntityManager entityManager;
 
@@ -23,8 +22,7 @@ namespace Static.Events
         public static PlayerSpawn OnPlayerSpawn;
         public static PlayerDeath OnPlayerDeath;
         public static PlayerRespawn OnPlayerRespawn;
-
-
+        
         public static void Initialize()
         {
             entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -35,7 +33,7 @@ namespace Static.Events
             //Play spawn shader?
 
             //Player death
-            OnPlayerDeath = (float3 position) => { DeathPlayer(); }; //Toggle to inactive
+            OnPlayerDeath = position => { DeathPlayer(); }; //Toggle to inactive
             //Disable inputs
 
             //Player respawn
@@ -43,7 +41,7 @@ namespace Static.Events
             //Enable inputs
         }
 
-        private static void SpawnPlayer(float3 position, quaternion rotation, short health)
+        private static void SpawnPlayer(float3 position, quaternion rotation)
         {
             //Create player entity
             Entity player = entityManager.CreateEntity(StaticArchetypes.PlayerArchetype);
@@ -60,7 +58,7 @@ namespace Static.Events
             });
             entityManager.SetComponentData(player, new HealthData
             {
-                Value = health
+                Value = PlayerVars.Default.DefaultHealth
             });
             entityManager.SetComponentData(player, new SpeedData
             {
@@ -87,7 +85,7 @@ namespace Static.Events
             PlayerVars.Entity = player;
             PlayerVars.CurrentPosition = position;
             PlayerVars.CurrentState = state;
-            PlayerVars.CurrentHealth = health;
+            PlayerVars.CurrentHealth = PlayerVars.Default.DefaultHealth;
             PlayerVars.IsAlive = PlayerVars.CurrentHealth > 0;
             PlayerVars.CurrentSpeed = PlayerVars.Default.DefaultSpeed;
         }
@@ -95,12 +93,12 @@ namespace Static.Events
         private static void DeathPlayer()
         {
             //Toggle obj to inactive (not destroying obj to avoid creation cost)
-            entityManager.SetEnabled(GameVariables.PlayerVars.Entity, false);
+            entityManager.SetEnabled(PlayerVars.Entity, false);
         }
 
         private static void RespawnPlayer(float3 position, quaternion rotation)
         {
-            Entity player = GameVariables.PlayerVars.Entity;
+            Entity player = PlayerVars.Entity;
 
             //Toggle obj to active
             entityManager.SetEnabled(player, true);
@@ -116,7 +114,7 @@ namespace Static.Events
             });
             entityManager.SetComponentData(player, new HealthData
             {
-                Value = GameVariables.PlayerVars.Default.DefaultHealth
+                Value = PlayerVars.Default.DefaultHealth
             });
         }
     }

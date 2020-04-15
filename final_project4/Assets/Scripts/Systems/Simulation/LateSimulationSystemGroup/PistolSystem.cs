@@ -14,17 +14,17 @@ public class PistolSystem : SystemBase
 
     protected override void OnCreate()
     {
-        this.bulletsToCreate = new NativeQueue<BulletInfo>(Allocator.Persistent);
+        bulletsToCreate = new NativeQueue<BulletInfo>(Allocator.Persistent);
     }
 
     protected override void OnDestroy()
     {
-        this.bulletsToCreate.Dispose();
+        bulletsToCreate.Dispose();
     }
 
     protected override void OnUpdate()
     {
-        NativeQueue<BulletInfo>.ParallelWriter events = this.bulletsToCreate.AsParallelWriter();
+        NativeQueue<BulletInfo>.ParallelWriter events = bulletsToCreate.AsParallelWriter();
         
         float deltaTime = Time.DeltaTime;
 
@@ -71,7 +71,7 @@ public class PistolSystem : SystemBase
 
         BulletInfo bulletInfo;
         //Call events for each bullets
-        while (this.bulletsToCreate.TryDequeue(out bulletInfo))
+        while (bulletsToCreate.TryDequeue(out bulletInfo))
         {
             GunEvents.OnShootPistol.Invoke(bulletInfo.position, bulletInfo.rotation);
         }
