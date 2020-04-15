@@ -27,13 +27,14 @@ MonoBehaviour:
   DefaultSpeed: 20
   DefaultHealth: 3
   renderMesh:
-    mesh: {fileID: -2432090755550338912, guid: 3a9db73485929f94ea4310db61ebd2de, type: 3}
+    mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     material: {fileID: 2100000, guid: 1db15ed70d2b17b44baf6463773eff32, type: 2}
     subMesh: 0
     layer: 0
     castShadows: 0
     receiveShadows: 0
     needMotionVectorPass: 0
+  PlayerAudioSource: {fileID: 0}
   UseDebugVariables: 0
   StartingPosition:
     Value:

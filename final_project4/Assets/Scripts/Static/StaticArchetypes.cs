@@ -91,13 +91,14 @@ public class StaticArchetypes
             //typeof(Scale),
             typeof(RenderMesh),
             typeof(RenderBounds),
-            typeof(SpeedData),
+            typeof(DamageProjectile),
+            //typeof(SpeedData),
             typeof(TimeTrackerComponent),
             //typeof(PhysicsVelocity),
             //typeof(PhysicsDamping),
             //typeof(PhysicsMass),
             //typeof(PhysicsGravityFactor),
-            typeof(PhysicsCollider),
+            //typeof(PhysicsCollider),
             
             //Tags
             typeof(BulletTag)

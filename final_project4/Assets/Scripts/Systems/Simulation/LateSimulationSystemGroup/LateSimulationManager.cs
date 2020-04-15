@@ -8,7 +8,7 @@ public class LateSimulationManager : ComponentSystemGroup
     private PistolSystem pistolSystem;
     private ShotgunSystem shotgunSystem;
 
-    private CollisionTest collisionTest;
+    // private ProjectileHitDetectionSystem projectileHitDetectionSystem;
 
     protected override void OnCreate()
     {
@@ -18,14 +18,14 @@ public class LateSimulationManager : ComponentSystemGroup
         pistolSystem = world.GetOrCreateSystem<PistolSystem>();
         shotgunSystem = world.GetOrCreateSystem<ShotgunSystem>();
 
-        collisionTest = world.GetOrCreateSystem<CollisionTest>();
+        // projectileHitDetectionSystem = world.GetOrCreateSystem<ProjectileHitDetectionSystem>();
 
         var lateSimulation = world.GetOrCreateSystem<LateSimulationManager>();
 
         lateSimulation.AddSystemToUpdateList(machineGunSystem);
         lateSimulation.AddSystemToUpdateList(pistolSystem);
         lateSimulation.AddSystemToUpdateList(shotgunSystem);
-        lateSimulation.AddSystemToUpdateList(collisionTest);
+        // lateSimulation.AddSystemToUpdateList(projectileHitDetectionSystem);
     }
 
     protected override void OnUpdate()
@@ -37,7 +37,7 @@ public class LateSimulationManager : ComponentSystemGroup
         //Dependency : None
         shotgunSystem.Update();
 
-        //collisionTest.Update();
+        // projectileHitDetectionSystem.Update();
     }
 
     protected override void OnDestroy()

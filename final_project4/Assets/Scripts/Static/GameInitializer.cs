@@ -3,7 +3,7 @@ using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
-public static class GameInitializer 
+public static class GameInitializer
 {
     public static void InitializeSystemWorkflow()
     {
@@ -17,6 +17,9 @@ public static class GameInitializer
         //Init holder?
         //TODO change Singleton to holders
         GameVariables.PlayerVars.Default = MonoGameVariables.instance.playerAssets;
+        GameVariables.PlayerVars.Dash = MonoGameVariables.instance.playerDashAssets;
+        GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
+        GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
         
         //Init map
         //TODO change this to a more appropriate name.
