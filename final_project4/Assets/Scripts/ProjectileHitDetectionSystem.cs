@@ -7,9 +7,7 @@ using Unity.Physics.Systems;
 using Unity.Transforms;
 using RaycastHit = Unity.Physics.RaycastHit;
 
-[UpdateAfter(typeof(MoveSystem))]
 [UpdateBefore(typeof(EndFramePhysicsSystem))]
-[DisableAutoCreation]
 public class ProjectileHitDetectionSystem : JobComponentSystem
 {
     private BuildPhysicsWorld _physicsWorld;
