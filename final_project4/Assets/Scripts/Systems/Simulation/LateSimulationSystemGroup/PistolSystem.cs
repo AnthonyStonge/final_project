@@ -71,7 +71,7 @@ public class PistolSystem : SystemBase
         job.Complete();
         
         //Call events for each bullets
-        while (this.bulletsToCreate.TryDequeue(out BulletInfo bulletInfo))
+        while (bulletsToCreate.TryDequeue(out BulletInfo bulletInfo))
         {
             GunEvents.OnShootPistol.Invoke(bulletInfo.position, bulletInfo.rotation);
         }

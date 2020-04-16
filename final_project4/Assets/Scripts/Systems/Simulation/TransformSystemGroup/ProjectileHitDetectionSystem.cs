@@ -28,7 +28,6 @@ public class ProjectileHitDetectionSystem : SystemBase
     {
          PhysicsWorld PhysicsWorld = physicsWorld.PhysicsWorld;
          var entityCommandBuffer = preTransformBarrier.CreateCommandBuffer().ToConcurrent();
-
          
          float deltaTime = Time.DeltaTime;
          
@@ -38,6 +37,7 @@ public class ProjectileHitDetectionSystem : SystemBase
              CollidesWith = 1u << 2,
              GroupIndex = 0
          };
+         
         Entities.ForEach((Entity entity, int entityInQueryIndex, ref DamageProjectile projectile, in Translation translation, in Rotation rotation) =>
         {
             //System.IndexOutOfRangeException: Index {0} is out of range of '{4}' Length.
@@ -67,7 +67,8 @@ public class ProjectileHitDetectionSystem : SystemBase
                             closestHit = raycastHits[j];
                         }
                     }
-                    
+                    Entity hitEntity = PhysicsWorld.Bodies[closestHit.RigidBodyIndex].Entity;
+
                     entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
                 }
             }
