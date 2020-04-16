@@ -6,21 +6,36 @@ using UnityEngine;
 
 namespace EventStruct
 {
-    public struct BulletInfo
+    //Create one per weapon that has been fired (not per bullet)
+    public struct WeaponInfo
     {
-        //Transform
+        public GunType GunType;
+        public WeaponEventType EventType;
+        
+        //Transform of the weapon
         public float3 Position;
         public quaternion Rotation;
         
-        //Mesh
+        //TODO CREATE FIELD FOR WEAPON SWAPPED TO???
         
-        //BulletType
-        public BulletType Type;
+        public enum WeaponEventType
+        {
+            NONE,
+            ON_SHOOT,
+            ON_RELOAD,
+            ON_SWAP
+        }
     }
 
-    public struct SoundInfo
+    //Create one per bullet that collided with something
+    public struct BulletInfo
     {
-        //SoundType
-        public SoundType Type;
+        public BulletType BulletType;
+
+        //Transform of the CollisionHit
+        public float3 HitPosition;
+        public quaternion HitRotation;
+        
+        //Add vfx/sound type field for effects on different surfaces
     }
 }

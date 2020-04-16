@@ -56,6 +56,11 @@ public static class GameInitializer
         presentation.SortSystemUpdateList();
     }
 
+    public static void OnDestroy()
+    {
+        EventsHolder.OnDestroy();
+    }
+
     public static void SetMainCamera(Camera cam)
     {
         GameVariables.MainCamera = cam;

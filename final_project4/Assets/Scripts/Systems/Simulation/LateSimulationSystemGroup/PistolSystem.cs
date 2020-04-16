@@ -12,27 +12,26 @@ using EventStruct;
 [DisableAutoCreation]
 public class PistolSystem : SystemBase
 {
-    private NativeQueue<BulletInfo> bulletToShoot;
+    private NativeQueue<WeaponInfo> weaponFired;
     
     protected override void OnCreate()
     {
-        this.bulletToShoot = new NativeQueue<BulletInfo>(Allocator.Persistent);
+        this.weaponFired = new NativeQueue<WeaponInfo>(Allocator.Persistent);
     }
 
     protected override void OnDestroy()
     {
-        this.bulletToShoot.Dispose();
-        EventsHolder.PistolBulletToShoot.Dispose();    //TODO DO SOMEWHERE ELSE
+        this.weaponFired.Dispose();
     }
 
     protected override void OnUpdate()
     {
         //Clear previous PistolBullet events
-        EventsHolder.PistolBulletToShoot.Clear();
+        EventsHolder.WeaponEvents.Clear();    //TODO MOVE TO CLEANUPSYSTEM
         
         //Create parallel writer
-        NativeQueue<BulletInfo>.ParallelWriter events = this.bulletToShoot.AsParallelWriter();
-        
+        NativeQueue<WeaponInfo>.ParallelWriter weaponFiredEvents = this.weaponFired.AsParallelWriter();
+
         //
         float deltaTime = Time.DeltaTime;
 
@@ -61,12 +60,15 @@ public class PistolSystem : SystemBase
                 
                 
                 //Add event to queue
-                events.Enqueue(new BulletInfo
+                weaponFiredEvents.Enqueue(new WeaponInfo
                 {
+                    GunType = GunType.PISTOL,
+                    EventType = WeaponInfo.WeaponEventType.ON_SHOOT,
+                    
                     Position = trans.Position + trans.Forward * -pistol.BetweenShotTime,
-                    Rotation = trans.Rotation,
-                    Type = BulletType.PISTOL
+                    Rotation = trans.Rotation
                 });
+                
                 pistol.BetweenShotTime = betweenShotTime;
 
             }
@@ -78,11 +80,15 @@ public class PistolSystem : SystemBase
         
         //Terminate job before reading from array
         job.Complete();
-
+/*
         //Move BulletInfo to EventsHolder class
         while (this.bulletToShoot.TryDequeue(out BulletInfo info))
         {
             EventsHolder.PistolBulletToShoot.Add(info);
-        }
+            EventsHolder.SoundsToPlay.Add(new SoundInfo
+            {
+                Type = SoundType.ON_PISTOL_SHOT
+            });
+        }*/
     }
 }

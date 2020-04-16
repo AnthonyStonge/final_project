@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Enums;
+using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
@@ -80,6 +81,14 @@ namespace Static.Events
                 {
                     ResetValue = PlayerVars.Dash.DefaultResetTime
                 }
+            });
+            entityManager.SetComponentData(player, new GunComponent
+            {
+                GunType = GunType.PISTOL,
+                ResetReloadTime = 0.3f,
+                MaxBulletInMagazine = 20,
+                CurrentAmountBulletInMagazine = 20,
+                CurrentAmountBulletOnPlayer = 99999999
             });
             entityManager.SetSharedComponentData(player, PlayerVars.Default.RenderMesh);
 
