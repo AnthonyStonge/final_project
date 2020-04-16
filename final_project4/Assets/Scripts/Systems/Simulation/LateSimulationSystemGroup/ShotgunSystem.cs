@@ -6,6 +6,10 @@ using UnityEngine;
 [DisableAutoCreation]
 public class ShotgunSystem : SystemBase
 {
+    
+    
+    
+    
     protected override void OnUpdate()
     {
     }
