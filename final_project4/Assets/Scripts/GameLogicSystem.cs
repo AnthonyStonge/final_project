@@ -15,7 +15,7 @@ public class GameLogicSystem : SystemBase
                     }
                     else
                     {
-                        //Initialize All Game loop entities & stuff 
+                        //Initialize All Game loop entities & stuff
                     }
                     break;
                 case GameState.MENU:
@@ -35,7 +35,7 @@ public class GameLogicSystem : SystemBase
                     }
                     else
                     {
-                        //Initialize All Game loop entities & stuff 
+                        //Initialize All Game loop entities & stuff
                     }
                     break;
                 case GameState.SCENECHANGE: 
@@ -45,7 +45,7 @@ public class GameLogicSystem : SystemBase
                     }
                     else
                     {
-                        //Initialize All Game loop entities & stuff 
+                        //Initialize All Game loop entities & stuff
                     }
                     break;
             }

@@ -28,12 +28,12 @@ public static class MapInitializer
             PlayerVars.Default.UseDebugVariables
                 ? PlayerVars.Default.StartingRotation.Value
                 : PlayerVars.Default.DefaultSpawnRotation.Value;
-        short spawnHealth = PlayerVars.Default.UseDebugVariables
+        /*short spawnHealth = PlayerVars.Default.UseDebugVariables
             ? PlayerVars.Default.StartingHealth
-            : PlayerVars.Default.DefaultHealth;
+            : PlayerVars.Default.DefaultHealth;*/
 
         //Create player
-        PlayerEvents.OnPlayerSpawn.Invoke(spawnPosition, spawnRotation, spawnHealth);
+        PlayerEvents.OnPlayerSpawn.Invoke(spawnPosition, spawnRotation);
 
         InitializePlayerWeapon();
     }
