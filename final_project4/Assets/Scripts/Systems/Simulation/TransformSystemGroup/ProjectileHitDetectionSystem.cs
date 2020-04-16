@@ -13,13 +13,13 @@ using RaycastHit = Unity.Physics.RaycastHit;
 public class ProjectileHitDetectionSystem : SystemBase
 {
     private BuildPhysicsWorld physicsWorld;
-    private PostTransformGroupBarrier postTransformBarrier;
+    private PreTransformGroupBarrier preTransformBarrier;
     
     protected override void OnCreate()
     {
         base.OnCreate();
 
-        postTransformBarrier = World.GetOrCreateSystem<PostTransformGroupBarrier>();
+        preTransformBarrier = World.GetOrCreateSystem<PreTransformGroupBarrier>();
         physicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
         
     }
@@ -27,7 +27,7 @@ public class ProjectileHitDetectionSystem : SystemBase
     protected override void OnUpdate()
     {
          PhysicsWorld PhysicsWorld = physicsWorld.PhysicsWorld;
-         var entityCommandBuffer = postTransformBarrier.CreateCommandBuffer().ToConcurrent();
+         var entityCommandBuffer = preTransformBarrier.CreateCommandBuffer().ToConcurrent();
 
          
          float deltaTime = Time.DeltaTime;
@@ -74,7 +74,7 @@ public class ProjectileHitDetectionSystem : SystemBase
             raycastHits.Dispose();
         }).ScheduleParallel();
         
-        postTransformBarrier.AddJobHandleForProducer(Dependency);
+        preTransformBarrier.AddJobHandleForProducer(Dependency);
 
     }
 }

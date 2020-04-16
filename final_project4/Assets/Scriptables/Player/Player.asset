@@ -26,7 +26,7 @@ MonoBehaviour:
         w: 0
   DefaultSpeed: 20
   DefaultHealth: 3
-  renderMesh:
+  RenderMesh:
     mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     material: {fileID: 2100000, guid: 1db15ed70d2b17b44baf6463773eff32, type: 2}
     subMesh: 0
