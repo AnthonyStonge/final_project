@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using System;
+using Enums;
 using Static.Events;
 using Unity.Collections;
 using Unity.Entities;
@@ -10,6 +11,7 @@ using static GameVariables;
 using EventStruct;
 
 [DisableAutoCreation]
+[Obsolete]
 public class PistolSystem : SystemBase
 {
     private NativeQueue<WeaponInfo> weaponFired;

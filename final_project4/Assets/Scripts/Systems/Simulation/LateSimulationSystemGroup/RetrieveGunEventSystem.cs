@@ -1,27 +1,25 @@
 ﻿using EventStruct;
+using Unity.Assertions;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Transforms;
 using UnityEngine;
+using Assert = UnityEngine.Assertions.Assert;
 [DisableAutoCreation]
 public class RetrieveGunEventSystem : SystemBase
 {
-    private EntityCommandBufferSystem simulationECB;
+    private EntityCommandBufferSystem entityCommandBuffer;
     private NativeQueue<WeaponInfo> weaponFired;
 
     protected override void OnCreate()
     {
-        simulationECB = World.GetExistingSystem<EndInitializationEntityCommandBufferSystem>();
-        if (simulationECB == null)
+        entityCommandBuffer = World.GetExistingSystem<EndInitializationEntityCommandBufferSystem>();
+        if (entityCommandBuffer == null)
             Debug.Log("GET DOWN! Problem incoming...");
         weaponFired = new NativeQueue<WeaponInfo>(Allocator.Persistent);
     }
 
-    protected override void OnDestroy()
-    {
-        weaponFired.Dispose();
-    }
 
     protected override void OnUpdate()
     {
@@ -32,7 +30,7 @@ public class RetrieveGunEventSystem : SystemBase
         NativeQueue<WeaponInfo>.ParallelWriter weaponFiredEvents = weaponFired.AsParallelWriter();
 
         //Create ECB
-        var ecb = simulationECB.CreateCommandBuffer().ToConcurrent();
+        var ecb = entityCommandBuffer.CreateCommandBuffer().ToConcurrent();
 
         //Get all StateData components
         Container states = new Container
@@ -51,7 +49,10 @@ public class RetrieveGunEventSystem : SystemBase
                 //Variables local to job
                 StateData state = states.allStateData[parent.Value];
                 WeaponInfo.WeaponEventType weaponEventType = WeaponInfo.WeaponEventType.NONE;
-
+                if (gun.IsBetweenShot)
+                {
+                    gun.BetweenShotTime -= deltaTime;
+                }
                 if (gun.IsReloading)
                 {
                     gun.ReloadTime -= deltaTime;
@@ -91,6 +92,8 @@ public class RetrieveGunEventSystem : SystemBase
                         Value = transform.Rotation
                     });
                     ecb.Instantiate(entityInQueryIndex, gun.Bullet);
+                    gun.BetweenShotTime = 0.04f - gun.BetweenShotTime;
+
                 }
                 
                 else if (gun.CurrentAmountBulletInMagazine <= 0 && gun.CurrentAmountBulletOnPlayer > 0)
@@ -101,6 +104,7 @@ public class RetrieveGunEventSystem : SystemBase
                     //Set EventType
                     weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
                 }
+                
 
                 if (weaponEventType != WeaponInfo.WeaponEventType.NONE)
                     //Add event to NativeQueue
@@ -111,18 +115,23 @@ public class RetrieveGunEventSystem : SystemBase
                         Position = transform.Position,
                         Rotation = transform.Rotation
                     });
-            }).ScheduleParallel();
+            }).ScheduleParallel(Dependency);
 
         //Terminate job so we can read from NativeQueue
-        // job.Complete();
+        job.Complete();
 
-        // //Transfer NativeQueue info to static NativeList
-        // while (weaponFired.TryDequeue(out WeaponInfo info))
-        // {
-        //     EventsHolder.WeaponEvents.Add(info);
-        // }
+        //Transfer NativeQueue info to static NativeList
+        while (weaponFired.TryDequeue(out WeaponInfo info))
+        {
+            EventsHolder.WeaponEvents.Add(info);
+        }
 
-        simulationECB.AddJobHandleForProducer(Dependency);
+        entityCommandBuffer.AddJobHandleForProducer(Dependency);
+    }
+    
+    protected override void OnDestroy()
+    {
+        weaponFired.Dispose();
     }
     
     private struct Container

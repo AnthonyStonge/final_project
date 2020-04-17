@@ -29,7 +29,7 @@ namespace Static.Events
 
         public static void Initialize()
         {
-            entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            entityManager = GameVariables.EntityManager;
 
             //Player spawn
             OnPlayerSpawn = SpawnPlayer; //Create entity

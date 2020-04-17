@@ -10,24 +10,20 @@ public static class GameInitializer
     {
         //Init archetypes (must be done before creating any entities)*
         StaticArchetypes.InitializeArchetypes();
-        
-        // ProjectileHolder.LoadAssets(); //TODO WRONG PLACE 
-        //Static Events
+
+        GameVariables.EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         // ProjectileHolder.LoadAssets();
         ProjectileHolder.pistolGameObject = MonoGameVariables.instance.pistolBullet;
         ProjectileHolder.Test();
         
-        
+        //Event init
         PlayerEvents.Initialize();
         GunEvents.Initialize();
         
         //Init holder?
-
-        
-        
         GameVariables.PlayerVars.Default = MonoGameVariables.instance.playerAssets;
         GameVariables.PlayerVars.Dash = MonoGameVariables.instance.playerDashAssets;
-        GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
+        // GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
         GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
         
         

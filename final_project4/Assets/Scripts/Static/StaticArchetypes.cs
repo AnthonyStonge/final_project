@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Unity.Entities;
 using Unity.Physics;
 using Unity.Rendering;
@@ -11,7 +12,7 @@ public class StaticArchetypes
     public static EntityArchetype PlayerArchetype;
     public static EntityArchetype EnemyArchetype;
     public static EntityArchetype GunArchetype;
-    public static EntityArchetype BulletArchetype;
+    // public static EntityArchetype BulletArchetype;
 
     public static void InitializeArchetypes()
     {
@@ -26,7 +27,7 @@ public class StaticArchetypes
         InitPlayerArchetype();
         InitEnemyArchetype();
         InitGunArchetype();
-        InitBulletArchetype();
+        // InitBulletArchetype();
     }
 
     private static void InitPlayerArchetype()
@@ -83,8 +84,10 @@ public class StaticArchetypes
         );
     }
 
+    [Obsolete]
     private static void InitBulletArchetype()
     {
+        /*
         BulletArchetype = entityManager.CreateArchetype(
             typeof(Translation),
             typeof(Rotation),
@@ -94,7 +97,7 @@ public class StaticArchetypes
             typeof(RenderBounds),
             typeof(DamageProjectile),
             //typeof(SpeedData),
-            typeof(TimeTrackerComponent),
+            //typeof(TimeTrackerComponent),
             //typeof(PhysicsVelocity),
             //typeof(PhysicsDamping),
             //typeof(PhysicsMass),
@@ -104,5 +107,6 @@ public class StaticArchetypes
             //Tags
             typeof(BulletTag)
         );
+        */
     }
 }

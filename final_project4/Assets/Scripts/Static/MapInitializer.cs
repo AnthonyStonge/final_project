@@ -15,7 +15,7 @@ public static class MapInitializer
 
     public static void Initialize()
     {
-        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        entityManager = GameVariables.EntityManager;
 
         if (entityManager == null)
             return;
@@ -53,29 +53,31 @@ public static class MapInitializer
             //TODO PROBLEM IF PLAYER SPAWNS WITH A ROTATION
             Value = PlayerVars.Default.DefaultSpawnPosition.Value + PistolVars.PlayerOffset
         });
+        
         entityManager.SetComponentData(weapon, new Rotation
         {
             Value = PlayerVars.Default.DefaultSpawnRotation.Value
+
         });
+        
         entityManager.SetComponentData(weapon, new Parent
         {
             Value = PlayerVars.Entity
         });
-
+        
         entityManager.SetSharedComponentData(weapon, new RenderMesh
         {
             mesh = MonoGameVariables.instance.PistolMesh,
             material = MonoGameVariables.instance.PistolMaterial
         });
         
-        //entityManager.SetEnabled(e, false);
-
         entityManager.SetComponentData(weapon, new GunComponent
         {
             GunType = GunType.PISTOL,
+            Bullet = ProjectileHolder.PistolPrefab,
             ResetReloadTime = 0.3f,
             MaxBulletInMagazine = 20,
-            CurrentAmountBulletInMagazine = 20,
+            CurrentAmountBulletInMagazine = 2000,
             CurrentAmountBulletOnPlayer = 9999999
         });
     }

@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
-using UnityEngine;
 
 namespace Static.Events
 {
@@ -18,23 +16,13 @@ namespace Static.Events
 
         public static void Initialize()
         {
-            //TODO REMOVE PLS ITS DISGUSTING LOL
-            GameVariables.PistolVars.Bullet.mesh = MonoGameVariables.instance.BulletMesh;
-            GameVariables.PistolVars.Bullet.mat = MonoGameVariables.instance.BulletMaterial;
-
-            entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-
-            //OnShootPistol
-            OnShootPistol = CreatePistolBullet;
-            OnShootPistol += (p, r) =>
-            {
-                SoundEvents.PlaySound(GameVariables.PlayerVars.Default.PlayerAudioSource,
-                    GameVariables.PlayerVars.Pistol.ShootSound);
-            }; //TODO CHANGE
+            entityManager = GameVariables.EntityManager;
         }
-
+        
+        [Obsolete("Use ProjectileHolder.PistolPrefab instead", false)] 
         private static Entity CreateEntity(float3 position, quaternion rotation, RenderMesh renderMesh)
         {
+            /*
             //TODO Instantiate from "Prefab"
             //Create entity
             Entity e = entityManager.CreateEntity(StaticArchetypes.BulletArchetype);
@@ -50,11 +38,14 @@ namespace Static.Events
             });
             entityManager.SetSharedComponentData(e, renderMesh);
 
-            //
             return e;
+            */
+            return default;
         }
-
-        private static void CreatePistolBullet(float3 position, quaternion dir)
+        
+        
+        [Obsolete("Use ProjectileHolder.PistolPrefab instead", false)] 
+         private static void CreatePistolBullet(float3 position, quaternion dir)
         {
             RenderMesh renderMesh = new RenderMesh
             {
@@ -62,13 +53,13 @@ namespace Static.Events
                 material = GameVariables.PistolVars.Bullet.mat
             };
             Entity e = CreateEntity(position, dir, renderMesh);
-
+            
             //Set speed
             entityManager.SetComponentData(e, new DamageProjectile()
             {
                 Speed = GameVariables.PistolVars.Bullet.Speed
             });
-
+            
             //Set name
             entityManager.SetName(e, "Pistol Bullet");
             
