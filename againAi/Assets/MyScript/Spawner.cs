@@ -26,7 +26,7 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < 50; i++)
             {
-                createFlockAgent();
+                createEntity(i);
             }
             
         }
@@ -53,6 +53,10 @@ public class Spawner : MonoBehaviour
         em.SetComponentData(e, new PathFollow
         {
             pathIndex = -1,
+        });
+        em.AddSharedComponentData(e, new BatchFilter
+        {
+            Value = 1
         });
     }
     private void createPlayer()
@@ -91,6 +95,10 @@ public class Spawner : MonoBehaviour
             mesh = playerMesh,
             material = playerMat
         });
+        em.SetSharedComponentData(eAgent, new BatchFilter
+        {
+            Value = 1
+        });
         BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(
             new BoxGeometry
             {
@@ -123,6 +131,7 @@ public class Spawner : MonoBehaviour
                 }
             )
         });
+
     }
     // Update is called once per frame
 

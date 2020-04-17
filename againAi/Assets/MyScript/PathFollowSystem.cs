@@ -1,12 +1,19 @@
-﻿using Unity.Entities;
+﻿using System.Diagnostics;
+using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using Debug = UnityEngine.Debug;
 public class PathFollowSystem : ComponentSystem
 {
+    protected override void OnCreate()
+    {
+    }
+
     protected override void OnUpdate()
     {
         float time = Time.DeltaTime;
         float3 playerPosition = float3.zero;
+
         Entities.WithAll<PlayerTag>().ForEach((ref Translation translation) => { playerPosition = translation.Value; });
         Entities.ForEach((DynamicBuffer<PathPosition> pathPos, ref Translation translation, ref PathFollow pathFollow, ref PathFindingComponent pathFindingComponent) =>
         {
