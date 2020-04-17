@@ -67,6 +67,7 @@ public static class GameInitializer
     public static void OnDestroy()
     {
         EventsHolder.OnDestroy();
+        PlayerHolder.OnDestroy();
     }
 
     public static void SetMainCamera(Camera cam)

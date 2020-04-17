@@ -19,6 +19,9 @@ public static class PlayerHolder
     //
     public static Entity PlayerPrefabEntity;
 
+    //BlobAssetsReferences    //TODO KEEP IN ANOTHER HOLDER?
+    private static BlobAssetStore playerBlobAsset;
+
     public static void LoadAssets()
     {
         //Set number of assets
@@ -40,6 +43,11 @@ public static class PlayerHolder
         ConvertPlayerPrefab();
     }
 
+    public static void OnDestroy()
+    {
+        playerBlobAsset.Dispose();
+    }
+
     private static void ConvertPlayerPrefab()
     {
         //TODO LOAD FROM ADDRESSABLE
@@ -47,12 +55,11 @@ public static class PlayerHolder
         GameObject playerGO = MonoGameVariables.instance.Player;
 
         //Convert
-        using (BlobAssetStore blob = new BlobAssetStore())
-        {
-            PlayerPrefabEntity =
-                GameObjectConversionUtility.ConvertGameObjectHierarchy(playerGO,
-                    GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blob));
-        }
+        playerBlobAsset = new BlobAssetStore();
+
+        PlayerPrefabEntity =
+            GameObjectConversionUtility.ConvertGameObjectHierarchy(playerGO,
+                GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, playerBlobAsset));
     }
 
     public static float CurrentLoadingPercentage()
