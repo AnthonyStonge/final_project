@@ -31,13 +31,10 @@ public class MonoGameVariables : MonoBehaviour
     public AudioSource playerAudioSource;
 
     [Header("Bullets")] 
-    public PistolBulletScriptableObject PistolBullet;
-    
-    
+
+    public GameObject pistolBullet;
     [Header("Extra")]
-    
-    public Mesh PlayerMesh;
-    public Material playerMaterial;
+    public GameObject Player;
 
     public Mesh PistolMesh;
     public Material PistolMaterial;
@@ -45,8 +42,5 @@ public class MonoGameVariables : MonoBehaviour
     public Mesh BulletMesh;
     public Material BulletMaterial;
 
-    public Camera MainCamera;
-
-    public CinemachineVirtualCamera VirtualCamera;
     public CinemachineTargetGroup TargetGroupCamera;
 }

@@ -22,7 +22,6 @@
          
          Entities.ForEach((ref Translation translation, ref DamageProjectile projectile, in Rotation rotation) =>
          {
-             projectile.PreviousPosition = translation.Value;
              translation.Value += math.forward(rotation.Value) * projectile.Speed * dt;
          }).ScheduleParallel();
      }

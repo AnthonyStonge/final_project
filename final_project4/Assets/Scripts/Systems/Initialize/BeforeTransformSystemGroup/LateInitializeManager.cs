@@ -14,6 +14,9 @@ public class LateInitializeManager : ComponentSystemGroup
     private StateDyingSystem stateDyingSystem;
     private StateDashingSystem stateDashingSystem;
     
+    private MachineGunSystem machineGunSystem;
+    private ShotgunSystem shotgunSystem;
+    private RetrieveGunEventSystem retrieveGunEventSystem;
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
@@ -25,6 +28,10 @@ public class LateInitializeManager : ComponentSystemGroup
         enemyTargetSystem = world.GetOrCreateSystem<EnemyTargetSystem>();
         stateDyingSystem = world.GetOrCreateSystem<StateDyingSystem>();
         stateDashingSystem = world.GetOrCreateSystem<StateDashingSystem>();
+        
+        machineGunSystem = world.GetOrCreateSystem<MachineGunSystem>();
+        shotgunSystem = world.GetOrCreateSystem<ShotgunSystem>();
+        retrieveGunEventSystem = world.GetOrCreateSystem<RetrieveGunEventSystem>();
 
         var initialize = world.GetOrCreateSystem<LateInitializeManager>();
 
@@ -35,6 +42,10 @@ public class LateInitializeManager : ComponentSystemGroup
         initialize.AddSystemToUpdateList(enemyTargetSystem);
         initialize.AddSystemToUpdateList(stateDyingSystem);
         initialize.AddSystemToUpdateList(stateDashingSystem);
+        
+        initialize.AddSystemToUpdateList(machineGunSystem);
+        initialize.AddSystemToUpdateList(shotgunSystem);
+        initialize.AddSystemToUpdateList(retrieveGunEventSystem);
     }
 
     protected override void OnStartRunning()
@@ -61,5 +72,10 @@ public class LateInitializeManager : ComponentSystemGroup
         #endregion
         //Dependency : StateDyingSystem
         stateDashingSystem.Update();
+        machineGunSystem.Update();
+        //Dependency : None
+        shotgunSystem.Update();
+        
+        retrieveGunEventSystem.Update();
     }
 }

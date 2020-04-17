@@ -1,4 +1,6 @@
-﻿using Static.Events;
+﻿using Holders;
+﻿using Enums;
+using Static.Events;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Rendering;
@@ -13,7 +15,7 @@ public static class MapInitializer
 
     public static void Initialize()
     {
-        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        entityManager = GameVariables.EntityManager;
 
         if (entityManager == null)
             return;
@@ -45,53 +47,38 @@ public static class MapInitializer
         Entity weapon = entityManager.CreateEntity(StaticArchetypes.GunArchetype);
         entityManager.SetName(weapon, "Player Weapon");
 
-        entityManager.AddComponent<PistolComponent>(weapon);
-
         //Set Values
         entityManager.SetComponentData(weapon, new Translation
         {
             //TODO PROBLEM IF PLAYER SPAWNS WITH A ROTATION
             Value = PlayerVars.Default.DefaultSpawnPosition.Value + PistolVars.PlayerOffset
         });
+        
         entityManager.SetComponentData(weapon, new Rotation
         {
             Value = PlayerVars.Default.DefaultSpawnRotation.Value
+
         });
+        
         entityManager.SetComponentData(weapon, new Parent
         {
             Value = PlayerVars.Entity
         });
-
+        
         entityManager.SetSharedComponentData(weapon, new RenderMesh
         {
             mesh = MonoGameVariables.instance.PistolMesh,
             material = MonoGameVariables.instance.PistolMaterial
         });
-
-        Entity e = entityManager.CreateEntity(StaticArchetypes.BulletArchetype);
         
-        entityManager.SetName(e, "Pistol Bullet");
-        entityManager.SetEnabled(e, false);
-        
-        entityManager.SetSharedComponentData(e, new RenderMesh
+        entityManager.SetComponentData(weapon, new GunComponent
         {
-            mesh = MonoGameVariables.instance.BulletMesh,
-            material = MonoGameVariables.instance.BulletMaterial
-        });
-        
-        entityManager.SetComponentData(e, new DamageProjectile
-        {
-            Speed = PistolVars.Bullet.Speed
-        });
-        
-        //entityManager.SetEnabled(e, false);
-
-        entityManager.SetComponentData(weapon, new PistolComponent
-        {
-            CurrentBulletInMagazine = 10, // TODO IMPLEMENT CORRECTLY
-            ReloadTime = PistolVars.ReloadTime,
-            BetweenShotTime = PistolVars.BetweenShotTime,
-            bullet = e
+            GunType = GunType.PISTOL,
+            Bullet = ProjectileHolder.PistolPrefab,
+            ResetReloadTime = 0.3f,
+            MaxBulletInMagazine = 20,
+            CurrentAmountBulletInMagazine = 2000,
+            CurrentAmountBulletOnPlayer = 9999999
         });
     }
 }

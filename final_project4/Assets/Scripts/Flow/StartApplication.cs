@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class StartApplication : MonoBehaviour
 {
@@ -8,5 +9,10 @@ public class StartApplication : MonoBehaviour
     {
         GameInitializer.SetMainCamera(CurrentCamera);
         GameInitializer.InitializeSystemWorkflow();
+    }
+
+    private void OnDestroy()
+    {
+        GameInitializer.OnDestroy();
     }
 }

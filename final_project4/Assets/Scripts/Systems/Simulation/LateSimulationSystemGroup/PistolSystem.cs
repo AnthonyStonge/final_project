@@ -1,4 +1,6 @@
-﻿using Static.Events;
+﻿using System;
+using Enums;
+using Static.Events;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -6,26 +8,33 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 using static GameVariables;
+using EventStruct;
 
 [DisableAutoCreation]
+[Obsolete]
 public class PistolSystem : SystemBase
 {
-    private NativeQueue<BulletInfo> bulletsToCreate;
-
+    private NativeQueue<WeaponInfo> weaponFired;
+    
     protected override void OnCreate()
     {
-        bulletsToCreate = new NativeQueue<BulletInfo>(Allocator.Persistent);
+        this.weaponFired = new NativeQueue<WeaponInfo>(Allocator.Persistent);
     }
 
     protected override void OnDestroy()
     {
-        bulletsToCreate.Dispose();
+        this.weaponFired.Dispose();
     }
 
     protected override void OnUpdate()
     {
-        NativeQueue<BulletInfo>.ParallelWriter events = bulletsToCreate.AsParallelWriter();
+        //Clear previous PistolBullet events
+        EventsHolder.WeaponEvents.Clear();    //TODO MOVE TO CLEANUPSYSTEM
         
+        //Create parallel writer
+        NativeQueue<WeaponInfo>.ParallelWriter weaponFiredEvents = this.weaponFired.AsParallelWriter();
+
+        //
         float deltaTime = Time.DeltaTime;
 
         StateActions state = PlayerVars.CurrentState;
@@ -53,11 +62,15 @@ public class PistolSystem : SystemBase
                 
                 
                 //Add event to queue
-                events.Enqueue(new BulletInfo
+                weaponFiredEvents.Enqueue(new WeaponInfo
                 {
-                    position = trans.Position + trans.Forward * -pistol.BetweenShotTime,
-                    rotation = trans.Rotation
+                    GunType = GunType.PISTOL,
+                    EventType = WeaponInfo.WeaponEventType.ON_SHOOT,
+                    
+                    Position = trans.Position + trans.Forward * -pistol.BetweenShotTime,
+                    Rotation = trans.Rotation
                 });
+                
                 pistol.BetweenShotTime = betweenShotTime;
 
             }
@@ -66,20 +79,18 @@ public class PistolSystem : SystemBase
                 pistol.BetweenShotTime -= deltaTime;
             }
         }).ScheduleParallel(Dependency);
-
+        
         //Terminate job before reading from array
         job.Complete();
-        
-        //Call events for each bullets
-        while (bulletsToCreate.TryDequeue(out BulletInfo bulletInfo))
+/*
+        //Move BulletInfo to EventsHolder class
+        while (this.bulletToShoot.TryDequeue(out BulletInfo info))
         {
-            GunEvents.OnShootPistol.Invoke(bulletInfo.position, bulletInfo.rotation);
-        }
-    }
-
-    private struct BulletInfo
-    {
-        public float3 position;
-        public quaternion rotation;
+            EventsHolder.PistolBulletToShoot.Add(info);
+            EventsHolder.SoundsToPlay.Add(new SoundInfo
+            {
+                Type = SoundType.ON_PISTOL_SHOT
+            });
+        }*/
     }
 }

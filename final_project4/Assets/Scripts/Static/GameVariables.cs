@@ -5,20 +5,16 @@ using UnityEngine;
 public static class GameVariables
 {
     public static bool InputEnabled = true;
-
+    public static EntityManager EntityManager;
     public static Camera MainCamera;
     public static Transform MouseToTransform;
-
-    public static EntityArchetype BulletArchetype;
-    public static Mesh BulletMesh;
-    public static Material BulletMat;
     
     public static class PlayerVars
     {
         //Player static info
         public static PlayerAssetsScriptableObject Default;
         public static DashScriptableObject Dash;
-        public static PistolScriptableObject Pistol;
+        // public static PistolScriptableObject Pistol;
         
         //Player general infos (Can change during gameplay)
         public static Entity Entity;
@@ -30,11 +26,6 @@ public static class GameVariables
 
         //Unity linker
         public static Transform Transform;
-    }
-
-    public static class CameraVars
-    {
-        public static float3 PlayerOffset = new float3(0, 5, 0);
     }
 
     public static class PistolVars

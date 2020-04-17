@@ -1,4 +1,6 @@
-﻿using Unity.Entities;
+﻿using Enums;
+using Holders;
+using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
@@ -25,7 +27,7 @@ namespace Static.Events
         
         public static void Initialize()
         {
-            entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            entityManager = GameVariables.EntityManager;
 
             //Player spawn
             OnPlayerSpawn = SpawnPlayer; //Create entity
