@@ -33,8 +33,8 @@ public class ProjectileHitDetectionSystem : SystemBase
          
          CollisionFilter filter = new CollisionFilter
          {
-             BelongsTo = 1u << 0,
-             CollidesWith = 1u << 2,
+             BelongsTo = 1 << 0,
+             CollidesWith = 1 << 10,
              GroupIndex = 0
          };
          

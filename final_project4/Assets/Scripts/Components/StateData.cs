@@ -2,6 +2,7 @@
 using Unity.Entities;
 
 [Serializable]
+[GenerateAuthoringComponent]
 public struct StateData : IComponentData
 {
     public StateActions Value;

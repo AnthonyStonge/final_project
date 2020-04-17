@@ -24,7 +24,7 @@ public class StateDashingSystem : SystemBase
             if (state.Value == StateActions.DASHING)
             {
                 //Make sure dash isnt in cooldown
-                if (dash.Timer.Available)
+                /*if (dash.Timer.Available)
                 {
                     //Debug.Log("Dashed");
                     dash.Timer.Reset();
@@ -33,7 +33,7 @@ public class StateDashingSystem : SystemBase
                     float3 forward = math.forward(rotation.Value);
 
                     velocity.Linear += forward * dash.Distance;
-                }
+                }*/
             }
         }).ScheduleParallel();
     }

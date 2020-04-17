@@ -16,6 +16,8 @@ public static class GameInitializer
         ProjectileHolder.pistolGameObject = MonoGameVariables.instance.pistolBullet;
         ProjectileHolder.Test();
         
+        PlayerHolder.Initialize();
+        
         //Event init
         PlayerEvents.Initialize();
         GunEvents.Initialize();
@@ -25,7 +27,6 @@ public static class GameInitializer
         GameVariables.PlayerVars.Dash = MonoGameVariables.instance.playerDashAssets;
         // GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
         GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
-        
         
         //Init map
         MapInitializer.Initialize();

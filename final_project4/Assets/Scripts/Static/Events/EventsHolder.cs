@@ -9,10 +9,13 @@ public static class EventsHolder
     public static NativeList<BulletInfo> BulletsEvents =
         new NativeList<BulletInfo>(Allocator.Persistent);
     
+    public static NativeList<PlayerInfo> PlayerEvents =
+        new NativeList<PlayerInfo>(Allocator.Persistent);
 
     public static void OnDestroy()
     {
         WeaponEvents.Dispose();
         BulletsEvents.Dispose();
+        PlayerEvents.Dispose();
     }
 }

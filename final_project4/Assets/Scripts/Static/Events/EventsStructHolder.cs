@@ -38,4 +38,20 @@ namespace EventStruct
         
         //Add vfx/sound type field for effects on different surfaces
     }
+
+    public struct PlayerInfo
+    {
+        //Event position
+        public float3 Position;
+        public quaternion Rotation;
+        
+        public enum PlayerEventType
+        {
+            NONE,
+            ON_SPAWN,
+            ON_RESPAWN,
+            ON_DIE,
+            ON_TAKING_DAMAGE
+        }
+    }
 }
