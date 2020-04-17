@@ -2,12 +2,12 @@
 using UnityEngine;
 
 [DisableAutoCreation]
+[UpdateAfter(typeof(LateInitializeManager))]
 public class LateSimulationManager : ComponentSystemGroup
 {
     private MachineGunSystem machineGunSystem;
-    private PistolSystem pistolSystem;
     private ShotgunSystem shotgunSystem;
-
+    private RetrieveGunEventSystem retrieveGunEventSystem;
     // private ProjectileHitDetectionSystem projectileHitDetectionSystem;
 
     protected override void OnCreate()
@@ -15,16 +15,16 @@ public class LateSimulationManager : ComponentSystemGroup
         var world = World.DefaultGameObjectInjectionWorld;
 
         machineGunSystem = world.GetOrCreateSystem<MachineGunSystem>();
-        pistolSystem = world.GetOrCreateSystem<PistolSystem>();
         shotgunSystem = world.GetOrCreateSystem<ShotgunSystem>();
+        retrieveGunEventSystem = world.GetOrCreateSystem<RetrieveGunEventSystem>();
 
         // projectileHitDetectionSystem = world.GetOrCreateSystem<ProjectileHitDetectionSystem>();
 
         var lateSimulation = world.GetOrCreateSystem<LateSimulationManager>();
 
         lateSimulation.AddSystemToUpdateList(machineGunSystem);
-        lateSimulation.AddSystemToUpdateList(pistolSystem);
         lateSimulation.AddSystemToUpdateList(shotgunSystem);
+        lateSimulation.AddSystemToUpdateList(retrieveGunEventSystem);
         // lateSimulation.AddSystemToUpdateList(projectileHitDetectionSystem);
     }
 
@@ -33,9 +33,10 @@ public class LateSimulationManager : ComponentSystemGroup
         //Dependency : None
         machineGunSystem.Update();
         //Dependency : None
-        pistolSystem.Update();
-        //Dependency : None
         shotgunSystem.Update();
+        
+        retrieveGunEventSystem.Update();
+        
 
         // projectileHitDetectionSystem.Update();
     }

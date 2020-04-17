@@ -4,7 +4,7 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Transforms;
 using UnityEngine;
-
+[DisableAutoCreation]
 public class RetrieveGunEventSystem : SystemBase
 {
     private EntityCommandBufferSystem simulationECB;
@@ -12,15 +12,15 @@ public class RetrieveGunEventSystem : SystemBase
 
     protected override void OnCreate()
     {
-        this.simulationECB = World.GetExistingSystem<EndSimulationEntityCommandBufferSystem>();
-        if (this.simulationECB == null)
+        simulationECB = World.GetExistingSystem<EndInitializationEntityCommandBufferSystem>();
+        if (simulationECB == null)
             Debug.Log("GET DOWN! Problem incoming...");
-        this.weaponFired = new NativeQueue<WeaponInfo>(Allocator.Persistent);
+        weaponFired = new NativeQueue<WeaponInfo>(Allocator.Persistent);
     }
 
     protected override void OnDestroy()
     {
-        this.weaponFired.Dispose();
+        weaponFired.Dispose();
     }
 
     protected override void OnUpdate()
@@ -29,16 +29,15 @@ public class RetrieveGunEventSystem : SystemBase
         EventsHolder.WeaponEvents.Clear(); //TODO MOVE TO CLEANUPSYSTEM
 
         //Create parallel writer
-        NativeQueue<WeaponInfo>.ParallelWriter weaponFiredEvents = this.weaponFired.AsParallelWriter();
+        NativeQueue<WeaponInfo>.ParallelWriter weaponFiredEvents = weaponFired.AsParallelWriter();
 
         //Create ECB
-        EntityCommandBuffer.Concurrent ecb = this.simulationECB.CreateCommandBuffer().ToConcurrent();
+        var ecb = simulationECB.CreateCommandBuffer().ToConcurrent();
 
         float deltaTime = Time.DeltaTime;
-        EntityArchetype entityArchetype = StaticArchetypes.BulletArchetype;
-
-        JobHandle job = Entities.ForEach(
-            (int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in StateData state) =>
+        
+        Entities.ForEach(
+            (int entityInQueryIndex, ref GunComponent gun, in LocalToWorld transform, in StateData state) =>
             {
                 WeaponInfo.WeaponEventType weaponEventType = WeaponInfo.WeaponEventType.NONE;
 
@@ -71,16 +70,18 @@ public class RetrieveGunEventSystem : SystemBase
 
                     //Create entity in EntityCommandBuffer
                     //TODO GET PREFAB ENTITY LINK WITH GUNTYPE
-                    Entity e = ecb.CreateEntity(entityInQueryIndex, entityArchetype);
-                    ecb.SetComponent(entityInQueryIndex, e, new Translation
+
+                    ecb.SetComponent(entityInQueryIndex, gun.Bullet, new Translation
                     {
                         Value = transform.Position
                     });
-                    ecb.SetComponent(entityInQueryIndex, e, new Rotation
+                    ecb.SetComponent(entityInQueryIndex, gun.Bullet, new Rotation
                     {
                         Value = transform.Rotation
                     });
+                    ecb.Instantiate(entityInQueryIndex, gun.Bullet);
                 }
+                
                 else if (gun.CurrentAmountBulletInMagazine <= 0 && gun.CurrentAmountBulletOnPlayer > 0)
                 {
                     //Reload event
@@ -99,17 +100,17 @@ public class RetrieveGunEventSystem : SystemBase
                         Position = transform.Position,
                         Rotation = transform.Rotation
                     });
-            }).ScheduleParallel(this.Dependency);
+            }).ScheduleParallel();
 
         //Terminate job so we can read from NativeQueue
-        job.Complete();
+        // job.Complete();
 
-        //Transfer NativeQueue info to static NativeList
-        while (weaponFired.TryDequeue(out WeaponInfo info))
-        {
-            EventsHolder.WeaponEvents.Add(info);
-        }
+        // //Transfer NativeQueue info to static NativeList
+        // while (weaponFired.TryDequeue(out WeaponInfo info))
+        // {
+        //     EventsHolder.WeaponEvents.Add(info);
+        // }
 
-        this.simulationECB.AddJobHandleForProducer(this.Dependency);
+        simulationECB.AddJobHandleForProducer(Dependency);
     }
 }

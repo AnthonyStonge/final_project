@@ -31,9 +31,9 @@ public class MonoGameVariables : MonoBehaviour
     public AudioSource playerAudioSource;
 
     [Header("Bullets")] 
-    public PistolBulletScriptableObject PistolBullet;
-    
-    
+    // public PistolBulletScriptableObject PistolBullet;
+
+    public GameObject pistolBullet;
     [Header("Extra")]
     
     public Mesh PlayerMesh;

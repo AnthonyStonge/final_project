@@ -1,4 +1,5 @@
 ﻿using Enums;
+using Holders;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Rendering;
@@ -84,10 +85,11 @@ namespace Static.Events
             });
             entityManager.SetComponentData(player, new GunComponent
             {
+                Bullet = ProjectileHolder.PistolPrefab,
                 GunType = GunType.PISTOL,
                 ResetReloadTime = 0.3f,
                 MaxBulletInMagazine = 20,
-                CurrentAmountBulletInMagazine = 20,
+                CurrentAmountBulletInMagazine = 2000,
                 CurrentAmountBulletOnPlayer = 99999999
             });
             entityManager.SetSharedComponentData(player, PlayerVars.Default.RenderMesh);

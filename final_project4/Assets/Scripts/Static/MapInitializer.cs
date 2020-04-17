@@ -1,4 +1,5 @@
-﻿using Static.Events;
+﻿using Holders;
+using Static.Events;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Rendering;
@@ -68,30 +69,12 @@ public static class MapInitializer
             material = MonoGameVariables.instance.PistolMaterial
         });
 
-        Entity e = entityManager.CreateEntity(StaticArchetypes.BulletArchetype);
-        
-        entityManager.SetName(e, "Pistol Bullet");
-        entityManager.SetEnabled(e, false);
-        
-        entityManager.SetSharedComponentData(e, new RenderMesh
-        {
-            mesh = MonoGameVariables.instance.BulletMesh,
-            material = MonoGameVariables.instance.BulletMaterial
-        });
-        
-        entityManager.SetComponentData(e, new DamageProjectile
-        {
-            Speed = PistolVars.Bullet.Speed
-        });
-        
-        //entityManager.SetEnabled(e, false);
-
         entityManager.SetComponentData(weapon, new PistolComponent
         {
             CurrentBulletInMagazine = 10, // TODO IMPLEMENT CORRECTLY
             ReloadTime = PistolVars.ReloadTime,
             BetweenShotTime = PistolVars.BetweenShotTime,
-            bullet = e
+            bullet = ProjectileHolder.PistolPrefab
         });
     }
 }

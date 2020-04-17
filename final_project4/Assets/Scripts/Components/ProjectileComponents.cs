@@ -8,11 +8,10 @@ using Unity.Physics.Authoring;
 using UnityEngine;
 
 [Serializable]
+[GenerateAuthoringComponent]
 public struct DamageProjectile : IComponentData
 {
     public float Speed;
-    [NonSerialized]
-    public float3 PreviousPosition;
     public float Radius;
 }
 

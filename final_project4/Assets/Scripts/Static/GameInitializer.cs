@@ -1,4 +1,5 @@
-﻿using Static.Events;
+﻿using Holders;
+using Static.Events;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
@@ -10,15 +11,25 @@ public static class GameInitializer
         //Init archetypes (must be done before creating any entities)*
         StaticArchetypes.InitializeArchetypes();
         
+        // ProjectileHolder.LoadAssets(); //TODO WRONG PLACE 
         //Static Events
+        // ProjectileHolder.LoadAssets();
+        ProjectileHolder.pistolGameObject = MonoGameVariables.instance.pistolBullet;
+        ProjectileHolder.Test();
+        
+        
         PlayerEvents.Initialize();
         GunEvents.Initialize();
         
         //Init holder?
+
+        
+        
         GameVariables.PlayerVars.Default = MonoGameVariables.instance.playerAssets;
         GameVariables.PlayerVars.Dash = MonoGameVariables.instance.playerDashAssets;
         GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
         GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
+        
         
         //Init map
         MapInitializer.Initialize();
@@ -45,7 +56,7 @@ public static class GameInitializer
         initialization.AddSystemToUpdateList(afterInitialization);
 
         transform.AddSystemToUpdateList(transformSimulationManager);
-        lateSimulation.AddSystemToUpdateList(lateSimulationManager);
+        initialization.AddSystemToUpdateList(lateSimulationManager);
         
         presentation.AddSystemToUpdateList(presentationManager);
         

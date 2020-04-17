@@ -4,7 +4,7 @@ using Unity.Entities;
 public struct GunComponent : IComponentData
 {
     public GunType GunType;
-
+    public Entity Bullet;
     public int CurrentAmountBulletInMagazine;
     public int CurrentAmountBulletOnPlayer;
     public int MaxBulletInMagazine;

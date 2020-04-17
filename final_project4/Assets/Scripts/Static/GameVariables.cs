@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class GameVariables
 {
+    public static int loadingAssets = 0;
     public static bool InputEnabled = true;
 
     public static Camera MainCamera;
