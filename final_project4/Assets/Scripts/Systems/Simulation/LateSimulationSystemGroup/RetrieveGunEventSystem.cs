@@ -34,12 +34,23 @@ public class RetrieveGunEventSystem : SystemBase
         //Create ECB
         EntityCommandBuffer.Concurrent ecb = this.simulationECB.CreateCommandBuffer().ToConcurrent();
 
+        //Get all StateData components
+        Container states = new Container
+        {
+            allStateData = GetComponentDataFromEntity<StateData>()
+        };
+
         float deltaTime = Time.DeltaTime;
         EntityArchetype entityArchetype = StaticArchetypes.BulletArchetype;
 
         JobHandle job = Entities.ForEach(
-            (int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in StateData state) =>
+            (int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in Parent parent) =>
             {
+                if (!states.allStateData.HasComponent(parent.Value))
+                    return;
+                
+                //Variables local to job
+                StateData state = states.allStateData[parent.Value];
                 WeaponInfo.WeaponEventType weaponEventType = WeaponInfo.WeaponEventType.NONE;
 
                 if (gun.IsReloading)
@@ -111,5 +122,10 @@ public class RetrieveGunEventSystem : SystemBase
         }
 
         this.simulationECB.AddJobHandleForProducer(this.Dependency);
+    }
+    
+    private struct Container
+    {
+        [ReadOnly] public ComponentDataFromEntity<StateData> allStateData;
     }
 }
