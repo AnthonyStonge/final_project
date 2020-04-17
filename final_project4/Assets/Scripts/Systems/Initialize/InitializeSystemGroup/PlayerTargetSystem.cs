@@ -30,8 +30,8 @@ public class PlayerTargetSystem : SystemBase
                 End = camRay.GetPoint(2000),
                 Filter = new CollisionFilter
                 {
-                    BelongsTo = 0,
-                    CollidesWith = 1 << 30,
+                    BelongsTo = 1u << 31,
+                    CollidesWith = 1u << 30,
                     GroupIndex = 0
                 }
             };

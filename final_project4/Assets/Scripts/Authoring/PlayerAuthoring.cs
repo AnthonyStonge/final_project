@@ -13,5 +13,9 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponentData(entity, new PlayerTag());
         dstManager.AddComponentData(entity, new TargetData());
         dstManager.AddComponentData(entity, new InputComponent());
+        dstManager.AddComponentData(entity, new SpeedData
+        {
+            Value = 20
+        });
     }
 }
