@@ -10,7 +10,7 @@ public static class GameInitializer
     {
         //Init archetypes (must be done before creating any entities)*
         StaticArchetypes.InitializeArchetypes();
-
+        
         GameVariables.EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         // ProjectileHolder.LoadAssets();
         ProjectileHolder.pistolGameObject = MonoGameVariables.instance.pistolBullet;
@@ -27,19 +27,13 @@ public static class GameInitializer
         // GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
         GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
         
-        
         //Init map
         //TODO change this to a more appropriate name.
         MapInitializer.Initialize();
         
         InitializeSystems();
     }
-
-    public static void SetMainCamera(Camera cam)
-    {
-        GameVariables.MainCamera = cam;
-    }
-
+    
     private static void InitializeSystems()
     {
         var world = World.DefaultGameObjectInjectionWorld;
@@ -50,6 +44,8 @@ public static class GameInitializer
         var lateSimulation = world.GetOrCreateSystem<LateSimulationSystemGroup>();
         var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();
 
+        var gameLogicSystem = world.GetOrCreateSystem<GameLogicSystem>();
+        
         //Managers
         var initializeManager = world.GetOrCreateSystem<InitializeManager>();
         var afterInitialization = world.GetOrCreateSystem<LateInitializeManager>();
@@ -59,7 +55,7 @@ public static class GameInitializer
 
         var presentationManager = world.GetOrCreateSystem<PresentationManager>();
         
-        //Adding systems
+        //Adding Managers as systems
         initialization.AddSystemToUpdateList(initializeManager);
         initialization.AddSystemToUpdateList(afterInitialization);
 
