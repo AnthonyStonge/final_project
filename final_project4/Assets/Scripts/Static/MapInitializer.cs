@@ -1,4 +1,5 @@
 ﻿using Holders;
+﻿using Enums;
 using Static.Events;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -46,8 +47,6 @@ public static class MapInitializer
         Entity weapon = entityManager.CreateEntity(StaticArchetypes.GunArchetype);
         entityManager.SetName(weapon, "Player Weapon");
 
-        entityManager.AddComponent<PistolComponent>(weapon);
-
         //Set Values
         entityManager.SetComponentData(weapon, new Translation
         {
@@ -68,13 +67,16 @@ public static class MapInitializer
             mesh = MonoGameVariables.instance.PistolMesh,
             material = MonoGameVariables.instance.PistolMaterial
         });
+        
+        //entityManager.SetEnabled(e, false);
 
-        entityManager.SetComponentData(weapon, new PistolComponent
+        entityManager.SetComponentData(weapon, new GunComponent
         {
-            CurrentBulletInMagazine = 10, // TODO IMPLEMENT CORRECTLY
-            ReloadTime = PistolVars.ReloadTime,
-            BetweenShotTime = PistolVars.BetweenShotTime,
-            bullet = ProjectileHolder.PistolPrefab
+            GunType = GunType.PISTOL,
+            ResetReloadTime = 0.3f,
+            MaxBulletInMagazine = 20,
+            CurrentAmountBulletInMagazine = 20,
+            CurrentAmountBulletOnPlayer = 9999999
         });
     }
 }

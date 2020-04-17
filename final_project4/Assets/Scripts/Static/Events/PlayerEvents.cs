@@ -83,15 +83,6 @@ namespace Static.Events
                     ResetValue = PlayerVars.Dash.DefaultResetTime
                 }
             });
-            entityManager.SetComponentData(player, new GunComponent
-            {
-                Bullet = ProjectileHolder.PistolPrefab,
-                GunType = GunType.PISTOL,
-                ResetReloadTime = 0.3f,
-                MaxBulletInMagazine = 20,
-                CurrentAmountBulletInMagazine = 2000,
-                CurrentAmountBulletOnPlayer = 99999999
-            });
             entityManager.SetSharedComponentData(player, PlayerVars.Default.RenderMesh);
 
             //Set info in GameVariables

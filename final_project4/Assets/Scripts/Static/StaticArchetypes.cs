@@ -43,7 +43,6 @@ public class StaticArchetypes
             typeof(TargetData),
             typeof(DashComponent),
             typeof(InputComponent),
-            typeof(GunComponent),
             //typeof(PhysicsVelocity),
             //typeof(PhysicsDamping),
             //typeof(PhysicsMass),
@@ -77,6 +76,7 @@ public class StaticArchetypes
             typeof(RenderBounds),
             typeof(LocalToParent),
             typeof(Parent),
+            typeof(GunComponent),
 
             //Tags
             typeof(GunTag)
