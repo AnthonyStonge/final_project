@@ -101,25 +101,21 @@ public class GameLogicSystem : SystemBase
     
     private static void EnableNextState(GameState state)
     {
-        var logic = LogicClassDict[state];
-        logic.Enable();
+        LogicClassDict[state].Enable();
     }
     
     private static void DisableLastState(GameState state)
-    {
-        var logic = LogicClassDict[state];
-        logic.Disable();
+    { 
+        LogicClassDict[state].Disable();
     }
     
     private static void DestroyLastState(GameState state)
     {
-        var logic = LogicClassDict[state];
-        logic.Destroy();
+        LogicClassDict[state].Destroy();
     }
     
     private static void InitializeNextState(GameState state)
     {
-        var logic = LogicClassDict[state];
-        logic.Initialize();
+        LogicClassDict[state].Initialize();
     }
 }

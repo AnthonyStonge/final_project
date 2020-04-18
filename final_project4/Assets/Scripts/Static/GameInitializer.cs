@@ -11,6 +11,7 @@ public static class GameInitializer
         //Init archetypes (must be done before creating any entities)*
         StaticArchetypes.InitializeArchetypes();
         
+        
         GameVariables.EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         // ProjectileHolder.LoadAssets();
         ProjectileHolder.pistolGameObject = MonoGameVariables.instance.pistolBullet;
