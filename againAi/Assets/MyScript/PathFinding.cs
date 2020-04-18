@@ -1,11 +1,18 @@
 ﻿using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
+
+
+public struct BatchFilter : ISharedComponentData
+{
+    public ushort Value;
+}
 public class PathFinding : SystemBase
 {
     public struct Node
@@ -25,6 +32,7 @@ public class PathFinding : SystemBase
         public bool isWalkable;
         public int cameFromNodeIndex;
     }
+    public ushort batchCall;
     //Cost of movement
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
@@ -32,8 +40,24 @@ public class PathFinding : SystemBase
     private float3 nodeSize;
     private NativeArray<Node> nodeArray;
     private List<int> wall;
+    private NativeArray<int2> neightBourOffsetArray;
+    private EntityQueryDesc queryDesc;
     protected override void OnCreate()
     {
+        batchCall = 0;
+        queryDesc = new EntityQueryDesc
+        {
+            All = new ComponentType[] {typeof(BatchFilter),typeof(Translation), typeof(PathFindingComponent), typeof(PathFollow)}
+        };
+        neightBourOffsetArray = new NativeArray<int2>(8, Allocator.Persistent);
+        neightBourOffsetArray[0] = new int2(-1, 0);
+        neightBourOffsetArray[1] = new int2(1, 0);
+        neightBourOffsetArray[2] = new int2(0, 1);
+        neightBourOffsetArray[3] = new int2(0, -1);
+        neightBourOffsetArray[4] = new int2(-1, -1);
+        neightBourOffsetArray[5] = new int2(-1, 1);
+        neightBourOffsetArray[6] = new int2(1, -1);
+        neightBourOffsetArray[7] = new int2(1, 1);
         wall = GameVariable.Instance.scriptableGrid.indexNoWalkable;
         gridSize = GameVariable.Instance.scriptableGrid.gridSize;
         nodeSize = GameVariable.Instance.scriptableGrid.nodeSize;
@@ -58,33 +82,38 @@ public class PathFinding : SystemBase
                 nodeArray[node.index] = node;
             }
         }
+
     }
+
     protected override void OnUpdate()
     {
-        //NativeList<JobHandle> jobHandlesList = new NativeList<JobHandle>(Allocator.Temp);
         int2 bob = gridSize;
         NativeArray<Node> nodeArray = this.nodeArray;
-        Entities.ForEach((Entity e, DynamicBuffer<PathPosition> pathBuffer, ref Translation translation, ref PathFindingComponent pathFindingComp, ref PathFollow pathFollow) =>
+        NativeArray<int2> neightBourOffsetArrayJob = neightBourOffsetArray;
+        Entities.WithSharedComponentFilter(new BatchFilter{Value = batchCall++}).ForEach((DynamicBuffer<PathPosition> pathBuffer, ref Translation translation, ref PathFindingComponent pathFindingComp, ref PathFollow pathFollow) =>
             {
                 if(pathFindingComp.findPath == 0)
                 {
                     pathFindingComp.startPos = new int2((int) translation.Value.x,(int) translation.Value.z);
                     pathFindingComp.findPath = 1;
-                    FindPath(pathFindingComp.startPos, pathFindingComp.endPos, e, pathBuffer,ref pathFollow, bob, nodeArray);
-                    
+                    FindPath(pathFindingComp.startPos, pathFindingComp.endPos, pathBuffer,ref pathFollow, bob, nodeArray, neightBourOffsetArrayJob);
                 }
             }).ScheduleParallel();
-            
+        
+        batchCall %= 4;
+        
     }
-    private static void FindPath(int2 startPos, int2 endPos, Entity entity, DynamicBuffer<PathPosition> pathBufferPos,ref PathFollow pathFollow, in int2 gridSize, in NativeArray<Node> nodeArray)
+
+    private static void FindPath(int2 startPos, int2 endPos, DynamicBuffer<PathPosition> pathBufferPos,ref PathFollow pathFollow, in int2 gridSize, in NativeArray<Node> nodeArray, in NativeArray<int2> neightBourOffsetArrayJob)
     {
         NativeArray<Node> pathNode = new NativeArray<Node>(gridSize.x * gridSize.y, Allocator.Temp);
-        //NativeArray<CreateGridSystem.Node> pathNode;// = nodeArray.;
+        
         for (int i = 0; i < gridSize.x; i++)
         {
             for (int j = 0; j < gridSize.y; j++)
             {
-                Node basicNode = nodeArray[CalculateIndex(i, j, gridSize.x)];
+                var calculated = CalculateIndex(i, j, gridSize.x);
+                Node basicNode = nodeArray[calculated];
                 Node node = new Node
                 {
                     x = basicNode.x,
@@ -99,16 +128,7 @@ public class PathFinding : SystemBase
                 pathNode[node.index] = node;
             }
         }
-        NativeArray<int2> neightBourOffsetArray = new NativeArray<int2>(8, Allocator.Temp);
 
-            neightBourOffsetArray[0] = new int2(-1, 0);
-            neightBourOffsetArray[1] = new int2(1, 0);
-            neightBourOffsetArray[2] = new int2(0, 1);
-            neightBourOffsetArray[3] = new int2(0, -1);
-            neightBourOffsetArray[4] = new int2(-1, -1);
-            neightBourOffsetArray[5] = new int2(-1, 1);
-            neightBourOffsetArray[6] = new int2(1, -1);
-            neightBourOffsetArray[7] = new int2(1, 1);
             
             int endNodeIndex = CalculateIndex(endPos.x, endPos.y, gridSize.x);
             Node startNode = pathNode[CalculateIndex(startPos.x, startPos.y, gridSize.x)];
@@ -116,8 +136,15 @@ public class PathFinding : SystemBase
             //startNode.CalculFCost();
             pathNode[startNode.index] = startNode;
             NativeList<int> openList = new NativeList<int>(Allocator.Temp);
-            NativeList<int> ClosedList = new NativeList<int>(Allocator.Temp);
+            NativeList<int> closedList = new NativeList<int>(Allocator.Temp);
             openList.Add(startNode.index);
+            
+            
+            #region whileLoop Variables
+            
+            
+            #endregion
+            
             while (openList.Length > 0)
             {
                 int currentNodeIndex = GetLowestCostFNodeIndex(openList, pathNode);
@@ -132,16 +159,17 @@ public class PathFinding : SystemBase
                         break;
                     }
                 }
-                ClosedList.Add(currentNodeIndex);
-                for (int i = 0; i < neightBourOffsetArray.Length; i++)
+                closedList.Add(currentNodeIndex);
+                
+                for (int i = 0; i < neightBourOffsetArrayJob.Length; i++)
                 {
-                    int2 neightbourOffSet = neightBourOffsetArray[i];
+                    int2 neightbourOffSet = neightBourOffsetArrayJob[i];
                     int2 neightbourPos = new int2(currentNode.x + neightbourOffSet.x,
                         currentNode.y + neightbourOffSet.y);
                     if (!IsPositionInsideGrid(neightbourPos, gridSize))
                         continue;
                     int tmp = CalculateIndex(neightbourPos.x, neightbourPos.y, gridSize.x);
-                    if (ClosedList.Contains(tmp))
+                    if (closedList.Contains(tmp))
                         continue;
                     Node neightbourNode = pathNode[tmp];
                     if (!pathNode[tmp].isWalkable)
@@ -169,7 +197,6 @@ public class PathFinding : SystemBase
                 
                 pathFollow= new PathFollow
                 {
-                    
                     pathIndex = -1
                 };
             }
@@ -183,8 +210,7 @@ public class PathFinding : SystemBase
             }
             pathNode.Dispose();
             openList.Dispose();
-            ClosedList.Dispose();
-            neightBourOffsetArray.Dispose();
+            closedList.Dispose();
        // }
     }
     private static void CalculatePath(NativeArray<Node> pathNodes, Node endNode, DynamicBuffer<PathPosition> pathPos)
@@ -232,5 +258,6 @@ public class PathFinding : SystemBase
     protected override void OnDestroy()
     {
         nodeArray.Dispose();
+        neightBourOffsetArray.Dispose();
     }
 }

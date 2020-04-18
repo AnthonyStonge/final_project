@@ -14,9 +14,11 @@ public class Spawner : MonoBehaviour
     public Mesh mesh;
     public Material playerMat;
     public Mesh playerMesh;
+    public ushort batch;
     // Start is called before the first frame update
     void Start()
     {
+        batch = 0;
         em = World.DefaultGameObjectInjectionWorld.EntityManager;
         createPlayer();
     }
@@ -24,9 +26,9 @@ public class Spawner : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 1000; i++)
             {
-                createFlockAgent();
+                createEntity(i);
             }
             
         }
@@ -54,6 +56,11 @@ public class Spawner : MonoBehaviour
         {
             pathIndex = -1,
         });
+        em.AddSharedComponentData(e, new BatchFilter
+        {
+            Value = batch++
+        });
+        batch %= 4;
     }
     private void createPlayer()
     {
@@ -91,6 +98,10 @@ public class Spawner : MonoBehaviour
             mesh = playerMesh,
             material = playerMat
         });
+        em.SetSharedComponentData(eAgent, new BatchFilter
+        {
+            Value = 1
+        });
         BlobAssetReference<Unity.Physics.Collider> collider = Unity.Physics.BoxCollider.Create(
             new BoxGeometry
             {
@@ -123,6 +134,7 @@ public class Spawner : MonoBehaviour
                 }
             )
         });
+
     }
     // Update is called once per frame
 
