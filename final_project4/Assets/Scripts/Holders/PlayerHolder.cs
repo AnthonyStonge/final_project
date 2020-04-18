@@ -7,32 +7,29 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public static class PlayerHolder
 {
-    private static PlayerAssetsScriptableObject playerAssetsAssets;
-    public static PlayerAssetsScriptableObject PlayerAssetsAssets => playerAssetsAssets;
-
-    private static bool loaded = false;
-    public static bool Loaded => loaded;
-
     private static int currentNumberOfLoadedAssets = 0;
     private static int numberOfAssetsToLoad = 1;
 
-    //
     public static Entity PlayerPrefabEntity;
+
+    public static Dictionary<string, Entity> PlayerDict;
 
     //BlobAssetsReferences    //TODO KEEP IN ANOTHER HOLDER?
     private static BlobAssetStore playerBlobAsset;
 
+    public static string[] FileNameToLoad =
+    {
+        
+    };
+
     public static void LoadAssets()
     {
-        //Set number of assets
-
-        if (playerAssetsAssets == null)
-        {
-            Addressables.LoadAssetAsync<PlayerAssetsScriptableObject>("PlayerScriptableObject").Completed +=
+        foreach(var i in FileNameToLoad){
+            Addressables.LoadAssetAsync<PlayerAssetsScriptableObject>(i).Completed +=
                 obj =>
                 {
-                    playerAssetsAssets = obj.Result;
-                    currentNumberOfLoadedAssets++;
+                  //  PlayerDict.Add(i, obj.Result);
+                  //  currentNumberOfLoadedAssets++;
                 };
         }
     }
