@@ -1,43 +1,45 @@
 ﻿using Unity.Collections;
 using Unity.Entities;
-using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 using RaycastHit = Unity.Physics.RaycastHit;
 
-[UpdateAfter(typeof(BuildPhysicsWorld))]
-[UpdateBefore(typeof(EndFramePhysicsSystem))]
-
+[UpdateAfter(typeof(EndFramePhysicsSystem))]
 public class ProjectileHitDetectionSystem : SystemBase
 {
     private BuildPhysicsWorld physicsWorld;
-    private PreTransformGroupBarrier preTransformBarrier;
-    
+    private EndSimulationEntityCommandBufferSystem preTransformBarrier;
+
     protected override void OnCreate()
     {
         base.OnCreate();
 
-        preTransformBarrier = World.GetOrCreateSystem<PreTransformGroupBarrier>();
+        preTransformBarrier = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         physicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
-        
     }
 
     protected override void OnUpdate()
     {
-         PhysicsWorld PhysicsWorld = physicsWorld.PhysicsWorld;
-         var entityCommandBuffer = preTransformBarrier.CreateCommandBuffer().ToConcurrent();
-         
-         float deltaTime = Time.DeltaTime;
-         
-         CollisionFilter filter = new CollisionFilter
-         {
-             BelongsTo = 1 << 0,
-             CollidesWith = 1 << 10,
-             GroupIndex = 0
-         };
-         
+        PhysicsWorld PhysicsWorld = physicsWorld.PhysicsWorld;
+        var entityCommandBuffer = preTransformBarrier.CreateCommandBuffer().ToConcurrent();
+
+        //Get all enemy existing
+        ComponentDataContainer<EnemyTag> enemies = new ComponentDataContainer<EnemyTag>
+        {
+            Components = GetComponentDataFromEntity<EnemyTag>()
+        };
+
+        float deltaTime = Time.DeltaTime;
+
+        CollisionFilter filter = new CollisionFilter
+        {
+            BelongsTo = 1 << 0,
+            CollidesWith = 1 << 10 | 1 << 2,
+            GroupIndex = 0
+        };
+        
         Entities.ForEach((Entity entity, int entityInQueryIndex, ref DamageProjectile projectile, in Translation translation, in Rotation rotation) =>
         {
             //System.IndexOutOfRangeException: Index {0} is out of range of '{4}' Length.
@@ -68,15 +70,17 @@ public class ProjectileHitDetectionSystem : SystemBase
                         }
                     }
                     Entity hitEntity = PhysicsWorld.Bodies[closestHit.RigidBodyIndex].Entity;
+                    
+                    if(enemies.Components.HasComponent(hitEntity))
+                        entityCommandBuffer.DestroyEntity(entityInQueryIndex, hitEntity);
 
                     entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
                 }
             }
             raycastHits.Dispose();
         }).ScheduleParallel();
-        
-        preTransformBarrier.AddJobHandleForProducer(Dependency);
 
+        preTransformBarrier.AddJobHandleForProducer(Dependency);
     }
 }
 

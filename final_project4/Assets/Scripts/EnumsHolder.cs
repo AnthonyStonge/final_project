@@ -18,6 +18,11 @@ namespace Enums
         CROCKET_BULLET
     }
 
+    public enum EnemyType
+    {
+        GABICHOU
+    }
+
     public enum SoundType
     {
         ON_PISTOL_SHOT

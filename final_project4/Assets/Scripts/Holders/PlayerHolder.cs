@@ -7,6 +7,12 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public static class PlayerHolder
 {
+    private static PlayerAssetsScriptableObject playerAssetsAssets;
+    public static PlayerAssetsScriptableObject PlayerAssetsAssets => playerAssetsAssets;
+    
+    private static bool loaded = false;
+    public static bool Loaded => loaded;
+
     private static int currentNumberOfLoadedAssets = 0;
     private static int numberOfAssetsToLoad = 1;
 

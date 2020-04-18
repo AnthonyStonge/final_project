@@ -10,9 +10,11 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
         dstManager.SetName(entity, "Player");
 
-        dstManager.AddComponentData(entity, new PlayerTag());
-        dstManager.AddComponentData(entity, new TargetData());
-        dstManager.AddComponentData(entity, new InputComponent());
+        dstManager.AddComponent<PlayerTag>(entity);
+        dstManager.AddComponent<TargetData>(entity);
+        dstManager.AddComponent<InputComponent>(entity);
+        
+        //TODO REMOVE SPEED AND REPLACE BY AFFECTING VELOCITY
         dstManager.AddComponentData(entity, new SpeedData
         {
             Value = 20
