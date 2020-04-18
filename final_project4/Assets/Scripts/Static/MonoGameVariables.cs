@@ -33,8 +33,11 @@ public class MonoGameVariables : MonoBehaviour
     [Header("Bullets")] 
 
     public GameObject pistolBullet;
-    [Header("Extra")]
+    
+    [Header("Prefabs")]
     public GameObject Player;
+    public GameObject Enemy1;
+    [Header("Extra")]
 
     public Mesh PistolMesh;
     public Material PistolMaterial;

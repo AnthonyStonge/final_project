@@ -29,12 +29,18 @@ public class ProjectileHitDetectionSystem : SystemBase
          PhysicsWorld PhysicsWorld = physicsWorld.PhysicsWorld;
          var entityCommandBuffer = preTransformBarrier.CreateCommandBuffer().ToConcurrent();
          
+         //Get all enemy existing
+         ComponentDataContainer<EnemyTag> enemies = new ComponentDataContainer<EnemyTag>
+         {
+             Components = GetComponentDataFromEntity<EnemyTag>()
+         }; 
+
          float deltaTime = Time.DeltaTime;
          
          CollisionFilter filter = new CollisionFilter
          {
              BelongsTo = 1 << 0,
-             CollidesWith = 1 << 10,
+             CollidesWith = 1 << 10 | 1 << 2,
              GroupIndex = 0
          };
          
@@ -68,6 +74,9 @@ public class ProjectileHitDetectionSystem : SystemBase
                         }
                     }
                     Entity hitEntity = PhysicsWorld.Bodies[closestHit.RigidBodyIndex].Entity;
+                    
+                    if(enemies.Components.HasComponent(hitEntity))
+                        entityCommandBuffer.DestroyEntity(entityInQueryIndex, hitEntity);
 
                     entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
                 }

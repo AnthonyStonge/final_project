@@ -883,6 +883,7 @@ MonoBehaviour:
   pistolBullet: {fileID: 7411529116609412513, guid: 1d2fe203b4117b146b676f980d6fddbd,
     type: 3}
   Player: {fileID: 5935477466790467464, guid: e0ae6182e1a6b11438ffe0678d68e1df, type: 3}
+  Enemy1: {fileID: 4386793886523506817, guid: 0d586cd5c66d5414fb82a92aa57251a5, type: 3}
   PistolMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   PistolMaterial: {fileID: 2100000, guid: 21da2adad5193ca48acf75f61d31a18b, type: 2}
   BulletMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
@@ -1616,7 +1617,7 @@ Camera:
   far clip plane: 300
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1639,7 +1640,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912010581}
-  m_LocalRotation: {x: 0.15012273, y: 0.017560352, z: -0.0026668576, w: 0.98850787}
+  m_LocalRotation: {x: 0.18910752, y: 0.000000014309339, z: -0.000000004502601, w: 0.9819564}
   m_LocalPosition: {x: 5.4311256, y: 139.33508, z: 53.551605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2292,22 +2293,22 @@ PrefabInstance:
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.15012273
+      value: 0.18910752
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.017560352
+      value: 0.000000014309339
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0026668576
+      value: -0.000000004502601
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98850787
+      value: 0.9819564
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}

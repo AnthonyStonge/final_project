@@ -17,6 +17,7 @@ public static class GameInitializer
         ProjectileHolder.Test();
         
         PlayerHolder.Initialize();
+        EnemyHolder.Initialize();
         
         //Event init
         PlayerEvents.Initialize();
@@ -67,7 +68,10 @@ public static class GameInitializer
     public static void OnDestroy()
     {
         EventsHolder.OnDestroy();
+        
+        //Holders
         PlayerHolder.OnDestroy();
+        EnemyHolder.OnDestroy();
     }
 
     public static void SetMainCamera(Camera cam)
