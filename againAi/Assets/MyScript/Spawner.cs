@@ -14,9 +14,11 @@ public class Spawner : MonoBehaviour
     public Mesh mesh;
     public Material playerMat;
     public Mesh playerMesh;
+    public ushort batch;
     // Start is called before the first frame update
     void Start()
     {
+        batch = 0;
         em = World.DefaultGameObjectInjectionWorld.EntityManager;
         createPlayer();
     }
@@ -24,7 +26,7 @@ public class Spawner : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 createEntity(i);
             }
@@ -56,8 +58,9 @@ public class Spawner : MonoBehaviour
         });
         em.AddSharedComponentData(e, new BatchFilter
         {
-            Value = 1
+            Value = batch++
         });
+        batch %= 4;
     }
     private void createPlayer()
     {

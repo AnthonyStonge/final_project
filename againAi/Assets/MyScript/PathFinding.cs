@@ -32,6 +32,7 @@ public class PathFinding : SystemBase
         public bool isWalkable;
         public int cameFromNodeIndex;
     }
+    public ushort batchCall;
     //Cost of movement
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
@@ -43,6 +44,7 @@ public class PathFinding : SystemBase
     private EntityQueryDesc queryDesc;
     protected override void OnCreate()
     {
+        batchCall = 0;
         queryDesc = new EntityQueryDesc
         {
             All = new ComponentType[] {typeof(BatchFilter),typeof(Translation), typeof(PathFindingComponent), typeof(PathFollow)}
@@ -83,80 +85,26 @@ public class PathFinding : SystemBase
 
     }
 
-    [BurstCompile]
-    public struct PathCalculation : IJobParallelFor
-    {
-        [ReadOnly]
-        public int2 gridSize;
-        [ReadOnly]
-        public NativeArray<Node> nodeArray;
-        [ReadOnly]
-        public NativeArray<int2> neightBourOffsetArrayJob;
-        [ReadOnly] 
-        public NativeArray<Entity> entities;
-        
-        [NativeDisableParallelForRestriction]
-        public BufferFromEntity<PathPosition> pathPositions;
-        [DeallocateOnJobCompletion]
-        public NativeArray<Translation> translations;
-        [DeallocateOnJobCompletion]
-        public NativeArray<PathFindingComponent> pathFindingComponents;
-        [DeallocateOnJobCompletion]
-        public NativeArray<PathFollow> pathFollows;
-        public void Execute(int index)
-        {
-            DynamicBuffer<PathPosition> dynamicBuffer  = pathPositions[entities[index]];
-            var pathFindingComp = pathFindingComponents[index];
-            var translation = translations[index];
-            var pathFollow = pathFollows[index];
-            if(pathFindingComp.findPath == 0)
-            {
-                pathFindingComp.startPos = new int2((int) translation.Value.x,(int) translation.Value.z);
-                pathFindingComp.findPath = 1;
-                FindPath(pathFindingComp.startPos, pathFindingComp.endPos, dynamicBuffer,ref pathFollow, gridSize, nodeArray, neightBourOffsetArrayJob);
-            }
-        }
-    }
     protected override void OnUpdate()
     {
-        EntityQuery entityQuery = GetEntityQuery(queryDesc);
-        //Update only if player changes node
-        //NativeList<JobHandle> jobHandlesList = new NativeList<JobHandle>(Allocator.Temp);
-        // int2 bob = gridSize;
-        // NativeArray<Node> nodeArray = this.nodeArray;
-        // NativeArray<int2> neightBourOffsetArrayJob = neightBourOffsetArray;
-     
+        int2 bob = gridSize;
+        NativeArray<Node> nodeArray = this.nodeArray;
+        NativeArray<int2> neightBourOffsetArrayJob = neightBourOffsetArray;
+        Entities.WithSharedComponentFilter(new BatchFilter{Value = batchCall++}).ForEach((DynamicBuffer<PathPosition> pathBuffer, ref Translation translation, ref PathFindingComponent pathFindingComp, ref PathFollow pathFollow) =>
+            {
+                if(pathFindingComp.findPath == 0)
+                {
+                    pathFindingComp.startPos = new int2((int) translation.Value.x,(int) translation.Value.z);
+                    pathFindingComp.findPath = 1;
+                    FindPath(pathFindingComp.startPos, pathFindingComp.endPos, pathBuffer,ref pathFollow, bob, nodeArray, neightBourOffsetArrayJob);
+                }
+            }).ScheduleParallel();
         
-        entityQuery.SetSharedComponentFilter(new BatchFilter{Value = 1});
-        NativeArray<Entity> entities = entityQuery.ToEntityArray(Allocator.TempJob);
+        batchCall %= 4;
         
-        PathCalculation pathCalculation = new PathCalculation
-        {
-            gridSize = gridSize,
-            nodeArray = nodeArray,
-            neightBourOffsetArrayJob = neightBourOffsetArray,
-            entities = entities,
-            translations = entityQuery.ToComponentDataArray<Translation>(Allocator.TempJob),
-            pathFollows = entityQuery.ToComponentDataArray<PathFollow>(Allocator.TempJob),
-            pathPositions = GetBufferFromEntity<PathPosition>(false),
-            pathFindingComponents = entityQuery.ToComponentDataArray<PathFindingComponent>(Allocator.TempJob)
-        };
-
-        JobHandle handle = pathCalculation.Schedule(entities.Length, 4);
-        handle.Complete();
-        entities.Dispose();
-        // Entities.ForEach((DynamicBuffer<PathPosition> pathBuffer, ref Translation translation, ref PathFindingComponent pathFindingComp, ref PathFollow pathFollow) =>
-        //     {
-        //         if(pathFindingComp.findPath == 0)
-        //         {
-        //             pathFindingComp.startPos = new int2((int) translation.Value.x,(int) translation.Value.z);
-        //             pathFindingComp.findPath = 1;
-        //             FindPath(pathFindingComp.startPos, pathFindingComp.endPos, pathBuffer,ref pathFollow, bob, nodeArray, neightBourOffsetArrayJob);
-        //         }
-        //     }).ScheduleParallel();
-
     }
-    private static void FindPath(int2 startPos, int2 endPos,DynamicBuffer<PathPosition> pathBufferPos,ref PathFollow pathFollow, in int2 gridSize, in NativeArray<Node> nodeArray, in NativeArray<int2> neightBourOffsetArrayJob)
+
+    private static void FindPath(int2 startPos, int2 endPos, DynamicBuffer<PathPosition> pathBufferPos,ref PathFollow pathFollow, in int2 gridSize, in NativeArray<Node> nodeArray, in NativeArray<int2> neightBourOffsetArrayJob)
     {
         NativeArray<Node> pathNode = new NativeArray<Node>(gridSize.x * gridSize.y, Allocator.Temp);
         
