@@ -1,5 +1,6 @@
 ﻿using Holders;
 ﻿using Enums;
+using Holder;
 using Static.Events;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -32,8 +33,22 @@ public static class MapInitializer
         });
         PlayerVars.Entity = player;
         
+        //Create weapons for player
+        Entity pistol = entityManager.Instantiate(WeaponHolder.WeaponPrefabs[GunType.PISTOL]);
+        entityManager.SetComponentData(pistol, new Parent
+        {
+            Value = player
+        });
+        
+        Entity shotgun = entityManager.Instantiate(WeaponHolder.WeaponPrefabs[GunType.SHOTGUN]);
+        entityManager.SetComponentData(shotgun, new Parent
+        {
+            Value = player
+        });
+        entityManager.SetEnabled(shotgun, false);
+        
 
-        InitializePlayerWeapon();
+        //InitializePlayerWeapon();
     }
 
     private static void InitializePlayerWeapon()

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -884,6 +884,12 @@ MonoBehaviour:
     type: 3}
   Player: {fileID: 5935477466790467464, guid: e0ae6182e1a6b11438ffe0678d68e1df, type: 3}
   Enemy1: {fileID: 4386793886523506817, guid: 0d586cd5c66d5414fb82a92aa57251a5, type: 3}
+  Pistol: {fileID: 6994139002202376614, guid: a393625207c8d3f43a4bdf22ee3f588b, type: 3}
+  Shotgun: {fileID: 8262002860696633109, guid: e7c153c60fa5ce6409e1cb79cd816229, type: 3}
+  PistolBullet: {fileID: 8337288439267534834, guid: 950f480c66d432542924efec9f68e4f1,
+    type: 3}
+  ShotgunBullet: {fileID: 1184732517643075236, guid: 0583b798eb7e811419d77d60d911d32f,
+    type: 3}
   PistolMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   PistolMaterial: {fileID: 2100000, guid: 21da2adad5193ca48acf75f61d31a18b, type: 2}
   BulletMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
@@ -1640,7 +1646,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912010581}
-  m_LocalRotation: {x: 0.18910752, y: 0.000000014309339, z: -0.000000004502601, w: 0.9819564}
+  m_LocalRotation: {x: 0.1891075, y: 0.00000002147884, z: -0.0000000058833205, w: 0.9819564}
   m_LocalPosition: {x: 5.4311256, y: 139.33508, z: 53.551605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2293,17 +2299,17 @@ PrefabInstance:
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18910752
+      value: 0.1891075
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000014309339
+      value: 0.00000002147884
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000004502601
+      value: -0.0000000058833205
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}

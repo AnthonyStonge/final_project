@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8038384429445951234}
   - component: {fileID: 1371542260602342088}
   - component: {fileID: 5373597019042921579}
-  - component: {fileID: 8713295599133784113}
+  - component: {fileID: 7837321973484974412}
+  - component: {fileID: -7487694232008681490}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -80,16 +81,38 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &8713295599133784113
-SphereCollider:
+--- !u!114 &7837321973484974412
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8262002860696633109}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5914a2f5e29cd444cbed8d7ac136842a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7487694232008681490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8262002860696633109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162c5600a6707a84b9d692add5783b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GunType: 1
+  MaxBulletInMagazine: 8
+  MaxBulletOnPlayer: 999
+  ResetBetweenShotTime: 0.1
+  ResetReloadTime: 3
+  BulletPrefab: {fileID: 1184732517643075236, guid: 0583b798eb7e811419d77d60d911d32f,
+    type: 3}
+  CurrentAmountBulletInMagazine: 8
+  CurrentAmountBulletOnPlayer: 999
+  BetweenShotTime: 0
+  ReloadTime: 0

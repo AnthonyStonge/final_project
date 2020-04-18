@@ -1,4 +1,5 @@
-﻿using Holders;
+﻿using Holder;
+using Holders;
 using Static.Events;
 using Unity.Entities;
 using Unity.Transforms;
@@ -12,12 +13,11 @@ public static class GameInitializer
         StaticArchetypes.InitializeArchetypes();
 
         GameVariables.EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        // ProjectileHolder.LoadAssets();
-        ProjectileHolder.pistolGameObject = MonoGameVariables.instance.pistolBullet;
-        ProjectileHolder.Test();
-        
+
         PlayerHolder.Initialize();
         EnemyHolder.Initialize();
+        WeaponHolder.Initialize();
+        //ProjectileHolder.Initialize();
         
         //Event init
         PlayerEvents.Initialize();
@@ -72,6 +72,8 @@ public static class GameInitializer
         //Holders
         PlayerHolder.OnDestroy();
         EnemyHolder.OnDestroy();
+        WeaponHolder.OnDestroy();
+        ProjectileHolder.OnDestroy();
     }
 
     public static void SetMainCamera(Camera cam)
