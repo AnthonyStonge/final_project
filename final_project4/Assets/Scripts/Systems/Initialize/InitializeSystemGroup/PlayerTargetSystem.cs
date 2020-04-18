@@ -2,6 +2,7 @@
 using Unity.Physics;
 using Unity.Physics.Systems;
 using UnityEngine;
+using Collider = UnityEngine.Collider;
 using RaycastHit = Unity.Physics.RaycastHit;
 
 [DisableAutoCreation]
@@ -20,7 +21,7 @@ public class PlayerTargetSystem : SystemBase
         RaycastInput rayInfo;
         
         //Act on all entities with Target, Input and PlayerTag
-        Entities.WithoutBurst().WithAll<PlayerTag>().ForEach((ref TargetData target, ref InputComponent inputs) =>
+        Entities.WithoutBurst().WithAll<PlayerTag>().ForEach((ref TargetData target, in InputComponent inputs) =>
         {
             UnityEngine.Ray camRay = GameVariables.MainCamera.ScreenPointToRay(inputs.Mouse);
             rayInfo = new RaycastInput
@@ -29,8 +30,8 @@ public class PlayerTargetSystem : SystemBase
                 End = camRay.GetPoint(2000),
                 Filter = new CollisionFilter
                 {
-                    BelongsTo = 1u << 1,
-                    CollidesWith = 1u << 1,
+                    BelongsTo = 1u << 31,
+                    CollidesWith = 1u << 30,
                     GroupIndex = 0
                 }
             };

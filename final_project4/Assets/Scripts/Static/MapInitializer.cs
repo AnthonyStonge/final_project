@@ -20,22 +20,18 @@ public static class MapInitializer
         if (entityManager == null)
             return;
 
-        //TODO CHANGE SPAWN POSITION HERE IF LOADING FROM SAVE
-        //Get value from scriptable object
-        float3 spawnPosition =
-            PlayerVars.Default.UseDebugVariables
-                ? PlayerVars.Default.StartingPosition.Value
-                : PlayerVars.Default.DefaultSpawnPosition.Value;
-        quaternion spawnRotation =
-            PlayerVars.Default.UseDebugVariables
-                ? PlayerVars.Default.StartingRotation.Value
-                : PlayerVars.Default.DefaultSpawnRotation.Value;
-        /*short spawnHealth = PlayerVars.Default.UseDebugVariables
-            ? PlayerVars.Default.StartingHealth
-            : PlayerVars.Default.DefaultHealth;*/
-
-        //Create player
-        PlayerEvents.OnPlayerSpawn.Invoke(spawnPosition, spawnRotation);
+        //Create player entity
+        Entity player = entityManager.Instantiate(PlayerHolder.PlayerPrefabEntity);
+        entityManager.SetComponentData(player, new Translation
+        {
+            Value = float3.zero    //TODO SET SPAWN POSITION
+        });
+        entityManager.SetComponentData(player, new Rotation
+        {
+            Value = quaternion.identity //TODO SET SPAWN ROTATION
+        });
+        PlayerVars.Entity = player;
+        
 
         InitializePlayerWeapon();
     }
@@ -57,7 +53,6 @@ public static class MapInitializer
         entityManager.SetComponentData(weapon, new Rotation
         {
             Value = PlayerVars.Default.DefaultSpawnRotation.Value
-
         });
         
         entityManager.SetComponentData(weapon, new Parent
@@ -74,7 +69,7 @@ public static class MapInitializer
         entityManager.SetComponentData(weapon, new GunComponent
         {
             GunType = GunType.PISTOL,
-            Bullet = ProjectileHolder.PistolPrefab,
+            BulletPrefab = ProjectileHolder.PistolPrefab,
             ResetReloadTime = 0.3f,
             MaxBulletInMagazine = 20,
             CurrentAmountBulletInMagazine = 2000,

@@ -17,6 +17,8 @@ public static class GameInitializer
         ProjectileHolder.pistolGameObject = MonoGameVariables.instance.pistolBullet;
         ProjectileHolder.Test();
         
+        PlayerHolder.Initialize();
+        
         //Event init
         PlayerEvents.Initialize();
         GunEvents.Initialize();
@@ -75,6 +77,7 @@ public static class GameInitializer
     public static void OnDestroy()
     {
         EventsHolder.OnDestroy();
+        PlayerHolder.OnDestroy();
     }
 
     public static void SetMainCamera(Camera cam)

@@ -14,8 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CategoryNames:
   - Default
-  - MouseLayer
-  - MapWalls
+  - Player
+  - Enemies
+  - PlayerBullets
+  - EnemyBullet
+  - 
+  - 
+  - 
+  - 
+  - 
+  - EnvironnementStatic
   - 
   - 
   - 
@@ -35,13 +43,5 @@ MonoBehaviour:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - InvisibleGround
+  - MouseRayCast

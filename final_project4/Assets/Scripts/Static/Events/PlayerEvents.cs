@@ -76,10 +76,6 @@ namespace Static.Events
             entityManager.SetComponentData(player, new DashComponent
             {
                 Distance = PlayerVars.Dash.DefaultLength,
-                Timer = new TimeTrackerComponent
-                {
-                    ResetValue = PlayerVars.Dash.DefaultResetTime
-                }
             });
             entityManager.SetSharedComponentData(player, PlayerVars.Default.RenderMesh);
 

@@ -9,11 +9,12 @@ public class UpdatePlayerInfoSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        Entities.WithoutBurst().WithAll<PlayerTag>().ForEach((in Translation trans, in HealthData healthData, in SpeedData speedData, in StateData stateData) =>
+        Entities.WithoutBurst().WithAll<PlayerTag>().ForEach((in Translation trans/*, in HealthData healthData, in SpeedData speedData, in StateData stateData*/) =>
         {
-            GameVariables.PlayerVars.CurrentSpeed = speedData.Value;
-            GameVariables.PlayerVars.CurrentHealth = healthData.Value;
-            GameVariables.PlayerVars.CurrentState = stateData.Value;
+            //TODO Temporary fix to enable camera tracking, need to add missing component on player
+            // GameVariables.PlayerVars.CurrentSpeed = speedData.Value;
+            // GameVariables.PlayerVars.CurrentHealth = healthData.Value;
+            // GameVariables.PlayerVars.CurrentState = stateData.Value;
             GameVariables.PlayerVars.CurrentPosition = trans.Value;
             GameVariables.PlayerVars.Transform.position = trans.Value;
         }).Run();

@@ -1,17 +1,35 @@
-﻿using Enums;
+﻿using System;
+using Enums;
 using Unity.Entities;
+using UnityEngine;
 
+[Serializable]
+[GenerateAuthoringComponent]
 public struct GunComponent : IComponentData
 {
+    [Header("Variables")]
     public GunType GunType;
-    public Entity Bullet;
-    public int CurrentAmountBulletInMagazine;
-    public int CurrentAmountBulletOnPlayer;
+    
+    [Space(5)]
     public int MaxBulletInMagazine;
+    public int MaxBulletOnPlayer;
 
-    public float BetweenShotTime;
-    public float ReloadTime;
+    [Space(3)] 
+    public float ResetBetweenShotTime;
     public float ResetReloadTime;
-    public bool IsBetweenShot => BetweenShotTime > 0;
-    public bool IsReloading => ReloadTime > 0;
+
+    [Header("Internal Variables")]
+    public Entity BulletPrefab;
+
+    [Header("Debug Variables")]
+    [Tooltip("The amount of bullet in the magazine when the entity spawns")]
+    public int CurrentAmountBulletInMagazine;
+    [Tooltip("The amount of bullet on the entity when it spawns")]
+    public int CurrentAmountBulletOnPlayer;
+    
+    [HideInInspector] public float BetweenShotTime;
+    [HideInInspector] public float ReloadTime;
+    
+    [HideInInspector] public bool IsBetweenShot => BetweenShotTime > 0;
+    [HideInInspector] public bool IsReloading => ReloadTime > 0;
 }

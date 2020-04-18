@@ -1,11 +1,11 @@
 ﻿using EventStruct;
-using Unity.Assertions;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Transforms;
 using UnityEngine;
-using Assert = UnityEngine.Assertions.Assert;
+
+
 [DisableAutoCreation]
 public class RetrieveGunEventSystem : SystemBase
 {
@@ -30,7 +30,7 @@ public class RetrieveGunEventSystem : SystemBase
         NativeQueue<WeaponInfo>.ParallelWriter weaponFiredEvents = weaponFired.AsParallelWriter();
 
         //Create ECB
-        var ecb = entityCommandBuffer.CreateCommandBuffer().ToConcurrent();
+        EntityCommandBuffer.Concurrent ecb = entityCommandBuffer.CreateCommandBuffer().ToConcurrent();
 
         //Get all StateData components
         Container states = new Container
@@ -45,14 +45,16 @@ public class RetrieveGunEventSystem : SystemBase
             {
                 if (!states.allStateData.HasComponent(parent.Value))
                     return;
-                
+
                 //Variables local to job
                 StateData state = states.allStateData[parent.Value];
                 WeaponInfo.WeaponEventType weaponEventType = WeaponInfo.WeaponEventType.NONE;
+
                 if (gun.IsBetweenShot)
                 {
                     gun.BetweenShotTime -= deltaTime;
                 }
+
                 if (gun.IsReloading)
                 {
                     gun.ReloadTime -= deltaTime;
@@ -83,19 +85,17 @@ public class RetrieveGunEventSystem : SystemBase
                     //Create entity in EntityCommandBuffer
                     //TODO GET PREFAB ENTITY LINK WITH GUNTYPE
 
-                    ecb.SetComponent(entityInQueryIndex, gun.Bullet, new Translation
+                    ecb.SetComponent(entityInQueryIndex, gun.BulletPrefab, new Translation
                     {
                         Value = transform.Position
                     });
-                    ecb.SetComponent(entityInQueryIndex, gun.Bullet, new Rotation
+                    ecb.SetComponent(entityInQueryIndex, gun.BulletPrefab, new Rotation
                     {
                         Value = transform.Rotation
                     });
-                    ecb.Instantiate(entityInQueryIndex, gun.Bullet);
+                    ecb.Instantiate(entityInQueryIndex, gun.BulletPrefab);
                     gun.BetweenShotTime = 0.04f - gun.BetweenShotTime;
-
                 }
-                
                 else if (gun.CurrentAmountBulletInMagazine <= 0 && gun.CurrentAmountBulletOnPlayer > 0)
                 {
                     //Reload event
@@ -104,7 +104,6 @@ public class RetrieveGunEventSystem : SystemBase
                     //Set EventType
                     weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
                 }
-                
 
                 if (weaponEventType != WeaponInfo.WeaponEventType.NONE)
                     //Add event to NativeQueue
@@ -128,12 +127,12 @@ public class RetrieveGunEventSystem : SystemBase
 
         entityCommandBuffer.AddJobHandleForProducer(Dependency);
     }
-    
+
     protected override void OnDestroy()
     {
         weaponFired.Dispose();
     }
-    
+
     private struct Container
     {
         [ReadOnly] public ComponentDataFromEntity<StateData> allStateData;
