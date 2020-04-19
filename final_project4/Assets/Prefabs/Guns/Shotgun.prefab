@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162c5600a6707a84b9d692add5783b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GunType: 1
+  GunType: 2
   MaxBulletInMagazine: 8
   MaxBulletOnPlayer: 999
   ResetBetweenShotTime: 0.1
