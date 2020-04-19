@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Enums;
 using EventStruct;
@@ -9,10 +10,12 @@ using UnityEngine;
 public class SwapWeaponSystem : SystemBase
 {
     private EntityManager entityManager;
+    private int gunEnumLength;
     
     protected override void OnCreate()
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        gunEnumLength = Enum.GetNames(typeof(GunType)).Length;
     }
 
     protected override void OnUpdate()
@@ -31,10 +34,24 @@ public class SwapWeaponSystem : SystemBase
         else if (inputs.MouseWheel.y > 0)
         {
             //Get next weapon
+            GunType typeDesired = (GunType)(((int)GameVariables.PlayerVars.CurrentWeaponHeld + 1) % gunEnumLength);
+            
+            if(typeDesired == GunType.NONE)
+               typeDesired = (GunType)(((int)typeDesired + 1) % gunEnumLength);
+            
+            Debug.Log("Type desired: " + typeDesired);
+            SwapWeapon(typeDesired);
         }
         else if (inputs.MouseWheel.y < 0)
         {
             //Get previous weapon
+            GunType typeDesired = (GunType)(((int)GameVariables.PlayerVars.CurrentWeaponHeld - 1) % gunEnumLength);
+
+            if (typeDesired == GunType.NONE)
+                typeDesired = (GunType) gunEnumLength - 1;
+            
+            Debug.Log("Type desired: " + typeDesired);
+            SwapWeapon(typeDesired);
         }
 
     }

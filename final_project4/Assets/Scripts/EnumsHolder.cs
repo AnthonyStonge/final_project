@@ -8,8 +8,7 @@ namespace Enums
     {
         NONE,
         PISTOL,
-        SHOTGUN,
-        CROCKET
+        SHOTGUN
     }
 
     public enum BulletType
