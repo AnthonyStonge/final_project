@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using static ECSUtility;
 
 public static class PlayerHolder
 {
@@ -13,8 +12,8 @@ public static class PlayerHolder
     private static bool loaded = false;
     public static bool Loaded => loaded;
 
-    private static int currentNumberOfLoadedAssets = 0;
-    private static int numberOfAssetsToLoad = 1;
+    private static int currentNumberOfLoadedAssets;
+    private static int numberOfAssetsToLoad;
 
     public static Entity PlayerPrefabEntity;
 
@@ -27,46 +26,35 @@ public static class PlayerHolder
     {
         
     };
+    
+    public static void Initialize()
+    {
+        //Convert PlayerPrefabs
+        // ConvertPlayerPrefab();
+        currentNumberOfLoadedAssets = 0;
+        numberOfAssetsToLoad = FileNameToLoad.Length;
+
+    }
 
     public static void LoadAssets()
     {
         foreach(var i in FileNameToLoad){
-            Addressables.LoadAssetAsync<PlayerAssetsScriptableObject>(i).Completed +=
+            Addressables.LoadAssetAsync<GameObject>(i).Completed +=
                 obj =>
                 {
-                  //  PlayerDict.Add(i, obj.Result);
-                  //  currentNumberOfLoadedAssets++;
+                    PlayerDict.Add(i, ConvertPlayerPrefab(obj.Result));
+                    currentNumberOfLoadedAssets++;
                 };
         }
     }
-
-    public static void Initialize()
+    
+    public static float CurrentLoadingPercentage()
     {
-        //Convert PlayerPrefabs
-        ConvertPlayerPrefab();
+        return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
     }
 
     public static void OnDestroy()
     {
         playerBlobAsset.Dispose();
-    }
-
-    private static void ConvertPlayerPrefab()
-    {
-        //TODO LOAD FROM ADDRESSABLE
-        //Load GameObject
-        GameObject playerGO = MonoGameVariables.instance.Player;
-
-        //Convert
-        playerBlobAsset = new BlobAssetStore();
-
-        PlayerPrefabEntity =
-            GameObjectConversionUtility.ConvertGameObjectHierarchy(playerGO,
-                GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, playerBlobAsset));
-    }
-
-    public static float CurrentLoadingPercentage()
-    {
-        return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
     }
 }

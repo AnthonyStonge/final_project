@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameLogic : IStateLogic
 {
-    public void Enable()
+     public void Enable()
      {
          Debug.Log("Enable GameLogic Systems");
      }
