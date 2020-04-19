@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Enums;
 using EventStruct;
 using Unity.Entities;
-using Unity.Mathematics;
-using UnityEngine;
 
+[DisableAutoCreation]
 public class SwapWeaponSystem : SystemBase
 {
     private EntityManager entityManager;
@@ -39,7 +36,6 @@ public class SwapWeaponSystem : SystemBase
             if(typeDesired == GunType.NONE)
                typeDesired = (GunType)(((int)typeDesired + 1) % gunEnumLength);
             
-            Debug.Log("Type desired: " + typeDesired);
             SwapWeapon(typeDesired);
         }
         else if (inputs.MouseWheel.y < 0)
@@ -50,7 +46,6 @@ public class SwapWeaponSystem : SystemBase
             if (typeDesired == GunType.NONE)
                 typeDesired = (GunType) gunEnumLength - 1;
             
-            Debug.Log("Type desired: " + typeDesired);
             SwapWeapon(typeDesired);
         }
 
