@@ -1,4 +1,5 @@
 ﻿using System;
+using Enums;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -12,13 +13,19 @@ public struct InputComponent : IComponentData
     public bool Enabled;
     
     public float2 Move;
+    
+    public float3 Mouse;
+    public float2 MouseWheel;
+    
     public bool Shoot;
     public bool Reload;
     public bool Dash;
     public bool Interact;
-    public int Inventory;
     public bool Cancel;
-    public float3 Mouse;
+
+    public GunType WeaponTypeDesired;
+    
+    public int Inventory;
 
     public void Reset()
     {
@@ -32,6 +39,7 @@ public struct InputComponent : IComponentData
     private void PartialReset()
     {
         Move = float2.zero;
+        WeaponTypeDesired = GunType.NONE;
     }
     
     public void Update()
@@ -61,5 +69,13 @@ public struct InputComponent : IComponentData
         Reload = Input.GetKeyDown(KeyCode.R);
 
         Cancel = Input.GetKeyDown(KeyCode.Escape);
+        
+        //Weapon desired
+        MouseWheel = Input.mouseScrollDelta;
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            WeaponTypeDesired = GunType.PISTOL;
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            WeaponTypeDesired = GunType.SHOTGUN;
     }
 }
