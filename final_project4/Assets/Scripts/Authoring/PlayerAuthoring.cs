@@ -1,5 +1,6 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -16,11 +17,13 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         {
             Enabled = true
         });
-        
+
         //TODO REMOVE SPEED AND REPLACE BY AFFECTING VELOCITY
         dstManager.AddComponentData(entity, new SpeedData
         {
-            Value = 20
+            Value = 2000
         });
+        
+      
     }
 }

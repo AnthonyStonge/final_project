@@ -1,6 +1,7 @@
 ﻿using System;
 using Enums;
 using EventStruct;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -47,7 +48,7 @@ public class RetrieveGunEventSystem : SystemBase
 
         float deltaTime = Time.DeltaTime;
 
-        JobHandle job = Entities.ForEach(
+        JobHandle gunJob = Entities.ForEach(
             (int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in Parent parent) =>
             {
                 if (!states.Components.HasComponent(parent.Value))
@@ -125,16 +126,20 @@ public class RetrieveGunEventSystem : SystemBase
                     });
             }).ScheduleParallel(Dependency);
 
-        //Terminate job so we can read from NativeQueue
-        job.Complete();
-
-        //Transfer NativeQueue info to static NativeList
-        while (weaponFired.TryDequeue(out WeaponInfo info))
-        {
-            EventsHolder.WeaponEvents.Add(info);
-        }
-
+        Dependency = JobHandle.CombineDependencies(gunJob, new EventQueueJob{ weaponInfos = weaponFired }.Schedule(gunJob));
         entityCommandBuffer.AddJobHandleForProducer(Dependency);
+    }
+    struct EventQueueJob : IJob
+    {
+        
+        public NativeQueue<WeaponInfo> weaponInfos;
+        public void Execute()
+        {
+            while (weaponInfos.TryDequeue(out WeaponInfo info))
+            {
+                EventsHolder.WeaponEvents.Add(info);
+            }
+        }
     }
 
     private static void ShootPistol(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,

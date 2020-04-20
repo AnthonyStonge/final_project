@@ -1,6 +1,7 @@
 ﻿using Unity.Entities;
  using Unity.Mathematics;
- using Unity.Transforms;
+using Unity.Physics;
+using Unity.Transforms;
  [DisableAutoCreation]
  [UpdateAfter(typeof(RotateEnemySystem))]
  public class MoveSystem : SystemBase
@@ -15,9 +16,10 @@
              translation.Value += math.forward(rotation.Value) * speedData.Value * dt;
          }).ScheduleParallel();
  
-         Entities.WithAll<PlayerTag>().ForEach((ref Translation translation, in SpeedData speedData, in InputComponent ic) =>
+         //TODO With physicVelocity, the translation happens after, but when?
+         Entities.WithAll<PlayerTag>().ForEach((ref PhysicsVelocity physicsVelocity, in SpeedData speedData, in InputComponent ic) =>
          {
-             translation.Value.xz += math.normalizesafe(ic.Move) * speedData.Value * dt;
+             physicsVelocity.Linear.xz = math.normalizesafe(ic.Move) * speedData.Value * dt;
          }).Run();
          
          Entities.ForEach((ref Translation translation, ref DamageProjectile projectile, in Rotation rotation) =>

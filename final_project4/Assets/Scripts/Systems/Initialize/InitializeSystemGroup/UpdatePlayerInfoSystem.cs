@@ -16,7 +16,7 @@ public class UpdatePlayerInfoSystem : SystemBase
             // GameVariables.PlayerVars.CurrentHealth = healthData.Value;
             // GameVariables.PlayerVars.CurrentState = stateData.Value;
             GameVariables.PlayerVars.CurrentPosition = trans.Value;
-            GameVariables.PlayerVars.Transform.position = trans.Value;
+            // GameVariables.PlayerVars.Transform.position = trans.Value;
         }).Run();
     }
 }

@@ -2,6 +2,7 @@
 using Cinemachine;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 
 [DisableAutoCreation]
@@ -32,11 +33,13 @@ public class CameraFollowSystem : SystemBase
     {
         if (GameVariables.PlayerVars.Entity != Entity.Null)
         {
+            Translation t = EntityManager.GetComponentData<Translation>(GameVariables.PlayerVars.Entity);
             // #Math#TransposeThatTransform#GroupSelfie
             InputComponent input = entityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);
             float3 pos = new float3(input.Mouse.x - Screen.width * 0.5f, 0, input.Mouse.y - Screen.height * 0.5f) / 20;
             float3 actualpos = math.clamp(pos, min, max);
             GameVariables.MouseToTransform.position = GameVariables.PlayerVars.CurrentPosition + actualpos;
+            GameVariables.PlayerVars.Transform.position = t.Value;
         }
     }
 }
