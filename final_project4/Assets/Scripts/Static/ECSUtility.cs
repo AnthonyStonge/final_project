@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ECSUtility
 {
-    public static Entity ConvertPlayerPrefab(GameObject go)
+    public static Entity ConvertGameObjectPrefab(GameObject go)
     {
         Entity returnEntity = Entity.Null;
         var bodyAuthoring = go.GetComponent<PhysicsBodyAuthoring>();

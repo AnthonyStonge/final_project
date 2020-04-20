@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 using Enums;
-using Unity.Collections;
+using UnityEngine.AddressableAssets;
+using static ECSUtility;
 
 public static class EnemyHolder
 {
@@ -13,9 +13,35 @@ public static class EnemyHolder
 
     public static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
 
+    private static int currentNumberOfLoadedAssets;
+    private static int numberOfAssetsToLoad;
+    
+    public static Dictionary<string, Entity> EnemyDict;
+    
+    public static string[] FileNameToLoad =
+    {
+
+    };
+    
     public static void Initialize()
     {
-        ConvertPrefabs();
+        //ConvertPrefabs();
+        EnemyDict = new Dictionary<string, Entity>();
+        
+        currentNumberOfLoadedAssets = 0;
+        numberOfAssetsToLoad = FileNameToLoad.Length;
+    }
+
+    public static void LoadAssets()
+    {
+        foreach (var i in FileNameToLoad)
+        {
+            Addressables.LoadAssetAsync<GameObject>(i).Completed += obj =>
+            {
+                EnemyDict.Add(i, ConvertGameObjectPrefab(obj.Result));
+                currentNumberOfLoadedAssets++;
+            };
+        }
     }
 
     public static void OnDestroy()

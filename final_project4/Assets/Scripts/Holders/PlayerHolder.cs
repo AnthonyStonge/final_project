@@ -20,7 +20,7 @@ public static class PlayerHolder
     public static Dictionary<string, Entity> PlayerDict;
 
     //BlobAssetsReferences    //TODO KEEP IN ANOTHER HOLDER?
-    private static BlobAssetStore playerBlobAsset;
+    //private static BlobAssetStore playerBlobAsset;
 
     public static string[] FileNameToLoad =
     {
@@ -31,9 +31,10 @@ public static class PlayerHolder
     {
         //Convert PlayerPrefabs
         // ConvertPlayerPrefab();
+        PlayerDict = new Dictionary<string, Entity>();
+        
         currentNumberOfLoadedAssets = 0;
         numberOfAssetsToLoad = FileNameToLoad.Length;
-
     }
 
     public static void LoadAssets()
@@ -42,7 +43,7 @@ public static class PlayerHolder
             Addressables.LoadAssetAsync<GameObject>(i).Completed +=
                 obj =>
                 {
-                    PlayerDict.Add(i, ConvertPlayerPrefab(obj.Result));
+                    PlayerDict.Add(i, ConvertGameObjectPrefab(obj.Result));
                     currentNumberOfLoadedAssets++;
                 };
         }
@@ -55,6 +56,6 @@ public static class PlayerHolder
 
     public static void OnDestroy()
     {
-        playerBlobAsset.Dispose();
+     //  playerBlobAsset.Dispose();
     }
 }
