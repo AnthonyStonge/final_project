@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 [ExecuteInEditMode]
 public class GameVariable : MonoBehaviour
 {
@@ -29,5 +31,6 @@ public class GameVariable : MonoBehaviour
         }
     }
     public ScriptableGrid scriptableGrid;
+    public Object PrefabEnnemy;
     // Start is called before the first frame update
 }

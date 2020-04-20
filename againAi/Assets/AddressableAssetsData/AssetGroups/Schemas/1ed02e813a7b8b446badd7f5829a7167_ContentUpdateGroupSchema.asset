@@ -9,14 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43b3cf51993552142b07c5603dff10d2, type: 3}
-  m_Name: Grid
+  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
+  m_Name: 1ed02e813a7b8b446badd7f5829a7167_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  gridSize:
-    x: 50
-    y: 50
-  nodeSize:
-    x: 1
-    y: 0.1
-    z: 1
-  indexNoWalkable: 
+  m_Group: {fileID: 0}
+  m_StaticContent: 0

@@ -27,20 +27,21 @@ public class GridDisplay : MonoBehaviour
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.red;
         RaycastHit hit;
-        if (e.button == 0)
+
         if (Physics.Raycast(ray, out hit))
         {
-            isHit = true;
-            int bob = (int)hit.point.x + (int)hit.point.z * grid.gridSize.x;
+            
+            int bob = (int) hit.point.x + (int) hit.point.z * grid.gridSize.x;
             if (e.shift)
                 if (!grid.indexNoWalkable.Contains(bob))
                     grid.indexNoWalkable.Add(bob);
             if (e.control)
                 if (grid.indexNoWalkable.Contains(bob))
                     grid.indexNoWalkable.Remove(bob);
-                
-            
+
+
         }
+        
         /*if (e.shift)
         {
             Debug.Log("mousefckDown");

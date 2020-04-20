@@ -1,23 +1,33 @@
-﻿using Unity.Entities;
+﻿using System;
+using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
+using Unity.Physics.Authoring;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Material = UnityEngine.Material;
 using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
     private EntityManager em;
+    public GameObject EnemyGO;
     public Material mat;
     public Mesh mesh;
     public Material playerMat;
     public Mesh playerMesh;
     public ushort batch;
+    public static Entity en;
+    private BlobAssetStore blobAssetStore;
     // Start is called before the first frame update
     void Start()
     {
+        blobAssetStore = new BlobAssetStore();
+        en = GameObjectConversionUtility.ConvertGameObjectHierarchy(EnemyGO,
+            GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blobAssetStore));
         batch = 0;
         em = World.DefaultGameObjectInjectionWorld.EntityManager;
         createPlayer();
@@ -26,17 +36,17 @@ public class Spawner : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 50; i++)
             {
-                createEntity(i);
+                createEntity(i % 50);
             }
             
         }
     }
     private void createEntity(int i)
     {
-        EntityArchetype ea = em.CreateArchetype(typeof(Translation), typeof(RenderMesh), typeof(LocalToWorld), typeof(RenderBounds), typeof(PathFollow), typeof(PathFindingComponent), typeof(PathPosition), typeof(UsePathFindingComp));
-        Entity e = em.CreateEntity(ea);
+        EntityArchetype ea = em.CreateArchetype(typeof(Translation), typeof(RenderMesh), typeof(LocalToWorld), typeof(RenderBounds), typeof(PathFollow), typeof(PathFindingComponent), typeof(PathPosition), typeof(UsePathFindingComp), typeof(PhysicsCollider), typeof(PhysicsVelocity), typeof(PhysicsMass));
+        Entity e = em.Instantiate(en);
         em.SetComponentData(e, new PathFindingComponent()
         {
             startPos = new int2(-1, -1),
@@ -47,11 +57,11 @@ public class Spawner : MonoBehaviour
             Value = new float3(i,0,0)
         });
        
-        em.SetSharedComponentData(e, new RenderMesh
+        /*em.SetSharedComponentData(e, new RenderMesh
         {
             mesh = mesh,
             material = mat
-        });
+        });*/
         em.SetComponentData(e, new PathFollow
         {
             pathIndex = -1,
@@ -60,7 +70,7 @@ public class Spawner : MonoBehaviour
         {
             Value = batch++
         });
-        batch %= 4;
+        batch %= 8;
     }
     private void createPlayer()
     {
@@ -77,6 +87,7 @@ public class Spawner : MonoBehaviour
         });
 
     }
+    
     private void createFlockAgent()
     {
         EntityArchetype agent = em.CreateArchetype(typeof(Translation), typeof(RenderMesh), typeof(LocalToWorld), typeof(RenderBounds), typeof(PhysicsCollider), typeof(Rotation), typeof(PhysicsVelocity));
@@ -135,6 +146,10 @@ public class Spawner : MonoBehaviour
             )
         });
 
+    }
+    private void OnDestroy()
+    {
+        blobAssetStore.Dispose();
     }
     // Update is called once per frame
 
