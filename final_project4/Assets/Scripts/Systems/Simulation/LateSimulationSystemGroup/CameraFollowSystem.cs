@@ -31,8 +31,6 @@ public class CameraFollowSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        if (GameVariables.PlayerVars.Entity != Entity.Null)
-        {
             Translation t = EntityManager.GetComponentData<Translation>(GameVariables.PlayerVars.Entity);
             // #Math#TransposeThatTransform#GroupSelfie
             InputComponent input = entityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);
@@ -40,6 +38,5 @@ public class CameraFollowSystem : SystemBase
             float3 actualpos = math.clamp(pos, min, max);
             GameVariables.MouseToTransform.position = GameVariables.PlayerVars.CurrentPosition + actualpos;
             GameVariables.PlayerVars.Transform.position = t.Value;
-        }
     }
 }
