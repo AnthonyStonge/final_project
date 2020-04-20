@@ -157,7 +157,7 @@ public class RetrieveGunEventSystem : SystemBase
     private static void ShootShotgun(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
         float3 position, quaternion rotation)
     {
-        float degreeFarShot = 15;
+        float degreeFarShot = math.radians(3);
 
         //Create center bullet
         Entity centerBullet = ecb.Instantiate(jobIndex, bulletPrefab);
