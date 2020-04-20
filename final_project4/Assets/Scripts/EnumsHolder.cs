@@ -6,9 +6,9 @@ namespace Enums
 {
     public enum GunType
     {
+        NONE,
         PISTOL,
-        SHOTGUN,
-        CROCKET
+        SHOTGUN
     }
 
     public enum BulletType

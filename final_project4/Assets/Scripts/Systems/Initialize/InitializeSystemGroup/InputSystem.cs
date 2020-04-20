@@ -7,6 +7,7 @@ using UnityEngine;
 public class InputSystem : SystemBase
 {
     private EntityManager entityManager;
+
     protected override void OnCreate()
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -14,41 +15,13 @@ public class InputSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        InputComponent input = new InputComponent {Inventory = -1};
+        InputComponent inputs = entityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);
 
-        input.Mouse = Input.mousePosition;
+        if (inputs.Enabled)
+            inputs.Update();
+        else
+            inputs.Reset();
         
-        if (Input.GetKey(KeyCode.W))
-            input.Move.y = 1;
-        
-        if (Input.GetKey(KeyCode.S))
-            input.Move.y = -1;
-        
-        if (Input.GetKey(KeyCode.A))
-            input.Move.x = -1;
-        
-        if (Input.GetKey(KeyCode.D))
-            input.Move.x = 1;
-        
-        if (Input.GetKeyDown(KeyCode.E))
-            input.Interact = true;
-        
-        if (Input.GetMouseButton(0))
-            input.Shoot = true;
-        
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.LeftShift))
-            input.Dash = true;
-        
-        if (Input.GetKeyDown(KeyCode.R))
-            input.Reload = true;
-        
-        if (Input.GetKeyDown(KeyCode.Escape))
-            input.Cancel = true;
-        
-        
-        entityManager.SetComponentData(GameVariables.PlayerVars.Entity, input);
-
-        //TODO add number 1 to numberofweapons for cycling/changing weapon
-        //TODO AND Mouse wheel to do the same thing
+        entityManager.SetComponentData(GameVariables.PlayerVars.Entity, inputs);
     }
 }

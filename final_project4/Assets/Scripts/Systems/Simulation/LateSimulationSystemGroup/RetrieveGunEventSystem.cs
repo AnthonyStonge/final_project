@@ -1,7 +1,10 @@
-﻿using EventStruct;
+﻿using System;
+using Enums;
+using EventStruct;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
+using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
@@ -20,6 +23,10 @@ public class RetrieveGunEventSystem : SystemBase
         weaponFired = new NativeQueue<WeaponInfo>(Allocator.Persistent);
     }
 
+    protected override void OnDestroy()
+    {
+        weaponFired.Dispose();
+    }
 
     protected override void OnUpdate()
     {
@@ -33,9 +40,9 @@ public class RetrieveGunEventSystem : SystemBase
         EntityCommandBuffer.Concurrent ecb = entityCommandBuffer.CreateCommandBuffer().ToConcurrent();
 
         //Get all StateData components
-        Container states = new Container
+        ComponentDataContainer<StateData> states = new ComponentDataContainer<StateData>
         {
-            allStateData = GetComponentDataFromEntity<StateData>()
+            Components = GetComponentDataFromEntity<StateData>()
         };
 
         float deltaTime = Time.DeltaTime;
@@ -43,11 +50,11 @@ public class RetrieveGunEventSystem : SystemBase
         JobHandle job = Entities.ForEach(
             (int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in Parent parent) =>
             {
-                if (!states.allStateData.HasComponent(parent.Value))
+                if (!states.Components.HasComponent(parent.Value))
                     return;
 
                 //Variables local to job
-                StateData state = states.allStateData[parent.Value];
+                StateData state = states.Components[parent.Value];
                 WeaponInfo.WeaponEventType weaponEventType = WeaponInfo.WeaponEventType.NONE;
 
                 if (gun.IsBetweenShot)
@@ -84,16 +91,18 @@ public class RetrieveGunEventSystem : SystemBase
 
                     //Create entity in EntityCommandBuffer
                     //TODO GET PREFAB ENTITY LINK WITH GUNTYPE
+                    switch (gun.GunType)
+                    {
+                        case GunType.PISTOL:
+                            ShootPistol(entityInQueryIndex, ecb, gun.BulletPrefab, transform.Position,
+                                transform.Rotation);
+                            break;
+                        case GunType.SHOTGUN:
+                            ShootShotgun(entityInQueryIndex, ecb, gun.BulletPrefab, transform.Position,
+                                transform.Rotation);
+                            break;
+                    }
 
-                    ecb.SetComponent(entityInQueryIndex, gun.BulletPrefab, new Translation
-                    {
-                        Value = transform.Position
-                    });
-                    ecb.SetComponent(entityInQueryIndex, gun.BulletPrefab, new Rotation
-                    {
-                        Value = transform.Rotation
-                    });
-                    ecb.Instantiate(entityInQueryIndex, gun.BulletPrefab);
                     gun.BetweenShotTime = 0.04f - gun.BetweenShotTime;
                 }
                 else if (gun.CurrentAmountBulletInMagazine <= 0 && gun.CurrentAmountBulletOnPlayer > 0)
@@ -128,13 +137,71 @@ public class RetrieveGunEventSystem : SystemBase
         entityCommandBuffer.AddJobHandleForProducer(Dependency);
     }
 
-    protected override void OnDestroy()
+    private static void ShootPistol(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
+        float3 position, quaternion rotation)
     {
-        weaponFired.Dispose();
+        //Create entity with prefab
+        Entity bullet = ecb.Instantiate(jobIndex, bulletPrefab);
+
+        //Set position/rotation
+        ecb.SetComponent(jobIndex, bullet, new Translation
+        {
+            Value = position
+        });
+        ecb.SetComponent(jobIndex, bullet, new Rotation
+        {
+            Value = rotation
+        });
     }
 
-    private struct Container
+    private static void ShootShotgun(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
+        float3 position, quaternion rotation)
     {
-        [ReadOnly] public ComponentDataFromEntity<StateData> allStateData;
+        float degreeFarShot = math.radians(3);
+
+        //Create center bullet
+        Entity centerBullet = ecb.Instantiate(jobIndex, bulletPrefab);
+
+        //Set position/rotation
+        ecb.SetComponent(jobIndex, centerBullet, new Translation
+        {
+            Value = position
+        });
+        ecb.SetComponent(jobIndex, centerBullet, new Rotation
+        {
+            Value = rotation
+        });
+
+        //Create far left bullet
+        Entity farLeftBullet = ecb.Instantiate(jobIndex, bulletPrefab);
+
+        //Find rotation
+        quaternion farLeftBulletRotation = math.mul(rotation, quaternion.RotateY(degreeFarShot));
+
+        //Set position/rotation
+        ecb.SetComponent(jobIndex, farLeftBullet, new Translation
+        {
+            Value = position
+        });
+        ecb.SetComponent(jobIndex, farLeftBullet, new Rotation
+        {
+            Value = farLeftBulletRotation
+        });
+
+        //Create far right bullet
+        Entity farRightBullet = ecb.Instantiate(jobIndex, bulletPrefab);
+
+        //Find rotation
+        quaternion farRightBulletRotation = math.mul(rotation, quaternion.RotateY(-degreeFarShot));
+
+        //Set position/rotation
+        ecb.SetComponent(jobIndex, farRightBullet, new Translation
+        {
+            Value = position
+        });
+        ecb.SetComponent(jobIndex, farRightBullet, new Rotation
+        {
+            Value = farRightBulletRotation
+        });
     }
 }

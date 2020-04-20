@@ -1,4 +1,6 @@
-﻿using Unity.Entities;
+﻿using System.Collections.Generic;
+using Enums;
+using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -25,6 +27,9 @@ public static class GameVariables
         public static float CurrentSpeed;
         public static short CurrentHealth;
         public static bool IsAlive;
+
+        public static Dictionary<GunType, Entity> PlayerWeaponEntities = new Dictionary<GunType, Entity>();
+        public static GunType CurrentWeaponHeld;
 
         //Unity linker
         public static Transform Transform;
