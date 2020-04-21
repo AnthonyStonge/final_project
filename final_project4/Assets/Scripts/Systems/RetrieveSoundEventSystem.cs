@@ -68,7 +68,6 @@ public class RetrieveSoundEventSystem : SystemBase
         //TODO
 
         //Play sounds
-        
     }
 
     private static void ResetValues<T1, T2>(Dictionary<T1, Dictionary<T2, int>> dictionary) where T1 : System.Enum

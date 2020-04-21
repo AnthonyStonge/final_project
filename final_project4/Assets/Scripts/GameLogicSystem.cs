@@ -42,6 +42,7 @@ public class GameLogicSystem : SystemBase
 
     protected override void OnUpdate()
     {
+        //var gameEntity = EntityManager.GetComponentData<GameStateComponent>();
         Entities.WithoutBurst().ForEach((ref GameStateComponent gameStateComponent) =>
         {
             //Normal Logic

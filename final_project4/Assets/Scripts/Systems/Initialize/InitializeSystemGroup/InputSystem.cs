@@ -16,7 +16,7 @@ public class InputSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        InputComponent inputs = entityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);
+        InputComponent inputs = entityManager.GetComponentData<InputComponent>(GameVariables.Player.Entity);
 
         if (inputs.Enabled)
         {
@@ -57,6 +57,6 @@ public class InputSystem : SystemBase
         else
             inputs.Reset();
         
-        entityManager.SetComponentData(GameVariables.PlayerVars.Entity, inputs);
+        entityManager.SetComponentData(GameVariables.Player.Entity, inputs);
     }
 }

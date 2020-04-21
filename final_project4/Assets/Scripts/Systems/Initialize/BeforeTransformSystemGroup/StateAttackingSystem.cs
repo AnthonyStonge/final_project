@@ -18,7 +18,7 @@ public class StateAttackingSystem : SystemBase
             }
         }).Schedule();
 
-        var playerpos = EntityManager.GetComponentData<Translation>(PlayerVars.Entity);
+        var playerpos = EntityManager.GetComponentData<Translation>(Player.Entity);
         //Act on all entities with AttackStateData and EnemyTag
         Entities.WithAll<EnemyTag>().ForEach((ref StateData state, in Translation currentPosition, in AttackStateData range) =>
         {

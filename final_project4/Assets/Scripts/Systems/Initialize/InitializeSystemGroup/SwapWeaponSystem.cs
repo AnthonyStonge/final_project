@@ -16,7 +16,7 @@ public class SwapWeaponSystem : SystemBase
     protected override void OnUpdate()
     {
         //Get player inputs
-        InputComponent inputs = EntityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);
+        InputComponent inputs = EntityManager.GetComponentData<InputComponent>(GameVariables.Player.Entity);
 
         if (!inputs.Enabled)
             return;
@@ -29,7 +29,7 @@ public class SwapWeaponSystem : SystemBase
         else if (inputs.MouseWheel.y > 0)
         {
             //Get next weapon
-            WeaponType typeDesired = (WeaponType)(((int)GameVariables.PlayerVars.CurrentWeaponHeld + 1) % gunEnumLength);
+            WeaponType typeDesired = (WeaponType)(((int)GameVariables.Player.CurrentWeaponHeld + 1) % gunEnumLength);
             
             if(typeDesired == WeaponType.Pistol)
                typeDesired = (WeaponType)(((int)typeDesired + 1) % gunEnumLength);
@@ -39,7 +39,7 @@ public class SwapWeaponSystem : SystemBase
         else if (inputs.MouseWheel.y < 0)
         {
             //Get previous weapon
-            WeaponType typeDesired = (WeaponType)(((int)GameVariables.PlayerVars.CurrentWeaponHeld - 1) % gunEnumLength);
+            WeaponType typeDesired = (WeaponType)(((int)GameVariables.Player.CurrentWeaponHeld - 1) % gunEnumLength);
 
             if (typeDesired == WeaponType.Pistol)
                 typeDesired = (WeaponType) gunEnumLength - 1;
@@ -59,13 +59,13 @@ public class SwapWeaponSystem : SystemBase
         });
         
         //Activate/Deactivate weapons
-        Entity currentWeaponEntity = GameVariables.PlayerVars.PlayerWeaponEntities[GameVariables.PlayerVars.CurrentWeaponHeld];
-        Entity desiredWeaponEntity = GameVariables.PlayerVars.PlayerWeaponEntities[type];
+        Entity currentWeaponEntity = GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
+        Entity desiredWeaponEntity = GameVariables.Player.PlayerWeaponEntities[type];
         
         EntityManager.SetEnabled(currentWeaponEntity, false);
         EntityManager.SetEnabled(desiredWeaponEntity, true);
         
         //Set CurrentGunType
-        GameVariables.PlayerVars.CurrentWeaponHeld = type;
+        GameVariables.Player.CurrentWeaponHeld = type;
     }
 }

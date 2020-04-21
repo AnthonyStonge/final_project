@@ -29,8 +29,8 @@ public static class MapInitializer
         {
             Value = quaternion.identity //TODO SET SPAWN ROTATION
         });
-        PlayerVars.Entity = player;
-        PlayerVars.CurrentWeaponHeld = WeaponType.Pistol;
+        Player.Entity = player;
+        Player.CurrentWeaponHeld = WeaponType.Pistol;
         
         //Create weapons for player
         Entity pistol = entityManager.Instantiate(WeaponHolder.WeaponDict[WeaponType.Pistol]);
@@ -38,7 +38,7 @@ public static class MapInitializer
         {
             Value = player
         });
-        PlayerVars.PlayerWeaponEntities.Add(WeaponType.Pistol, pistol);
+        Player.PlayerWeaponEntities.Add(WeaponType.Pistol, pistol);
         
         Entity shotgun = entityManager.Instantiate(WeaponHolder.WeaponDict[WeaponType.Shotgun]);
         entityManager.SetComponentData(shotgun, new Parent
@@ -46,6 +46,6 @@ public static class MapInitializer
             Value = player
         });
         entityManager.SetEnabled(shotgun, false);
-        PlayerVars.PlayerWeaponEntities.Add(WeaponType.Shotgun, shotgun);
+        Player.PlayerWeaponEntities.Add(WeaponType.Shotgun, shotgun);
     }
 }

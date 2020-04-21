@@ -19,15 +19,15 @@ public class CameraFollowSystem : SystemBase
     protected override void OnUpdate()
     {
         //Get Player Translation, which was set by the physic system
-        Translation t = EntityManager.GetComponentData<Translation>(GameVariables.PlayerVars.Entity);
+        Translation t = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity);
         var currentPosition = t.Value;
         
         //Calculate Input
-        InputComponent input = EntityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);
+        InputComponent input = EntityManager.GetComponentData<InputComponent>(GameVariables.Player.Entity);
         float3 pos = new float3(input.Mouse.x - Screen.width * 0.5f, 0, input.Mouse.y - Screen.height * 0.5f) / 20;
         float3 actualpos = math.clamp(pos, min, max);
         
         GameVariables.MouseToTransform.position = currentPosition + actualpos;
-        GameVariables.PlayerVars.Transform.position = currentPosition;
+        GameVariables.Player.Transform.position = currentPosition;
     }
 }

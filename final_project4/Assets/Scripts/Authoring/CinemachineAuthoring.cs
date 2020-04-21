@@ -18,10 +18,10 @@ public class CinemachineAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         GameObject player = new GameObject(PlayerObjectName);
         GameObject cursor = new GameObject(CursorObjectName);
 
-        GameVariables.PlayerVars.Transform = player.transform;
+        GameVariables.Player.Transform = player.transform;
         GameVariables.MouseToTransform = cursor.transform;
 
-        cinemachineTargetGroup.AddMember(GameVariables.PlayerVars.Transform, 2, 0);
+        cinemachineTargetGroup.AddMember(GameVariables.Player.Transform, 2, 0);
         cinemachineTargetGroup.AddMember(GameVariables.MouseToTransform, 1, 0);
 
         GameVariables.MainCamera = MainCam;
