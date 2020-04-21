@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StartApplication : MonoBehaviour
 {
-    private bool test;
+    private bool HasInit;
     void Start()
     {
         GameInitializer.LoadAssets();    
@@ -13,9 +13,9 @@ public class StartApplication : MonoBehaviour
     private void Update()
     {
         //This is not working
-        if (GameInitializer.IsLoadingFinished() && !test)
+        if (GameInitializer.IsLoadingFinished() && !HasInit)
         {
-            test = true;
+            HasInit = true;
             GameInitializer.InitializeSystemWorkflow();
             gameObject.SetActive(false);
         }
