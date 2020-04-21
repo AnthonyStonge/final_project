@@ -95,16 +95,16 @@ public class PathFinding : SystemBase
                 if(pathFindingComp.findPath == 0)
                 {
                     pathFindingComp.startPos = new int2((int) translation.Value.x,(int) translation.Value.z);
-                    pathFindingComp.findPath = 1;
-                    FindPath(pathFindingComp.startPos, pathFindingComp.endPos, pathBuffer,ref pathFollow, bob, nodeArray, neightBourOffsetArrayJob);
+                    
+                    FindPath(pathFindingComp.startPos, pathFindingComp.endPos, ref pathFindingComp.findPath, pathBuffer,ref pathFollow, bob, nodeArray, neightBourOffsetArrayJob);
                 }
             }).ScheduleParallel();
         
-        batchCall %= 4;
+        batchCall %= 8;
         
     }
 
-    private static void FindPath(int2 startPos, int2 endPos, DynamicBuffer<PathPosition> pathBufferPos,ref PathFollow pathFollow, in int2 gridSize, in NativeArray<Node> nodeArray, in NativeArray<int2> neightBourOffsetArrayJob)
+    private static void FindPath(in int2 startPos, in int2 endPos, ref int pathFind, DynamicBuffer<PathPosition> pathBufferPos,ref PathFollow pathFollow, in int2 gridSize, in NativeArray<Node> nodeArray, in NativeArray<int2> neightBourOffsetArrayJob)
     {
         NativeArray<Node> pathNode = new NativeArray<Node>(gridSize.x * gridSize.y, Allocator.Temp);
         
@@ -144,7 +144,7 @@ public class PathFinding : SystemBase
             
             
             #endregion
-            
+
             while (openList.Length > 0)
             {
                 int currentNodeIndex = GetLowestCostFNodeIndex(openList, pathNode);
@@ -160,7 +160,7 @@ public class PathFinding : SystemBase
                     }
                 }
                 closedList.Add(currentNodeIndex);
-                
+
                 for (int i = 0; i < neightBourOffsetArrayJob.Length; i++)
                 {
                     int2 neightbourOffSet = neightBourOffsetArrayJob[i];
@@ -202,6 +202,7 @@ public class PathFinding : SystemBase
             }
             else
             {
+                pathFind = 1;
                 CalculatePath(pathNode, endNode, pathBufferPos);
                 pathFollow = new PathFollow
                 {

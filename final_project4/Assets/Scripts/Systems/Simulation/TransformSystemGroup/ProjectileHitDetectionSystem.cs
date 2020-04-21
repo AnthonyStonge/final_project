@@ -10,20 +10,20 @@ using RaycastHit = Unity.Physics.RaycastHit;
 public class ProjectileHitDetectionSystem : SystemBase
 {
     private BuildPhysicsWorld physicsWorld;
-    private EndSimulationEntityCommandBufferSystem preTransformBarrier;
+    private EndSimulationEntityCommandBufferSystem endSimulationEntityCommandBufferSystem;
 
     protected override void OnCreate()
     {
         base.OnCreate();
 
-        preTransformBarrier = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        endSimulationEntityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         physicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
     }
 
     protected override void OnUpdate()
     {
         PhysicsWorld PhysicsWorld = physicsWorld.PhysicsWorld;
-        var entityCommandBuffer = preTransformBarrier.CreateCommandBuffer().ToConcurrent();
+        var entityCommandBuffer = endSimulationEntityCommandBufferSystem.CreateCommandBuffer().ToConcurrent();
 
         //Get all enemy existing
         ComponentDataContainer<EnemyTag> enemies = new ComponentDataContainer<EnemyTag>
@@ -44,7 +44,6 @@ public class ProjectileHitDetectionSystem : SystemBase
         {
             //System.IndexOutOfRangeException: Index {0} is out of range of '{4}' Length.
             //If collides with more than 4 things
-            NativeArray<RaycastHit> raycastHits = new NativeArray<RaycastHit>(4, Allocator.Temp);
             
             RaycastInput raycastInput = new RaycastInput
             {
@@ -53,34 +52,20 @@ public class ProjectileHitDetectionSystem : SystemBase
                 Filter = filter
             };
                 
-            MaxHitsCollector<RaycastHit> collector = new MaxHitsCollector<RaycastHit>(1.0f, ref raycastHits);
-
-            if (PhysicsWorld.CastRay(raycastInput, ref collector))
+            // MaxHitsCollector<RaycastHit> collector = new MaxHitsCollector<RaycastHit>(1.0f, ref raycastHits);
+            RaycastHit hit = new RaycastHit();
+            if (PhysicsWorld.CollisionWorld.CastRay(raycastInput, out hit))
             {
-                if (collector.NumHits > 0)
-                {
-                    RaycastHit closestHit = new RaycastHit();
-                    closestHit.Fraction = 2f;
+                Entity hitEntity = PhysicsWorld.Bodies[hit.RigidBodyIndex].Entity;
+                
+                if(enemies.Components.HasComponent(hitEntity))
+                    entityCommandBuffer.DestroyEntity(entityInQueryIndex, hitEntity);
 
-                    for (int j = 0; j < collector.NumHits; j++)
-                    {
-                        if(raycastHits[j].Fraction < closestHit.Fraction)
-                        {
-                            closestHit = raycastHits[j];
-                        }
-                    }
-                    Entity hitEntity = PhysicsWorld.Bodies[closestHit.RigidBodyIndex].Entity;
-                    
-                    if(enemies.Components.HasComponent(hitEntity))
-                        entityCommandBuffer.DestroyEntity(entityInQueryIndex, hitEntity);
-
-                    entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
-                }
+                entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
             }
-            raycastHits.Dispose();
         }).ScheduleParallel();
 
-        preTransformBarrier.AddJobHandleForProducer(Dependency);
+        endSimulationEntityCommandBufferSystem.AddJobHandleForProducer(Dependency);
     }
 }
 

@@ -64,7 +64,7 @@ public static class GameInitializer
         initialization.AddSystemToUpdateList(afterInitialization);
 
         transform.AddSystemToUpdateList(transformSimulationManager);
-        initialization.AddSystemToUpdateList(lateSimulationManager);
+        lateSimulation.AddSystemToUpdateList(lateSimulationManager);
         
         presentation.AddSystemToUpdateList(presentationManager);
         

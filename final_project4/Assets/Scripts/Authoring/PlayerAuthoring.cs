@@ -21,7 +21,7 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         //TODO REMOVE SPEED AND REPLACE BY AFFECTING VELOCITY
         dstManager.AddComponentData(entity, new SpeedData
         {
-            Value = 2000
+            Value = 1000
         });
         
       
