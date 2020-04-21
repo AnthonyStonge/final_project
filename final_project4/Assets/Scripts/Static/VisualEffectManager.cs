@@ -1,13 +1,14 @@
-﻿using Enums;
-using Unity.Mathematics;
-using UnityEngine;
-using UnityEngine.VFX;
+﻿using EventStruct;
 
 public static class VisualEffectManager 
 {
-    public static void PlayVisualEffect(VFXType type, float3 position, quaternion rotation)
+    public static void PlayVisualEffect(BulletInfo info)
     {
         
+    }
+    
+    public static void PlayVisualEffect(WeaponInfo info)
+    {
         
     }
 }
