@@ -9,7 +9,7 @@ using static ECSUtility;
 
 public static class PlayerHolder
 {
-    public static ConcurrentDictionary<PlayerType, Entity> PlayerDict;
+    public static ConcurrentDictionary<PlayerType, Entity> PlayerPrefabDict;
     
     private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets;
@@ -17,7 +17,7 @@ public static class PlayerHolder
 
     public static void Initialize()
     {
-        PlayerDict = new ConcurrentDictionary<PlayerType, Entity>();
+        PlayerPrefabDict = new ConcurrentDictionary<PlayerType, Entity>();
         
         currentNumberOfLoadedAssets = 0;
         numberOfAssetsToLoad = Enum.GetNames(typeof(PlayerType)).Length;
@@ -30,7 +30,7 @@ public static class PlayerHolder
             Addressables.LoadAssetAsync<GameObject>(i).Completed +=
                 obj =>
                 {
-                    PlayerDict.TryAdd((PlayerType) Enum.Parse(typeof(PlayerType), i), ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
+                    PlayerPrefabDict.TryAdd((PlayerType) Enum.Parse(typeof(PlayerType), i), ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
                     currentNumberOfLoadedAssets++;
                     if (blob != null)
                     {

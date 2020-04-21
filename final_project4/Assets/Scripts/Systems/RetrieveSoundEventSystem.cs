@@ -70,7 +70,7 @@ public class RetrieveSoundEventSystem : SystemBase
         //Play sounds
     }
 
-    private static void ResetValues<T1, T2>(Dictionary<T1, Dictionary<T2, int>> dictionary) where T1 : System.Enum
+    private static void ResetValues<T1, T2>(Dictionary<T1, Dictionary<T2, int>> dictionary) where T1 : Enum where T2 : Enum
     {
         //Reset values to 0 (as if no event ever happend)
         for (int i = 0; i < dictionary.Count; i++)

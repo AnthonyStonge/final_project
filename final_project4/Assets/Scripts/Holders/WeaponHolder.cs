@@ -9,7 +9,7 @@ using static ECSUtility;
 
 public static class WeaponHolder
 {
-    public static ConcurrentDictionary<WeaponType, Entity> WeaponDict;
+    public static ConcurrentDictionary<WeaponType, Entity> WeaponPrefabDict;
 
     private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets;
@@ -17,7 +17,7 @@ public static class WeaponHolder
 
     public static void Initialize()
     {
-        WeaponDict = new ConcurrentDictionary<WeaponType, Entity>();
+        WeaponPrefabDict = new ConcurrentDictionary<WeaponType, Entity>();
 
         currentNumberOfLoadedAssets = 0;
         numberOfAssetsToLoad = Enum.GetNames(typeof(WeaponType)).Length;
@@ -29,7 +29,7 @@ public static class WeaponHolder
         {
             Addressables.LoadAssetAsync<GameObject>(i).Completed += obj =>
             {
-                WeaponDict.TryAdd((WeaponType) Enum.Parse(typeof(WeaponType), i),
+                WeaponPrefabDict.TryAdd((WeaponType) Enum.Parse(typeof(WeaponType), i),
                     ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
                 currentNumberOfLoadedAssets++;
                 if (blob != null)

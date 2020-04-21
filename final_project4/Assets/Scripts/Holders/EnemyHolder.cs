@@ -9,7 +9,7 @@ using static ECSUtility;
 
 public static class EnemyHolder
 {
-    public static ConcurrentDictionary<EnemyType, Entity> EnemyDict;
+    public static ConcurrentDictionary<EnemyType, Entity> EnemyPrefabDict;
     
     public static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets;
@@ -17,7 +17,7 @@ public static class EnemyHolder
     
     public static void Initialize()
     {
-        EnemyDict = new ConcurrentDictionary<EnemyType, Entity>();
+        EnemyPrefabDict = new ConcurrentDictionary<EnemyType, Entity>();
         
         currentNumberOfLoadedAssets = 0;
         numberOfAssetsToLoad = Enum.GetNames(typeof(EnemyType)).Length;
@@ -29,7 +29,7 @@ public static class EnemyHolder
         {
             Addressables.LoadAssetAsync<GameObject>(i).Completed += obj =>
             {
-                EnemyDict.TryAdd((EnemyType) Enum.Parse(typeof(EnemyType), i), 
+                EnemyPrefabDict.TryAdd((EnemyType) Enum.Parse(typeof(EnemyType), i), 
                     ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
                 currentNumberOfLoadedAssets++;
                 if (blob != null)

@@ -2,6 +2,7 @@
 using Enums;
 using EventStruct;
 using Unity.Entities;
+using UnityEngine;
 
 [DisableAutoCreation]
 public class SwapWeaponSystem : SystemBase
@@ -29,24 +30,27 @@ public class SwapWeaponSystem : SystemBase
         else if (inputs.MouseWheel.y > 0)
         {
             //Get next weapon
-            WeaponType typeDesired = (WeaponType)(((int)GameVariables.Player.CurrentWeaponHeld + 1) % gunEnumLength);
+            /*WeaponType typeDesired = (WeaponType)(((int)GameVariables.Player.CurrentWeaponHeld ) % gunEnumLength);
             
             if(typeDesired == WeaponType.Pistol)
-               typeDesired = (WeaponType)(((int)typeDesired + 1) % gunEnumLength);
+               typeDesired = (WeaponType)(((int)typeDesired + 1) % gunEnumLength);*/
+
+            WeaponType desired = (int)GameVariables.Player.CurrentWeaponHeld + 1 > gunEnumLength - 1 ? 0 : GameVariables.Player.CurrentWeaponHeld + 1;
             
-            SwapWeapon(typeDesired);
+            SwapWeapon(desired);
         }
         else if (inputs.MouseWheel.y < 0)
         {
             //Get previous weapon
-            WeaponType typeDesired = (WeaponType)(((int)GameVariables.Player.CurrentWeaponHeld - 1) % gunEnumLength);
+           /* WeaponType typeDesired = (WeaponType)(((int)GameVariables.Player.CurrentWeaponHeld ) % gunEnumLength);
 
             if (typeDesired == WeaponType.Pistol)
-                typeDesired = (WeaponType) gunEnumLength - 1;
+                typeDesired = (WeaponType) gunEnumLength - 1;*/
             
-            SwapWeapon(typeDesired);
-        }
+            WeaponType desired = (int)GameVariables.Player.CurrentWeaponHeld - 1 < 0 ? (WeaponType)gunEnumLength - 1 : GameVariables.Player.CurrentWeaponHeld - 1;
 
+            SwapWeapon(desired);
+        }
     }
 
     private void SwapWeapon(WeaponType type)

@@ -11,7 +11,7 @@ using static ECSUtility;
 //TODO UNLESS WE MAKE BULLET THAT DONT HAVE WEAPON, WE SHOULD REMOVE THIS CLASS
 public static class ProjectileHolder
 {
-    public static ConcurrentDictionary<ProjectileType, Entity> projectileDict;
+    public static ConcurrentDictionary<ProjectileType, Entity> ProjectilePrefabDict;
     
     private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets;
@@ -20,7 +20,7 @@ public static class ProjectileHolder
     public static void Initialize()
     {
         // ConvertPrefabs();
-        projectileDict = new ConcurrentDictionary<ProjectileType, Entity>();
+        ProjectilePrefabDict = new ConcurrentDictionary<ProjectileType, Entity>();
        
         currentNumberOfLoadedAssets = 0;
         numberOfAssetsToLoad = Enum.GetNames(typeof(ProjectileType)).Length;
@@ -32,7 +32,7 @@ public static class ProjectileHolder
         {
             Addressables.LoadAssetAsync<GameObject>(i).Completed += obj =>
             {
-                projectileDict.TryAdd((ProjectileType) Enum.Parse(typeof(ProjectileType), i),
+                ProjectilePrefabDict.TryAdd((ProjectileType) Enum.Parse(typeof(ProjectileType), i),
                     ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
                 currentNumberOfLoadedAssets++;
                 if (blob != null)

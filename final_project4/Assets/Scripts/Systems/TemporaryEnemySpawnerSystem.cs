@@ -27,7 +27,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                 //Spawn enemy at random position (-50 -> 50)
                 float3 spawnPosition = new float3(random.NextInt(-50, 50), 0, random.NextInt(-50, 50));
 
-                Entity enemy = entityManager.Instantiate(EnemyHolder.EnemyDict[EnemyType.Enemy]);
+                Entity enemy = entityManager.Instantiate(EnemyHolder.EnemyPrefabDict[EnemyType.Enemy]);
                 entityManager.SetComponentData(enemy, new Translation
                 {
                     Value = spawnPosition

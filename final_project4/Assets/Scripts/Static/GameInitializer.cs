@@ -32,8 +32,10 @@ public static class GameInitializer
         //GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
         //GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
 
-        //TODO change this to a more appropriate name.
-        MapInitializer.Initialize();
+        PlayerInitializer.Initialize();
+        WeaponInitializer.Initialize();
+        
+        //MapInitializer.Initialize();
 
         InitializeSystems();
     }
