@@ -9,15 +9,14 @@ using UnityEngine;
 [UpdateAfter(typeof(RetrieveGunEventSystem))]
 public class RetrieveSoundEventSystem : SystemBase
 {
-    private Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>> weaponSounds =
-        new Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>>();
-
-    private Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>> bulletSounds =
-        new Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>>();
-
+    private Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>> weaponSounds;
+    private Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>> bulletSounds;
 
     protected override void OnCreate()
     {
+        weaponSounds = new Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>>();
+        bulletSounds = new Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>>();
+        
         //Weapons
         int gunTypeLength = Enum.GetNames(typeof(WeaponType)).Length;
         int gunEventTypeLength = Enum.GetNames(typeof(WeaponInfo.WeaponEventType)).Length;
@@ -56,6 +55,7 @@ public class RetrieveSoundEventSystem : SystemBase
         foreach (WeaponInfo info in EventsHolder.WeaponEvents)
         {
             weaponSounds[info.WeaponType][info.EventType]++;
+            SoundManager.BufferSound(info);
         }
 
         //Bullets
@@ -65,9 +65,9 @@ public class RetrieveSoundEventSystem : SystemBase
         }
 
         //Resolve how many sound of each should be played
-        //TODO
 
         //Play sounds
+        SoundManager.PlaySound();
     }
 
     private static void ResetValues<T1, T2>(Dictionary<T1, Dictionary<T2, int>> dictionary) where T1 : Enum where T2 : Enum

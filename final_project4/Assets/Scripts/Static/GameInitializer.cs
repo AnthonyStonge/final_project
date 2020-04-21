@@ -29,13 +29,11 @@ public static class GameInitializer
     {
         GameVariables.EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         
-        //GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
         //GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
 
         PlayerInitializer.Initialize();
         WeaponInitializer.Initialize();
-        
-        //MapInitializer.Initialize();
+        SoundHolder.Initialize();
 
         InitializeSystems();
     }
@@ -84,9 +82,7 @@ public static class GameInitializer
         {
             loadingPercentage += ((LoadingStatus) i).Invoke();
         }
-        
-        //Debug.Log("Testing this shit : " + loadingPercentage);
-        
+
         if (loadingPercentage >= 4f)
         {
             return true;
