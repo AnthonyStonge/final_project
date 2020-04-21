@@ -7,14 +7,16 @@ using UnityEngine;
 
 public static class SoundHolder
 {
-    public static Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, AudioClip>> WeaponSounds =
-        new Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, AudioClip>>();
+    public static Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, AudioClip>> WeaponSounds;
 
-    public static Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, AudioClip>> BulletSounds =
-        new Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, AudioClip>>();
+    public static Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, AudioClip>> BulletSounds;
+    
 
     public static void Initialize()
     {
+        WeaponSounds = new Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, AudioClip>>();
+        BulletSounds = new Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, AudioClip>>();
+
         //Weapons
         int gunTypeLength = Enum.GetNames(typeof(WeaponType)).Length;
         for (int i = 0; i < gunTypeLength; i++)

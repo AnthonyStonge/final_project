@@ -20,7 +20,7 @@ public class RetrieveGunEventSystem : SystemBase
     {
         entityCommandBuffer = World.GetExistingSystem<EndInitializationEntityCommandBufferSystem>();
         if (entityCommandBuffer == null)
-            Debug.Log("GET DOWN! Problem incoming...");//ok
+            Debug.Log("GET DOWN! Problem incoming..."); //ok
         weaponFired = new NativeQueue<WeaponInfo>(Allocator.Persistent);
     }
 
@@ -51,12 +51,12 @@ public class RetrieveGunEventSystem : SystemBase
         JobHandle gunJob = Entities.ForEach(
             (int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in Parent parent) =>
             {
-                if (!states.Components.HasComponent(parent.Value) )//|| gun.WeaponType == WeaponType.NONE)
+                if (!states.Components.HasComponent(parent.Value))
                     return;
 
                 //Variables local to job
                 StateData state = states.Components[parent.Value];
-                WeaponInfo.WeaponEventType weaponEventType = WeaponInfo.WeaponEventType.NONE;
+                WeaponInfo.WeaponEventType? weaponEventType = null;
 
                 if (gun.IsBetweenShot)
                 {
@@ -115,24 +115,26 @@ public class RetrieveGunEventSystem : SystemBase
                     weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
                 }
 
-                if (weaponEventType != WeaponInfo.WeaponEventType.NONE)
+                if (weaponEventType != null)
                     //Add event to NativeQueue
                     weaponFiredEvents.Enqueue(new WeaponInfo
                     {
                         WeaponType = gun.WeaponType,
-                        EventType = weaponEventType,
+                        EventType = (WeaponInfo.WeaponEventType)weaponEventType,
                         Position = transform.Position,
                         Rotation = transform.Rotation
                     });
             }).ScheduleParallel(Dependency);
 
-        Dependency = JobHandle.CombineDependencies(gunJob, new EventQueueJob{ weaponInfos = weaponFired }.Schedule(gunJob));
+        Dependency =
+            JobHandle.CombineDependencies(gunJob, new EventQueueJob {weaponInfos = weaponFired}.Schedule(gunJob));
         entityCommandBuffer.AddJobHandleForProducer(Dependency);
     }
+
     struct EventQueueJob : IJob
     {
-        
         public NativeQueue<WeaponInfo> weaponInfos;
+
         public void Execute()
         {
             while (weaponInfos.TryDequeue(out WeaponInfo info))
@@ -166,7 +168,7 @@ public class RetrieveGunEventSystem : SystemBase
         float degreeFarShot = math.radians(nbBullet * 2);
         float angle = degreeFarShot / nbBullet;
         quaternion startRotation = math.mul(rotation, quaternion.RotateY(-(degreeFarShot / 2)));
-        
+
         for (int i = 0; i < nbBullet; i++)
         {
             Entity bullet = ecb.Instantiate(jobIndex, bulletPrefab);

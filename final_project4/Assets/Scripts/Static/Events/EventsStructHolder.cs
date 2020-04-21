@@ -20,7 +20,6 @@ namespace EventStruct
         
         public enum WeaponEventType
         {
-            NONE,
             ON_SHOOT,
             ON_RELOAD,
             ON_SWAP
@@ -39,7 +38,6 @@ namespace EventStruct
 
         public enum BulletCollisionType
         {
-            NONE,
             ON_WALL,
             ON_PLAYER,
             ON_ENEMY
@@ -54,7 +52,6 @@ namespace EventStruct
         
         public enum PlayerEventType
         {
-            NONE,
             ON_SPAWN,
             ON_RESPAWN,
             ON_DIE,
