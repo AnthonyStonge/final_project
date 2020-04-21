@@ -39,11 +39,5 @@ public struct InputComponent : IComponentData
     public void PartialReset()
     {
         Move = float2.zero;
-        WeaponTypeDesired = WeaponType.Pistol;
-    }
-    
-    public void Update()
-    {
-        
     }
 }

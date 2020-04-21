@@ -8,7 +8,7 @@ using UnityEngine;
 public class SwapWeaponSystem : SystemBase
 {
     private int gunEnumLength;
-    
+
     protected override void OnCreate()
     {
         gunEnumLength = Enum.GetNames(typeof(WeaponType)).Length;
@@ -21,33 +21,28 @@ public class SwapWeaponSystem : SystemBase
 
         if (!inputs.Enabled)
             return;
-        
+
         //Number > mouse wheel (override)
-        if (inputs.WeaponTypeDesired != WeaponType.Pistol)
+        //TODO
+        if (inputs.WeaponTypeDesired != GameVariables.Player.CurrentWeaponHeld)
         {
             SwapWeapon(inputs.WeaponTypeDesired);
         }
         else if (inputs.MouseWheel.y > 0)
         {
             //Get next weapon
-            /*WeaponType typeDesired = (WeaponType)(((int)GameVariables.Player.CurrentWeaponHeld ) % gunEnumLength);
-            
-            if(typeDesired == WeaponType.Pistol)
-               typeDesired = (WeaponType)(((int)typeDesired + 1) % gunEnumLength);*/
+            WeaponType desired = (int) GameVariables.Player.CurrentWeaponHeld + 1 > gunEnumLength - 1
+                ? 0
+                : GameVariables.Player.CurrentWeaponHeld + 1;
 
-            WeaponType desired = (int)GameVariables.Player.CurrentWeaponHeld + 1 > gunEnumLength - 1 ? 0 : GameVariables.Player.CurrentWeaponHeld + 1;
-            
             SwapWeapon(desired);
         }
         else if (inputs.MouseWheel.y < 0)
         {
             //Get previous weapon
-           /* WeaponType typeDesired = (WeaponType)(((int)GameVariables.Player.CurrentWeaponHeld ) % gunEnumLength);
-
-            if (typeDesired == WeaponType.Pistol)
-                typeDesired = (WeaponType) gunEnumLength - 1;*/
-            
-            WeaponType desired = (int)GameVariables.Player.CurrentWeaponHeld - 1 < 0 ? (WeaponType)gunEnumLength - 1 : GameVariables.Player.CurrentWeaponHeld - 1;
+            WeaponType desired = (int) GameVariables.Player.CurrentWeaponHeld - 1 < 0
+                ? (WeaponType) gunEnumLength - 1
+                : GameVariables.Player.CurrentWeaponHeld - 1;
 
             SwapWeapon(desired);
         }
@@ -61,14 +56,14 @@ public class SwapWeaponSystem : SystemBase
             WeaponType = type,
             EventType = WeaponInfo.WeaponEventType.ON_SWAP
         });
-        
+
         //Activate/Deactivate weapons
         Entity currentWeaponEntity = GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
         Entity desiredWeaponEntity = GameVariables.Player.PlayerWeaponEntities[type];
-        
+
         EntityManager.SetEnabled(currentWeaponEntity, false);
         EntityManager.SetEnabled(desiredWeaponEntity, true);
-        
+
         //Set CurrentGunType
         GameVariables.Player.CurrentWeaponHeld = type;
     }
