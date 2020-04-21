@@ -16,7 +16,6 @@ public static class GameVariables
     public static class PlayerVars
     {
         //Player static info
-        public static PlayerAssetsScriptableObject Default;
         public static DashScriptableObject Dash;
         // public static PistolScriptableObject Pistol;
         

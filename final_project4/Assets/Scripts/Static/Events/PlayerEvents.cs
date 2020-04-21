@@ -41,7 +41,7 @@ namespace Static.Events
 
         private static void SpawnPlayer(float3 position, quaternion rotation)
         {
-            //Create player entity
+          /*  //Create player entity
             Entity player = entityManager.CreateEntity(StaticArchetypes.PlayerArchetype);
             entityManager.SetName(player, "Player");
 
@@ -81,7 +81,7 @@ namespace Static.Events
             PlayerVars.CurrentState = state;
             PlayerVars.CurrentHealth = PlayerVars.Default.DefaultHealth;
             PlayerVars.IsAlive = PlayerVars.CurrentHealth > 0;
-            PlayerVars.CurrentSpeed = PlayerVars.Default.DefaultSpeed;
+            PlayerVars.CurrentSpeed = PlayerVars.Default.DefaultSpeed;*/
         }
 
         private static void DeathPlayer()
@@ -92,7 +92,7 @@ namespace Static.Events
 
         private static void RespawnPlayer(float3 position, quaternion rotation)
         {
-            Entity player = PlayerVars.Entity;
+          /*  Entity player = PlayerVars.Entity;
 
             //Toggle obj to active
             entityManager.SetEnabled(player, true);
@@ -109,7 +109,7 @@ namespace Static.Events
             entityManager.SetComponentData(player, new HealthData
             {
                 Value = PlayerVars.Default.DefaultHealth
-            });
+            });*/
         }
     }
 }

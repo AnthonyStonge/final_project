@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Unity.Entities;
 
+[DisableAutoCreation]
 public class GameLogicSystem : SystemBase
 {
     private static Dictionary<GameState, IStateLogic> LogicClassDict;

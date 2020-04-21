@@ -1,26 +1,27 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class StartApplication : MonoBehaviour
 {
-    public Camera CurrentCamera;
-
-    private int PlayerObjectsToLoad;
-    private int EnemyObjectsToLoad;
-    private int ProjectileObjectsToLoad;
-
+    private bool test = false;
     void Start()
     {
-       // GameInitializer.SetMainCamera(CurrentCamera);
-       // GameInitializer.InitializeSystemWorkflow();
-       
-      // PlayerObjectsToLoad = PlayerHolder.
-       
+        GameInitializer.LoadAssets();    
     }
 
     private void Update()
     {
-        
+        //This is not working
+        if (GameInitializer.IsLoadingFinished() && !test)
+        {
+            test = true;
+            //ok
+            Debug.Log("Wtf bro");
+            GameInitializer.InitializeSystemWorkflow();
+            gameObject.SetActive(false);
+            
+        }
     }
 
     private void OnDestroy()

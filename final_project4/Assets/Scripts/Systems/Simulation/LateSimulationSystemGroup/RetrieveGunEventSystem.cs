@@ -93,11 +93,11 @@ public class RetrieveGunEventSystem : SystemBase
                     //TODO GET PREFAB ENTITY LINK WITH GUNTYPE
                     switch (gun.weaponType)
                     {
-                        case WeaponType.PISTOL:
+                        case WeaponType.Pistol:
                             ShootPistol(entityInQueryIndex, ecb, gun.BulletPrefab, transform.Position,
                                 transform.Rotation);
                             break;
-                        case WeaponType.SHOTGUN:
+                        case WeaponType.Shotgun:
                             ShootShotgun(entityInQueryIndex, ecb, gun.BulletPrefab, transform.Position,
                                 transform.Rotation);
                             break;

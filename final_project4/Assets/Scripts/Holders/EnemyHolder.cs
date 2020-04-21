@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
@@ -8,7 +9,7 @@ using static ECSUtility;
 
 public static class EnemyHolder
 {
-    public static Dictionary<EnemyType, Entity> EnemyDict;
+    public static ConcurrentDictionary<EnemyType, Entity> EnemyDict;
     
     public static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets;
@@ -16,7 +17,7 @@ public static class EnemyHolder
     
     public static void Initialize()
     {
-        EnemyDict = new Dictionary<EnemyType, Entity>();
+        EnemyDict = new ConcurrentDictionary<EnemyType, Entity>();
         
         currentNumberOfLoadedAssets = 0;
         numberOfAssetsToLoad = Enum.GetNames(typeof(EnemyType)).Length;
@@ -28,7 +29,7 @@ public static class EnemyHolder
         {
             Addressables.LoadAssetAsync<GameObject>(i).Completed += obj =>
             {
-                EnemyDict.Add((EnemyType) Enum.Parse(typeof(EnemyType), i), 
+                EnemyDict.TryAdd((EnemyType) Enum.Parse(typeof(EnemyType), i), 
                     ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
                 currentNumberOfLoadedAssets++;
                 if (blob != null)
@@ -37,6 +38,11 @@ public static class EnemyHolder
                 }
             };
         }
+    }
+    
+    public static float CurrentLoadingPercentage()
+    {
+        return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
     }
 
     public static void OnDestroy()

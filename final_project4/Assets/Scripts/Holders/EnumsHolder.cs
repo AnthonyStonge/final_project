@@ -6,21 +6,19 @@ namespace Enums
 {
     public enum WeaponType
     {
-        NONE,
-        PISTOL,
-        SHOTGUN
+        Pistol,
+        Shotgun
     }
 
     public enum ProjectileType
     {
-        PISTOL_BULLET,
-        SHOTGUN_BULLET,
-        CROCKET_BULLET
+        PistolBullet,
+        ShotgunBullet
     }
 
     public enum EnemyType
     {
-        GABICHOU
+        Enemy
     }
 
     public enum SoundType

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Enums;
 using Unity.Entities;
@@ -10,7 +11,7 @@ using static ECSUtility;
 //TODO UNLESS WE MAKE BULLET THAT DONT HAVE WEAPON, WE SHOULD REMOVE THIS CLASS
 public static class ProjectileHolder
 {
-    public static Dictionary<ProjectileType, Entity> projectileDict;
+    public static ConcurrentDictionary<ProjectileType, Entity> projectileDict;
     
     private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets;
@@ -19,7 +20,7 @@ public static class ProjectileHolder
     public static void Initialize()
     {
         // ConvertPrefabs();
-        projectileDict = new Dictionary<ProjectileType, Entity>();
+        projectileDict = new ConcurrentDictionary<ProjectileType, Entity>();
        
         currentNumberOfLoadedAssets = 0;
         numberOfAssetsToLoad = Enum.GetNames(typeof(ProjectileType)).Length;
@@ -31,7 +32,7 @@ public static class ProjectileHolder
         {
             Addressables.LoadAssetAsync<GameObject>(i).Completed += obj =>
             {
-                projectileDict.Add((ProjectileType) Enum.Parse(typeof(ProjectileType), i),
+                projectileDict.TryAdd((ProjectileType) Enum.Parse(typeof(ProjectileType), i),
                     ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
                 currentNumberOfLoadedAssets++;
                 if (blob != null)
@@ -40,6 +41,11 @@ public static class ProjectileHolder
                 }
             };
         }
+    }
+    
+    public static float CurrentLoadingPercentage()
+    {
+        return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
     }
     
     public static void OnDestroy()

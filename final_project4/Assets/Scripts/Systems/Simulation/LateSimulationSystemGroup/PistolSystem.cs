@@ -64,7 +64,7 @@ public class PistolSystem : SystemBase
                 //Add event to queue
                 weaponFiredEvents.Enqueue(new WeaponInfo
                 {
-                    weaponType = WeaponType.PISTOL,
+                    weaponType = WeaponType.Pistol,
                     EventType = WeaponInfo.WeaponEventType.ON_SHOOT,
                     
                     Position = trans.Position + trans.Forward * -pistol.BetweenShotTime,

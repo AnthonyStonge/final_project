@@ -24,7 +24,7 @@ public class SwapWeaponSystem : SystemBase
             return;
         
         //Number > mouse wheel (override)
-        if (inputs.WeaponTypeDesired != WeaponType.NONE)
+        if (inputs.WeaponTypeDesired != WeaponType.Pistol)
         {
             SwapWeapon(inputs.WeaponTypeDesired);
         }
@@ -33,7 +33,7 @@ public class SwapWeaponSystem : SystemBase
             //Get next weapon
             WeaponType typeDesired = (WeaponType)(((int)GameVariables.PlayerVars.CurrentWeaponHeld + 1) % gunEnumLength);
             
-            if(typeDesired == WeaponType.NONE)
+            if(typeDesired == WeaponType.Pistol)
                typeDesired = (WeaponType)(((int)typeDesired + 1) % gunEnumLength);
             
             SwapWeapon(typeDesired);
@@ -43,7 +43,7 @@ public class SwapWeaponSystem : SystemBase
             //Get previous weapon
             WeaponType typeDesired = (WeaponType)(((int)GameVariables.PlayerVars.CurrentWeaponHeld - 1) % gunEnumLength);
 
-            if (typeDesired == WeaponType.NONE)
+            if (typeDesired == WeaponType.Pistol)
                 typeDesired = (WeaponType) gunEnumLength - 1;
             
             SwapWeapon(typeDesired);

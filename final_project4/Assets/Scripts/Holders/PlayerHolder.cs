@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Enums;
 using Unity.Entities;
@@ -8,7 +9,7 @@ using static ECSUtility;
 
 public static class PlayerHolder
 {
-    public static Dictionary<PlayerType, Entity> PlayerDict;
+    public static ConcurrentDictionary<PlayerType, Entity> PlayerDict;
     
     private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets;
@@ -18,7 +19,7 @@ public static class PlayerHolder
     {
         //Convert PlayerPrefabs
         // ConvertPlayerPrefab();
-        PlayerDict = new Dictionary<PlayerType, Entity>();
+        PlayerDict = new ConcurrentDictionary<PlayerType, Entity>();
         
         currentNumberOfLoadedAssets = 0;
         numberOfAssetsToLoad = Enum.GetNames(typeof(PlayerType)).Length;
@@ -31,7 +32,7 @@ public static class PlayerHolder
             Addressables.LoadAssetAsync<GameObject>(i).Completed +=
                 obj =>
                 {
-                    PlayerDict.Add((PlayerType) Enum.Parse(typeof(PlayerType), i), ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
+                    PlayerDict.TryAdd((PlayerType) Enum.Parse(typeof(PlayerType), i), ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
                     currentNumberOfLoadedAssets++;
                     if (blob != null)
                     {

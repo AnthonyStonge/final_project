@@ -2,36 +2,44 @@
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public static class GameInitializer
 {
-    public static void InitializeSystemWorkflow()
-    {
-        //Init archetypes (must be done before creating any entities)*
-        StaticArchetypes.InitializeArchetypes();
-        
-        GameVariables.EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+    public delegate float LoadingStatus();
 
+    public static LoadingStatus OnLoadingStatus;
+    
+    public static void LoadAssets()
+    {
         PlayerHolder.Initialize();
         EnemyHolder.Initialize();
         WeaponHolder.Initialize();
-        //ProjectileHolder.Initialize();
+        ProjectileHolder.Initialize();
 
-        //Event init
-        PlayerEvents.Initialize();
-        GunEvents.Initialize();
-
-        //Init holder?
-        //TODO change Singleton to holders
-        GameVariables.PlayerVars.Default = MonoGameVariables.instance.playerAssets;
-        GameVariables.PlayerVars.Dash = MonoGameVariables.instance.playerDashAssets;
-        // GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
-        GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
-
-        //Init map
+        OnLoadingStatus += PlayerHolder.CurrentLoadingPercentage;
+        OnLoadingStatus += EnemyHolder.CurrentLoadingPercentage;
+        OnLoadingStatus += WeaponHolder.CurrentLoadingPercentage;
+        OnLoadingStatus += ProjectileHolder.CurrentLoadingPercentage;
+        
+        PlayerHolder.LoadAssets();
+        EnemyHolder.LoadAssets();
+        WeaponHolder.LoadAssets();
+        ProjectileHolder.LoadAssets();
+    }
+    
+    public static void InitializeSystemWorkflow()
+    {
+        GameVariables.EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        
+        //GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
+        //GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
+        
         //TODO change this to a more appropriate name.
-        MapInitializer.Initialize();
-
+       // MapInitializer.Initialize();
+        
+       GameVariables.MainCamera = Camera.current;
+       
         InitializeSystems();
     }
 
@@ -45,7 +53,7 @@ public static class GameInitializer
         var lateSimulation = world.GetOrCreateSystem<LateSimulationSystemGroup>();
         var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();
 
-        var gameLogicSystem = world.GetOrCreateSystem<GameLogicSystem>();
+        //var gameLogicSystem = world.GetOrCreateSystem<GameLogicSystem>();
 
         //Managers
         var initializeManager = world.GetOrCreateSystem<InitializeManager>();
@@ -70,6 +78,23 @@ public static class GameInitializer
         transform.SortSystemUpdateList();
         lateSimulation.SortSystemUpdateList();
         presentation.SortSystemUpdateList();
+    }
+
+    public static bool IsLoadingFinished()
+    {
+        float loadingPercentage = 0;
+        foreach (var i in OnLoadingStatus.GetInvocationList())
+        {
+            loadingPercentage += ((LoadingStatus) i).Invoke();
+        }
+        
+        Debug.Log("Testing this shit : " + loadingPercentage);
+        
+        if (loadingPercentage >= 4f)
+        {
+            return true;
+        }
+        return false;
     }
 
     public static void OnDestroy()

@@ -45,7 +45,7 @@ public class FlowSystem : SystemBase
 
     protected override void OnStartRunning()
     {
-        entityArchetype = entityManager.CreateArchetype(
+       /* entityArchetype = entityManager.CreateArchetype(
             typeof(Translation),
             typeof(Rotation),
             typeof(RenderMesh),
@@ -65,7 +65,7 @@ public class FlowSystem : SystemBase
                     material = TestHolder.mat
                 }
             );
-        }
+        }*/
     }
 
     protected override void OnUpdate()

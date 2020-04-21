@@ -39,7 +39,7 @@ public struct InputComponent : IComponentData
     private void PartialReset()
     {
         Move = float2.zero;
-        WeaponTypeDesired = WeaponType.NONE;
+        WeaponTypeDesired = WeaponType.Pistol;
     }
     
     public void Update()
@@ -74,8 +74,8 @@ public struct InputComponent : IComponentData
         MouseWheel = Input.mouseScrollDelta;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            WeaponTypeDesired = WeaponType.PISTOL;
+            WeaponTypeDesired = WeaponType.Pistol;
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            WeaponTypeDesired = WeaponType.SHOTGUN;
+            WeaponTypeDesired = WeaponType.Shotgun;
     }
 }
