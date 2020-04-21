@@ -1,10 +1,6 @@
-﻿using Enums;
-using Holders;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Rendering;
 using Unity.Transforms;
-using UnityEngine;
 using static GameVariables;
 
 namespace Static.Events

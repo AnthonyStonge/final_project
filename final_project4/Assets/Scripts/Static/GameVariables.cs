@@ -28,8 +28,8 @@ public static class GameVariables
         public static short CurrentHealth;
         public static bool IsAlive;
 
-        public static Dictionary<GunType, Entity> PlayerWeaponEntities = new Dictionary<GunType, Entity>();
-        public static GunType CurrentWeaponHeld;
+        public static Dictionary<WeaponType, Entity> PlayerWeaponEntities = new Dictionary<WeaponType, Entity>();
+        public static WeaponType CurrentWeaponHeld;
 
         //Unity linker
         public static Transform Transform;

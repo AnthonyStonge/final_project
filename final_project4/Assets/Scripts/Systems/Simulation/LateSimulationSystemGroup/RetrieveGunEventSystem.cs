@@ -91,13 +91,13 @@ public class RetrieveGunEventSystem : SystemBase
 
                     //Create entity in EntityCommandBuffer
                     //TODO GET PREFAB ENTITY LINK WITH GUNTYPE
-                    switch (gun.GunType)
+                    switch (gun.weaponType)
                     {
-                        case GunType.PISTOL:
+                        case WeaponType.PISTOL:
                             ShootPistol(entityInQueryIndex, ecb, gun.BulletPrefab, transform.Position,
                                 transform.Rotation);
                             break;
-                        case GunType.SHOTGUN:
+                        case WeaponType.SHOTGUN:
                             ShootShotgun(entityInQueryIndex, ecb, gun.BulletPrefab, transform.Position,
                                 transform.Rotation);
                             break;
@@ -118,7 +118,7 @@ public class RetrieveGunEventSystem : SystemBase
                     //Add event to NativeQueue
                     weaponFiredEvents.Enqueue(new WeaponInfo
                     {
-                        GunType = gun.GunType,
+                        weaponType = gun.weaponType,
                         EventType = weaponEventType,
                         Position = transform.Position,
                         Rotation = transform.Rotation

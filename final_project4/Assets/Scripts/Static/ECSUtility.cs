@@ -1,22 +1,23 @@
-﻿using Unity.Entities;
+﻿using JetBrains.Annotations;
+using Unity.Entities;
 using Unity.Physics.Authoring;
 using UnityEngine;
 
 public class ECSUtility
 {
-    public static Entity ConvertGameObjectPrefab(GameObject go)
+    public static Entity ConvertGameObjectPrefab(GameObject go, [CanBeNull] out BlobAssetStore blob)
     {
         Entity returnEntity = Entity.Null;
         var bodyAuthoring = go.GetComponent<PhysicsBodyAuthoring>();
         var colliderAuthoring = go.GetComponent<PhysicsShapeAuthoring>();
-
+        blob = null;
         if (bodyAuthoring != null || colliderAuthoring != null)
         {
-            var newBlobAsset = new BlobAssetStore();
+            blob = new BlobAssetStore();
 
             returnEntity =
                 GameObjectConversionUtility.ConvertGameObjectHierarchy(go,
-                    GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, newBlobAsset));
+                    GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blob));
         }
         else
         {

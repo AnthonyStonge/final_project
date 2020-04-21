@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Enums;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -6,45 +8,35 @@ using static ECSUtility;
 
 public static class PlayerHolder
 {
-    private static PlayerAssetsScriptableObject playerAssetsAssets;
-    public static PlayerAssetsScriptableObject PlayerAssetsAssets => playerAssetsAssets;
+    public static Dictionary<PlayerType, Entity> PlayerDict;
     
-    private static bool loaded = false;
-    public static bool Loaded => loaded;
-
+    private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets;
     private static int numberOfAssetsToLoad;
 
-    public static Entity PlayerPrefabEntity;
-
-    public static Dictionary<string, Entity> PlayerDict;
-
-    //BlobAssetsReferences    //TODO KEEP IN ANOTHER HOLDER?
-    //private static BlobAssetStore playerBlobAsset;
-
-    public static string[] FileNameToLoad =
-    {
-        
-    };
-    
     public static void Initialize()
     {
         //Convert PlayerPrefabs
         // ConvertPlayerPrefab();
-        PlayerDict = new Dictionary<string, Entity>();
+        PlayerDict = new Dictionary<PlayerType, Entity>();
         
         currentNumberOfLoadedAssets = 0;
-        numberOfAssetsToLoad = FileNameToLoad.Length;
+        numberOfAssetsToLoad = Enum.GetNames(typeof(PlayerType)).Length;
     }
 
     public static void LoadAssets()
     {
-        foreach(var i in FileNameToLoad){
+        foreach (var i in Enum.GetNames(typeof(PlayerType)))
+        {
             Addressables.LoadAssetAsync<GameObject>(i).Completed +=
                 obj =>
                 {
-                    PlayerDict.Add(i, ConvertGameObjectPrefab(obj.Result));
+                    PlayerDict.Add((PlayerType) Enum.Parse(typeof(PlayerType), i), ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
                     currentNumberOfLoadedAssets++;
+                    if (blob != null)
+                    {
+                        blobAssetStores.Add(blob);
+                    }
                 };
         }
     }
@@ -56,6 +48,6 @@ public static class PlayerHolder
 
     public static void OnDestroy()
     {
-     //  playerBlobAsset.Dispose();
+        blobAssetStores.ForEach(i=>{ i.Dispose(); });
     }
 }
