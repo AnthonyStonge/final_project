@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -7,15 +8,15 @@ using UnityEngine;
 [GenerateAuthoringComponent]
 public struct DashComponent : IComponentData
 {
-    [Header("Variables")]
-    public float Distance;
-    public float ResetDashTimer;
-    public float ResetDashSkill;
+    public float Speed;
+    
+    [ReadOnly] public float DashTime;
+    [ReadOnly] public float CooldownTime;
 
     [HideInInspector]
-    public float DashSkillTimer;
+    public float CurrentCooldownTime;
     [HideInInspector]
-    public float DashTimer;
+    public float CurrentDashTime;
     [HideInInspector]
     public float2 InputDuringDash;
     [HideInInspector]
