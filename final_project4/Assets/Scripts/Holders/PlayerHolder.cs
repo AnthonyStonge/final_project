@@ -1,69 +1,52 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Enums;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using static ECSUtility;
 
 public static class PlayerHolder
 {
-    private static PlayerAssetsScriptableObject playerAssetsAssets;
-    public static PlayerAssetsScriptableObject PlayerAssetsAssets => playerAssetsAssets;
+    public static ConcurrentDictionary<PlayerType, Entity> PlayerDict;
     
-    private static bool loaded = false;
-    public static bool Loaded => loaded;
-
-    private static int currentNumberOfLoadedAssets = 0;
-    private static int numberOfAssetsToLoad = 1;
-
-    //
-    public static Entity PlayerPrefabEntity;
-
-    //BlobAssetsReferences    //TODO KEEP IN ANOTHER HOLDER?
-    private static BlobAssetStore playerBlobAsset;
-
-    public static void LoadAssets()
-    {
-        //Set number of assets
-
-        if (playerAssetsAssets == null)
-        {
-            Addressables.LoadAssetAsync<PlayerAssetsScriptableObject>("PlayerScriptableObject").Completed +=
-                obj =>
-                {
-                    playerAssetsAssets = obj.Result;
-                    currentNumberOfLoadedAssets++;
-                };
-        }
-    }
+    private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
+    private static int currentNumberOfLoadedAssets;
+    private static int numberOfAssetsToLoad;
 
     public static void Initialize()
     {
-        //Convert PlayerPrefabs
-        ConvertPlayerPrefab();
+        PlayerDict = new ConcurrentDictionary<PlayerType, Entity>();
+        
+        currentNumberOfLoadedAssets = 0;
+        numberOfAssetsToLoad = Enum.GetNames(typeof(PlayerType)).Length;
+    }
+
+    public static void LoadAssets()
+    {
+        foreach (var i in Enum.GetNames(typeof(PlayerType)))
+        {
+            Addressables.LoadAssetAsync<GameObject>(i).Completed +=
+                obj =>
+                {
+                    PlayerDict.TryAdd((PlayerType) Enum.Parse(typeof(PlayerType), i), ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
+                    currentNumberOfLoadedAssets++;
+                    if (blob != null)
+                    {
+                        blobAssetStores.Add(blob);
+                    }
+                };
+        }
+    }
+    
+    public static float CurrentLoadingPercentage()
+    {
+        return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
     }
 
     public static void OnDestroy()
     {
-        playerBlobAsset.Dispose();
-    }
-
-    private static void ConvertPlayerPrefab()
-    {
-        //TODO LOAD FROM ADDRESSABLE
-        //Load GameObject
-        GameObject playerGO = MonoGameVariables.instance.Player;
-
-        //Convert
-        playerBlobAsset = new BlobAssetStore();
-
-        PlayerPrefabEntity =
-            GameObjectConversionUtility.ConvertGameObjectHierarchy(playerGO,
-                GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, playerBlobAsset));
-    }
-
-    public static float CurrentLoadingPercentage()
-    {
-        return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
+        blobAssetStores.ForEach(i=>{ i.Dispose(); });
     }
 }

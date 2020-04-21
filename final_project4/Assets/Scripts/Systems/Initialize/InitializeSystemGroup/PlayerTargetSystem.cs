@@ -40,12 +40,5 @@ public class PlayerTargetSystem : SystemBase
                 target.Value = rayCastInfos.Position;
             }
         }).Run();
-        
-        // Entities.WithoutBurst().WithAll<PlayerTag>().ForEach((ref TargetData target, ref InputComponent inputs) =>
-        // {
-        //     // Vector3 player = GameVariables.MainCamera.WorldToScreenPoint(GameVariables.PlayerVars.CurrentPosition);
-        //     UnityEngine.Ray camRay = GameVariables.MainCamera.ScreenPointToRay(inputs.Mouse);
-        //     
-        // }).Run();
     }
 }

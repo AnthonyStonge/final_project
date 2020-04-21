@@ -23,7 +23,7 @@ public struct InputComponent : IComponentData
     public bool Interact;
     public bool Cancel;
 
-    public GunType WeaponTypeDesired;
+    public WeaponType WeaponTypeDesired;
     
     public int Inventory;
 
@@ -39,7 +39,7 @@ public struct InputComponent : IComponentData
     public void PartialReset()
     {
         Move = float2.zero;
-        WeaponTypeDesired = GunType.NONE;
+        WeaponTypeDesired = WeaponType.Pistol;
     }
     
     public void Update()

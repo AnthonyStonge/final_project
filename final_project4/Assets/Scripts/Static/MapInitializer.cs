@@ -1,8 +1,6 @@
-﻿using Holders;
-﻿using Enums;
-using Holder;
-using Static.Events;
-using Unity.Entities;
+﻿
+using Enums;
+ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
@@ -22,7 +20,7 @@ public static class MapInitializer
             return;
 
         //Create player entity
-        Entity player = entityManager.Instantiate(PlayerHolder.PlayerPrefabEntity);
+        Entity player = entityManager.Instantiate(PlayerHolder.PlayerDict[PlayerType.Player]);
         entityManager.SetComponentData(player, new Translation
         {
             Value = float3.zero    //TODO SET SPAWN POSITION
@@ -31,67 +29,23 @@ public static class MapInitializer
         {
             Value = quaternion.identity //TODO SET SPAWN ROTATION
         });
-        PlayerVars.Entity = player;
-        GameVariables.PlayerVars.CurrentWeaponHeld = GunType.PISTOL;
+        Player.Entity = player;
+        Player.CurrentWeaponHeld = WeaponType.Pistol;
         
         //Create weapons for player
-        Entity pistol = entityManager.Instantiate(WeaponHolder.WeaponPrefabs[GunType.PISTOL]);
+        Entity pistol = entityManager.Instantiate(WeaponHolder.WeaponDict[WeaponType.Pistol]);
         entityManager.SetComponentData(pistol, new Parent
         {
             Value = player
         });
-        GameVariables.PlayerVars.PlayerWeaponEntities.Add(GunType.PISTOL, pistol);
+        Player.PlayerWeaponEntities.Add(WeaponType.Pistol, pistol);
         
-        Entity shotgun = entityManager.Instantiate(WeaponHolder.WeaponPrefabs[GunType.SHOTGUN]);
+        Entity shotgun = entityManager.Instantiate(WeaponHolder.WeaponDict[WeaponType.Shotgun]);
         entityManager.SetComponentData(shotgun, new Parent
         {
             Value = player
         });
         entityManager.SetEnabled(shotgun, false);
-        GameVariables.PlayerVars.PlayerWeaponEntities.Add(GunType.SHOTGUN, shotgun);
-        
-
-        //InitializePlayerWeapon();
-    }
-
-    private static void InitializePlayerWeapon()
-    {
-        //TODO INITIALIZE ANY WEAPON NOT ONLY PISTOL
-        //Create player entity
-        Entity weapon = entityManager.CreateEntity(StaticArchetypes.GunArchetype);
-        entityManager.SetName(weapon, "Player Weapon");
-
-        //Set Values
-        entityManager.SetComponentData(weapon, new Translation
-        {
-            //TODO PROBLEM IF PLAYER SPAWNS WITH A ROTATION
-            Value = PlayerVars.Default.DefaultSpawnPosition.Value + PistolVars.PlayerOffset
-        });
-        
-        entityManager.SetComponentData(weapon, new Rotation
-        {
-            Value = PlayerVars.Default.DefaultSpawnRotation.Value
-        });
-        
-        entityManager.SetComponentData(weapon, new Parent
-        {
-            Value = PlayerVars.Entity
-        });
-        
-        entityManager.SetSharedComponentData(weapon, new RenderMesh
-        {
-            mesh = MonoGameVariables.instance.PistolMesh,
-            material = MonoGameVariables.instance.PistolMaterial
-        });
-        
-        entityManager.SetComponentData(weapon, new GunComponent
-        {
-            GunType = GunType.PISTOL,
-            BulletPrefab = ProjectileHolder.PistolPrefab,
-            ResetReloadTime = 0.3f,
-            MaxBulletInMagazine = 20,
-            CurrentAmountBulletInMagazine = 2000,
-            CurrentAmountBulletOnPlayer = 9999999
-        });
+        Player.PlayerWeaponEntities.Add(WeaponType.Shotgun, shotgun);
     }
 }

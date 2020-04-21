@@ -16,7 +16,7 @@ public class InputSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        InputComponent inputs = entityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);
+        InputComponent inputs = entityManager.GetComponentData<InputComponent>(GameVariables.Player.Entity);
 
         if (inputs.Enabled)
         {
@@ -50,13 +50,13 @@ public class InputSystem : SystemBase
             inputs.MouseWheel = Input.mouseScrollDelta;
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                inputs.WeaponTypeDesired = GunType.PISTOL;
+                inputs.WeaponTypeDesired = WeaponType.Pistol;
             if (Input.GetKeyDown(KeyCode.Alpha2))
-                inputs.WeaponTypeDesired = GunType.SHOTGUN;
+                inputs.WeaponTypeDesired = WeaponType.Shotgun;
         }
         else
             inputs.Reset();
         
-        entityManager.SetComponentData(GameVariables.PlayerVars.Entity, inputs);
+        entityManager.SetComponentData(GameVariables.Player.Entity, inputs);
     }
 }

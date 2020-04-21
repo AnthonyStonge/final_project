@@ -9,7 +9,7 @@ namespace EventStruct
     //Create one per weapon that has been fired (not per bullet)
     public struct WeaponInfo
     {
-        public GunType GunType;
+        public WeaponType WeaponType;
         public WeaponEventType EventType;
         
         //Transform of the weapon
@@ -30,7 +30,7 @@ namespace EventStruct
     //Create one per bullet that collided with something
     public struct BulletInfo
     {
-        public BulletType BulletType;
+        public ProjectileType ProjectileType;
         public BulletCollisionType CollisionType;
 
         //Transform of the CollisionHit

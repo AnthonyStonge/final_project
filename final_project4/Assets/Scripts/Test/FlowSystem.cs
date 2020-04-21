@@ -13,7 +13,10 @@ public class FlowSystem : SystemBase
 {
     private EntityManager entityManager;
 
+    
+#pragma warning disable 649
     private EntityArchetype entityArchetype;
+#pragma warning restore 649
     
     private static List<RenderMesh> renderMeshFrames;
 
@@ -42,32 +45,7 @@ public class FlowSystem : SystemBase
         secondCounter = 0;
         renderMeshFrames = new List<RenderMesh>();
     }
-
-    protected override void OnStartRunning()
-    {
-        entityArchetype = entityManager.CreateArchetype(
-            typeof(Translation),
-            typeof(Rotation),
-            typeof(RenderMesh),
-            typeof(MeshAnimationComponent),
-            typeof(RenderBounds),
-            typeof(LocalToWorld),
-            typeof(ChangedFrameTag)
-        );
-
-        for (int i = 0; i < TestHolder.meshes.Count - 1; i++)
-        {
-            renderMeshFrames.Add
-            (
-                new RenderMesh
-                {
-                    mesh = TestHolder.meshes[i],
-                    material = TestHolder.mat
-                }
-            );
-        }
-    }
-
+    
     protected override void OnUpdate()
     {
         if (Input.GetButtonDown("Jump"))
