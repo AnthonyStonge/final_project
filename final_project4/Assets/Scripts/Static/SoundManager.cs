@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using EventStruct;
 using UnityEngine;
 
 public static class SoundManager
 {
     public static AudioSource audioSource;
+
+    public static List<WeaponInfo> test;
     
     public static void Initialize()
     {
@@ -14,6 +17,16 @@ public static class SoundManager
     public static void PlaySound(AudioClip clip)
     {
         audioSource.PlayOneShot(clip);
+    }
+
+    public static void PlaySound()
+    {
+        
+    }
+
+    public static void BufferSound(WeaponInfo buffer)
+    {
+        test.Add(buffer);
     }
     
     public static void PlaySoundLoop()
