@@ -23,12 +23,7 @@ public class RetrieveGunEventSystem : SystemBase
             Debug.Log("GET DOWN! Problem incoming..."); //ok
         weaponFired = new NativeQueue<WeaponInfo>(Allocator.Persistent);
     }
-
-    protected override void OnDestroy()
-    {
-        weaponFired.Dispose();
-    }
-
+    
     protected override void OnUpdate()
     {
         //Clear previous PistolBullet events
@@ -129,6 +124,11 @@ public class RetrieveGunEventSystem : SystemBase
         Dependency =
             JobHandle.CombineDependencies(gunJob, new EventQueueJob {weaponInfos = weaponFired}.Schedule(gunJob));
         entityCommandBuffer.AddJobHandleForProducer(Dependency);
+    }
+    
+    protected override void OnDestroy()
+    {
+        weaponFired.Dispose();
     }
 
     struct EventQueueJob : IJob
