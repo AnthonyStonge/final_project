@@ -38,7 +38,7 @@ public class DashSystem : SystemBase
                     else
                     {
                         float2 bob = math.normalizesafe(dashComponent.InputDuringDash) * 3500 * dt;
-                        physicsVelocity.ApplyLinearImpulse(physicsMass, new float3(bob.x, 0, bob.y));
+                        physicsVelocity.Linear.xz += bob;
                     }
                 }
                 else
