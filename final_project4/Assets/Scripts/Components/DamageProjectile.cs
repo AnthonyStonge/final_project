@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enums;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
@@ -11,6 +12,7 @@ using UnityEngine;
 [GenerateAuthoringComponent]
 public struct DamageProjectile : IComponentData
 {
+    public BulletType Type;
     public float Speed;
     public float Radius;
 }

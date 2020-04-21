@@ -18,7 +18,6 @@ public class RetrieveSoundEventSystem : SystemBase
 
     protected override void OnCreate()
     {
-        Debug.Log("Create RetrieveSoundEvent");
         //Weapons
         int gunTypeLength = Enum.GetNames(typeof(GunType)).Length;
         int gunEventTypeLength = Enum.GetNames(typeof(WeaponInfo.WeaponEventType)).Length;
@@ -69,23 +68,7 @@ public class RetrieveSoundEventSystem : SystemBase
         //TODO
 
         //Play sounds
-        foreach (KeyValuePair<GunType, Dictionary<WeaponInfo.WeaponEventType, int>> gunType in weaponSounds)
-        {
-            foreach (KeyValuePair<WeaponInfo.WeaponEventType, int> eventType in gunType.Value)
-            {
-                if (eventType.Value > 0)
-                    SoundManager.PlaySound(SoundHolder.WeaponSounds[gunType.Key][eventType.Key]);
-            }
-        }
-
-        foreach (KeyValuePair<BulletType,Dictionary<BulletInfo.BulletCollisionType,int>> bulletType in bulletSounds)
-        {
-            foreach (KeyValuePair<BulletInfo.BulletCollisionType,int> eventType in bulletType.Value)
-            {
-                if (eventType.Value > 0)
-                    SoundManager.PlaySound(SoundHolder.BulletSounds[bulletType.Key][eventType.Key]);
-            }
-        }
+        
     }
 
     private static void ResetValues<T1, T2>(Dictionary<T1, Dictionary<T2, int>> dictionary) where T1 : System.Enum
