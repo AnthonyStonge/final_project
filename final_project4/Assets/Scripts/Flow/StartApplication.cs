@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StartApplication : MonoBehaviour
 {
-    private bool test = false;
+    private bool test;
     void Start()
     {
         GameInitializer.LoadAssets();    
@@ -16,11 +16,8 @@ public class StartApplication : MonoBehaviour
         if (GameInitializer.IsLoadingFinished() && !test)
         {
             test = true;
-            //ok
-            Debug.Log("Wtf bro");
             GameInitializer.InitializeSystemWorkflow();
             gameObject.SetActive(false);
-            
         }
     }
 

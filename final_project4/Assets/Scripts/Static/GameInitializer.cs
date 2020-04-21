@@ -34,9 +34,7 @@ public static class GameInitializer
         
         //GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
         //GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
-        
-        GameVariables.MainCamera = Camera.main;
-        
+
         //TODO change this to a more appropriate name.
         MapInitializer.Initialize();
 
@@ -106,10 +104,5 @@ public static class GameInitializer
         EnemyHolder.OnDestroy();
         WeaponHolder.OnDestroy();
         ProjectileHolder.OnDestroy();
-    }
-
-    public static void SetMainCamera(Camera cam)
-    {
-        GameVariables.MainCamera = cam;
     }
 }
