@@ -9,38 +9,38 @@ using UnityEngine;
 [UpdateAfter(typeof(RetrieveGunEventSystem))]
 public class RetrieveSoundEventSystem : SystemBase
 {
-    private Dictionary<GunType, Dictionary<WeaponInfo.WeaponEventType, int>> weaponSounds =
-        new Dictionary<GunType, Dictionary<WeaponInfo.WeaponEventType, int>>();
+    private Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>> weaponSounds =
+        new Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>>();
 
-    private Dictionary<BulletType, Dictionary<BulletInfo.BulletCollisionType, int>> bulletSounds =
-        new Dictionary<BulletType, Dictionary<BulletInfo.BulletCollisionType, int>>();
+    private Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>> bulletSounds =
+        new Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>>();
 
 
     protected override void OnCreate()
     {
         //Weapons
-        int gunTypeLength = Enum.GetNames(typeof(GunType)).Length;
+        int gunTypeLength = Enum.GetNames(typeof(WeaponType)).Length;
         int gunEventTypeLength = Enum.GetNames(typeof(WeaponInfo.WeaponEventType)).Length;
         for (int i = 0; i < gunTypeLength; i++)
         {
-            weaponSounds.Add((GunType) i, new Dictionary<WeaponInfo.WeaponEventType, int>());
+            weaponSounds.Add((WeaponType) i, new Dictionary<WeaponInfo.WeaponEventType, int>());
 
             for (int j = 0; j < gunEventTypeLength; j++)
             {
-                weaponSounds[(GunType) i].Add((WeaponInfo.WeaponEventType) j, 0);
+                weaponSounds[(WeaponType) i].Add((WeaponInfo.WeaponEventType) j, 0);
             }
         }
 
         //Bullets
-        int bulletTypeLength = Enum.GetNames(typeof(BulletType)).Length;
+        int bulletTypeLength = Enum.GetNames(typeof(ProjectileType)).Length;
         int bulletCollisionEventType = Enum.GetNames(typeof(BulletInfo.BulletCollisionType)).Length;
         for (int i = 0; i < bulletTypeLength; i++)
         {
-            bulletSounds.Add((BulletType) i, new Dictionary<BulletInfo.BulletCollisionType, int>());
+            bulletSounds.Add((ProjectileType) i, new Dictionary<BulletInfo.BulletCollisionType, int>());
 
             for (int j = 0; j < bulletCollisionEventType; j++)
             {
-                bulletSounds[(BulletType) i].Add((BulletInfo.BulletCollisionType) j, 0);
+                bulletSounds[(ProjectileType) i].Add((BulletInfo.BulletCollisionType) j, 0);
             }
         }
     }
@@ -55,13 +55,13 @@ public class RetrieveSoundEventSystem : SystemBase
         //Weapons
         foreach (WeaponInfo info in EventsHolder.WeaponEvents)
         {
-            weaponSounds[info.GunType][info.EventType]++;
+            weaponSounds[info.WeaponType][info.EventType]++;
         }
 
         //Bullets
         foreach (BulletInfo info in EventsHolder.BulletsEvents)
         {
-            bulletSounds[info.BulletType][info.CollisionType]++;
+            bulletSounds[info.ProjectileType][info.CollisionType]++;
         }
 
         //Resolve how many sound of each should be played

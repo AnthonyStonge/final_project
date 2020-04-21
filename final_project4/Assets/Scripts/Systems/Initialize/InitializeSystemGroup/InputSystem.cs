@@ -50,9 +50,9 @@ public class InputSystem : SystemBase
             inputs.MouseWheel = Input.mouseScrollDelta;
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                inputs.WeaponTypeDesired = GunType.PISTOL;
+                inputs.WeaponTypeDesired = WeaponType.Pistol;
             if (Input.GetKeyDown(KeyCode.Alpha2))
-                inputs.WeaponTypeDesired = GunType.SHOTGUN;
+                inputs.WeaponTypeDesired = WeaponType.Shotgun;
         }
         else
             inputs.Reset();

@@ -3,7 +3,9 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Extensions;
 using Unity.Transforms;
-using UnityEngine;
+
+[DisableAutoCreation]
+[UpdateAfter(typeof(StateDyingSystem))]
 public class DashSystem : SystemBase
 {
     protected override void OnUpdate()

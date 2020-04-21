@@ -35,11 +35,11 @@ public static class GameInitializer
         //GameVariables.PlayerVars.Pistol = MonoGameVariables.instance.playerPistolAssets;
         //GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
         
-        //TODO change this to a more appropriate name.
-       // MapInitializer.Initialize();
+        GameVariables.MainCamera = Camera.main;
         
-       GameVariables.MainCamera = Camera.current;
-       
+        //TODO change this to a more appropriate name.
+        MapInitializer.Initialize();
+
         InitializeSystems();
     }
 
@@ -69,7 +69,7 @@ public static class GameInitializer
         initialization.AddSystemToUpdateList(afterInitialization);
 
         transform.AddSystemToUpdateList(transformSimulationManager);
-        initialization.AddSystemToUpdateList(lateSimulationManager);
+        lateSimulation.AddSystemToUpdateList(lateSimulationManager);
 
         presentation.AddSystemToUpdateList(presentationManager);
 
@@ -88,7 +88,7 @@ public static class GameInitializer
             loadingPercentage += ((LoadingStatus) i).Invoke();
         }
         
-        Debug.Log("Testing this shit : " + loadingPercentage);
+        //Debug.Log("Testing this shit : " + loadingPercentage);
         
         if (loadingPercentage >= 4f)
         {

@@ -51,7 +51,7 @@ public class RetrieveGunEventSystem : SystemBase
         JobHandle gunJob = Entities.ForEach(
             (int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in Parent parent) =>
             {
-                if (!states.Components.HasComponent(parent.Value) || gun.GunType == GunType.NONE)
+                if (!states.Components.HasComponent(parent.Value) )//|| gun.WeaponType == WeaponType.NONE)
                     return;
 
                 //Variables local to job
@@ -92,7 +92,7 @@ public class RetrieveGunEventSystem : SystemBase
 
                     //Create entity in EntityCommandBuffer
                     //TODO GET PREFAB ENTITY LINK WITH GUNTYPE
-                    switch (gun.weaponType)
+                    switch (gun.WeaponType)
                     {
                         case WeaponType.Pistol:
                             ShootPistol(entityInQueryIndex, ecb, gun.BulletPrefab, transform.Position,
@@ -119,7 +119,7 @@ public class RetrieveGunEventSystem : SystemBase
                     //Add event to NativeQueue
                     weaponFiredEvents.Enqueue(new WeaponInfo
                     {
-                        weaponType = gun.weaponType,
+                        WeaponType = gun.WeaponType,
                         EventType = weaponEventType,
                         Position = transform.Position,
                         Rotation = transform.Rotation

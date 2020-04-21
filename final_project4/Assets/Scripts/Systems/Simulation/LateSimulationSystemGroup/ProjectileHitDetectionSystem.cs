@@ -8,7 +8,7 @@ using Unity.Physics.Systems;
 using Unity.Transforms;
 using RaycastHit = Unity.Physics.RaycastHit;
 
-[UpdateAfter(typeof(EndFramePhysicsSystem))]
+[DisableAutoCreation]
 public class ProjectileHitDetectionSystem : SystemBase
 {
     private BuildPhysicsWorld physicsWorld;
@@ -86,7 +86,7 @@ public class ProjectileHitDetectionSystem : SystemBase
                 
                 events.Enqueue(new BulletInfo
                 {
-                    BulletType = projectile.Type,
+                    ProjectileType = projectile.Type,
                     CollisionType = collisionType,
                     HitPosition = hit.Position,
                     HitRotation = math.inverse(rotation.Value)

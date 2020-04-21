@@ -38,7 +38,7 @@ public static class MapInitializer
         {
             Value = player
         });
-        //PlayerVars.PlayerWeaponEntities.Add(WeaponType.Pistol, pistol);
+        PlayerVars.PlayerWeaponEntities.Add(WeaponType.Pistol, pistol);
         
         Entity shotgun = entityManager.Instantiate(WeaponHolder.WeaponDict[WeaponType.Shotgun]);
         entityManager.SetComponentData(shotgun, new Parent
@@ -46,7 +46,7 @@ public static class MapInitializer
             Value = player
         });
         entityManager.SetEnabled(shotgun, false);
-        //PlayerVars.PlayerWeaponEntities.Add(WeaponType.Shotgun, shotgun);
+        PlayerVars.PlayerWeaponEntities.Add(WeaponType.Shotgun, shotgun);
         
 
         //InitializePlayerWeapon();

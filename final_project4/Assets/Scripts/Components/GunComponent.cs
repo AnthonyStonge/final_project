@@ -8,7 +8,7 @@ using UnityEngine;
 public struct GunComponent : IComponentData
 {
     [Header("Variables")]
-    public WeaponType weaponType;
+    public WeaponType WeaponType;
     
     [Space(5)]
     public int MaxBulletInMagazine;
