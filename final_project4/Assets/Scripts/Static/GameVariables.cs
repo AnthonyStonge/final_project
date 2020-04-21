@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Enums;
+using TMPro;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
@@ -23,5 +24,12 @@ public static class GameVariables
 
         //Unity linker
         public static Transform Transform;
+    }
+    public static class Ui
+    {
+        public static TextMeshPro NbBulletInMagazine;
+        public static TextMeshPro NbBulletOnPlayer;
+        public static TextMeshPro GunName;
+        public static TextMeshPro Life;
     }
 }
