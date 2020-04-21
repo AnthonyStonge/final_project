@@ -51,7 +51,7 @@ public class RetrieveGunEventSystem : SystemBase
         JobHandle gunJob = Entities.ForEach(
             (int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in Parent parent) =>
             {
-                if (!states.Components.HasComponent(parent.Value))
+                if (!states.Components.HasComponent(parent.Value) || gun.GunType == GunType.NONE)
                     return;
 
                 //Variables local to job

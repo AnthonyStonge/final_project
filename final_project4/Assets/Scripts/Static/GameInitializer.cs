@@ -1,4 +1,6 @@
-﻿using Holder;
+﻿using Enums;
+using EventStruct;
+using Holder;
 using Holders;
 using Static.Events;
 using Unity.Entities;
@@ -17,7 +19,15 @@ public static class GameInitializer
         PlayerHolder.Initialize();
         EnemyHolder.Initialize();
         WeaponHolder.Initialize();
+        SoundHolder.Initialize();
         //ProjectileHolder.Initialize();
+        
+        //TODO REMOVE LINEs UNDER
+        SoundManager.audioSource = MonoGameVariables.instance.playerAudioSource;
+        SoundHolder.WeaponSounds[GunType.SHOTGUN][WeaponInfo.WeaponEventType.ON_SHOOT] =
+            MonoGameVariables.instance.temporaryShotgunShotSound;
+        SoundHolder.BulletSounds[BulletType.SHOTGUN_BULLET][BulletInfo.BulletCollisionType.ON_WALL] =
+            MonoGameVariables.instance.temporaryShotgunShotSound;
         
         //Event init
         PlayerEvents.Initialize();
@@ -31,7 +41,7 @@ public static class GameInitializer
         
         //Init map
         MapInitializer.Initialize();
-        
+
         var world = World.DefaultGameObjectInjectionWorld;
         
         //System Group Handles (From Unity)
