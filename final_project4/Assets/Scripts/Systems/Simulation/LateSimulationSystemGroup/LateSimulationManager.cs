@@ -5,18 +5,23 @@ using UnityEngine;
 public class LateSimulationManager : ComponentSystemGroup
 {
 
+    private CameraFollowSystem cameraFollowSystem;
 
     protected override void OnCreate()
-    {
+    {        
+        var world = World.DefaultGameObjectInjectionWorld;
+
+        cameraFollowSystem = world.GetOrCreateSystem<CameraFollowSystem>();
+        var lateSimulation = world.GetOrCreateSystem<LateSimulationManager>();
+
+        lateSimulation.AddSystemToUpdateList(cameraFollowSystem);
 
     }
 
     protected override void OnUpdate()
     {
+        cameraFollowSystem.Update();
 
     }
 
-    protected override void OnDestroy()
-    {
-    }
 }

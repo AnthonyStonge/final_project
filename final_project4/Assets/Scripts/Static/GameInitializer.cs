@@ -1,4 +1,4 @@
-﻿using Static.Events;
+﻿﻿using Static.Events;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;

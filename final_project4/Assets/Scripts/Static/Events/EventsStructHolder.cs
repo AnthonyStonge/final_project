@@ -31,12 +31,19 @@ namespace EventStruct
     public struct BulletInfo
     {
         public ProjectileType projectileType;
+        public BulletCollisionType CollisionType;
 
         //Transform of the CollisionHit
         public float3 HitPosition;
         public quaternion HitRotation;
-        
-        //Add vfx/sound type field for effects on different surfaces
+
+        public enum BulletCollisionType
+        {
+            NONE,
+            ON_WALL,
+            ON_PLAYER,
+            ON_ENEMY
+        }
     }
 
     public struct PlayerInfo

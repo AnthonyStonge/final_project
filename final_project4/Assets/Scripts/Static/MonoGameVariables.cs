@@ -45,8 +45,8 @@ public class MonoGameVariables : MonoBehaviour
     [Header("Prefabs Bullets")] 
     public GameObject PistolBullet;
     public GameObject ShotgunBullet;
-    
-    [Header("Extra")]
+
+    [Header("Extra")] public AudioClip temporaryShotgunShotSound;
 
     public Mesh PistolMesh;
     public Material PistolMaterial;

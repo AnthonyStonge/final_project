@@ -1,6 +1,7 @@
 ﻿using System;
 using Enums;
 using EventStruct;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -47,10 +48,10 @@ public class RetrieveGunEventSystem : SystemBase
 
         float deltaTime = Time.DeltaTime;
 
-        JobHandle job = Entities.ForEach(
+        JobHandle gunJob = Entities.ForEach(
             (int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in Parent parent) =>
             {
-                if (!states.Components.HasComponent(parent.Value))
+                if (!states.Components.HasComponent(parent.Value) || gun.GunType == GunType.NONE)
                     return;
 
                 //Variables local to job
@@ -125,16 +126,20 @@ public class RetrieveGunEventSystem : SystemBase
                     });
             }).ScheduleParallel(Dependency);
 
-        //Terminate job so we can read from NativeQueue
-        job.Complete();
-
-        //Transfer NativeQueue info to static NativeList
-        while (weaponFired.TryDequeue(out WeaponInfo info))
-        {
-            EventsHolder.WeaponEvents.Add(info);
-        }
-
+        Dependency = JobHandle.CombineDependencies(gunJob, new EventQueueJob{ weaponInfos = weaponFired }.Schedule(gunJob));
         entityCommandBuffer.AddJobHandleForProducer(Dependency);
+    }
+    struct EventQueueJob : IJob
+    {
+        
+        public NativeQueue<WeaponInfo> weaponInfos;
+        public void Execute()
+        {
+            while (weaponInfos.TryDequeue(out WeaponInfo info))
+            {
+                EventsHolder.WeaponEvents.Add(info);
+            }
+        }
     }
 
     private static void ShootPistol(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
@@ -157,51 +162,27 @@ public class RetrieveGunEventSystem : SystemBase
     private static void ShootShotgun(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
         float3 position, quaternion rotation)
     {
-        float degreeFarShot = math.radians(3);
-
-        //Create center bullet
-        Entity centerBullet = ecb.Instantiate(jobIndex, bulletPrefab);
-
-        //Set position/rotation
-        ecb.SetComponent(jobIndex, centerBullet, new Translation
+        int nbBullet = 100;
+        float degreeFarShot = math.radians(nbBullet * 2);
+        float angle = degreeFarShot / nbBullet;
+        quaternion startRotation = math.mul(rotation, quaternion.RotateY(-(degreeFarShot / 2)));
+        
+        for (int i = 0; i < nbBullet; i++)
         {
-            Value = position
-        });
-        ecb.SetComponent(jobIndex, centerBullet, new Rotation
-        {
-            Value = rotation
-        });
+            Entity bullet = ecb.Instantiate(jobIndex, bulletPrefab);
 
-        //Create far left bullet
-        Entity farLeftBullet = ecb.Instantiate(jobIndex, bulletPrefab);
+            //Find rotation
+            quaternion bulletRotation = math.mul(startRotation, quaternion.RotateY(angle * i));
 
-        //Find rotation
-        quaternion farLeftBulletRotation = math.mul(rotation, quaternion.RotateY(degreeFarShot));
-
-        //Set position/rotation
-        ecb.SetComponent(jobIndex, farLeftBullet, new Translation
-        {
-            Value = position
-        });
-        ecb.SetComponent(jobIndex, farLeftBullet, new Rotation
-        {
-            Value = farLeftBulletRotation
-        });
-
-        //Create far right bullet
-        Entity farRightBullet = ecb.Instantiate(jobIndex, bulletPrefab);
-
-        //Find rotation
-        quaternion farRightBulletRotation = math.mul(rotation, quaternion.RotateY(-degreeFarShot));
-
-        //Set position/rotation
-        ecb.SetComponent(jobIndex, farRightBullet, new Translation
-        {
-            Value = position
-        });
-        ecb.SetComponent(jobIndex, farRightBullet, new Rotation
-        {
-            Value = farRightBulletRotation
-        });
+            //Set position/rotation
+            ecb.SetComponent(jobIndex, bullet, new Translation
+            {
+                Value = position
+            });
+            ecb.SetComponent(jobIndex, bullet, new Rotation
+            {
+                Value = bulletRotation
+            });
+        }
     }
 }
