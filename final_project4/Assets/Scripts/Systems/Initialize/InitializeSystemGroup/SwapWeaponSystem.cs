@@ -23,7 +23,6 @@ public class SwapWeaponSystem : SystemBase
             return;
 
         //Number > mouse wheel (override)
-        //TODO
         if (inputs.WeaponTypeDesired != GameVariables.Player.CurrentWeaponHeld)
         {
             SwapWeapon(inputs.WeaponTypeDesired);
