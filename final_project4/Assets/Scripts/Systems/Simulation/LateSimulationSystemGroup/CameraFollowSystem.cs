@@ -20,7 +20,7 @@ public class CameraFollowSystem : SystemBase
     {
         //Get Player Translation, which was set by the physic system
         Translation t = EntityManager.GetComponentData<Translation>(GameVariables.PlayerVars.Entity);
-        var currentPosition = GameVariables.PlayerVars.CurrentPosition = t.Value;
+        var currentPosition = t.Value;
         
         //Calculate Input
         InputComponent input = EntityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);

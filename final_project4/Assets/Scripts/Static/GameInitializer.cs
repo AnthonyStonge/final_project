@@ -1,8 +1,5 @@
-﻿﻿using Static.Events;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Transforms;
-using UnityEngine;
-using UnityEngine.Rendering;
 
 public static class GameInitializer
 {

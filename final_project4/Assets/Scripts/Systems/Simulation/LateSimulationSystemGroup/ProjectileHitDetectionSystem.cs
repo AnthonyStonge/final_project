@@ -18,19 +18,12 @@ public class ProjectileHitDetectionSystem : SystemBase
 
     protected override void OnCreate()
     {
-        base.OnCreate();
-
         endSimulationEntityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         physicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
         
         bulletEvents = new NativeQueue<BulletInfo>(Allocator.Persistent);
     }
-
-    protected override void OnDestroy()
-    {
-        bulletEvents.Dispose();
-    }
-
+    
     protected override void OnUpdate()
     {
         
@@ -111,5 +104,10 @@ public class ProjectileHitDetectionSystem : SystemBase
                 EventsHolder.BulletsEvents.Add(info);
             }
         }
+    }
+
+    protected override void OnDestroy()
+    {
+        bulletEvents.Dispose();
     }
 }

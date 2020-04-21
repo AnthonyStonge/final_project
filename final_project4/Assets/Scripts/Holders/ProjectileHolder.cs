@@ -51,39 +51,5 @@ public static class ProjectileHolder
     public static void OnDestroy()
     {
         blobAssetStores.ForEach(i=> { i.Dispose(); });
-    }
-
-    private static void ConvertPrefabs()
-    {
-       /* GameObject go;
-        BlobAssetStore blob;
-
-        //PistolBullet
-        //TODO LOAD GAMEOBJECT FROM ADDRESSABLE
-
-        go = MonoGameVariables.instance.PistolBullet;
-
-        blob = new BlobAssetStore();
-        blobAssetStores.Add(blob);
-
-        Entity pistolBulletPrefab =
-            GameObjectConversionUtility.ConvertGameObjectHierarchy(go,
-                GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blob));
-
-        BulletPrefabs.TryAdd(BulletType.PISTOL_BULLET, pistolBulletPrefab);
-
-        //ShotgunBullet
-        //TODO LOAD GAMEOBJECT FROM ADDRESSABLE
-
-        go = MonoGameVariables.instance.ShotgunBullet;
-
-        blob = new BlobAssetStore();
-        blobAssetStores.Add(blob);
-
-        Entity shotgunBulletPrefab =
-            GameObjectConversionUtility.ConvertGameObjectHierarchy(go,
-                GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blob));
-
-        BulletPrefabs.TryAdd(BulletType.SHOTGUN_BULLET, shotgunBulletPrefab);*/
-    }
+    }    
 }

@@ -17,8 +17,6 @@ public static class PlayerHolder
 
     public static void Initialize()
     {
-        //Convert PlayerPrefabs
-        // ConvertPlayerPrefab();
         PlayerDict = new ConcurrentDictionary<PlayerType, Entity>();
         
         currentNumberOfLoadedAssets = 0;

@@ -49,19 +49,4 @@ public static class EnemyHolder
     {
         blobAssetStores.ForEach(i=>{ i.Dispose(); });
     }
-
-    private static void ConvertPrefabs()
-    {
-        /*//TODO LOAD GAMEOBJECT FROM ADDRESSABLE
-        GameObject go = MonoGameVariables.instance.Enemy1;
-
-        BlobAssetStore blob = new BlobAssetStore();
-        blobAssetStores.Add(blob);
-
-        Entity enemy1 =
-            GameObjectConversionUtility.ConvertGameObjectHierarchy(go,
-                GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blob));
-
-        EnemyPrefabsEntities.TryAdd(EnemyType.GABICHOU, enemy1);*/
-    }
 }

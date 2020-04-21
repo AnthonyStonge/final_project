@@ -7,21 +7,16 @@ using UnityEngine;
 public class PresentationManager : ComponentSystemGroup
 {
 
-    private UpdateGunRenderSystem updateGunRenderSystem;
+    
     
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
-        updateGunRenderSystem = world.GetOrCreateSystem<UpdateGunRenderSystem>();
-
-        var presentation = world.GetOrCreateSystem<PresentationManager>();
         
-        presentation.AddSystemToUpdateList(updateGunRenderSystem);
+        var presentation = world.GetOrCreateSystem<PresentationManager>();
     }
 
     protected override void OnUpdate()
     {
-        //Debug.Log("Presentation Manager Update");
-        updateGunRenderSystem.Update();
     }
 }

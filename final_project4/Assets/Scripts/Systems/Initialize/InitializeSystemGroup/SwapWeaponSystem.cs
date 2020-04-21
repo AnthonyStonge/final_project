@@ -6,19 +6,17 @@ using Unity.Entities;
 [DisableAutoCreation]
 public class SwapWeaponSystem : SystemBase
 {
-    private EntityManager entityManager;
     private int gunEnumLength;
     
     protected override void OnCreate()
     {
-        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         gunEnumLength = Enum.GetNames(typeof(WeaponType)).Length;
     }
 
     protected override void OnUpdate()
     {
         //Get player inputs
-        InputComponent inputs = entityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);
+        InputComponent inputs = EntityManager.GetComponentData<InputComponent>(GameVariables.PlayerVars.Entity);
 
         if (!inputs.Enabled)
             return;
@@ -64,8 +62,8 @@ public class SwapWeaponSystem : SystemBase
         Entity currentWeaponEntity = GameVariables.PlayerVars.PlayerWeaponEntities[GameVariables.PlayerVars.CurrentWeaponHeld];
         Entity desiredWeaponEntity = GameVariables.PlayerVars.PlayerWeaponEntities[type];
         
-        entityManager.SetEnabled(currentWeaponEntity, false);
-        entityManager.SetEnabled(desiredWeaponEntity, true);
+        EntityManager.SetEnabled(currentWeaponEntity, false);
+        EntityManager.SetEnabled(desiredWeaponEntity, true);
         
         //Set CurrentGunType
         GameVariables.PlayerVars.CurrentWeaponHeld = type;

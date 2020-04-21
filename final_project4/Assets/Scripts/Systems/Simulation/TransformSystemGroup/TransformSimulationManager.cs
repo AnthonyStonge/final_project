@@ -22,11 +22,6 @@ public class TransformSimulationManager : ComponentSystemGroup
         transform.AddSystemToUpdateList(rotatePlayerSystem);
     }
 
-    protected override void OnStartRunning()
-    {
-        
-    }
-    
     protected override void OnUpdate()
     {
         //Debug.Log("TransformSimulation Manager Update");

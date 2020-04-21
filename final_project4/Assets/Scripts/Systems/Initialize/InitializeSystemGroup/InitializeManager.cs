@@ -8,9 +8,7 @@ public class InitializeManager : ComponentSystemGroup
     private InputSystem inputSystem;
     private SwapWeaponSystem swapWeaponSystem;
     private PlayerTargetSystem playerTargetSystem;
-    private DecrementTimeSystem decrementTimeSystem;
-    private UpdatePlayerInfoSystem updatePlayerInfoSystem;
-    
+
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
@@ -18,15 +16,12 @@ public class InitializeManager : ComponentSystemGroup
         inputSystem = world.GetOrCreateSystem<InputSystem>();
         swapWeaponSystem = world.GetOrCreateSystem<SwapWeaponSystem>();
         playerTargetSystem = world.GetOrCreateSystem<PlayerTargetSystem>();
-        decrementTimeSystem = world.GetOrCreateSystem<DecrementTimeSystem>();
-        updatePlayerInfoSystem = world.GetOrCreateSystem<UpdatePlayerInfoSystem>();
-        
+
         var initialize = world.GetOrCreateSystem<InitializeManager>();
+        
         initialize.AddSystemToUpdateList(inputSystem);
         initialize.AddSystemToUpdateList(swapWeaponSystem);
         initialize.AddSystemToUpdateList(playerTargetSystem);
-        initialize.AddSystemToUpdateList(decrementTimeSystem);
-        initialize.AddSystemToUpdateList(updatePlayerInfoSystem);
     }
 
     protected override void OnStartRunning()
@@ -46,9 +41,6 @@ public class InitializeManager : ComponentSystemGroup
             //Dependency: InputSystem
             playerTargetSystem.Update();
         }
-        //Dependency: None 
-        decrementTimeSystem.Update();
-        updatePlayerInfoSystem.Update();
     }
 
 

@@ -47,49 +47,5 @@ public static class MapInitializer
         });
         entityManager.SetEnabled(shotgun, false);
         PlayerVars.PlayerWeaponEntities.Add(WeaponType.Shotgun, shotgun);
-        
-
-        //InitializePlayerWeapon();
-    }
-
-    private static void InitializePlayerWeapon()
-    {
-       /* //TODO INITIALIZE ANY WEAPON NOT ONLY PISTOL
-        //Create player entity
-        Entity weapon = entityManager.CreateEntity(StaticArchetypes.GunArchetype);
-        entityManager.SetName(weapon, "Player Weapon");
-
-        //Set Values
-        entityManager.SetComponentData(weapon, new Translation
-        {
-            //TODO PROBLEM IF PLAYER SPAWNS WITH A ROTATION
-            Value = PlayerVars.Default.DefaultSpawnPosition.Value + PistolVars.PlayerOffset
-        });
-        
-        entityManager.SetComponentData(weapon, new Rotation
-        {
-            Value = PlayerVars.Default.DefaultSpawnRotation.Value
-        });
-        
-        entityManager.SetComponentData(weapon, new Parent
-        {
-            Value = PlayerVars.Entity
-        });
-        
-        entityManager.SetSharedComponentData(weapon, new RenderMesh
-        {
-            mesh = MonoGameVariables.instance.PistolMesh,
-            material = MonoGameVariables.instance.PistolMaterial
-        });
-        
-        entityManager.SetComponentData(weapon, new GunComponent
-        {
-            weaponType = WeaponType.PISTOL,
-            BulletPrefab = ProjectileHolder.PistolPrefab,
-            ResetReloadTime = 0.3f,
-            MaxBulletInMagazine = 20,
-            CurrentAmountBulletInMagazine = 2000,
-            CurrentAmountBulletOnPlayer = 9999999
-        });*/
     }
 }
