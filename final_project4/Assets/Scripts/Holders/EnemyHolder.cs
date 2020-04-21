@@ -1,44 +1,52 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 using Enums;
-using Unity.Collections;
+using UnityEngine.AddressableAssets;
+using static ECSUtility;
 
 public static class EnemyHolder
 {
-    public static ConcurrentDictionary<EnemyType, Entity> EnemyPrefabsEntities =
-        new ConcurrentDictionary<EnemyType, Entity>();
-
+    public static ConcurrentDictionary<EnemyType, Entity> EnemyPrefabDict;
+    
     public static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
-
+    private static int currentNumberOfLoadedAssets;
+    private static int numberOfAssetsToLoad;
+    
     public static void Initialize()
     {
-        ConvertPrefabs();
+        EnemyPrefabDict = new ConcurrentDictionary<EnemyType, Entity>();
+        
+        currentNumberOfLoadedAssets = 0;
+        numberOfAssetsToLoad = Enum.GetNames(typeof(EnemyType)).Length;
+    }
+
+    public static void LoadAssets()
+    {
+        foreach (var i in Enum.GetNames(typeof(EnemyType)))
+        {
+            Addressables.LoadAssetAsync<GameObject>(i).Completed += obj =>
+            {
+                EnemyPrefabDict.TryAdd((EnemyType) Enum.Parse(typeof(EnemyType), i), 
+                    ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
+                currentNumberOfLoadedAssets++;
+                if (blob != null)
+                {
+                    blobAssetStores.Add(blob);
+                }
+            };
+        }
+    }
+    
+    public static float CurrentLoadingPercentage()
+    {
+        return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
     }
 
     public static void OnDestroy()
     {
-        //Not sure if foreach would have work, didnt try it
-        for (int i = blobAssetStores.Count - 1; i >= 0; i--)
-        {
-            blobAssetStores[i].Dispose();
-        }
-    }
-
-    private static void ConvertPrefabs()
-    {
-        //TODO LOAD GAMEOBJECT FROM ADDRESSABLE
-        GameObject go = MonoGameVariables.instance.Enemy1;
-
-        BlobAssetStore blob = new BlobAssetStore();
-        blobAssetStores.Add(blob);
-
-        Entity enemy1 =
-            GameObjectConversionUtility.ConvertGameObjectHierarchy(go,
-                GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blob));
-
-        EnemyPrefabsEntities.TryAdd(EnemyType.GABICHOU, enemy1);
+        blobAssetStores.ForEach(i=>{ i.Dispose(); });
     }
 }

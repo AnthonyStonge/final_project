@@ -13,9 +13,8 @@ public class LateInitializeManager : ComponentSystemGroup
     private EnemyTargetSystem enemyTargetSystem;
     private StateDyingSystem stateDyingSystem;
     private StateDashingSystem stateDashingSystem;
+    private DashSystem dashSystem;
     
-    private MachineGunSystem machineGunSystem;
-    private ShotgunSystem shotgunSystem;
     private RetrieveGunEventSystem retrieveGunEventSystem;
     protected override void OnCreate()
     {
@@ -28,9 +27,8 @@ public class LateInitializeManager : ComponentSystemGroup
         enemyTargetSystem = world.GetOrCreateSystem<EnemyTargetSystem>();
         stateDyingSystem = world.GetOrCreateSystem<StateDyingSystem>();
         stateDashingSystem = world.GetOrCreateSystem<StateDashingSystem>();
-        
-        machineGunSystem = world.GetOrCreateSystem<MachineGunSystem>();
-        shotgunSystem = world.GetOrCreateSystem<ShotgunSystem>();
+        dashSystem = world.GetOrCreateSystem<DashSystem>();
+
         retrieveGunEventSystem = world.GetOrCreateSystem<RetrieveGunEventSystem>();
 
         var initialize = world.GetOrCreateSystem<LateInitializeManager>();
@@ -42,10 +40,8 @@ public class LateInitializeManager : ComponentSystemGroup
         initialize.AddSystemToUpdateList(enemyTargetSystem);
         initialize.AddSystemToUpdateList(stateDyingSystem);
         initialize.AddSystemToUpdateList(stateDashingSystem);
-        
-        initialize.AddSystemToUpdateList(machineGunSystem);
-        initialize.AddSystemToUpdateList(shotgunSystem);
         initialize.AddSystemToUpdateList(retrieveGunEventSystem);
+        initialize.AddSystemToUpdateList(dashSystem);
     }
 
     protected override void OnStartRunning()
@@ -71,11 +67,11 @@ public class LateInitializeManager : ComponentSystemGroup
         stateDyingSystem.Update();
         #endregion
         //Dependency : StateDyingSystem
-        stateDashingSystem.Update();
-        machineGunSystem.Update();
-        //Dependency : None
-        shotgunSystem.Update();
-        
+        stateDashingSystem.Update(); // Nothing in there, like the inside of Gab's brain - Marcuslelus
+
+        //Dependency : StateDyingSystem
+        dashSystem.Update();
+
         retrieveGunEventSystem.Update();
     }
 }

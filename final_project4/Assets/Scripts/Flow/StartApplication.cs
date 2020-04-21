@@ -1,14 +1,24 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class StartApplication : MonoBehaviour
 {
-    public Camera CurrentCamera;
-
+    private bool HasInit;
     void Start()
     {
-        GameInitializer.SetMainCamera(CurrentCamera);
-        GameInitializer.InitializeSystemWorkflow();
+        GameInitializer.LoadAssets();    
+    }
+
+    private void Update()
+    {
+        //This is not working
+        if (GameInitializer.IsLoadingFinished() && !HasInit)
+        {
+            HasInit = true;
+            GameInitializer.InitializeSystemWorkflow();
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnDestroy()

@@ -123,7 +123,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Distance: 3
   ResetDashTimer: 0.5
+  ResetDashSkill: 1.5
+  DashSkillTimer: 0
   DashTimer: 0
+  InputDuringDash:
+    x: 0
+    y: 0
+  TargetDuringDash:
+    value:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
 --- !u!114 &5691379923823341952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +160,7 @@ MonoBehaviour:
     Value:
       x: -90
       y: 0
-      z: -90
+      z: 90
     RotationOrder: 4
   m_Capsule:
     Height: 2
@@ -189,7 +200,7 @@ MonoBehaviour:
       m_Value: 0001000000000000000000000000000000000000000000000000000000000000
     m_CollidesWith:
       m_Override: 0
-      m_Value: 0101010101010101010101010101010101010101010101010101010101010101
+      m_Value: 0000000000000000000000000000000000000000000000000000000000000000
     m_RaisesCollisionEvents:
       m_Override: 0
       m_Value: 0
@@ -221,7 +232,7 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  m_GravityFactor: 1
+  m_GravityFactor: 0
   m_OverrideDefaultMassDistribution: 1
   m_CenterOfMass:
     x: 0

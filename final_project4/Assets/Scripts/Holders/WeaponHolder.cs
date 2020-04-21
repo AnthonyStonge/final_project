@@ -1,65 +1,52 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Enums;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using static ECSUtility;
 
-namespace Holder
+public static class WeaponHolder
 {
-    public static class WeaponHolder
+    public static ConcurrentDictionary<WeaponType, Entity> WeaponPrefabDict;
+
+    private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
+    private static int currentNumberOfLoadedAssets;
+    private static int numberOfAssetsToLoad;
+
+    public static void Initialize()
     {
-        public static ConcurrentDictionary<GunType, Entity> WeaponPrefabs = new ConcurrentDictionary<GunType, Entity>();
-        
-        private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
-        
-        
-        public static void Initialize()
-        {
-            ConvertPrefabs();
-        }
+        WeaponPrefabDict = new ConcurrentDictionary<WeaponType, Entity>();
 
-        public static void OnDestroy()
+        currentNumberOfLoadedAssets = 0;
+        numberOfAssetsToLoad = Enum.GetNames(typeof(WeaponType)).Length;
+    }
+
+    public static void LoadAssets()
+    {
+        foreach (var i in Enum.GetNames(typeof(WeaponType)))
         {
-            //Not sure if foreach would have work, didnt try it
-            for (int i = blobAssetStores.Count - 1; i >= 0; i--)
+            Addressables.LoadAssetAsync<GameObject>(i).Completed += obj =>
             {
-                blobAssetStores[i].Dispose();
-            }
+                WeaponPrefabDict.TryAdd((WeaponType) Enum.Parse(typeof(WeaponType), i),
+                    ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
+                currentNumberOfLoadedAssets++;
+                if (blob != null)
+                {
+                    blobAssetStores.Add(blob);
+                }
+            };
         }
+    }
+    
+    public static float CurrentLoadingPercentage()
+    {
+        return  currentNumberOfLoadedAssets / (float)numberOfAssetsToLoad;
+    }
 
-        private static void ConvertPrefabs()
-        {
-            GameObject go;
-            BlobAssetStore blob;
-            
-            //Pistol
-            //TODO LOAD GAMEOBJECT FROM ADDRESSABLE
-
-            go = MonoGameVariables.instance.Pistol;
-            
-            blob = new BlobAssetStore();
-            blobAssetStores.Add(blob);
-            
-            Entity pistolPrefab =
-                GameObjectConversionUtility.ConvertGameObjectHierarchy(go,
-                    GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blob));
-
-            WeaponPrefabs.TryAdd(GunType.PISTOL, pistolPrefab);
-            
-            //Shotgun
-            //TODO LOAD GAMEOBJECT FROM ADDRESSABLE
-
-            go = MonoGameVariables.instance.Shotgun;
-            
-            blob = new BlobAssetStore();
-            blobAssetStores.Add(blob);
-            
-            Entity shotgunPrefab =
-                GameObjectConversionUtility.ConvertGameObjectHierarchy(go,
-                    GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blob));
-
-            WeaponPrefabs.TryAdd(GunType.SHOTGUN, shotgunPrefab);
-        }
+    public static void OnDestroy()
+    {
+        blobAssetStores.ForEach(i=>{ i.Dispose(); });
     }
 }

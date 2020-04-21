@@ -1,100 +1,55 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Enums;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-
-
+using static ECSUtility;
 
 //TODO DO WE REALLY NEED THIS BECAUSE WHEN CONVERTING PREFABS WEAPON, IT CONVERT ITS BULLET WITH IT...
 //TODO UNLESS WE MAKE BULLET THAT DONT HAVE WEAPON, WE SHOULD REMOVE THIS CLASS
-namespace Holders
+public static class ProjectileHolder
 {
-    public static class ProjectileHolder
+    public static ConcurrentDictionary<ProjectileType, Entity> ProjectilePrefabDict;
+    
+    private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
+    private static int currentNumberOfLoadedAssets;
+    private static int numberOfAssetsToLoad;
+
+    public static void Initialize()
     {
-        public static GameObject pistolGameObject;
-        public static Entity PistolPrefab;
-        
-        public static void LoadAssets()
+        // ConvertPrefabs();
+        ProjectilePrefabDict = new ConcurrentDictionary<ProjectileType, Entity>();
+       
+        currentNumberOfLoadedAssets = 0;
+        numberOfAssetsToLoad = Enum.GetNames(typeof(ProjectileType)).Length;
+    }
+    
+    public static void LoadAssets()
+    {
+        foreach (var i in Enum.GetNames(typeof(ProjectileType)))
         {
-
-            Addressables.LoadAssetAsync<GameObject>("Pistol").Completed += 
-                obj =>
+            Addressables.LoadAssetAsync<GameObject>(i).Completed += obj =>
+            {
+                ProjectilePrefabDict.TryAdd((ProjectileType) Enum.Parse(typeof(ProjectileType), i),
+                    ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
+                currentNumberOfLoadedAssets++;
+                if (blob != null)
                 {
-                    if (obj.Status == AsyncOperationStatus.Succeeded)
-                    {
-                        //using(var blob = new BlobAssetStore())
-                        {
-                            PistolPrefab = GameObjectConversionUtility.
-                                ConvertGameObjectHierarchy(obj.Result, 
-                                    GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, new BlobAssetStore()));
-                        }
-                    }
-
-                };
-        }
-
-        public static void Test()
-        {
-            using(var blob = new BlobAssetStore())
-            {
-                PistolPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(pistolGameObject,GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blob));
-            }
-        }
-        
-        public static ConcurrentDictionary<BulletType, Entity> BulletPrefabs = new ConcurrentDictionary<BulletType, Entity>();
-        
-        private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
-        
-
-        public static void Initialize()
-        {
-            ConvertPrefabs();
-        }
-
-        public static void OnDestroy()
-        {
-            //Not sure if foreach would have work, didnt try it
-            for (int i = blobAssetStores.Count - 1; i >= 0; i--)
-            {
-                blobAssetStores[i].Dispose();
-            }
-        }
-
-        private static void ConvertPrefabs()
-        {
-            GameObject go;
-            BlobAssetStore blob;
-            
-            //PistolBullet
-            //TODO LOAD GAMEOBJECT FROM ADDRESSABLE
-
-            go = MonoGameVariables.instance.PistolBullet;
-            
-            blob = new BlobAssetStore();
-            blobAssetStores.Add(blob);
-            
-            Entity pistolBulletPrefab =
-                GameObjectConversionUtility.ConvertGameObjectHierarchy(go,
-                    GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blob));
-
-            BulletPrefabs.TryAdd(BulletType.PISTOL_BULLET, pistolBulletPrefab);
-            
-            //ShotgunBullet
-            //TODO LOAD GAMEOBJECT FROM ADDRESSABLE
-
-            go = MonoGameVariables.instance.ShotgunBullet;
-            
-            blob = new BlobAssetStore();
-            blobAssetStores.Add(blob);
-            
-            Entity shotgunBulletPrefab =
-                GameObjectConversionUtility.ConvertGameObjectHierarchy(go,
-                    GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, blob));
-
-            BulletPrefabs.TryAdd(BulletType.SHOTGUN_BULLET, shotgunBulletPrefab);
+                    blobAssetStores.Add(blob);
+                }
+            };
         }
     }
+    
+    public static float CurrentLoadingPercentage()
+    {
+        return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
+    }
+    
+    public static void OnDestroy()
+    {
+        blobAssetStores.ForEach(i=> { i.Dispose(); });
+    }    
 }
