@@ -12,41 +12,45 @@ public class DashSystem : SystemBase
     protected override void OnUpdate()
     {
         float dt = Time.DeltaTime;
-        Entities.WithAll<PlayerTag>().ForEach((ref PhysicsVelocity physicsVelocity, ref DashComponent dashComponent,ref InputComponent ic, in PhysicsMass physicsMass, in Rotation rotation) =>
-        {
-            //translation.Value.xz += math.normalizesafe(ic.Move) * speedData.Value * dt;
-            if (ic.Dash && dashComponent.CurrentCooldownTime <= 0)
+        Entities.WithAll<PlayerTag>().ForEach(
+            (ref PhysicsVelocity physicsVelocity, ref DashComponent dashComponent, ref InputComponent ic,
+                in PhysicsMass physicsMass, in Rotation rotation) =>
             {
-                dashComponent.CurrentDashTime = dashComponent.DashTime;
-                dashComponent.CurrentCooldownTime = dashComponent.CooldownTime;
-                dashComponent.InputDuringDash = ic.Move;
-                dashComponent.TargetDuringDash = rotation.Value;
-                ic.Enabled = false;
-            }
-            
-            else if(dashComponent.CurrentCooldownTime > 0)
-            {
-                dashComponent.CurrentDashTime -= dt;
-                dashComponent.CurrentCooldownTime -= dt;
-                if (dashComponent.CurrentDashTime > 0)
+                //translation.Value.xz += math.normalizesafe(ic.Move) * speedData.Value * dt;
+                if (ic.Dash && dashComponent.CurrentCooldownTime <= 0)
                 {
-                    if (dashComponent.InputDuringDash.x == 0f && dashComponent.InputDuringDash.y == 0f)
+                    dashComponent.CurrentDashTime = dashComponent.DashTime;
+                    dashComponent.CurrentCooldownTime = dashComponent.CooldownTime;
+                    dashComponent.InputDuringDash = ic.Move;
+                    dashComponent.TargetDuringDash = rotation.Value;
+                    
+                    //Disable input during dash
+                    GlobalEvents.LockUserInputs(ref ic);
+                }
+
+                else if (dashComponent.CurrentCooldownTime > 0)
+                {
+                    dashComponent.CurrentDashTime -= dt;
+                    dashComponent.CurrentCooldownTime -= dt;
+                    if (dashComponent.CurrentDashTime > 0)
                     {
-                        physicsVelocity.ApplyLinearImpulse(physicsMass,
-                            math.forward(dashComponent.TargetDuringDash) * dashComponent.Speed * 100 * dt);
+                        if (dashComponent.InputDuringDash.x == 0f && dashComponent.InputDuringDash.y == 0f)
+                        {
+                            physicsVelocity.ApplyLinearImpulse(physicsMass,
+                                math.forward(dashComponent.TargetDuringDash) * dashComponent.Speed * 100 * dt);
+                        }
+                        else
+                        {
+                            float2 velocity = math.normalizesafe(dashComponent.InputDuringDash) * dashComponent.Speed *
+                                              100 * dt;
+                            physicsVelocity.Linear.xz = velocity;
+                        }
                     }
                     else
                     {
-                        float2 velocity = math.normalizesafe(dashComponent.InputDuringDash) * dashComponent.Speed * 100 * dt;
-                        physicsVelocity.Linear.xz = velocity;
+                        GlobalEvents.UnlockUserInputs(ref ic);
                     }
                 }
-                else
-                {
-                    ic.Enabled = true;
-                }
-
-            }
-        }).Run();
+            }).Run();
     }
 }
