@@ -2,6 +2,16 @@
 
 public static class GlobalEvents
 {
+    public static void PauseGame()
+    {
+        
+    }
+
+    public static void UnPauseGame()
+    {
+        
+    }
+    
     public static void LockUserInputs()
     {
         //Get input components / Player entity
