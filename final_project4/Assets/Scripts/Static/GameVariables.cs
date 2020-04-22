@@ -27,9 +27,9 @@ public static class GameVariables
     }
     public static class Ui
     {
-        public static TextMeshPro NbBulletInMagazine;
-        public static TextMeshPro NbBulletOnPlayer;
-        public static TextMeshPro GunName;
-        public static TextMeshPro Life;
+        public static TextMeshProUGUI NbBulletInMagazine;
+        public static TextMeshProUGUI NbBulletOnPlayer;
+        public static TextMeshProUGUI GunName;
+        public static TextMeshProUGUI Life;
     }
 }
