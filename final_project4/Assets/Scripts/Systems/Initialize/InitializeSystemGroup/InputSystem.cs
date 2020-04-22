@@ -23,7 +23,6 @@ public class InputSystem : SystemBase
             inputs.PartialReset();
         
             //Get input
-            inputs.Mouse = Input.mousePosition;
         
             if (Input.GetKey(KeyCode.W))
                 inputs.Move.y += 1;
@@ -56,7 +55,8 @@ public class InputSystem : SystemBase
         }
         else
             inputs.Reset();
-        
+        inputs.Mouse = Input.mousePosition;
+
         entityManager.SetComponentData(GameVariables.Player.Entity, inputs);
     }
 }
