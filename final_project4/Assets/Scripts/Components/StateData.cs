@@ -13,6 +13,7 @@ public enum StateActions
     IDLE,
     MOVING,
     ATTACKING,
+    RELOADING,
     DYING,
     DASHING
 }

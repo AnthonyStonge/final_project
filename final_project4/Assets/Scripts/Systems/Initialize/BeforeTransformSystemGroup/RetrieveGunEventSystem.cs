@@ -1,7 +1,5 @@
-﻿using System;
-using Enums;
+﻿using Enums;
 using EventStruct;
-using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -9,6 +7,18 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
+struct EmptyEventQueueJob : IJob
+{
+    public NativeQueue<WeaponInfo> EventsQueue;
+
+    public void Execute()
+    {
+        while (EventsQueue.TryDequeue(out WeaponInfo info))
+        {
+            EventsHolder.WeaponEvents.Add(info);
+        }
+    }
+}
 
 [DisableAutoCreation]
 public class RetrieveGunEventSystem : SystemBase
@@ -23,7 +33,12 @@ public class RetrieveGunEventSystem : SystemBase
             Debug.Log("GET DOWN! Problem incoming..."); //ok
         weaponFired = new NativeQueue<WeaponInfo>(Allocator.Persistent);
     }
-    
+
+    protected override void OnDestroy()
+    {
+        weaponFired.Dispose();
+    }
+
     protected override void OnUpdate()
     {
         //Clear previous PistolBullet events
@@ -46,6 +61,7 @@ public class RetrieveGunEventSystem : SystemBase
         JobHandle gunJob = Entities.ForEach(
             (int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in Parent parent) =>
             {
+                //Make sure gun has a parent
                 if (!states.Components.HasComponent(parent.Value))
                     return;
 
@@ -53,94 +69,147 @@ public class RetrieveGunEventSystem : SystemBase
                 StateData state = states.Components[parent.Value];
                 WeaponInfo.WeaponEventType? weaponEventType = null;
 
-                if (gun.IsBetweenShot)
+                if (gun.IsReloading)
                 {
+                    //Decrease time
+                    gun.ReloadTime -= deltaTime;
+
+                    if (!gun.IsReloading)
+                    {
+                        Reload(ref gun);
+                    }
+                }
+                //Only if not reloading
+                else if (gun.IsBetweenShot)
+                {
+                    //Decrease time
                     gun.BetweenShotTime -= deltaTime;
                 }
 
-                if (gun.IsReloading)
-                {
-                    gun.ReloadTime -= deltaTime;
-                    if (gun.ReloadTime <= 0)
-                    {
-                        //Refill magazine
-                        if (gun.CurrentAmountBulletOnPlayer >= gun.MaxBulletInMagazine)
-                        {
-                            gun.CurrentAmountBulletInMagazine = gun.MaxBulletInMagazine;
-                            gun.CurrentAmountBulletOnPlayer -= gun.MaxBulletInMagazine;
-                        }
-                        else
-                        {
-                            gun.CurrentAmountBulletInMagazine = gun.CurrentAmountBulletOnPlayer;
-                            gun.CurrentAmountBulletOnPlayer -= gun.CurrentAmountBulletOnPlayer;
-                        }
-                    }
-                }
-                else if (state.Value == StateActions.ATTACKING && !gun.IsBetweenShot &&
-                         gun.CurrentAmountBulletInMagazine > 0)
-                {
-                    //Shoot event
-                    gun.CurrentAmountBulletInMagazine--;
+                if (state.Value == StateActions.RELOADING)
+                    if (TryReload(ref gun))
+                        weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
 
-                    //Set EventType
-                    weaponEventType = WeaponInfo.WeaponEventType.ON_SHOOT;
-
-                    //Create entity in EntityCommandBuffer
-                    //TODO GET PREFAB ENTITY LINK WITH GUNTYPE
-                    switch (gun.WeaponType)
-                    {
-                        case WeaponType.Pistol:
-                            ShootPistol(entityInQueryIndex, ecb, gun.BulletPrefab, transform.Position,
-                                transform.Rotation);
-                            break;
-                        case WeaponType.Shotgun:
-                            ShootShotgun(entityInQueryIndex, ecb, gun.BulletPrefab, transform.Position,
-                                transform.Rotation);
-                            break;
-                    }
-
-                    gun.BetweenShotTime = 0.04f - gun.BetweenShotTime;
-                }
-                else if (gun.CurrentAmountBulletInMagazine <= 0 && gun.CurrentAmountBulletOnPlayer > 0)
-                {
-                    //Reload event
-                    gun.ReloadTime = gun.ResetReloadTime;
-
-                    //Set EventType
+                //Should weapon be reloading?    //Deactivate this line to block auto reload
+                if (TryStartReload(ref gun))
                     weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
-                }
 
+                if (state.Value == StateActions.ATTACKING)
+                    if (TryShoot(ref gun))
+                    {
+                        weaponEventType = WeaponInfo.WeaponEventType.ON_SHOOT;
+                        Shoot(entityInQueryIndex, ecb, gun, transform);
+                    }
+
+                //Add event to NativeQueue
                 if (weaponEventType != null)
-                    //Add event to NativeQueue
+                {
                     weaponFiredEvents.Enqueue(new WeaponInfo
                     {
                         WeaponType = gun.WeaponType,
-                        EventType = (WeaponInfo.WeaponEventType)weaponEventType,
+                        EventType = (WeaponInfo.WeaponEventType) weaponEventType,
                         Position = transform.Position,
                         Rotation = transform.Rotation
                     });
+                }
             }).ScheduleParallel(Dependency);
 
-        Dependency =
-            JobHandle.CombineDependencies(gunJob, new EventQueueJob {weaponInfos = weaponFired}.Schedule(gunJob));
+        //Create job
+        JobHandle emptyEventQueueJob = new EmptyEventQueueJob
+        {
+            EventsQueue = weaponFired
+        }.Schedule(gunJob);
+
+        //Link all jobs
+        Dependency = JobHandle.CombineDependencies(gunJob, emptyEventQueueJob);
         entityCommandBuffer.AddJobHandleForProducer(Dependency);
     }
-    
-    protected override void OnDestroy()
+
+    //Returns true if weapons starts reloading
+    private static bool TryStartReload(ref GunComponent gun)
     {
-        weaponFired.Dispose();
+        //Check if still ammo in magazine
+        if (gun.CurrentAmountBulletInMagazine > 0)
+            return false;
+        //Make sure gun isnt reloading already
+        if (gun.IsReloading)
+            return false;
+        //Make sure there is ammo to reload
+        if (gun.CurrentAmountBulletOnPlayer <= 0)
+            return false;
+
+        //
+        StartReload(ref gun);
+        return true;
     }
 
-    struct EventQueueJob : IJob
+    //Returns true if weapons starts reloading
+    private static bool TryReload(ref GunComponent gun)
     {
-        public NativeQueue<WeaponInfo> weaponInfos;
+        //Make sure magazine isnt full yet
+        if (gun.CurrentAmountBulletInMagazine == gun.MaxBulletInMagazine)
+            return false;
+        //Make sure gun isnt reloading already
+        if (gun.IsReloading)
+            return false;
+        //Make sure there is ammo to reload
+        if (gun.CurrentAmountBulletOnPlayer <= 0)
+            return false;
 
-        public void Execute()
+        //
+        StartReload(ref gun);
+        return true;
+    }
+
+    private static void StartReload(ref GunComponent gun)
+    {
+        gun.ReloadTime = gun.ResetReloadTime;
+    }
+
+    private static void Reload(ref GunComponent gun)
+    {
+        int amountAmmoToPutInMagazine = gun.MaxBulletInMagazine;
+
+        //Make sure enough ammo on player to refill entire magazine
+        if (gun.CurrentAmountBulletOnPlayer < gun.MaxBulletInMagazine)
         {
-            while (weaponInfos.TryDequeue(out WeaponInfo info))
-            {
-                EventsHolder.WeaponEvents.Add(info);
-            }
+            amountAmmoToPutInMagazine = gun.CurrentAmountBulletOnPlayer;
+        }
+
+        //
+        gun.CurrentAmountBulletOnPlayer -= amountAmmoToPutInMagazine;
+        gun.CurrentAmountBulletInMagazine = amountAmmoToPutInMagazine;
+    }
+
+    //Returns true if weapons shoot
+    private static bool TryShoot(ref GunComponent gun)
+    {
+        //Make sure not reloading or not between shot
+        if (gun.IsBetweenShot || gun.IsReloading)
+            return false;
+        //Make sure magazine isnt empty
+        if (gun.CurrentAmountBulletInMagazine <= 0)
+            return false;
+
+        //Decrease bullets
+        gun.CurrentAmountBulletInMagazine--;
+        //Reset between shot timer
+        gun.BetweenShotTime = gun.ResetBetweenShotTime;
+
+        return true;
+    }
+
+    private static void Shoot(int jobIndex, EntityCommandBuffer.Concurrent ecb, in GunComponent gun,
+        in LocalToWorld transform)
+    {
+        switch (gun.WeaponType)
+        {
+            case WeaponType.Pistol:
+                ShootPistol(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);
+                break;
+            case WeaponType.Shotgun:
+                ShootShotgun(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);
+                break;
         }
     }
 
