@@ -16,7 +16,7 @@ public static class SoundManager
 
     public static void PlaySound(AudioClip clip)
     {
-        audioSource.PlayOneShot(clip);
+        //audioSource.PlayOneShot(clip);
     }
 
     public static void PlaySound()
@@ -26,7 +26,6 @@ public static class SoundManager
 
     public static void BufferSound(WeaponInfo buffer)
     {
-        test.Add(buffer);
     }
     
     public static void PlaySoundLoop()

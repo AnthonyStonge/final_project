@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Enums;
+using TMPro;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
-
+using UnityEngine.UI;
 public static class GameVariables
 {
     public static bool InputEnabled = true;
@@ -23,5 +24,14 @@ public static class GameVariables
 
         //Unity linker
         public static Transform Transform;
+    }
+    public static class Ui
+    {
+        public static TextMeshProUGUI NbBulletInMagazine;
+        public static TextMeshProUGUI NbBulletOnPlayer;
+        public static TextMeshProUGUI GunName;
+        public static TextMeshProUGUI Life;
+        public static Image PistolImage;
+        public static Image ShotgunImage;
     }
 }
