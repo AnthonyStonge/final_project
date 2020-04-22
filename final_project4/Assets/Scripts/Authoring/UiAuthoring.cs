@@ -10,11 +10,15 @@ public class UiAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     public TextMeshProUGUI NbBulletOnPlayer;
     public TextMeshProUGUI GunName;
     public TextMeshProUGUI Life;
+    public Image PistolImage;
+    public Image ShotgunImage;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         GameVariables.Ui.NbBulletInMagazine = NbBulletInMagazine;
         GameVariables.Ui.NbBulletOnPlayer = NbBulletOnPlayer;
         GameVariables.Ui.GunName = GunName;
         GameVariables.Ui.Life = Life;
+        GameVariables.Ui.PistolImage = PistolImage;
+        GameVariables.Ui.ShotgunImage = ShotgunImage;
     }
 }
