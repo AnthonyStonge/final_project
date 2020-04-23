@@ -8,7 +8,7 @@ using UnityEngine;
 public static class SoundHolder
 {
     public static AudioSource audioSource;
-    
+
     public static Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, AudioClip>> WeaponSounds;
     public static Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, AudioClip>> BulletSounds;
     

@@ -11,7 +11,7 @@ public static class GameVariables
     public static EntityManager EntityManager;
     public static Camera MainCamera;
     public static Transform MouseToTransform;
-    public static GameState StartingState = GameState.INTRO;
+    public static GameState StartingState = GameState.GAME;
     public static ScriptableGrid grid;
     public static class Player
     {
