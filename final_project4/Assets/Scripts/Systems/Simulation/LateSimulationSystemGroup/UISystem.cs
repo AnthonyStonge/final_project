@@ -8,10 +8,7 @@ using UnityEngine;
 public class UISystem : SystemBase
 {
     private GunComponent gunComponent;
-    protected override void OnCreate()
-    {
-        
-    }
+
     protected override void OnUpdate()
     {
         if (!GameVariables.UI.GunName) return;

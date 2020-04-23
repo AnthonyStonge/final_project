@@ -21,6 +21,7 @@ public class Spawner : MonoBehaviour
     public Mesh playerMesh;
     public ushort batch;
     public static Entity en;
+    private int spawnYCounter;
     private BlobAssetStore blobAssetStore;
     // Start is called before the first frame update
     void Start()
@@ -36,16 +37,20 @@ public class Spawner : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            for (int i = 0; i < 50; i++)
+            spawnYCounter = 0;
+            for (int i = 0; i < 500; i++)
             {
-                createEntity(i % 50);
+                createEntity(i % 25, spawnYCounter);
+                if (i % 25 == 0)
+                {
+                    spawnYCounter++;
+                }
             }
             
         }
     }
-    private void createEntity(int i)
+    private void createEntity(int i, int j)
     {
-        EntityArchetype ea = em.CreateArchetype(typeof(Translation), typeof(RenderMesh), typeof(LocalToWorld), typeof(RenderBounds), typeof(PathFollow), typeof(PathFindingComponent), typeof(PathPosition), typeof(PhysicsCollider), typeof(PhysicsVelocity), typeof(PhysicsMass));
         Entity e = em.Instantiate(en);
         em.SetComponentData(e, new PathFindingComponent()
         {
@@ -54,14 +59,8 @@ public class Spawner : MonoBehaviour
         });
         em.SetComponentData(e, new Translation
         {
-            Value = new float3(i,0,0)
+            Value = new float3(Random.Range(-49,49),0,Random.Range(-49,49))
         });
-       
-        /*em.SetSharedComponentData(e, new RenderMesh
-        {
-            mesh = mesh,
-            material = mat
-        });*/
         em.SetComponentData(e, new PathFollow
         {
             pathIndex = -1,
@@ -88,7 +87,7 @@ public class Spawner : MonoBehaviour
 
     }
     
-    private void createFlockAgent()
+    /*private void createFlockAgent()
     {
         EntityArchetype agent = em.CreateArchetype(typeof(Translation), typeof(RenderMesh), typeof(LocalToWorld), typeof(RenderBounds), typeof(PhysicsCollider), typeof(Rotation), typeof(PhysicsVelocity));
         Entity eAgent = em.CreateEntity(agent);
@@ -146,7 +145,7 @@ public class Spawner : MonoBehaviour
             )
         });
 
-    }
+    }*/
     private void OnDestroy()
     {
         blobAssetStore.Dispose();

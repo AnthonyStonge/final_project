@@ -7,7 +7,6 @@ public class UnitInputSystem : ComponentSystem
 {
     protected override void OnUpdate()
     {
-        EntityQuery query = GetEntityQuery(typeof(UsePathFindingComp));
         EntityQuery queryPlayer = GetEntityQuery(typeof(PlayerTag));
         /*if (Input.GetMouseButtonDown(0))
         {
@@ -21,10 +20,10 @@ public class UnitInputSystem : ComponentSystem
             });
         }*/
         
-            Entities.With(queryPlayer).ForEach((Entity e, ref Translation translation) =>
+            /*Entities.With(queryPlayer).ForEach((Entity e, ref Translation translation) =>
             {
                 translation.Value += new float3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            });
+            });*/
         
     }
 }
