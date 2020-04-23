@@ -44,15 +44,15 @@ public class FadeSystem : SystemBase
         switch (UI.FadeObject.Type)
         {
             case FadeObject.FadeType.FadeIn:
+                if (UI.FadeObject.FadeValue <= 0)
+                    OnFadeEnd.Invoke();
                 UI.FadeObject.FadeValue -= UI.FadeObject.Speed * Time.DeltaTime;
                 break;
             case FadeObject.FadeType.FadeOut:
+                if (UI.FadeObject.FadeValue >= 1)
+                    OnFadeEnd.Invoke();
                 UI.FadeObject.FadeValue += UI.FadeObject.Speed * Time.DeltaTime;
                 break;
         }
-
-        //Should system stop?
-        if (UI.FadeObject.FadeValue <= 0 || UI.FadeObject.FadeValue >= 1)
-            OnFadeEnd?.Invoke();
     }
 }
