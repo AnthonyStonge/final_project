@@ -25,7 +25,7 @@ public static class GameVariables
         //Unity linker
         public static Transform Transform;
     }
-    public static class Ui
+    public static class UI
     {
         public static TextMeshProUGUI NbBulletInMagazine;
         public static TextMeshProUGUI NbBulletOnPlayer;
@@ -33,5 +33,7 @@ public static class GameVariables
         public static TextMeshProUGUI Life;
         public static Image PistolImage;
         public static Image ShotgunImage;
+
+        public static FadeObject FadeObject;
     }
 }

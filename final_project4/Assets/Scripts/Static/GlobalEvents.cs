@@ -45,4 +45,24 @@ public static class GlobalEvents
     {
         inputs.Enabled = true;
     }
+
+    public static void FadeIn()
+    {
+        SetFadeInfo(FadeObject.FadeType.FadeIn, 1);
+    }
+
+    public static void FadeOut()
+    {
+        SetFadeInfo(FadeObject.FadeType.FadeOut, 0);
+    }
+
+    private static void SetFadeInfo(FadeObject.FadeType type, float startValue)
+    {
+        //Set fade component info
+        GameVariables.UI.FadeObject.FadeValue = startValue;
+        GameVariables.UI.FadeObject.Type = type;
+
+        //Turn on fade system
+        World.DefaultGameObjectInjectionWorld.GetExistingSystem<FadeSystem>().Enabled = true;
+    }
 }

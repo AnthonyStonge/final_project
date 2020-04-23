@@ -12,13 +12,22 @@ public class UiAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     public TextMeshProUGUI Life;
     public Image PistolImage;
     public Image ShotgunImage;
+
+    public Image FadeImage;
+    public float FadeSpeed;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        GameVariables.Ui.NbBulletInMagazine = NbBulletInMagazine;
-        GameVariables.Ui.NbBulletOnPlayer = NbBulletOnPlayer;
-        GameVariables.Ui.GunName = GunName;
-        GameVariables.Ui.Life = Life;
-        GameVariables.Ui.PistolImage = PistolImage;
-        GameVariables.Ui.ShotgunImage = ShotgunImage;
+        GameVariables.UI.NbBulletInMagazine = NbBulletInMagazine;
+        GameVariables.UI.NbBulletOnPlayer = NbBulletOnPlayer;
+        GameVariables.UI.GunName = GunName;
+        GameVariables.UI.Life = Life;
+        GameVariables.UI.PistolImage = PistolImage;
+        GameVariables.UI.ShotgunImage = ShotgunImage;
+
+        GameVariables.UI.FadeObject = new FadeObject
+        {
+            Image = FadeImage,
+            Speed = FadeSpeed
+        };
     }
 }

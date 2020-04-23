@@ -41,6 +41,19 @@ public class InitializeManager : ComponentSystemGroup
             //Dependency: InputSystem
             playerTargetSystem.Update();
         }
+        
+        //TODO REMOVE
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            //Debug.Log("Fade in...");
+            GlobalEvents.FadeIn();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            //Debug.Log("Fade out...");
+            GlobalEvents.FadeOut();
+        }
     }
 
 
