@@ -17,13 +17,13 @@ public class FadeSystem : SystemBase
 
         OnFadeEnd = () =>
         {
-            Debug.Log("OnFadeEnd");
+            //Debug.Log("OnFadeEnd");
             this.Enabled = false;
             hasFadeStarted = false;
         };
         OnFadeStart = () =>
         {
-            Debug.Log("OnFadeStart");
+            //Debug.Log("OnFadeStart");
             hasFadeStarted = true;
         };
     }
