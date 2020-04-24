@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: PistolSounds
+  m_EditorClassIdentifier: Assembly-CSharp::WeapongSoundScriptable
+  SFXList:
+  - e: 0
+    sound: {fileID: 8300000, guid: 70dba6f310c1f5d459512f27004a0092, type: 3}
+  - e: 1
+    sound: {fileID: 8300000, guid: 7f431b8a13b2bb140a727f3ef53c95f3, type: 3}
+  - e: 2
+    sound: {fileID: 8300000, guid: 7f431b8a13b2bb140a727f3ef53c95f3, type: 3}

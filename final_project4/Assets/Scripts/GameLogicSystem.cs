@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Unity.Entities;
+using UnityEngine;
 
 [DisableAutoCreation]
 public class GameLogicSystem : SystemBase
@@ -15,16 +16,16 @@ public class GameLogicSystem : SystemBase
     protected override void OnCreate()
     {
         LogicClassDict = new Dictionary<GameState, IStateLogic>();
-        
+
         LogicClassDict.Add(GameState.GAME, new GameLogic());
         LogicClassDict.Add(GameState.INTRO, new IntroLogic());
         LogicClassDict.Add(GameState.MENU, new MenuLogic());
-        
+
         entityManager = GameVariables.EntityManager;
 
         gameLogicEntity = entityManager.CreateEntity();
 
-        entityManager.SetComponentData(gameLogicEntity, new GameStateComponent(GameState.INTRO));
+        entityManager.AddComponentData(gameLogicEntity, new GameStateComponent());
     }
 
     protected override void OnStartRunning()
@@ -36,15 +37,33 @@ public class GameLogicSystem : SystemBase
                 i.Value.Disable();
             }
         }
+
         LogicClassDict[GameVariables.StartingState].Initialize();
         LogicClassDict[GameVariables.StartingState].Enable();
     }
 
     protected override void OnUpdate()
     {
+        
+
         //var gameEntity = EntityManager.GetComponentData<GameStateComponent>();
         Entities.WithoutBurst().ForEach((ref GameStateComponent gameStateComponent) =>
         {
+            if (Input.GetKeyDown(KeyCode.Keypad7))
+            {
+                gameStateComponent.DesiredGameState = GameState.INTRO;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Keypad8))
+            {
+                gameStateComponent.DesiredGameState = GameState.MENU;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Keypad9))
+            {
+                gameStateComponent.DesiredGameState = GameState.GAME;
+            }
+            
             //Normal Logic
             if (!gameStateComponent.IsChangeOfStateRequested())
                 return;
@@ -68,7 +87,7 @@ public class GameLogicSystem : SystemBase
                 else if (IsFadingIn)
                 {
                     //Fading In
-                    if(FadeIn())
+                    if (FadeIn())
                     {
                         //Fade In Over, Ready to change state
                         EnableNextState(gameStateComponent.DesiredGameState);
@@ -76,9 +95,10 @@ public class GameLogicSystem : SystemBase
                         IsFadingIn = false;
                     }
                 }
+
                 return;
             }
-            
+
             //Initialization trigger once per Statechange
             if (gameStateComponent.IsChangeOfStateRequested())
             {
@@ -88,34 +108,36 @@ public class GameLogicSystem : SystemBase
             }
         }).Run();
     }
-    
+
     private static bool FadeIn()
     {
         //TODO logic
-        return false;
+        Debug.Log("FadeIn");
+        return true;
     }
-    
+
     private static bool FadeOut()
     {
         //TODO logic
-        return false;
+        Debug.Log("FadeOut");
+        return true;
     }
-    
+
     private static void EnableNextState(GameState state)
     {
         LogicClassDict[state].Enable();
     }
-    
+
     private static void DisableLastState(GameState state)
-    { 
+    {
         LogicClassDict[state].Disable();
     }
-    
+
     private static void DestroyLastState(GameState state)
     {
         LogicClassDict[state].Destroy();
     }
-    
+
     private static void InitializeNextState(GameState state)
     {
         LogicClassDict[state].Initialize();

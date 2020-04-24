@@ -2,6 +2,11 @@
 
 public class MenuLogic : IStateLogic
 {
+    public MenuLogic()
+    {
+        Debug.Log("On Create MenuLogic");
+    }
+    
     public void Enable()
     {
         Debug.Log("Enable MenuLogic Systems");

@@ -9,6 +9,7 @@ public class InitializeManager : ComponentSystemGroup
     private InputSystem inputSystem;
     private SwapWeaponSystem swapWeaponSystem;
     private PlayerTargetSystem playerTargetSystem;
+    private GameLogicSystem gameLogicSystem; 
 
     protected override void OnCreate()
     {
@@ -18,6 +19,7 @@ public class InitializeManager : ComponentSystemGroup
         swapWeaponSystem = world.GetOrCreateSystem<SwapWeaponSystem>();
         playerTargetSystem = world.GetOrCreateSystem<PlayerTargetSystem>();
         pathFinding= world.GetOrCreateSystem<PathFinding>();
+        gameLogicSystem = world.GetOrCreateSystem<GameLogicSystem>();
         
         var initialize = world.GetOrCreateSystem<InitializeManager>();
         
@@ -25,6 +27,7 @@ public class InitializeManager : ComponentSystemGroup
         initialize.AddSystemToUpdateList(inputSystem);
         initialize.AddSystemToUpdateList(swapWeaponSystem);
         initialize.AddSystemToUpdateList(playerTargetSystem);
+        initialize.AddSystemToUpdateList(gameLogicSystem);
     }
 
     protected override void OnStartRunning()
@@ -33,6 +36,7 @@ public class InitializeManager : ComponentSystemGroup
 
     protected override void OnUpdate()
     {
+        gameLogicSystem.Update();
         //Debug.Log("Initialize Manager Update");
         if (GameVariables.InputEnabled)
         {
