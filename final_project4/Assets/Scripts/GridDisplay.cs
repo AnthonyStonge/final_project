@@ -9,6 +9,7 @@ public class GridDisplay : MonoBehaviour
     // Update is called once per frame
     private void OnDrawGizmos()
     {
+#if UNITY_EDITOR
         bool isHit = false;
         Event e = Event.current;
         Ray ray = HandleUtility.GUIPointToWorldRay( e.mousePosition );
@@ -26,8 +27,6 @@ public class GridDisplay : MonoBehaviour
             if (e.control)
                 if (grid.indexNoWalkable.Contains(bob))
                     grid.indexNoWalkable.Remove(bob);
-
-
         }
         
         for (int i = -grid.gridSize.x / 2; i < grid.gridSize.x / 2; i++)
@@ -45,5 +44,6 @@ public class GridDisplay : MonoBehaviour
                 Gizmos.DrawCube( new Vector3(i - (grid.nodeSize.x / 2),0,j  - (grid.nodeSize.z / 2)), new Vector3(grid.nodeSize.x, grid.nodeSize.y, grid.nodeSize.z));
             }
         }
+#endif
     }
 }

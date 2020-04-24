@@ -36,7 +36,6 @@ public static class GameInitializer
         GameVariables.EntityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         
         //GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
-
         //Game Initializer?
         
         PlayerInitializer.Initialize();

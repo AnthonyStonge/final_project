@@ -9,7 +9,9 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
+#if UNITY_EDITOR
         dstManager.SetName(entity, "Player");
+#endif
 
         dstManager.AddComponent<PlayerTag>(entity);
         dstManager.AddComponent<TargetData>(entity);
