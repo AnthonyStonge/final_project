@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using Enums;
-using EventStruct;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.VFX;
 
 public static class VisualEffectHolder
 {
-
     private static string[] ScriptableVFXName =
     {
         "PistolVFX"

@@ -15,17 +15,11 @@ public static class SoundHolder
     public static Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>> WeaponSounds;
     public static Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>> BulletSounds;
 
-    private static int currentNumberOfLoadedAssets;
-    private static int numberOfAssetsToLoad;
+    private static int currentNumberOfLoadedAssets = 0;
+    private static int numberOfAssetsToLoad = 1;
     
     public static void Initialize()
     {
-        numberOfAssetsToLoad = ScriptableSoundName.Length;
-        currentNumberOfLoadedAssets = 0;
-        
-        WeaponSounds = new Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, AudioClip>>();
-        BulletSounds = new Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, AudioClip>>();
-
         Sounds = new Dictionary<int, AudioClip>();
         
         //Weapons
@@ -49,6 +43,7 @@ public static class SoundHolder
         Addressables.LoadAssetAsync<SoundsContainer>("SoundsContainer").Completed += handle =>
         {
             ExtractDataFromContainer(handle.Result);
+            currentNumberOfLoadedAssets++;
         };
     }
 

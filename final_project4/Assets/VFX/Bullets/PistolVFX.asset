@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PistolVFX
   m_EditorClassIdentifier: 
   WeaponType: 0
-  VFX: {fileID: 0}
+  VFX: {fileID: 2978405414726133041, guid: bf920a7cb0619fc4e9e75db7b6a586e8, type: 3}

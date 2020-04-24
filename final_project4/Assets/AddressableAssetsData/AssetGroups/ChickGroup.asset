@@ -23,48 +23,48 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 1184732517643075236, guid: 0583b798eb7e811419d77d60d911d32f,
-      type: 3}
-    m_TargetAsset: {fileID: 1184732517643075236, guid: 0583b798eb7e811419d77d60d911d32f,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 0d586cd5c66d5414fb82a92aa57251a5
     m_Address: Enemy
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 4386793886523506817, guid: 0d586cd5c66d5414fb82a92aa57251a5,
-      type: 3}
-    m_TargetAsset: {fileID: 4386793886523506817, guid: 0d586cd5c66d5414fb82a92aa57251a5,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 34759cc7dbefb454b8faaf452880c778
+    m_Address: PistolVFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: BulletVFXScriptable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_MainAsset: {fileID: 11400000, guid: 34759cc7dbefb454b8faaf452880c778, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 34759cc7dbefb454b8faaf452880c778, type: 2}
   - m_GUID: 8608ea675a3da4146bdd02b2d363944c
     m_Address: SoundsContainer
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: SoundsContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 8608ea675a3da4146bdd02b2d363944c, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 8608ea675a3da4146bdd02b2d363944c, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 950f480c66d432542924efec9f68e4f1
     m_Address: PistolBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 8337288439267534834, guid: 950f480c66d432542924efec9f68e4f1,
-      type: 3}
-    m_TargetAsset: {fileID: 8337288439267534834, guid: 950f480c66d432542924efec9f68e4f1,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: a393625207c8d3f43a4bdf22ee3f588b
     m_Address: Pistol
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 6994139002202376614, guid: a393625207c8d3f43a4bdf22ee3f588b,
-      type: 3}
-    m_TargetAsset: {fileID: 6994139002202376614, guid: a393625207c8d3f43a4bdf22ee3f588b,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e0ae6182e1a6b11438ffe0678d68e1df
     m_Address: Player
     m_ReadOnly: 0
@@ -81,10 +81,8 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 8262002860696633109, guid: e7c153c60fa5ce6409e1cb79cd816229,
-      type: 3}
-    m_TargetAsset: {fileID: 8262002860696633109, guid: e7c153c60fa5ce6409e1cb79cd816229,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3c5e8f3b98606ca43b2a070e5fd7e106, type: 2}
   m_SchemaSet:
