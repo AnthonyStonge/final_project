@@ -4,8 +4,7 @@ namespace Enums
     public enum WeaponType
     {
         Pistol,
-        Shotgun,
-        PistolEnemy
+        Shotgun
     }
 
     public enum ProjectileType
