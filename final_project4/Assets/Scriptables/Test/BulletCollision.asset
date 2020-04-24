@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: BulletCollision
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: 81f092f21275f6244bfce34ed24d5d31, type: 3}
-  Weapons: []
+  AudioSourceType: 1
+  Weapons:
+  - WeaponType: 0
+    EventType: 0
   Bullets:
   - BulletType: 0
     CollisionType: 0

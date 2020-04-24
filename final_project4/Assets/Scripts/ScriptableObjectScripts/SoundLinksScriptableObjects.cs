@@ -12,8 +12,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Sounds/Sound Links", fileName = "new SoundLinks")]
 public class SoundLinksScriptableObjects : ScriptableObject
 {
-    [Header("Clip")] 
+    [Header("Clip")]
     public AudioClip Clip;
+    public AudioSourceType AudioSourceType;
     
     [Header("Types to link the sound too")]
     public List<WeaponLinks> Weapons;
