@@ -7,16 +7,21 @@ using UnityEngine;
 public class PresentationManager : ComponentSystemGroup
 {
 
-    
+    private VisualEventSystem visualEventSystem;
     
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
         
+        visualEventSystem = world.GetOrCreateSystem<VisualEventSystem>();
+
         var presentation = world.GetOrCreateSystem<PresentationManager>();
+        
+        presentation.AddSystemToUpdateList(visualEventSystem);
     }
 
     protected override void OnUpdate()
     {
+        visualEventSystem.Update();
     }
 }

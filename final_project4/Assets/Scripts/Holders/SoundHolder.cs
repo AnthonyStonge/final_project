@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Enums;
 using EventStruct;
 using Unity.Assertions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Windows.Speech;
-
 
 public static class SoundHolder
 {

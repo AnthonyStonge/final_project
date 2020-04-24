@@ -37,7 +37,9 @@ public static class VisualEffectHolder
             Addressables.LoadAssetAsync<BulletVFXScriptable>(name).Completed += obj =>
             {
                 var script = obj.Result;
-                ProjectileVFXDict.TryAdd(script.WeaponType, script.VFX);
+                GameObject vfx = Object.Instantiate(script.VFX.gameObject);
+                vfx.name = "VFX";
+                ProjectileVFXDict.TryAdd(script.ProjectileType, vfx.GetComponent<VisualEffect>());
                 
                 currentNumberOfLoadedAssets++;
             };
