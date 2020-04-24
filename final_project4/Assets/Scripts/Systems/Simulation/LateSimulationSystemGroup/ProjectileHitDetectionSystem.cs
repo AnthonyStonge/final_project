@@ -27,7 +27,6 @@ public class ProjectileHitDetectionSystem : SystemBase
     protected override void OnUpdate()
     {
         
-        EventsHolder.BulletsEvents.Clear();    //TODO DO SOMEWHERE ELSE
         
         PhysicsWorld PhysicsWorld = physicsWorld.PhysicsWorld;
         var entityCommandBuffer = endSimulationEntityCommandBufferSystem.CreateCommandBuffer().ToConcurrent();
@@ -40,6 +39,7 @@ public class ProjectileHitDetectionSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<EnemyTag>()
         };
+        
 
         float deltaTime = Time.DeltaTime;
 
@@ -54,7 +54,7 @@ public class ProjectileHitDetectionSystem : SystemBase
         {
             RaycastInput raycastInput = new RaycastInput
             {
-                Start = translation.Value,
+                Start = translation.Value ,
                 End = translation.Value + (math.forward(rotation.Value) * projectile.Speed * deltaTime),
                 Filter = filter
             };
@@ -90,6 +90,7 @@ public class ProjectileHitDetectionSystem : SystemBase
         Dependency = JobHandle.CombineDependencies(job, new EventQueueJob{ weaponInfos = bulletEvents}.Schedule(job));
 
         endSimulationEntityCommandBufferSystem.AddJobHandleForProducer(Dependency);
+        
     }
     
     struct EventQueueJob : IJob

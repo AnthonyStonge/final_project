@@ -17,11 +17,6 @@ using Unity.Transforms;
          }).ScheduleParallel();*/
  
          //TODO With physicVelocity, the translation happens after, but when?
-         Entities.WithAll<PlayerTag>().ForEach((ref PhysicsVelocity physicsVelocity, in SpeedData speedData, in InputComponent ic) =>
-         {
-             physicsVelocity.Linear.xz = math.normalizesafe(ic.Move) * speedData.Value * dt;
-         }).Schedule();
-         
          Entities.ForEach((ref Translation translation, ref DamageProjectile projectile, in LocalToWorld localToWorld) =>
          {
              translation.Value += localToWorld.Forward * projectile.Speed * dt;

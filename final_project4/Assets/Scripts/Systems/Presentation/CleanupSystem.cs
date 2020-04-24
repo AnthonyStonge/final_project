@@ -7,9 +7,6 @@ public class CleanupSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-       /* Entities.WithAll<BulletTag>().ForEach(() =>
-        {
-            *
-        }).ScheduleParallel();*/
+        EventsHolder.BulletsEvents.Clear();    //TODO DO SOMEWHERE ELSE
     }
 }
