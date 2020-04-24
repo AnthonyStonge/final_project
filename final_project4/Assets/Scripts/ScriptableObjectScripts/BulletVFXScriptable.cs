@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using Enums;
-using EventStruct;
 using UnityEngine;
+using UnityEngine.VFX;
 
 [Serializable]
 [CreateAssetMenu(menuName = "Scriptable/VFX/Bullet")]
 public class BulletVFXScriptable : ScriptableObject
 {
-    public WeaponType WeaponType;
-    // public List<> SFXList;
+    public ProjectileType WeaponType;
+    public VisualEffect VFX;
 }
-
-// [Serializable]
-// public struct SoundEnum
-// {
-//     public WeaponInfo.WeaponEventType eventType;
-//     public AudioClip sound;
-// }
+/*
+[Serializable]
+public struct VFXStruct
+{
+    public BulletInfo.BulletCollisionType EventType;
+    public VisualEffect VisualEffect;
+}
+*/

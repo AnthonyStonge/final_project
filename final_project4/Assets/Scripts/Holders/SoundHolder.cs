@@ -18,6 +18,9 @@ public static class SoundHolder
     public static Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>> WeaponSounds;
     public static Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>> BulletSounds;
 
+    private static int currentNumberOfLoadedAssets = 0;
+    private static int numberOfAssetsToLoad = 1;
+    
     public static void Initialize()
     {
         Sounds = new Dictionary<int, AudioClip>();
@@ -47,6 +50,7 @@ public static class SoundHolder
         Addressables.LoadAssetAsync<SoundsContainer>("SoundsContainer").Completed += handle =>
         {
             ExtractDataFromContainer(handle.Result);
+            currentNumberOfLoadedAssets++;
         };
         Addressables.LoadAssetAsync<AudioSourcesContainer>("AudioSourceContainer").Completed += handle =>
         {
