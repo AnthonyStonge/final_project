@@ -25,5 +25,5 @@ public class MonoGameVariables : MonoBehaviour
 
     #endregion
 
-    public Image FadeImg;
+    public Transform CameraTransform;
 }
