@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116b7ae919c2a904fb6ae2c04a2e8cc7, type: 3}
+  m_Name: AudioSourceContainer
+  m_EditorClassIdentifier: 
+  AudioSources:
+  - Type: 0
+    Source: {fileID: 9022814985470388364, guid: 8c060d427b20f4d46a57b3fcb26ba0e5,
+      type: 3}
+  - Type: 1
+    Source: {fileID: 8314005564757378934, guid: 6a0ea0fd2ca257245b79bb57b21420f3,
+      type: 3}
+  - Type: 2
+    Source: {fileID: 7988602462859932390, guid: f738533faa5259c4ab9a92a8721e84d1,
+      type: 3}

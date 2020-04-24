@@ -32,4 +32,11 @@ namespace Enums
     {
         Player
     }
+
+    public enum AudioSourceType
+    {
+        BackgroundMusic,
+        BulletHits,
+        WeaponShots
+    }
 }
