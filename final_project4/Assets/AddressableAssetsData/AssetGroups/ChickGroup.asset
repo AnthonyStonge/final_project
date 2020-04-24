@@ -37,14 +37,14 @@ MonoBehaviour:
       type: 3}
     m_TargetAsset: {fileID: 4386793886523506817, guid: 0d586cd5c66d5414fb82a92aa57251a5,
       type: 3}
-  - m_GUID: 153213064805aba43b88d773d116a536
-    m_Address: PistolSounds
+  - m_GUID: 8608ea675a3da4146bdd02b2d363944c
+    m_Address: SoundsContainer
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_mainAssetType: WeaponSoundScriptable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_mainAssetType: SoundsContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 153213064805aba43b88d773d116a536, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 153213064805aba43b88d773d116a536, type: 2}
+    m_MainAsset: {fileID: 11400000, guid: 8608ea675a3da4146bdd02b2d363944c, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 8608ea675a3da4146bdd02b2d363944c, type: 2}
   - m_GUID: 950f480c66d432542924efec9f68e4f1
     m_Address: PistolBullet
     m_ReadOnly: 0
@@ -65,14 +65,6 @@ MonoBehaviour:
       type: 3}
     m_TargetAsset: {fileID: 6994139002202376614, guid: a393625207c8d3f43a4bdf22ee3f588b,
       type: 3}
-  - m_GUID: acc3e1df36150524691f61009f445b1d
-    m_Address: ShotgunSounds
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_mainAssetType: WeaponSoundScriptable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: acc3e1df36150524691f61009f445b1d, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: acc3e1df36150524691f61009f445b1d, type: 2}
   - m_GUID: e0ae6182e1a6b11438ffe0678d68e1df
     m_Address: Player
     m_ReadOnly: 0
