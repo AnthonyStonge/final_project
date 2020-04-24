@@ -7,7 +7,7 @@ using UnityEngine.VFX;
 [CreateAssetMenu(menuName = "Scriptable/VFX/Bullet")]
 public class BulletVFXScriptable : ScriptableObject
 {
-    public ProjectileType WeaponType;
+    public ProjectileType ProjectileType;
     public VisualEffect VFX;
 }
 /*
