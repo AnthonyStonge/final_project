@@ -18,11 +18,6 @@ namespace Enums
         Enemy
     }
 
-    public enum SoundType
-    {
-        BulletHit
-    }
-
     public enum VFXType
     {
         ON_PISTOL_SHOT
@@ -36,7 +31,10 @@ namespace Enums
     public enum AudioSourceType
     {
         BackgroundMusic,
-        BulletHits,
-        WeaponShots
+        PlayerWeaponActions, //Shoot, Reload, Swap
+        PlayerActions,    //Take damage, Die
+        EnemyWeaponActions, //Shoot
+        EnemyActions,    //Take damage, Die
+        BulletActions    //Hit
     }
 }

@@ -59,7 +59,7 @@ public class RetrieveGunEventSystem : SystemBase
         float deltaTime = Time.DeltaTime;
 
         JobHandle gunJob = Entities.ForEach(
-            (int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in Parent parent) =>
+            (Entity e, int entityInQueryIndex, ref GunComponent gun, ref LocalToWorld transform, in Parent parent) =>
             {
                 //Make sure gun has a parent
                 if (!states.Components.HasComponent(parent.Value))
