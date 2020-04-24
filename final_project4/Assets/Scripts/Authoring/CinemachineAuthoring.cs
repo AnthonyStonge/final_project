@@ -11,6 +11,7 @@ public class CinemachineAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     public Camera MainCam;
     public string PlayerObjectName = "PlayerTransform";
     public string CursorObjectName = "CursorTransform";
+    public CinemachineVirtualCamera ShakeCam;
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
@@ -23,7 +24,9 @@ public class CinemachineAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 
         cinemachineTargetGroup.AddMember(GameVariables.Player.Transform, 2, 0);
         cinemachineTargetGroup.AddMember(GameVariables.MouseToTransform, 1, 0);
-
+        
         GameVariables.MainCamera = MainCam;
+        GameVariables.CamNoiseProfile =
+            ShakeCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
     }
 }

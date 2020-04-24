@@ -59,6 +59,11 @@ public class InitializeManager : ComponentSystemGroup
             //Debug.Log("Fade out...");
             GlobalEvents.FadeOut();
         }
+
+        if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            GlobalEvents.ShakeCam(0.2f, 3, 3);
+        }
     }
 
 

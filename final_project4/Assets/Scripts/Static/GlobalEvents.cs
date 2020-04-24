@@ -65,4 +65,14 @@ public static class GlobalEvents
         //Turn on fade system
         World.DefaultGameObjectInjectionWorld.GetExistingSystem<FadeSystem>().Enabled = true;
     }
+    public static void ShakeCam(float time, float shakeAmplitude, float shakeFrequency)
+    {
+        //Set fade component info
+        GameVariables.ShakeComponent.CamShakeDuration = time;
+        GameVariables.ShakeComponent.ShakeAmplitude = shakeAmplitude;
+        GameVariables.ShakeComponent.ShakeFrequency = shakeFrequency;
+
+        //Turn on fade system
+        World.DefaultGameObjectInjectionWorld.GetExistingSystem<ShakeCamSystem>().Enabled = true;
+    }
 }
