@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using Enums;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.VFX;
 
@@ -11,6 +12,9 @@ public static class VisualEffectHolder
     };
 
     public static ConcurrentDictionary<ProjectileType, VisualEffect> ProjectileVFXDict;
+
+    public static int PropertyTexture;
+    public static int PropertyCount;
     
     private static int currentNumberOfLoadedAssets;
     private static int numberOfAssetsToLoad;
@@ -19,6 +23,9 @@ public static class VisualEffectHolder
     {
         numberOfAssetsToLoad = ScriptableVFXName.Length;
         currentNumberOfLoadedAssets = 0;
+
+        PropertyTexture = Shader.PropertyToID("positions");
+        PropertyCount = Shader.PropertyToID("count");
         
         ProjectileVFXDict = new ConcurrentDictionary<ProjectileType, VisualEffect>();
     }
@@ -31,6 +38,7 @@ public static class VisualEffectHolder
             {
                 var script = obj.Result;
                 ProjectileVFXDict.TryAdd(script.WeaponType, script.VFX);
+                
                 currentNumberOfLoadedAssets++;
             };
         }
