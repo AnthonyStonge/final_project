@@ -45,7 +45,7 @@ public static class SoundHolder
         foreach (var name in ScriptableSoundName)
         {
             //TODO Addressable, load all sounds
-            Addressables.LoadAssetAsync<WeapongSoundScriptable>(name).Completed += obj =>
+            Addressables.LoadAssetAsync<WeaponSoundScriptable>(name).Completed += obj =>
             {
                 var newObj = obj.Result;
                 WeaponType newWeaponType = newObj.WeaponType;

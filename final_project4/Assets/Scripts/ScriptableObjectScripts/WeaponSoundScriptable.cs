@@ -6,7 +6,7 @@ using UnityEngine;
 
 [Serializable]
 [CreateAssetMenu(menuName = "Scriptable/Sound/Weapon")]
-public class WeapongSoundScriptable : ScriptableObject
+public class WeaponSoundScriptable : ScriptableObject
 {
     public WeaponType WeaponType;
     public List<SoundEnum> SFXList;

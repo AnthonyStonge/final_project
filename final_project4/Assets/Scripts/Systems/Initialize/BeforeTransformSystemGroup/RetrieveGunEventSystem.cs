@@ -98,7 +98,7 @@ public class RetrieveGunEventSystem : SystemBase
                     if (TryShoot(ref gun))
                     {
                         weaponEventType = WeaponInfo.WeaponEventType.ON_SHOOT;
-                        Shoot(entityInQueryIndex, ecb, gun, transform);
+                        Shoot(entityInQueryIndex, ecb, ref gun, transform);
                     }
 
                 //Add event to NativeQueue
@@ -156,7 +156,6 @@ public class RetrieveGunEventSystem : SystemBase
         if (gun.CurrentAmountBulletOnPlayer <= 0)
             return false;
 
-        //
         StartReload(ref gun);
         return true;
     }
@@ -191,17 +190,18 @@ public class RetrieveGunEventSystem : SystemBase
         if (gun.CurrentAmountBulletInMagazine <= 0)
             return false;
 
-        //Decrease bullets
-        gun.CurrentAmountBulletInMagazine--;
-        //Reset between shot timer
-        gun.BetweenShotTime = gun.ResetBetweenShotTime;
-
         return true;
     }
 
-    private static void Shoot(int jobIndex, EntityCommandBuffer.Concurrent ecb, in GunComponent gun,
+    private static void Shoot(int jobIndex, EntityCommandBuffer.Concurrent ecb, ref GunComponent gun,
         in LocalToWorld transform)
     {
+        //Decrease bullets
+        gun.CurrentAmountBulletInMagazine--;
+        
+        //Reset between shot timer
+        gun.BetweenShotTime = gun.ResetBetweenShotTime - gun.BetweenShotTime;
+         
         switch (gun.WeaponType)
         {
             case WeaponType.Pistol:

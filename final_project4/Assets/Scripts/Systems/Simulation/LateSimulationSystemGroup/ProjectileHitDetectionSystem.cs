@@ -92,10 +92,8 @@ public class ProjectileHitDetectionSystem : SystemBase
         endSimulationEntityCommandBufferSystem.AddJobHandleForProducer(Dependency);
     }
     
-    //TODO CHANGE PLS LOL
     struct EventQueueJob : IJob
     {
-        
         public NativeQueue<BulletInfo> weaponInfos;
         public void Execute()
         {

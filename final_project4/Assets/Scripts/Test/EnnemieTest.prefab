@@ -204,9 +204,9 @@ MonoBehaviour:
     z: 2
   m_PrimitiveOrientation:
     Value:
-      x: -90
+      x: -0
       y: 0
-      z: -90
+      z: 0
     RotationOrder: 4
   m_Capsule:
     Height: 2

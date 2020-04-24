@@ -106,10 +106,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponType: 1
-  MaxBulletInMagazine: 20
+  MaxBulletInMagazine: 9999
   MaxBulletOnPlayer: 999
-  ResetBetweenShotTime: 0.1
-  ResetReloadTime: 0.5
+  ResetBetweenShotTime: 0.01
+  ResetReloadTime: 0.1
   BulletPrefab: {fileID: 1184732517643075236, guid: 0583b798eb7e811419d77d60d911d32f,
     type: 3}
   CurrentAmountBulletInMagazine: 8
