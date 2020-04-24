@@ -20,7 +20,7 @@ namespace Enums
 
     public enum SoundType
     {
-        ON_PISTOL_SHOT
+        BulletHit
     }
 
     public enum VFXType
