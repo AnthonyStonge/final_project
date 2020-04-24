@@ -23,8 +23,14 @@ public static class SoundHolder
     public static Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, AudioClip>> WeaponSounds;
     public static Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, AudioClip>> BulletSounds;
 
+    private static int currentNumberOfLoadedAssets;
+    private static int numberOfAssetsToLoad;
+    
     public static void Initialize()
     {
+        numberOfAssetsToLoad = ScriptableSoundName.Length;
+        currentNumberOfLoadedAssets = 0;
+        
         WeaponSounds = new Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, AudioClip>>();
         BulletSounds = new Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, AudioClip>>();
 
@@ -41,7 +47,10 @@ public static class SoundHolder
         {
             BulletSounds.Add((ProjectileType) i, new Dictionary<BulletInfo.BulletCollisionType, AudioClip>());
         }
+    }
 
+    public static void LoadAssets()
+    {
         foreach (var name in ScriptableSoundName)
         {
             //TODO Addressable, load all sounds
@@ -65,6 +74,8 @@ public static class SoundHolder
 
                         audioClip = newObj.SFXList[i].sound;
                     }
+
+                    currentNumberOfLoadedAssets++;
                 }
                 else
                 {
@@ -73,5 +84,10 @@ public static class SoundHolder
                 }
             };
         }
+    }
+    
+    public static float CurrentLoadingPercentage()
+    {
+        return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
     }
 }

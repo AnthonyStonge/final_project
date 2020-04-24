@@ -9,11 +9,11 @@ using UnityEngine;
 public class WeaponSoundScriptable : ScriptableObject
 {
     public WeaponType WeaponType;
-    public List<SoundEnum> SFXList;
+    public List<SoundStruct> SFXList;
 }
 
 [Serializable]
-public struct SoundEnum
+public struct SoundStruct
 {
     public WeaponInfo.WeaponEventType eventType;
     public AudioClip sound;
