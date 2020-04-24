@@ -4,7 +4,8 @@ namespace Enums
     public enum WeaponType
     {
         Pistol,
-        Shotgun
+        Shotgun,
+        PistolEnemy
     }
 
     public enum ProjectileType
@@ -16,11 +17,6 @@ namespace Enums
     public enum EnemyType
     {
         Enemy
-    }
-
-    public enum SoundType
-    {
-        BulletHit
     }
 
     public enum VFXType
@@ -36,7 +32,10 @@ namespace Enums
     public enum AudioSourceType
     {
         BackgroundMusic,
-        BulletHits,
-        WeaponShots
+        PlayerWeaponActions, //Shoot, Reload, Swap
+        PlayerActions,    //Take damage, Die
+        EnemyWeaponActions, //Shoot
+        EnemyActions,    //Take damage, Die
+        BulletActions    //Hit
     }
 }

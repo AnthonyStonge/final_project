@@ -15,7 +15,7 @@ namespace EventStruct
         //Transform of the weapon
         public float3 Position;
         public quaternion Rotation;
-        
+
         //TODO CREATE FIELD FOR WEAPON SWAPPED TO???
         
         public enum WeaponEventType

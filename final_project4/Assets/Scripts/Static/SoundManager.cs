@@ -5,31 +5,21 @@ using UnityEngine;
 
 public static class SoundManager
 {
-    public static AudioSource audioSource;
-
-    public static List<WeaponInfo> test;
-    
     public static void Initialize()
-    {
-        //TODO LOAD AUDIO SOURCE SOMEWHERE
-    }
-
-    public static void PlaySound(AudioClip clip)
-    {
-        //audioSource.PlayOneShot(clip);
-    }
-
-    public static void PlaySound()
     {
         
     }
 
-    public static void BufferSound(WeaponInfo buffer)
+    public static void PlaySound(int clipId)
     {
-    }
-    
-    public static void PlaySoundLoop()
-    {
-        //TODO PLAY SOUND, WHEN FINISH, RESTART IT (KEEP HAND ON THE SOUND)
+        //Get AudioSource for this clip
+        AudioSource source = SoundHolder.AudioSources[SoundHolder.SoundsToAudioSource[clipId]];
+
+        //Get AudioClip
+        AudioClip clip = SoundHolder.Sounds[clipId];
+        
+        //Set and Play
+        source.clip = clip;
+        source.Play();
     }
 }
