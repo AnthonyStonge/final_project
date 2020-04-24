@@ -31,6 +31,8 @@ public static class GameInitializer
         
         //GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
 
+        //Game Initializer?
+        
         PlayerInitializer.Initialize();
         WeaponInitializer.Initialize();
         SoundHolder.Initialize();

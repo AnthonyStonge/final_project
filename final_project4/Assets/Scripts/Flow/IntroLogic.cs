@@ -2,6 +2,11 @@
 
 public class IntroLogic : IStateLogic
 {
+    public IntroLogic()
+    {
+        Debug.Log("On Create IntroLogic");
+    }
+
     public void Enable()
     {
         Debug.Log("Enable IntroLogic Systems");

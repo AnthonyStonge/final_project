@@ -45,7 +45,7 @@ public class Spawner : MonoBehaviour
     }
     private void createEntity(int i)
     {
-        EntityArchetype ea = em.CreateArchetype(typeof(Translation), typeof(RenderMesh), typeof(LocalToWorld), typeof(RenderBounds), typeof(PathFollow), typeof(PathFindingComponent), typeof(PathPosition), typeof(UsePathFindingComp), typeof(PhysicsCollider), typeof(PhysicsVelocity), typeof(PhysicsMass));
+        EntityArchetype ea = em.CreateArchetype(typeof(Translation), typeof(RenderMesh), typeof(LocalToWorld), typeof(RenderBounds), typeof(PathFollow), typeof(PathFindingComponent), typeof(PathPosition), typeof(PhysicsCollider), typeof(PhysicsVelocity), typeof(PhysicsMass));
         Entity e = em.Instantiate(en);
         em.SetComponentData(e, new PathFindingComponent()
         {

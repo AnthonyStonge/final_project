@@ -7,14 +7,14 @@ public class LateSimulationManager : ComponentSystemGroup
 
     private CameraFollowSystem cameraFollowSystem;
     private ProjectileHitDetectionSystem projectileHitDetectionSystem;
-    private UiSystem uiSystem;
+    private UISystem uiSystem;
     protected override void OnCreate()
     {        
         var world = World.DefaultGameObjectInjectionWorld;
 
         cameraFollowSystem = world.GetOrCreateSystem<CameraFollowSystem>();
         projectileHitDetectionSystem = world.GetOrCreateSystem<ProjectileHitDetectionSystem>();
-        uiSystem = world.GetOrCreateSystem<UiSystem>();
+        uiSystem = world.GetOrCreateSystem<UISystem>();
         
         var lateSimulation = world.GetOrCreateSystem<LateSimulationManager>();
 

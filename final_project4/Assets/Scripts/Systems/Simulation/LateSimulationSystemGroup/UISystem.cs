@@ -5,16 +5,13 @@ using Enums;
 using Unity.Entities;
 using UnityEngine;
 [DisableAutoCreation]
-public class UiSystem : SystemBase
+public class UISystem : SystemBase
 {
     private GunComponent gunComponent;
-    protected override void OnCreate()
-    {
-        
-    }
+
     protected override void OnUpdate()
     {
-        if (!GameVariables.Ui.GunName) return;
+        if (!GameVariables.UI.GunName) return;
         if(GameVariables.Player.PlayerWeaponEntities.ContainsKey(GameVariables.Player.CurrentWeaponHeld))
             gunComponent = EntityManager.GetComponentData<GunComponent>(GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]);
 
@@ -23,18 +20,18 @@ public class UiSystem : SystemBase
             //TODO Worst logic ever made in my life, I'm dying - Marc-Antoine GIrard
             
             case WeaponType.Pistol:
-                GameVariables.Ui.ShotgunImage.enabled = false;
-                GameVariables.Ui.PistolImage.enabled = true;
+                GameVariables.UI.ShotgunImage.enabled = false;
+                GameVariables.UI.PistolImage.enabled = true;
                 
                 break;
             case WeaponType.Shotgun:
-                GameVariables.Ui.ShotgunImage.enabled = true;
-                GameVariables.Ui.PistolImage.enabled = false;
+                GameVariables.UI.ShotgunImage.enabled = true;
+                GameVariables.UI.PistolImage.enabled = false;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        GameVariables.Ui.NbBulletInMagazine.text = "" + gunComponent.CurrentAmountBulletInMagazine;
-        GameVariables.Ui.NbBulletOnPlayer.text = "" + gunComponent.CurrentAmountBulletOnPlayer;
+        GameVariables.UI.NbBulletInMagazine.text = gunComponent.CurrentAmountBulletInMagazine.ToString();
+        GameVariables.UI.NbBulletOnPlayer.text = gunComponent.CurrentAmountBulletOnPlayer.ToString();
     }
 }
