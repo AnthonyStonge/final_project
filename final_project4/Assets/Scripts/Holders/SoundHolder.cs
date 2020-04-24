@@ -1,77 +1,75 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 using Enums;
 using EventStruct;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Analytics;
-using Debug = UnityEngine.Debug;
+using UnityEngine.Windows.Speech;
 
 
 public static class SoundHolder
 {
-    private static string[] ScriptableSoundName = 
-    {
-        "ShotgunSounds",
-        "PistolSounds"
-    };
+    public static Dictionary<int, AudioClip> Sounds;
     
-    public static AudioSource audioSource;
-
-    public static Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, AudioClip>> WeaponSounds;
-    public static Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, AudioClip>> BulletSounds;
+    public static Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>> WeaponSounds;
+    public static Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>> BulletSounds;
 
     public static void Initialize()
     {
-        WeaponSounds = new Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, AudioClip>>();
-        BulletSounds = new Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, AudioClip>>();
-
+        Sounds = new Dictionary<int, AudioClip>();
+        
         //Weapons
-        int gunTypeLength = Enum.GetNames(typeof(WeaponType)).Length;
-        for (int i = 0; i < gunTypeLength; i++)
+        WeaponSounds = new Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>>();
+        for (int i = 0; i < Enum.GetNames(typeof(WeaponType)).Length; i++)
         {
-            WeaponSounds.Add((WeaponType) i, new Dictionary<WeaponInfo.WeaponEventType, AudioClip>());
+            WeaponSounds.Add((WeaponType) i, new Dictionary<WeaponInfo.WeaponEventType, int>());
         }
 
         //Bullets
-        int bulletTypeLength = Enum.GetNames(typeof(ProjectileType)).Length;
-        for (int i = 0; i < bulletTypeLength; i++)
+        BulletSounds = new Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>>();
+        for (int i = 0; i < Enum.GetNames(typeof(ProjectileType)).Length; i++)
         {
-            BulletSounds.Add((ProjectileType) i, new Dictionary<BulletInfo.BulletCollisionType, AudioClip>());
+            BulletSounds.Add((ProjectileType) i, new Dictionary<BulletInfo.BulletCollisionType, int>());
         }
+        
+        LoadAssets();
+    }
 
-        foreach (var name in ScriptableSoundName)
+    public static void LoadAssets()
+    {
+        //Get ScriptableObject SoundsContainer
+        Addressables.LoadAssetAsync<SoundsContainer>("SoundsContainer").Completed += handle =>
         {
-            //TODO Addressable, load all sounds
-            Addressables.LoadAssetAsync<WeapongSoundScriptable>(name).Completed += obj =>
+            ExtractDataFromContainer(handle.Result);
+        };
+    }
+
+    private static void ExtractDataFromContainer(SoundsContainer container)
+    {
+        int nextClipID = 0;
+        
+        foreach (SoundLinksScriptableObjects links in container.SoundLinksList)
+        {
+            //Add AudioClip to dictionary
+            Sounds.Add(nextClipID, links.Clip);
+            
+            //Weapons
+            foreach (SoundLinksScriptableObjects.WeaponLinks weapon in links.Weapons)
             {
-                var newObj = obj.Result;
-                WeaponType newWeaponType = newObj.WeaponType;
-
-                if (WeaponSounds.TryGetValue(newWeaponType,
-                    out Dictionary<WeaponInfo.WeaponEventType, AudioClip> value))
-                {
-                    for (int i = 0; i < newObj.SFXList.Count; i++)
-                    {
-                        WeaponInfo.WeaponEventType newEventType = newObj.SFXList[i].eventType;
-                        value.TryGetValue(newEventType, out AudioClip audioClip);
-
-                        if (audioClip != null)
-                        {
-                            Debug.Log("Sound already loaded for " + newEventType + ", Overriding.");
-                        }
-
-                        audioClip = newObj.SFXList[i].sound;
-                    }
-                }
-                else
-                {
-                    Debug.Log(newWeaponType + " : WeaponType does not exist.");
-                    return;
-                }
-            };
+                //Add to weapon dictionary
+                WeaponSounds[weapon.WeaponType].Add(weapon.EventType, nextClipID);
+            }
+            
+            //Bullets
+            foreach (SoundLinksScriptableObjects.BulletLinks bullet in links.Bullets)
+            {
+                //Add to bullet dictionary
+                BulletSounds[bullet.BulletType].Add(bullet.CollisionType, nextClipID);
+            }
+            
+            //Increment ID
+            nextClipID++;
         }
     }
 }

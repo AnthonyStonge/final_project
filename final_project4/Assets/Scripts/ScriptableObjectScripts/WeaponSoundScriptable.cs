@@ -5,16 +5,16 @@ using EventStruct;
 using UnityEngine;
 
 [Serializable]
-[CreateAssetMenu(menuName = "Scriptable/Sound/Weapon")]
-public class WeapongSoundScriptable : ScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObjects/Sounds/Weapon", fileName = "New Weapon")]
+public class WeaponSoundsScriptableObject : ScriptableObject
 {
     public WeaponType WeaponType;
-    public List<SoundEnum> SFXList;
-}
+    public List<Sound> Sounds;
 
-[Serializable]
-public struct SoundEnum
-{
-    public WeaponInfo.WeaponEventType eventType;
-    public AudioClip sound;
+    [Serializable]
+    public struct Sound
+    {
+        public WeaponInfo.WeaponEventType EventType;
+        public AudioClip Clip;
+    }
 }
