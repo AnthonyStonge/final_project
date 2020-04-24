@@ -40,8 +40,6 @@ public static class SoundHolder
         {
             BulletSounds.Add((ProjectileType) i, new Dictionary<BulletInfo.BulletCollisionType, int>());
         }
-
-        LoadAssets();
     }
 
     public static void LoadAssets()
@@ -111,5 +109,10 @@ public static class SoundHolder
             //Add to dictonary
             AudioSources.Add(link.Type, source);
         }
+    }
+    
+    public static float CurrentLoadingPercentage()
+    {
+        return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
     }
 }

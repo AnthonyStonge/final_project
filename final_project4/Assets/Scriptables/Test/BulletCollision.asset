@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: 81f092f21275f6244bfce34ed24d5d31, type: 3}
   AudioSourceType: 1
-  Weapons:
-  - WeaponType: 0
-    EventType: 0
+  Weapons: []
   Bullets:
   - BulletType: 0
     CollisionType: 0
