@@ -89,7 +89,7 @@ public static class GameInitializer
             loadingPercentage += ((LoadingStatus) i).Invoke();
         }
 
-        if (loadingPercentage >= 4f)
+        if (loadingPercentage >= OnLoadingStatus.GetInvocationList().Length)
         {
             return true;
         }
