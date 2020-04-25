@@ -6,10 +6,13 @@ public class GridDisplay : MonoBehaviour
     // Start is called before the first frame update
     public ScriptableGrid grid;
 
+    public bool ShowGrid = false;
     // Update is called once per frame
     private void OnDrawGizmos()
     {
 #if UNITY_EDITOR
+        if (!ShowGrid)
+                return;
         bool isHit = false;
         Event e = Event.current;
         Ray ray = HandleUtility.GUIPointToWorldRay( e.mousePosition );

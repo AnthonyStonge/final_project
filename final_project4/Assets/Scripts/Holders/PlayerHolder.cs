@@ -11,7 +11,7 @@ public static class PlayerHolder
 {
     public static ConcurrentDictionary<PlayerType, Entity> PlayerPrefabDict;
     
-    private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
+    private static List<BlobAssetStore> BlobAssetList = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets;
     private static int numberOfAssetsToLoad;
 
@@ -34,7 +34,7 @@ public static class PlayerHolder
                     currentNumberOfLoadedAssets++;
                     if (blob != null)
                     {
-                        blobAssetStores.Add(blob);
+                        BlobAssetList.Add(blob);
                     }
                 };
         }
@@ -47,6 +47,6 @@ public static class PlayerHolder
 
     public static void OnDestroy()
     {
-        blobAssetStores.ForEach(i=>{ i.Dispose(); });
+        BlobAssetList.ForEach(i=>{ i.Dispose(); });
     }
 }
