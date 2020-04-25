@@ -3,7 +3,9 @@ using Enums;
 using EventStruct;
 using Unity.Entities;
 
+[DisableAutoCreation]
 [UpdateAfter(typeof(RetrieveGunEventSystem))]
+[UpdateAfter(typeof(ProjectileHitDetectionSystem))]
 public class SoundEventSystem : SystemBase
 {
     protected override void OnUpdate()
@@ -14,25 +16,17 @@ public class SoundEventSystem : SystemBase
         {
             int soundId = SoundHolder.WeaponSounds[info.WeaponType][info.EventType];
 
-            //Is sound ready to be played
-            if (!SoundHolder.Sounds[soundId].IsAvailable)
-                continue;
-
-            //Play
-            SoundManager.PlaySound(SoundHolder.WeaponSounds[info.WeaponType][info.EventType]);
-
-            ResetSoundTimer(SoundHolder.Sounds[soundId]);
+            if(TryPlaySound(soundId))
+                PlaySound(soundId); 
         }
 
         //Bullets
-        List<ProjectileType> bulletTypesHit = new List<ProjectileType>();
         foreach (BulletInfo info in EventsHolder.BulletsEvents)
         {
-            if (!bulletTypesHit.Contains(info.ProjectileType))
-                continue;
-
-            SoundManager.PlaySound(SoundHolder.BulletSounds[info.ProjectileType][info.CollisionType]);
-            bulletTypesHit.Add(info.ProjectileType);
+            int soundId = SoundHolder.BulletSounds[info.ProjectileType][info.CollisionType];
+            
+            if(TryPlaySound(soundId))
+                PlaySound(soundId); 
         }
 
         //Decrement all sounds not available
@@ -40,8 +34,20 @@ public class SoundEventSystem : SystemBase
         SoundManager.DecrementNotAvailableSounds(deltaTime);
     }
 
-    private static void ResetSoundTimer(Clip clip)
+    private static bool TryPlaySound(int soundId)
     {
+        return SoundHolder.Sounds[soundId].IsAvailable;
+    }
+
+    private static void PlaySound(int soundId)
+    {
+        SoundManager.PlaySound(soundId);
+        ResetSoundTimer(soundId);
+    }
+
+    private static void ResetSoundTimer(int soundId)
+    {
+        Clip clip = SoundHolder.Sounds[soundId];
         clip.Timer = clip.ResetTimerValue;
     }
 }

@@ -25,3 +25,7 @@ MonoBehaviour:
     Source: {fileID: 7988602462859932390, guid: f738533faa5259c4ab9a92a8721e84d1,
       type: 3}
     IsPlayOneShotOnly: 1
+  - Type: 6
+    Source: {fileID: 8314005564757378934, guid: 6a0ea0fd2ca257245b79bb57b21420f3,
+      type: 3}
+    IsPlayOneShotOnly: 0
