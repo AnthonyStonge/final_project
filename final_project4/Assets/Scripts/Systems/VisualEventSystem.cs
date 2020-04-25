@@ -1,4 +1,5 @@
-﻿using Enums;
+﻿using System.Collections.Generic;
+using Enums;
 using EventStruct;
 using Unity.Collections;
 using Unity.Entities;

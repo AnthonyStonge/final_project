@@ -18,11 +18,6 @@ namespace Enums
         Enemy
     }
 
-    public enum VFXType
-    {
-        ON_PISTOL_SHOT
-    }
-
     public enum PlayerType
     {
         Player
