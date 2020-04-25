@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7761a9e040044b0abd88e2ed165d381, type: 3}
+  m_Name: MapContainer
+  m_EditorClassIdentifier: 
+  Links:
+  - KeyName: Floor
+    Prefab: {fileID: 7562387319405164717, guid: 61a5193fe1f0a2243bbaf917d449ff55,
+      type: 3}

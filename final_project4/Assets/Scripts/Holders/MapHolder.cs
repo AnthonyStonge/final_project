@@ -6,11 +6,6 @@ using UnityEngine.AddressableAssets;
 
 public static class MapHolder
 {
-    private static string[] ScriptableMapName =
-    {
-
-    };
-    
     public static ConcurrentDictionary<string, Entity> MapPrefabDict;
 
     public static List<BlobAssetStore> BloblAssetList = new List<BlobAssetStore>();
@@ -19,18 +14,17 @@ public static class MapHolder
 
     public static void Initialize()
     {
-        numberOfAssetsToLoad = ScriptableMapName.Length;
         currentNumberOfLoadedAssets = 0;
+        numberOfAssetsToLoad = 1;
         
         MapPrefabDict = new ConcurrentDictionary<string, Entity>();
     }
 
     public static void LoadAssets()
     {
-        foreach (var name in ScriptableMapName)
-        {
+        
             //Addressables.LoadAssetAsync<
-        }
+        
     }
     
     public static float CurrentLoadingPercentage()
