@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93743ac6df6a5104085c187e200ac212, type: 3}
-  m_Name: SoundsContainer
+  m_Script: {fileID: 11500000, guid: 74c61c0f72492d3458b569cabee886a5, type: 3}
+  m_Name: PlayerShotgunShot
   m_EditorClassIdentifier: 
-  SoundLinksList:
-  - {fileID: 11400000, guid: 00c8c169df4992c4ab1fb681bcc957b7, type: 2}
-  - {fileID: 11400000, guid: c278d3d913abfa4479936fd2028ae277, type: 2}
+  Clip: {fileID: 8300000, guid: 3d7d225912a827044a82edea23e9577f, type: 3}
+  AudioSourceType: 1
+  Delay: 0.06
+  Weapons:
+  - WeaponType: 1
+    EventType: 0
+  Bullets: []

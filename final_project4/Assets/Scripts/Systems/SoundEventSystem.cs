@@ -1,30 +1,47 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Enums;
 using EventStruct;
 using Unity.Entities;
-using UnityEngine;
 
 [UpdateAfter(typeof(RetrieveGunEventSystem))]
 public class SoundEventSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        List<WeaponType> weaponTypesShot = new List<WeaponType>();
         //Weapons
+        List<WeaponType> weaponTypesShot = new List<WeaponType>();
         foreach (WeaponInfo info in EventsHolder.WeaponEvents)
         {
-            if (!weaponTypesShot.Contains(info.WeaponType))
-            {
-                SoundManager.PlaySound(SoundHolder.WeaponSounds[info.WeaponType][info.EventType]);
-                weaponTypesShot.Add(info.WeaponType);
-            }
+            int soundId = SoundHolder.WeaponSounds[info.WeaponType][info.EventType];
+
+            //Is sound ready to be played
+            if (!SoundHolder.Sounds[soundId].IsAvailable)
+                continue;
+
+            //Play
+            SoundManager.PlaySound(SoundHolder.WeaponSounds[info.WeaponType][info.EventType]);
+
+            ResetSoundTimer(SoundHolder.Sounds[soundId]);
         }
 
         //Bullets
+        List<ProjectileType> bulletTypesHit = new List<ProjectileType>();
         foreach (BulletInfo info in EventsHolder.BulletsEvents)
         {
+            if (!bulletTypesHit.Contains(info.ProjectileType))
+                continue;
+
+            SoundManager.PlaySound(SoundHolder.BulletSounds[info.ProjectileType][info.CollisionType]);
+            bulletTypesHit.Add(info.ProjectileType);
         }
+
+        //Decrement all sounds not available
+        float deltaTime = Time.DeltaTime;
+        SoundManager.DecrementNotAvailableSounds(deltaTime);
+    }
+
+    private static void ResetSoundTimer(Clip clip)
+    {
+        clip.Timer = clip.ResetTimerValue;
     }
 }

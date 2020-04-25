@@ -14,5 +14,6 @@ public class AudioSourcesContainer : ScriptableObject
     {
         public AudioSourceType Type;
         public AudioSource Source;
+        public bool IsPlayOneShotOnly;
     }
 }

@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74c61c0f72492d3458b569cabee886a5, type: 3}
-  m_Name: PlayerShotgunShot
+  m_Name: PlayerPistolShot
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: 3d7d225912a827044a82edea23e9577f, type: 3}
+  Clip: {fileID: 8300000, guid: 70dba6f310c1f5d459512f27004a0092, type: 3}
   AudioSourceType: 1
+  Delay: 0.06
   Weapons:
-  - WeaponType: 1
+  - WeaponType: 0
     EventType: 0
   Bullets: []
