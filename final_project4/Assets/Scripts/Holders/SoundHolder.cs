@@ -71,7 +71,7 @@ public static class SoundHolder
     {
         int nextClipID = 0;
 
-        foreach (SoundLinksScriptableObjects links in container.SoundLinksList)
+        foreach (SoundLinksScriptableObjects links in container.SoundLinkList)
         {
             //Add AudioClip to dictionary
             Sounds.Add(nextClipID, new Clip

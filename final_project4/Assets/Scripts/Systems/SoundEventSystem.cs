@@ -4,8 +4,6 @@ using EventStruct;
 using Unity.Entities;
 
 [DisableAutoCreation]
-[UpdateAfter(typeof(RetrieveGunEventSystem))]
-[UpdateAfter(typeof(ProjectileHitDetectionSystem))]
 public class SoundEventSystem : SystemBase
 {
     protected override void OnUpdate()
