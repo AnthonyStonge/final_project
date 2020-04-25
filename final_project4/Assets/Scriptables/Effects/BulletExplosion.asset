@@ -15,4 +15,14 @@ MonoBehaviour:
   Effect: {fileID: 1924355167149483344, guid: ee3ec6f61dfaf304899fa8252a67405a, type: 3}
   MaxAmount: 2048
   Weapons: []
-  Bullets: []
+  Bullets:
+  - BulletType: 0
+    CollisionType: 0
+  - BulletType: 0
+    CollisionType: 1
+  - BulletType: 0
+    CollisionType: 2
+  - BulletType: 1
+    CollisionType: 0
+  - BulletType: 1
+    CollisionType: 1

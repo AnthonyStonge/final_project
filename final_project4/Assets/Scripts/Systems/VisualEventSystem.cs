@@ -11,7 +11,7 @@ using UnityEngine.VFX;
 [DisableAutoCreation]
 public class VisualEventSystem : SystemBase
 {
-    public struct EffectTexture
+    public class EffectTexture
     {
         public Texture2D TexturePositions;
         public Texture2D TextureRotations;
@@ -20,7 +20,7 @@ public class VisualEventSystem : SystemBase
         public Color[] Rotations;
         private int indexAt;
         
-        public int Count => indexAt + 1;
+        public int Count => indexAt;
 
         public void Reset()
         {
@@ -61,7 +61,6 @@ public class VisualEventSystem : SystemBase
     
     protected override void OnCreate()
     {
-        
         effectTextures = new Dictionary<int, EffectTexture>();
         
         foreach (var effect in VisualEffectHolder.Effects)
@@ -74,7 +73,11 @@ public class VisualEventSystem : SystemBase
                 TextureRotations = new Texture2D(effect.Value.MaxAmount, 1, TextureFormat.RGBAFloat, false),
             });
             
-            //TODO Set name to textures
+            //Set texture names for swag
+            effectTextures[effect.Key].TexturePositions.name = "Positions";
+            effectTextures[effect.Key].TextureRotations.name = "Rotations";
+            
+            //Link texture ref to visual Effect
             effect.Value.VisualEffect.SetTexture(VisualEffectHolder.PropertyTexturePosition, effectTextures[effect.Key].TexturePositions);
             effect.Value.VisualEffect.SetTexture(VisualEffectHolder.PropertyTextureRotation, effectTextures[effect.Key].TextureRotations);
         }
@@ -82,6 +85,9 @@ public class VisualEventSystem : SystemBase
 
     protected override void OnUpdate()
     {
+        foreach (var effect in effectTextures.Values)
+            effect.Reset();
+        
         foreach (var info in EventsHolder.BulletsEvents)
         {
             effectTextures[VisualEffectHolder.BulletEffects[info.ProjectileType][info.CollisionType]].
@@ -90,8 +96,8 @@ public class VisualEventSystem : SystemBase
 
         foreach (var effect in effectTextures)
         {
-            if (!effect.Value.Set()) continue;
             VisualEffectHolder.Effects[effect.Key].VisualEffect.SetInt(VisualEffectHolder.PropertyCount, effect.Value.Count);
+            if(!effect.Value.Set()) continue;
             VisualEffectHolder.Effects[effect.Key].VisualEffect.Play();
         }
     }

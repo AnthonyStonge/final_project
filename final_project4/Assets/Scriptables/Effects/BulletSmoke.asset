@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4772acfee06a6144d91f9fd5ed6f967e, type: 3}
-  m_Name: EffectsContainer
+  m_Script: {fileID: 11500000, guid: 029a159d55d9ed147ade30aaedd9804e, type: 3}
+  m_Name: BulletSmoke
   m_EditorClassIdentifier: 
-  Links:
-  - {fileID: 11400000, guid: 618ea50df5de8434db1c1827b40f2873, type: 2}
-  - {fileID: 11400000, guid: 72baaa6163cdea74c9f6e703ff46dcb6, type: 2}
+  Effect: {fileID: 2978405414726133041, guid: bf920a7cb0619fc4e9e75db7b6a586e8, type: 3}
+  MaxAmount: 2048
+  Weapons: []
+  Bullets:
+  - BulletType: 1
+    CollisionType: 2
