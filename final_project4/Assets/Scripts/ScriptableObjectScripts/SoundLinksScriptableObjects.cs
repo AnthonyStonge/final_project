@@ -15,6 +15,7 @@ public class SoundLinksScriptableObjects : ScriptableObject
     [Header("Clip")]
     public AudioClip Clip;
     public AudioSourceType AudioSourceType;
+    public float Delay;
     
     [Header("Types to link the sound too")]
     public List<WeaponLinks> Weapons;

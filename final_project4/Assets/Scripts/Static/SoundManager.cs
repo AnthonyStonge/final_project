@@ -5,21 +5,30 @@ using UnityEngine;
 
 public static class SoundManager
 {
-    public static void Initialize()
-    {
-        
-    }
-
     public static void PlaySound(int clipId)
     {
         //Get AudioSource for this clip
-        AudioSource source = SoundHolder.AudioSources[SoundHolder.SoundsToAudioSource[clipId]];
+        Source source = SoundHolder.AudioSources[SoundHolder.SoundsToAudioSource[clipId]];
 
         //Get AudioClip
-        AudioClip clip = SoundHolder.Sounds[clipId];
-        
+        AudioClip clip = SoundHolder.Sounds[clipId].AudioClip;
+
         //Set and Play
-        source.clip = clip;
-        source.Play();
+        if (source.IsPlayOneShotOnly)
+            source.AudioSource.PlayOneShot(clip);
+        else
+        {
+            source.AudioSource.clip = clip;
+            source.AudioSource.Play();
+        }
+    }
+
+    public static void DecrementNotAvailableSounds(float deltaTime)
+    {
+        foreach (Clip clip in SoundHolder.Sounds.Values)
+        {
+            if (!clip.IsAvailable)
+                clip.Timer -= deltaTime;
+        }
     }
 }

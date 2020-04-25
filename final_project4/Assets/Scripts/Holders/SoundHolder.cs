@@ -6,11 +6,25 @@ using Unity.Assertions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+public class Clip
+{
+    public AudioClip AudioClip;
+    public float Timer;
+    public float ResetTimerValue;
+    public bool IsAvailable => Timer <= 0;
+}
+
+public class Source
+{
+    public AudioSource AudioSource;
+    public bool IsPlayOneShotOnly;
+}
+
 public static class SoundHolder
 {
-    public static Dictionary<int, AudioClip> Sounds;
+    public static Dictionary<int, Clip> Sounds;
     public static Dictionary<int, AudioSourceType> SoundsToAudioSource;
-    public static Dictionary<AudioSourceType, AudioSource> AudioSources;
+    public static Dictionary<AudioSourceType, Source> AudioSources;
 
     public static Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>> WeaponSounds;
     public static Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>> BulletSounds;
@@ -20,9 +34,9 @@ public static class SoundHolder
     
     public static void Initialize()
     {
-        Sounds = new Dictionary<int, AudioClip>();
+        Sounds = new Dictionary<int, Clip>();
         SoundsToAudioSource = new Dictionary<int, AudioSourceType>();
-        AudioSources = new Dictionary<AudioSourceType, AudioSource>();
+        AudioSources = new Dictionary<AudioSourceType, Source>();
 
         //Weapons
         WeaponSounds = new Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>>();
@@ -60,7 +74,11 @@ public static class SoundHolder
         foreach (SoundLinksScriptableObjects links in container.SoundLinksList)
         {
             //Add AudioClip to dictionary
-            Sounds.Add(nextClipID, links.Clip);
+            Sounds.Add(nextClipID, new Clip
+            {
+                AudioClip = links.Clip,
+                ResetTimerValue = links.Delay
+            });
             SoundsToAudioSource.Add(nextClipID, links.AudioSourceType);
 
             //Weapons
@@ -74,7 +92,7 @@ public static class SoundHolder
                     //Duplicates -> LogError
                     Debug.LogError("You tried to add multiple sound effects for " + weapon.WeaponType + " " +
                                    weapon.EventType + " action. \n" +
-                                   "Current Sound: " + Sounds[WeaponSounds[weapon.WeaponType][weapon.EventType]].name +
+                                   "Current Sound: " + Sounds[WeaponSounds[weapon.WeaponType][weapon.EventType]].AudioClip.name +
                                    "\n" +
                                    "Desired Sound: " + links.Clip.name + "\n");
                 }
@@ -104,7 +122,11 @@ public static class SoundHolder
                 GameObject.Instantiate<AudioSource>(link.Source, MonoGameVariables.Instance.CameraTransform);
 
             //Add to dictonary
-            AudioSources.Add(link.Type, source);
+            AudioSources.Add(link.Type, new Source
+            {
+                AudioSource = source,
+                IsPlayOneShotOnly = link.IsPlayOneShotOnly
+            });
         }
     }
     

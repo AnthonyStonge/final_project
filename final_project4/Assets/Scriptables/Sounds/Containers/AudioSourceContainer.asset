@@ -13,6 +13,19 @@ MonoBehaviour:
   m_Name: AudioSourceContainer
   m_EditorClassIdentifier: 
   AudioSources:
+  - Type: 0
+    Source: {fileID: 9022814985470388364, guid: 8c060d427b20f4d46a57b3fcb26ba0e5,
+      type: 3}
+    IsPlayOneShotOnly: 0
   - Type: 1
+    Source: {fileID: 3703137289176742018, guid: 1e3bc4f71bf9b484fb7ff4eafb0f0744,
+      type: 3}
+    IsPlayOneShotOnly: 0
+  - Type: 2
     Source: {fileID: 7988602462859932390, guid: f738533faa5259c4ab9a92a8721e84d1,
       type: 3}
+    IsPlayOneShotOnly: 1
+  - Type: 6
+    Source: {fileID: 8314005564757378934, guid: 6a0ea0fd2ca257245b79bb57b21420f3,
+      type: 3}
+    IsPlayOneShotOnly: 0

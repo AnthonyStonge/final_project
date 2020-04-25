@@ -41,9 +41,6 @@ public class RetrieveGunEventSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        //Clear previous PistolBullet events
-        EventsHolder.WeaponEvents.Clear(); //TODO MOVE TO CLEANUPSYSTEM
-
         //Create parallel writer
         NativeQueue<WeaponInfo>.ParallelWriter weaponFiredEvents = weaponFired.AsParallelWriter();
 

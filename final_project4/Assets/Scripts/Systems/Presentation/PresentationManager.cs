@@ -7,12 +7,14 @@ using UnityEngine;
 public class PresentationManager : ComponentSystemGroup
 {
 
+    private SoundEventSystem soundEventSystem;
     private VisualEventSystem visualEventSystem;
     private CleanupSystem cleanupSystem;
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
-        
+
+        soundEventSystem = world.GetOrCreateSystem<SoundEventSystem>();
         visualEventSystem = world.GetOrCreateSystem<VisualEventSystem>();
         cleanupSystem = world.GetOrCreateSystem<CleanupSystem>();
 
@@ -24,6 +26,7 @@ public class PresentationManager : ComponentSystemGroup
 
     protected override void OnUpdate()
     {
+        soundEventSystem.Update();
         visualEventSystem.Update();
         cleanupSystem.Update();
     }

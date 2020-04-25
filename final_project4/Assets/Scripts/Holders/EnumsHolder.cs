@@ -26,10 +26,11 @@ namespace Enums
     public enum AudioSourceType
     {
         BackgroundMusic,
-        PlayerWeaponActions, //Shoot, Reload, Swap
+        PlayerWeaponActionsPlay, //Shoot, Reload, Swap
+        PlayerWeaponActionPOSO,
         PlayerActions,    //Take damage, Die
         EnemyWeaponActions, //Shoot
         EnemyActions,    //Take damage, Die
-        BulletActions    //Hit
+        BulletActionsPlay    //Hit
     }
 }
