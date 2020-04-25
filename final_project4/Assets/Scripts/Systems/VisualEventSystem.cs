@@ -11,92 +11,97 @@ using UnityEngine.VFX;
 [DisableAutoCreation]
 public class VisualEventSystem : SystemBase
 {
-    private Texture2D texture;
-    private Color[] colorPositions;
+    public struct EffectTexture
+    {
+        public Texture2D TexturePositions;
+        public Texture2D TextureRotations;
+        
+        public Color[] Positions;
+        public Color[] Rotations;
+        private int indexAt;
+        
+        public int Count => indexAt + 1;
 
-    private int propertyTexture;
-    private int propertyCount;
-    private NativeList<BulletInfo> bulletsEvents;
-    private VisualEffect visualEffect;
+        public void Reset()
+        {
+            indexAt = 0;
+        }
+        public void Add(float3 position, float3 rotation)
+        {
+            //To prevent adding element outside of the array
+            if(indexAt >= Positions.Length) return;
+            
+            var color = Positions[indexAt];
+            color.r = position.x;
+            color.g = position.y;
+            color.b = position.z;
+            Positions[indexAt] = color;
+            
+            color = Rotations[indexAt];
+            color.r = rotation.x;
+            color.g = rotation.y;
+            color.b = rotation.z;
+            Rotations[indexAt] = color;
+
+            indexAt++;
+        }
+
+        public bool Set()
+        {
+            if (Count <= 0) return false;
+            TexturePositions.SetPixels(0, 0, Count, 1, Positions);
+            TextureRotations.SetPixels(0, 0, Count, 1, Rotations);
+            
+            TexturePositions.Apply();
+            TextureRotations.Apply();
+            return true;
+        }
+    }
+    private Dictionary<int, EffectTexture> effectTextures;
+    
     protected override void OnCreate()
     {
-        //Caching BulletsEvents Reference
-        bulletsEvents = EventsHolder.BulletsEvents;
-        bulletsEvents.Clear();
         
-        //Init position array
-        colorPositions = new Color[2048];
+        effectTextures = new Dictionary<int, EffectTexture>();
         
-        //Get Property ID
-        propertyTexture = VisualEffectHolder.PropertyTexture;
-        propertyCount = VisualEffectHolder.PropertyCount;
-        
-        /*
-        Create texture. Will only take 2048 positions,
-        texture RGBAFloat is the key here. It allows Colors to have any values.
-        */
-        texture = new Texture2D(2048, 1, TextureFormat.RGBAFloat, false);
-        visualEffect = VisualEffectHolder.ProjectileVFXDict[ProjectileType.PistolBullet];
-        
-        //Since Texture is a reference type, it can be linked once in the shader
-        visualEffect.SetTexture(propertyTexture, texture);
-        texture.name = "Bullets";
+        foreach (var effect in VisualEffectHolder.Effects)
+        {
+            effectTextures.Add(effect.Key, new EffectTexture
+            {
+                Positions = new Color[effect.Value.MaxAmount],
+                Rotations = new Color[effect.Value.MaxAmount],
+                TexturePositions = new Texture2D(effect.Value.MaxAmount, 1, TextureFormat.RGBAFloat, false),
+                TextureRotations = new Texture2D(effect.Value.MaxAmount, 1, TextureFormat.RGBAFloat, false),
+            });
+            
+            //TODO Set name to textures
+            effect.Value.VisualEffect.SetTexture(VisualEffectHolder.PropertyTexturePosition, effectTextures[effect.Key].TexturePositions);
+            effect.Value.VisualEffect.SetTexture(VisualEffectHolder.PropertyTextureRotation, effectTextures[effect.Key].TextureRotations);
+        }
     }
 
     protected override void OnUpdate()
     {
-        //Get Event Count
-        var count = bulletsEvents.Length;
-        
-        //Tell the Visual Effect How many bullets there is
-        visualEffect.SetInt(propertyCount, count);
-    
-        //Returns if there's no event
-        if (count == 0) return;
-        
-        // Takes only the 2048 event (max) from the last one
-        var min = math.clamp(count - 2048, 0, count);
-        
-        for (var i = min; i < count; i++)
+        foreach (var info in EventsHolder.BulletsEvents)
         {
-            var position = bulletsEvents[i].HitPosition;
-            var color = colorPositions[i];
-            color.r = position.x;
-            color.g = position.y;
-            color.b = position.z;
-            colorPositions[i] = color;
+            effectTextures[VisualEffectHolder.BulletEffects[info.ProjectileType][info.CollisionType]].
+                Add(info.HitPosition, math.forward(info.HitRotation) );
         }
-        //SetPixels is up to 3x faster then SetPixel
-        texture.SetPixels(0, 0, count, 1, colorPositions);
-        texture.Apply();
-    
-        visualEffect.Play();
-    }
-    
-    //To make Trails
-    /*protected override void OnUpdate()
-    {
-        int count = 0;
-        Entities.WithoutBurst().ForEach((ref DamageProjectile damageProjectile, ref Translation translation) =>
+
+        foreach (var effect in effectTextures)
         {
-            var t = translation.Value;
-            texture.SetPixel(count, 0, new Color(t.x, t.y, t.z));
-            count++;
-        }).Run();
-        texture.Apply();
+            if (!effect.Value.Set()) continue;
+            VisualEffectHolder.Effects[effect.Key].VisualEffect.SetInt(VisualEffectHolder.PropertyCount, effect.Value.Count);
+            VisualEffectHolder.Effects[effect.Key].VisualEffect.Play();
+        }
+    }
 
-        //Tell the Visual Effect How many bullets there is
-        visualEffect.SetInt(propertyCount, count);
-        //SetPixels is up to 3x faster then SetPixel
-
-        visualEffect.Play();
-        
-        //TODO Clear events all at the same place
-        bulletsEvents.Clear();
-    }*/
-       
     protected override void OnDestroy()
     {
-        Object.Destroy(texture);
+        foreach (var effect in effectTextures.Values)
+        {
+            Object.Destroy(effect.TexturePositions);
+            Object.Destroy(effect.TextureRotations);
+        }
     }
 }

@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Sounds/Sound Container", fileName = "new SoundsContaine")]
 public class SoundsContainer : ScriptableObject
 {
-    public List<SoundLinksScriptableObjects> SoundLinksList;
+    public List<SoundLinksScriptableObjects> SoundLinkList;
 }
