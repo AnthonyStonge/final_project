@@ -33,4 +33,9 @@ namespace Enums
         EnemyActions,    //Take damage, Die
         BulletActionsPlay    //Hit
     }
+    public enum DropType
+    {
+        //Life,
+        Amunation
+    }
 }

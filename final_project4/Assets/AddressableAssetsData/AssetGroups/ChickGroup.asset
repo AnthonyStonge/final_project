@@ -31,8 +31,10 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 4386793886523506817, guid: 0d586cd5c66d5414fb82a92aa57251a5,
+      type: 3}
+    m_TargetAsset: {fileID: 4386793886523506817, guid: 0d586cd5c66d5414fb82a92aa57251a5,
+      type: 3}
   - m_GUID: 2c1c7c62cc387814ca8b8cbf7ebea684
     m_Address: EffectsContainer
     m_ReadOnly: 0
@@ -41,14 +43,6 @@ MonoBehaviour:
       PublicKeyToken=null
     m_MainAsset: {fileID: 11400000, guid: 2c1c7c62cc387814ca8b8cbf7ebea684, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 2c1c7c62cc387814ca8b8cbf7ebea684, type: 2}
-  - m_GUID: 34759cc7dbefb454b8faaf452880c778
-    m_Address: PistolVFX
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_mainAssetType: BulletVFXScriptable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 34759cc7dbefb454b8faaf452880c778, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 34759cc7dbefb454b8faaf452880c778, type: 2}
   - m_GUID: 4415b89aced59ff41819888c782445dc
     m_Address: AudioSourceContainer
     m_ReadOnly: 0
@@ -57,6 +51,16 @@ MonoBehaviour:
       PublicKeyToken=null
     m_MainAsset: {fileID: 11400000, guid: 4415b89aced59ff41819888c782445dc, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 4415b89aced59ff41819888c782445dc, type: 2}
+  - m_GUID: 60f0d0549d8db2d42851dab63cd22a39
+    m_Address: Amunation
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 8899465809852885384, guid: 60f0d0549d8db2d42851dab63cd22a39,
+      type: 3}
+    m_TargetAsset: {fileID: 8899465809852885384, guid: 60f0d0549d8db2d42851dab63cd22a39,
+      type: 3}
   - m_GUID: 8608ea675a3da4146bdd02b2d363944c
     m_Address: SoundsContainer
     m_ReadOnly: 0
@@ -91,16 +95,20 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 5935477466790467464, guid: e0ae6182e1a6b11438ffe0678d68e1df,
+      type: 3}
+    m_TargetAsset: {fileID: 5935477466790467464, guid: e0ae6182e1a6b11438ffe0678d68e1df,
+      type: 3}
   - m_GUID: e7c153c60fa5ce6409e1cb79cd816229
     m_Address: Shotgun
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8262002860696633109, guid: e7c153c60fa5ce6409e1cb79cd816229,
+      type: 3}
+    m_TargetAsset: {fileID: 8262002860696633109, guid: e7c153c60fa5ce6409e1cb79cd816229,
+      type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3c5e8f3b98606ca43b2a070e5fd7e106, type: 2}
   m_SchemaSet:

@@ -13,20 +13,17 @@ public class ProjectileHitDetectionSystem : SystemBase
 {
     private BuildPhysicsWorld physicsWorld;
     private EndSimulationEntityCommandBufferSystem endSimulationEntityCommandBufferSystem;
-    
     private NativeQueue<BulletInfo> bulletEvents;
 
     protected override void OnCreate()
     {
         endSimulationEntityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         physicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
-        
         bulletEvents = new NativeQueue<BulletInfo>(Allocator.Persistent);
     }
     
     protected override void OnUpdate()
     {
-        
         
         PhysicsWorld PhysicsWorld = physicsWorld.PhysicsWorld;
         var entityCommandBuffer = endSimulationEntityCommandBufferSystem.CreateCommandBuffer().ToConcurrent();
@@ -39,7 +36,10 @@ public class ProjectileHitDetectionSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<EnemyTag>()
         };
-        
+        ComponentDataContainer<DropChanceComponent> dropChance = new ComponentDataContainer<DropChanceComponent>
+        {
+            Components = GetComponentDataFromEntity<DropChanceComponent>()
+        };
 
         float deltaTime = Time.DeltaTime;
 
@@ -58,7 +58,6 @@ public class ProjectileHitDetectionSystem : SystemBase
                 End = translation.Value + (math.forward(rotation.Value) * projectile.Speed * deltaTime),
                 Filter = filter
             };
-            
             RaycastHit hit = new RaycastHit();
             if (PhysicsWorld.CollisionWorld.CastRay(raycastInput, out hit))
             {
@@ -71,7 +70,6 @@ public class ProjectileHitDetectionSystem : SystemBase
                     collisionType = BulletInfo.BulletCollisionType.ON_ENEMY;
                     entityCommandBuffer.DestroyEntity(entityInQueryIndex, hitEntity);
                 }
-                
                 //TODO PLAYER COLLISION
 
                 //Destroy bullet
