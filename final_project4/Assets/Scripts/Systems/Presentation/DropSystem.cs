@@ -20,8 +20,6 @@ public class DropSystem : SystemBase
             {
                 if (info.CollisionType == BulletInfo.BulletCollisionType.ON_ENEMY)
                 {
-                    if (Random.Range(1, 101) <= info.DropChanceComponent.PourcentChanceOfDrop)
-                    {
                         //Debug.Log(AmunationDropHolder.DropItemPrefabDict.Count);
                         Entity e = EntityManager.Instantiate(
                             AmunationDropHolder.DropItemPrefabDict[DropType.Amunation]);
@@ -34,7 +32,6 @@ public class DropSystem : SystemBase
                             TypeAmunation = ((WeaponType) Random.Range(0, 2)),
                             AmunationQuantity = Random.Range(1, 5)
                         });
-                    }
                 }
             }
         
