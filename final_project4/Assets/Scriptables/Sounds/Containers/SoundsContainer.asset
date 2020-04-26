@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93743ac6df6a5104085c187e200ac212, type: 3}
   m_Name: SoundsContainer
   m_EditorClassIdentifier: 
-  SoundLinksList:
+  SoundLinkList:
   - {fileID: 11400000, guid: af70ae4851def5a48a4dfa0ead744cc4, type: 2}
-  - {fileID: 11400000, guid: 00c8c169df4992c4ab1fb681bcc957b7, type: 2}
   - {fileID: 11400000, guid: 67c38a5caf2f74b4c92a696d1fd92a07, type: 2}
-  - {fileID: 11400000, guid: c278d3d913abfa4479936fd2028ae277, type: 2}
+  - {fileID: 11400000, guid: 00c8c169df4992c4ab1fb681bcc957b7, type: 2}
   - {fileID: 11400000, guid: b8e7e3e5a4aac35429edc68da9767d8b, type: 2}
+  - {fileID: 11400000, guid: c278d3d913abfa4479936fd2028ae277, type: 2}
   - {fileID: 11400000, guid: f7c8fb89a97a8bb43b5866fb24630741, type: 2}

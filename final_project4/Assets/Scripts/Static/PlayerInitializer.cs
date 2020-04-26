@@ -14,14 +14,14 @@ public static class PlayerInitializer
 
         //Create player entity
         Entity player = entityManager.Instantiate(PlayerHolder.PlayerPrefabDict[PlayerType.Player]);
-        entityManager.SetComponentData(player, new Translation
+        /*entityManager.SetComponentData(player, new Translation
         {
             Value = float3.zero //TODO SET SPAWN POSITION
         });
         entityManager.SetComponentData(player, new Rotation
         {
             Value = quaternion.identity //TODO SET SPAWN ROTATION
-        });
+        });*/
         Player.Entity = player;
         Player.CurrentWeaponHeld = WeaponType.Pistol;
     }

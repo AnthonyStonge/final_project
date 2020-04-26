@@ -48,6 +48,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614632}
   - {fileID: 8926484042661614636}
   - {fileID: 8926484042661614798}
+  - {fileID: 8926484042661614874}
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
@@ -68,6 +69,19 @@ MonoBehaviour:
     descendantCount: 0
   - name: positions
     path: positions
+    tooltip: 
+    sheetType: m_NamedObject
+    realType: Texture2D
+    defaultValue:
+      m_Type:
+        m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"276d9e395ae18fe40a9b4988549f2349","type":3}}'
+    min: -Infinity
+    max: Infinity
+    descendantCount: 0
+  - name: rotations
+    path: rotations
     tooltip: 
     sheetType: m_NamedObject
     realType: Texture2D
@@ -809,13 +823,13 @@ VisualEffectResource:
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 14
+        data[3]: 13
       - op: 1
         valueIndex: 9
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 13
+        data[3]: 14
       - op: 2
         valueIndex: 10
         data[0]: 7
@@ -824,7 +838,7 @@ VisualEffectResource:
         data[3]: -1
       - op: 57
         valueIndex: 12
-        data[0]: 8
+        data[0]: 9
         data[1]: -1
         data[2]: -1
         data[3]: 0
@@ -842,7 +856,7 @@ VisualEffectResource:
         data[3]: -1
       - op: 56
         valueIndex: 15
-        data[0]: 9
+        data[0]: 8
         data[1]: -1
         data[2]: -1
         data[3]: 0
@@ -887,27 +901,33 @@ VisualEffectResource:
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 3
+        data[3]: 7
       - op: 1
-        valueIndex: 34
+        valueIndex: 32
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 3
       - op: 1
-        valueIndex: 37
+        valueIndex: 35
+        data[0]: -1
+        data[1]: -1
+        data[2]: -1
+        data[3]: 3
+      - op: 1
+        valueIndex: 38
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 2
       - op: 1
-        valueIndex: 39
+        valueIndex: 40
         data[0]: -1
         data[1]: -1
         data[2]: -1
         data[3]: 3
       - op: 1
-        valueIndex: 42
+        valueIndex: 43
         data[0]: -1
         data[1]: -1
         data[2]: -1
@@ -932,7 +952,7 @@ VisualEffectResource:
           m_Value: 0.1
       m_Vector2f:
         m_Array:
-        - m_ExpressionIndex: 23
+        - m_ExpressionIndex: 24
           m_Value: {x: 0, y: 0}
       m_Vector3f:
         m_Array:
@@ -942,11 +962,11 @@ VisualEffectResource:
           m_Value: {x: -0.333, y: 0.2, z: -0.333}
         - m_ExpressionIndex: 20
           m_Value: {x: 0.333, y: 1, z: 0.333}
-        - m_ExpressionIndex: 21
-          m_Value: {x: 1000, y: 1000, z: 1000}
         - m_ExpressionIndex: 22
+          m_Value: {x: 1000, y: 1000, z: 1000}
+        - m_ExpressionIndex: 23
           m_Value: {x: 0, y: 1, z: 0}
-        - m_ExpressionIndex: 24
+        - m_ExpressionIndex: 25
           m_Value: {x: -1, y: -1, z: -1}
       m_Vector4f:
         m_Array: []
@@ -960,7 +980,7 @@ VisualEffectResource:
         m_Array: []
       m_AnimationCurve:
         m_Array:
-        - m_ExpressionIndex: 9
+        - m_ExpressionIndex: 8
           m_Value:
             serializedVersion: 2
             m_Curve:
@@ -1005,7 +1025,7 @@ VisualEffectResource:
             m_RotationOrder: 4
       m_Gradient:
         m_Array:
-        - m_ExpressionIndex: 8
+        - m_ExpressionIndex: 9
           m_Value:
             serializedVersion: 2
             key0: {r: 2, g: 2, b: 2, a: 0.67058825}
@@ -1039,7 +1059,9 @@ VisualEffectResource:
         m_Array:
         - m_ExpressionIndex: 5
           m_Value: {fileID: 2800000, guid: 276d9e395ae18fe40a9b4988549f2349, type: 3}
-        - m_ExpressionIndex: 25
+        - m_ExpressionIndex: 21
+          m_Value: {fileID: 2800000, guid: 276d9e395ae18fe40a9b4988549f2349, type: 3}
+        - m_ExpressionIndex: 26
           m_Value: {fileID: 2800000, guid: 49cb5aa34272b034d8b754c65d9cdbfa, type: 3}
       m_Bool:
         m_Array: []
@@ -1048,6 +1070,8 @@ VisualEffectResource:
       index: 0
     - nameId: positions
       index: 5
+    - nameId: rotations
+      index: 21
     m_Buffers:
     - type: 1
       size: 100000000
@@ -1171,7 +1195,7 @@ VisualEffectResource:
       - nameId: Count
         index: 10
       - nameId: Delay
-        index: 23
+        index: 24
       params: []
       processor: {fileID: 0}
       shaderSourceIndex: -1
@@ -1192,9 +1216,9 @@ VisualEffectResource:
       index: 1
     values:
     - nameId: bounds_center
-      index: 22
+      index: 23
     - nameId: bounds_size
-      index: 21
+      index: 22
     tasks:
     - type: 536870912
       buffers:
@@ -1214,9 +1238,9 @@ VisualEffectResource:
         index: 5
       params:
       - nameId: bounds_center
-        index: 22
+        index: 23
       - nameId: bounds_size
-        index: 21
+        index: 22
       processor: {fileID: 0}
       shaderSourceIndex: 0
     - type: 805306368
@@ -1243,7 +1267,7 @@ VisualEffectResource:
       - nameId: Scale_e
         index: 14
       - nameId: mainTexture
-        index: 25
+        index: 26
       params:
       - nameId: sortPriority
         index: 0
@@ -4450,4 +4474,78 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
     attributes: []
   m_Direction: 0
+  m_LinkedSlots: []
+--- !u!114 &8926484042661614874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330e0fca1717dde4aaa144f48232aa64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 0
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots:
+  - {fileID: 8926484042661614875}
+  m_ExposedName: rotations
+  m_Exposed: 1
+  m_Order: 2
+  m_Category: 
+  m_Min:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_Max:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_IsOutput: 0
+  m_Tooltip: 
+  m_Nodes:
+  - m_Id: 0
+    linkedSlots: []
+    position: {x: 284, y: 692}
+    expandedSlots: []
+    expanded: 0
+--- !u!114 &8926484042661614875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a331b1d86cc8d4aa106ccbe0da5852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 8926484042661614875}
+  m_MasterData:
+    m_Owner: {fileID: 8926484042661614874}
+    m_Value:
+      m_Type:
+        m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"276d9e395ae18fe40a9b4988549f2349","type":3}}'
+    m_Space: 2147483647
+  m_Property:
+    name: o
+    m_serializedType:
+      m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    attributes: []
+  m_Direction: 1
   m_LinkedSlots: []
