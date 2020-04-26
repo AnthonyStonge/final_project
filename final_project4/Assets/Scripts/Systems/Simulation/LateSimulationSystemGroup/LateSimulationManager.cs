@@ -15,9 +15,9 @@ public class LateSimulationManager : ComponentSystemGroup
         cameraFollowSystem = world.GetOrCreateSystem<CameraFollowSystem>();
         projectileHitDetectionSystem = world.GetOrCreateSystem<ProjectileHitDetectionSystem>();
         uiSystem = world.GetOrCreateSystem<UISystem>();
-        
-        var lateSimulation = world.GetOrCreateSystem<LateSimulationManager>();
 
+        var lateSimulation = world.GetOrCreateSystem<LateSimulationManager>();
+    
         lateSimulation.AddSystemToUpdateList(cameraFollowSystem);
         lateSimulation.AddSystemToUpdateList(projectileHitDetectionSystem);
         lateSimulation.AddSystemToUpdateList(uiSystem);

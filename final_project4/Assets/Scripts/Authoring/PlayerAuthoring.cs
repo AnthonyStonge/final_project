@@ -1,6 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
+using Unity.Transforms;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -24,6 +25,10 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponentData(entity, new SpeedData
         {
             Value = 1000
+        });
+        dstManager.SetComponentData(entity, new Translation()
+        {
+            Value = new float3(0,3,0)
         });
         
       
