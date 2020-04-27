@@ -8,12 +8,14 @@ using UnityEngine;
 public class UISystem : SystemBase
 {
     private GunComponent gunComponent;
+    private LifeComponent lifeComponent;
 
     protected override void OnUpdate()
     {
         if (!GameVariables.UI.GunName) return;
         if(GameVariables.Player.PlayerWeaponEntities.ContainsKey(GameVariables.Player.CurrentWeaponHeld))
             gunComponent = EntityManager.GetComponentData<GunComponent>(GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]);
+        lifeComponent = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
 
         switch (gunComponent.WeaponType)
         {
@@ -33,5 +35,15 @@ public class UISystem : SystemBase
         }
         GameVariables.UI.NbBulletInMagazine.text = gunComponent.CurrentAmountBulletInMagazine.ToString();
         GameVariables.UI.NbBulletOnPlayer.text = gunComponent.CurrentAmountBulletOnPlayer.ToString();
+        GameVariables.UI.lifeRect.sizeDelta = new Vector2(PlayerUiWidth(PlayerLifePourcent(lifeComponent),  GameVariables.UI.lifeBgRect.rect.size.x), GameVariables.UI.lifeBgRect.sizeDelta.y);
+
+    }
+    private static float PlayerLifePourcent(LifeComponent lifeComponent)
+    {
+        return (lifeComponent.CurrentLife * 100) / lifeComponent.MaxLife;
+    }
+    private static float PlayerUiWidth(float pourcentOfLife, float width)
+    {
+        return (width * pourcentOfLife) / 100;
     }
 }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1470288226251408204}
   - component: {fileID: 5691379923823341952}
   - component: {fileID: -5847042352946678514}
+  - component: {fileID: 3008905911335532354}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -200,10 +201,10 @@ MonoBehaviour:
       m_Value: 0001000000000000000000000000000000000000000000000000000000000000
     m_CollidesWith:
       m_Override: 0
-      m_Value: 0000000000010000000001000000000000000000000000000000000000000000
+      m_Value: 0000010001010000000001000000000000000000000000000000000000000000
     m_RaisesCollisionEvents:
       m_Override: 0
-      m_Value: 0
+      m_Value: 1
     m_CustomTags:
       m_Override: 0
       m_Value: 0000000000000000
@@ -257,3 +258,17 @@ MonoBehaviour:
     Tag05: 0
     Tag06: 0
     Tag07: 0
+--- !u!114 &3008905911335532354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5935477466790467464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1630bb18d59b1534c9a423c98a59ac07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxLife: 100
+  CurrentLife: 50

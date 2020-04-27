@@ -34,23 +34,19 @@ public class DashSystem : SystemBase
                     dashComponent.CurrentCooldownTime -= dt;
                     if (dashComponent.CurrentDashTime > 0)
                     {
+                        float2 velocity = float2.zero;
                         if (dashComponent.InputDuringDash.x == 0f && dashComponent.InputDuringDash.y == 0f)
-                        {
-                            physicsVelocity.ApplyLinearImpulse(physicsMass,
-                                math.forward(dashComponent.TargetDuringDash) * dashComponent.Speed * 100 * dt);
-                        }
+                            velocity = math.forward(dashComponent.TargetDuringDash).xz * dashComponent.Speed * 100 * dt; 
                         else
-                        {
-                            float2 velocity = math.normalizesafe(dashComponent.InputDuringDash) * dashComponent.Speed *
-                                              100 * dt;
-                            physicsVelocity.Linear.xz = velocity;
-                        }
+                            velocity = math.normalizesafe(dashComponent.InputDuringDash) * dashComponent.Speed * 100 * dt;
+                        
+                        physicsVelocity.Linear.xz = velocity;
                     }
                     else
                     {
                         GlobalEvents.UnlockUserInputs(ref ic);
                     }
                 }
-            }).Run();
+            }).Schedule();
     }
 }

@@ -1,5 +1,4 @@
 ﻿
 public static class MapInitializer
 {
-    
 }
