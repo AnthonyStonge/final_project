@@ -23,10 +23,11 @@ public static class PlayerInitializer
         {
             BatchId = AnimationHolder.AddAnimatedObject()
         });
-        /*entityManager.SetComponentData(player, new Translation
+        entityManager.SetComponentData(player, new Translation
         {
-            Value = float3.zero //TODO SET SPAWN POSITION
+            Value = new float3(-47, 10, -30)
         });
+        /*
         entityManager.SetComponentData(player, new Rotation
         {
             Value = quaternion.identity //TODO SET SPAWN ROTATION

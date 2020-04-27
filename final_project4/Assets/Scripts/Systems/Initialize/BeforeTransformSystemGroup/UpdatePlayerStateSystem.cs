@@ -19,7 +19,7 @@ public class UpdatePlayerStateSystem : SystemBase
             GameStateComponent gameStateComponent = EntityManager.GetComponentData<GameStateComponent>(GameLogicSystem.GameLogicEntity);
             
             //TODO Remove this code
-            gameStateComponent.CurrentGameState = GameState.GAME;
+            gameStateComponent.CurrentGameState = GameState.MENU;
             gameStateComponent.DesiredGameState = GameState.GAME;
             
             EntityManager.SetComponentData(GameLogicSystem.GameLogicEntity, gameStateComponent);

@@ -28,14 +28,13 @@ public class AnimationSystem : SystemBase
         };
 
         //For each entity, swap frame to next one
-        Entities.WithSharedComponentFilter(new AnimationBatch {BatchId = batchIdToUpdate}).ForEach(
+        Entities.WithoutBurst().WithSharedComponentFilter(new AnimationBatch {BatchId = batchIdToUpdate}).ForEach(
             (Entity e, int entityInQueryIndex, ref AnimationComponent animation) =>
             {
                 //Increment frame at + Clamp it
                 animation.MeshIndexAt++;
                 animation.MeshIndexAt %= (ushort) c.AnimationsLength[(int) animation.AnimationType];
 
-                //
                 ecb.SetSharedComponent(entityInQueryIndex, e, new RenderMesh
                 {
                     mesh = AnimationHolder.AnimationFrames[animation.AnimationType][animation.MeshIndexAt],
