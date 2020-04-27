@@ -12,6 +12,7 @@ public class PresentationManager : ComponentSystemGroup
     private CleanupSystem cleanupSystem;
     private DropSystem dropSystem;
     private LootSystem lootSystem;
+    private PlayerCollisionSystem playerCollisionSystem;
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
@@ -21,8 +22,10 @@ public class PresentationManager : ComponentSystemGroup
         visualEventSystem = world.GetOrCreateSystem<VisualEventSystem>();
         cleanupSystem = world.GetOrCreateSystem<CleanupSystem>();
         dropSystem = world.GetOrCreateSystem<DropSystem>();
+        playerCollisionSystem = world.GetOrCreateSystem<PlayerCollisionSystem>();
 
         var presentation = world.GetOrCreateSystem<PresentationManager>();
+        presentation.AddSystemToUpdateList(playerCollisionSystem);
         presentation.AddSystemToUpdateList(lootSystem);
         presentation.AddSystemToUpdateList(visualEventSystem);
         presentation.AddSystemToUpdateList(cleanupSystem);
@@ -31,6 +34,7 @@ public class PresentationManager : ComponentSystemGroup
 
     protected override void OnUpdate()
     {
+        playerCollisionSystem.Update();
         dropSystem.Update();
         lootSystem.Update();
         soundEventSystem.Update();

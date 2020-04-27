@@ -49,13 +49,11 @@ public class LootSystem : SystemBase
             {
                 if(!tmp.Contains(VARIABLE.Entities.EntityA))
                     tmp.Add(VARIABLE.Entities.EntityA);
-                break;
             }
             if(lol.Components.HasComponent(VARIABLE.Entities.EntityB))
             {
                 if(!tmp.Contains(VARIABLE.Entities.EntityB))
                     tmp.Add(VARIABLE.Entities.EntityB);
-                break;
             }
         }
         

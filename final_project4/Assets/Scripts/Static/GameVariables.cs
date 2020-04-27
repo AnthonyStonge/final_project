@@ -32,10 +32,10 @@ public static class GameVariables
         public static TextMeshProUGUI NbBulletInMagazine;
         public static TextMeshProUGUI NbBulletOnPlayer;
         public static TextMeshProUGUI GunName;
-        public static TextMeshProUGUI Life;
         public static Image PistolImage;
         public static Image ShotgunImage;
-
+        public static RectTransform lifeRect;
+        public static RectTransform lifeBgRect;
         public static FadeObject FadeObject;
     }
     public static void ShakeCam()
