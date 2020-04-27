@@ -1,5 +1,6 @@
 ﻿using Unity.Entities;
 using UnityEngine;
+using static FadeObject.FadeType;
 using static GameVariables;
 
 public class FadeSystem : SystemBase
@@ -8,12 +9,11 @@ public class FadeSystem : SystemBase
 
     public static FadeEvent OnFadeStart;
     public static FadeEvent OnFadeEnd;
-
     private bool hasFadeStarted;
 
     protected override void OnCreate()
     {
-        this.Enabled = false;
+        Enabled = false;
 
         OnFadeEnd = () =>
         {
@@ -31,28 +31,31 @@ public class FadeSystem : SystemBase
     //Only update if trying to fade
     protected override void OnUpdate()
     {
+        var deltaTime = Time.DeltaTime;
+        var fadeObject = UI.FadeObject;
         if (!hasFadeStarted)
             OnFadeStart?.Invoke();
 
         //Update texture info depending on fade component info
-        Color c = UI.FadeObject.Image.color;
+        Color c = fadeObject.Image.color;
 
-        c.a = UI.FadeObject.FadeValue;
-        UI.FadeObject.Image.color = c;
+        c.a = fadeObject.FadeValue;
+        fadeObject.Image.color = c;
 
         //Update fade component info
-        switch (UI.FadeObject.Type)
+        switch (fadeObject.Type)
         {
-            case FadeObject.FadeType.FadeIn:
-                if (UI.FadeObject.FadeValue <= 0)
-                    OnFadeEnd.Invoke();
-                UI.FadeObject.FadeValue -= UI.FadeObject.Speed * Time.DeltaTime;
+            case FadeIn:
+                if (fadeObject.FadeValue <= 0)
+                    OnFadeEnd?.Invoke();
+                fadeObject.FadeValue -= fadeObject.Speed * deltaTime;
                 break;
-            case FadeObject.FadeType.FadeOut:
-                if (UI.FadeObject.FadeValue >= 1)
-                    OnFadeEnd.Invoke();
-                UI.FadeObject.FadeValue += UI.FadeObject.Speed * Time.DeltaTime;
+            case FadeOut:
+                if (fadeObject.FadeValue >= 1)
+                    OnFadeEnd?.Invoke();
+                fadeObject.FadeValue += fadeObject.Speed * deltaTime;
                 break;
         }
+        UI.FadeObject = fadeObject;
     }
 }

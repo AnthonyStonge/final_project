@@ -16,7 +16,8 @@ public class MoveVelocitySystem : SystemBase
 
         Entities.WithAll<PlayerTag>().ForEach((ref PhysicsVelocity physicsVelocity, in SpeedData speedData, in InputComponent ic) =>
         {
-            physicsVelocity.Linear.xz = math.normalizesafe(ic.Move) * speedData.Value * dt;
+            if(ic.Enabled)
+                physicsVelocity.Linear.xz = math.normalizesafe(ic.Move) * speedData.Value * dt;
         }).Schedule();
     }
 }
