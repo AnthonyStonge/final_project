@@ -6,7 +6,7 @@ using UnityEngine;
 [DisableAutoCreation]
 public class PresentationManager : ComponentSystemGroup
 {
-
+    
     private SoundEventSystem soundEventSystem;
     private VisualEventSystem visualEventSystem;
     private CleanupSystem cleanupSystem;
@@ -17,6 +17,7 @@ public class PresentationManager : ComponentSystemGroup
     {
         var world = World.DefaultGameObjectInjectionWorld;
 
+        
         soundEventSystem = world.GetOrCreateSystem<SoundEventSystem>();
         lootSystem = world.GetOrCreateSystem<LootSystem>();
         visualEventSystem = world.GetOrCreateSystem<VisualEventSystem>();
@@ -28,6 +29,7 @@ public class PresentationManager : ComponentSystemGroup
         presentation.AddSystemToUpdateList(playerCollisionSystem);
         presentation.AddSystemToUpdateList(lootSystem);
         presentation.AddSystemToUpdateList(visualEventSystem);
+        presentation.AddSystemToUpdateList(soundEventSystem);
         presentation.AddSystemToUpdateList(cleanupSystem);
         presentation.AddSystemToUpdateList(dropSystem);
     }

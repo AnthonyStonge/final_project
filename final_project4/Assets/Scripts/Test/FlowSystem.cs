@@ -65,6 +65,7 @@ public class FlowSystem : SystemBase
             secondCounter = 0f;
             for (int i = 0; i < renderMeshFrames.Count - 1; i++)
             {
+                //Get all entities with this frame??
                 query.SetSharedComponentFilter(renderMeshFrames[i]);
                 //Store entities
                 NativeArray<Entity> arrAnim1 = query.ToEntityArray(Allocator.TempJob);
