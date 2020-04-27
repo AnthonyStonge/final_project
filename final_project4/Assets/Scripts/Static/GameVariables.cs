@@ -38,8 +38,4 @@ public static class GameVariables
 
         public static FadeObject FadeObject;
     }
-    public static void ShakeCam()
-    {
-        
-    }
 }
