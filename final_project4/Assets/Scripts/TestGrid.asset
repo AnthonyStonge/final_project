@@ -19,4 +19,4 @@ MonoBehaviour:
     x: 1
     y: 0.2
     z: 1
-  indexNoWalkable: 8cffffff8effffff8dffffff8fffffff91ffffff90ffffff93ffffff94ffffff92ffffff95ffffff96ffffff97ffffff98ffffff99ffffff9affffff9bffffff9cffffff9dffffff9effffff010000000200000000000000fffffffffefffffffdfffffffcfffffffbfffffff9fffffff7fffffff6fffffff5fffffff4fffffff2fffffff1fffffff0fffffff3fffffff8fffffffaffffff
+  indexNoWalkable: 
