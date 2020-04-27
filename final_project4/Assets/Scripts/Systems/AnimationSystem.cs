@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Unity.Collections;
+﻿using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Rendering;
-using UnityEngine;
 
+[DisableAutoCreation]
 public class AnimationSystem : SystemBase
 {
     private NativeQueue<FrameInfo> framesToSwap;

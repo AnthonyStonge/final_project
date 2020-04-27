@@ -27,6 +27,9 @@ public static class AnimationHolder
         AnimationsLength = new NativeList<int>(Allocator.Persistent);
 
         //TODO STESS TEST
+        BlobAssetStore blob;
+        Entity prefab = ECSUtility.ConvertGameObjectPrefab(MonoGameVariables.Instance.prefab, out blob);
+        blob.Dispose();
 
         EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
@@ -36,11 +39,10 @@ public static class AnimationHolder
         {
             for (int j = 0; j < 10; j++)
             {
-                for (int k = 0; k < 10; k++)
+                for (int k = 0; k < 100; k++)
                 {
                     //Create Entity
-                    Entity e = manager.Instantiate(MonoGameVariables.Instance.prefab);
-                    //manager.SetName(e, "Stess test shape");
+                    Entity e = manager.Instantiate(prefab);
 
                     //Set Position
                     manager.SetComponentData(e, new Translation

@@ -93,6 +93,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AnimationType: 0
-  FrameRate: 1
+  FrameRate: 5
   MeshIndexAt: 0
   Timer: 0

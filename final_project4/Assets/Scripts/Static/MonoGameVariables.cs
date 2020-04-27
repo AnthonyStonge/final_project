@@ -28,5 +28,5 @@ public class MonoGameVariables : MonoBehaviour
 
     public Transform CameraTransform;
 
-    public Entity prefab;
+    public GameObject prefab;
 }
