@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Animations:
   - {fileID: 11400000, guid: 80fd7d49917b65c4fa9a893575986dd4, type: 2}
+  - {fileID: 11400000, guid: a0afdb6f1cc196a4dbbc54660e2387b8, type: 2}

@@ -6,7 +6,8 @@ public class Animation : ScriptableObject
 {
     public enum AnimationType
     {
-        PlayerRunning
+        PlayerRunning,
+        EnemyWalking
     }
 
     public Animation.AnimationType Type;

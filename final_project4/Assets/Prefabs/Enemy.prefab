@@ -243,7 +243,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713051072dbd77949bf90782899e7885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimationType: 0
-  FrameRate: 1
+  AnimationType: 1
   MeshIndexAt: 0
-  Timer: 0

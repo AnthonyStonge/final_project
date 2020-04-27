@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1555304894338503018}
   - component: {fileID: 4226565682145345198}
   - component: {fileID: -687038097855541950}
+  - component: {fileID: 1736084930520404280}
   m_Layer: 0
   m_Name: EnnemieTest
   m_TagString: Untagged
@@ -266,3 +267,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6673f8ae6c1c0634687991dbd7f8ec3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1736084930520404280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8564223512416964792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713051072dbd77949bf90782899e7885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimationType: 1
+  MeshIndexAt: 0

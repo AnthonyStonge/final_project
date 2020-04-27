@@ -69,6 +69,10 @@ public class Spawner : MonoBehaviour
         {
             Value = batch++
         });
+        em.AddSharedComponentData(e, new AnimationBatch
+        {
+            BatchId = AnimationHolder.AddAnimatedObject()
+        });
         batch %= 8;
     }
     private void createPlayer()
