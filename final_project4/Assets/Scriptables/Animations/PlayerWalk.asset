@@ -15,7 +15,7 @@ MonoBehaviour:
   Type: 0
   Material: {fileID: 2100000, guid: bf6b5488f058e124380579a33325c0b8, type: 2}
   Frames:
-  - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  - {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-  - {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 4300000, guid: b5a068893740b9147b004a1b57966d0c, type: 3}
+  - {fileID: 4300000, guid: 5e3a55a8846ff1e46b378a2f3e2774e1, type: 3}
+  - {fileID: 4300000, guid: 0e0fd552971d5bb43aa122652eaa93a2, type: 3}
+  - {fileID: 4300000, guid: 4f2151ca216de594f8f307f102f7d5ca, type: 3}

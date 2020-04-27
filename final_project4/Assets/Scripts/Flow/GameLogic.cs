@@ -5,12 +5,12 @@ public class GameLogic : IStateLogic
 {
     public GameLogic()
     {
-        Debug.Log("OnCreate GameLogic");
+       // Debug.Log("OnCreate GameLogic");
     }
 
     public void Enable()
     {
-        Debug.Log("Enable GameLogic Systems");
+       // Debug.Log("Enable GameLogic Systems");
 
         var world = World.DefaultGameObjectInjectionWorld;
         world.GetExistingSystem<LateInitializeManager>().Enabled = true;
@@ -20,7 +20,7 @@ public class GameLogic : IStateLogic
 
     public void Disable()
     {
-        Debug.Log("Disable GameLogic Systems");
+       // Debug.Log("Disable GameLogic Systems");
 
         var world = World.DefaultGameObjectInjectionWorld;
 
@@ -34,12 +34,12 @@ public class GameLogic : IStateLogic
         PlayerInitializer.Initialize();
         WeaponInitializer.Initialize();
         
-        Debug.Log("Initialize GameLogic Systems");
+        //Debug.Log("Initialize GameLogic Systems");
     }
 
     public void Destroy()
     {
         //Delete or reset everything tied to GameLogic
-        Debug.Log("Destroy GameLogic Systems");
+        //Debug.Log("Destroy GameLogic Systems");
     }
 }

@@ -11,6 +11,7 @@
     <type fullname="UnityEngine.ComputeShader" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.AudioSource" preserve="all" />
     <type fullname="UnityEngine.AudioClip" preserve="all" />
   </assembly>
   <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -20,13 +21,23 @@
     <type fullname="ShotgunBulletAuthoring" preserve="all" />
     <type fullname="DashComponentAuthoring" preserve="all" />
     <type fullname="ShotgunAuthoring" preserve="all" />
+    <type fullname="SoundsContainer" preserve="all" />
     <type fullname="DamageProjectileAuthoring" preserve="all" />
+    <type fullname="Animation" preserve="all" />
+    <type fullname="AudioSourcesContainer" preserve="all" />
     <type fullname="StateDataAuthoring" preserve="all" />
     <type fullname="PistolBulletAuthoring" preserve="all" />
+    <type fullname="EffectLinks" preserve="all" />
     <type fullname="EnemyAuthoring" preserve="all" />
-    <type fullname="BulletVFXScriptable" preserve="all" />
-    <type fullname="SoundsContainer" preserve="all" />
+    <type fullname="EffectsContainer" preserve="all" />
     <type fullname="SoundLinksScriptableObjects" preserve="all" />
+    <type fullname="AmunationComponentAuthoring" preserve="all" />
+    <type fullname="LifeComponentAuthoring" preserve="all" />
+    <type fullname="AnimationComponentAuthoring" preserve="all" />
+    <type fullname="AnimationsContainer" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.Entities.Hybrid, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="Unity.Entities.ConvertToEntity" preserve="all" />
   </assembly>
   <assembly fullname="Unity.Physics.Hybrid, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="Unity.Physics.Authoring.PhysicsBodyAuthoring" preserve="all" />

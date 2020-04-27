@@ -4,7 +4,7 @@ public class MenuLogic : IStateLogic
 {
     public MenuLogic()
     {
-        Debug.Log("On Create MenuLogic");
+       // Debug.Log("On Create MenuLogic");
     }
     
     public void Enable()
@@ -14,16 +14,16 @@ public class MenuLogic : IStateLogic
 
     public void Disable()
     {
-        Debug.Log("Disable MenuLogic Systems");
+       // Debug.Log("Disable MenuLogic Systems");
     }
 
     public void Initialize()
     {
-        Debug.Log("Initialize MenuLogic Systems");
+       // Debug.Log("Initialize MenuLogic Systems");
     }
 
     public void Destroy()
     {
-        Debug.Log("Destroy MenuLogic Systems");
+       // Debug.Log("Destroy MenuLogic Systems");
     }
 }

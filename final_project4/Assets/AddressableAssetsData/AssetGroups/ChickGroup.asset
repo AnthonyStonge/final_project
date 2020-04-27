@@ -53,6 +53,14 @@ MonoBehaviour:
       PublicKeyToken=null
     m_MainAsset: {fileID: 11400000, guid: 4415b89aced59ff41819888c782445dc, type: 2}
     m_TargetAsset: {fileID: 11400000, guid: 4415b89aced59ff41819888c782445dc, type: 2}
+  - m_GUID: 5711f946471167948ad81b654dc60c3c
+    m_Address: Assets/Materials/InteractableBullet.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 60f0d0549d8db2d42851dab63cd22a39
     m_Address: Amunation
     m_ReadOnly: 0
