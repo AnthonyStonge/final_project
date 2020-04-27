@@ -15,6 +15,10 @@ public static class AnimationHolder
     public static Dictionary<Animation.AnimationType, Mesh[]> AnimationFrames;
     public static Dictionary<Animation.AnimationType, Material> MeshMaterials;
     public static NativeList<int> AnimationsLength; //Access with Animation.AnimationType to get a value
+    
+    //Animation Batch Dictionary
+    public static List<int> AnimatedGroupsLength;
+    
 
     private static int currentNumberOfLoadedAssets = 0;
     private static int numberOfAssetsToLoad = 1;
@@ -25,6 +29,13 @@ public static class AnimationHolder
         AnimationFrames = new Dictionary<Animation.AnimationType, Mesh[]>();
         MeshMaterials = new Dictionary<Animation.AnimationType, Material>();
         AnimationsLength = new NativeList<int>(Allocator.Persistent);
+        AnimatedGroupsLength = new List<int>();
+        
+        //Init all groups for 0
+        for (int i = 0; i < 15; i++)
+        {
+            AnimatedGroupsLength.Add(0);
+        }
 
         //TODO STESS TEST
         BlobAssetStore blob;
@@ -48,6 +59,10 @@ public static class AnimationHolder
                     manager.SetComponentData(e, new Translation
                     {
                         Value = position
+                    });
+                    manager.AddSharedComponentData(e, new AnimationBatch
+                    {
+                        BatchId = AddAnimatedObject()
                     });
 
                     position.z += 3;
@@ -102,4 +117,22 @@ public static class AnimationHolder
     {
         return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
     }
+
+    public static int AddAnimatedObject()
+    {
+        //Get groups with the least obj
+        int indexSmallest = 0;
+        for (int i = 1; i < AnimatedGroupsLength.Count - 1; i++)
+        {
+            if (AnimatedGroupsLength[i] < AnimatedGroupsLength[indexSmallest])
+                indexSmallest = i;
+        }
+        
+        //Increment number
+        AnimatedGroupsLength[indexSmallest]++;
+
+        return indexSmallest;
+    }
+    
+    //TODO IMPLEMENT ADD BY BATCH (LIKE 10-50)
 }
