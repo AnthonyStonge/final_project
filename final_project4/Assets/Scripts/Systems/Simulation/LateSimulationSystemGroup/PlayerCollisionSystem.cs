@@ -34,6 +34,7 @@ public class PlayerCollisionSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<EnemyTag>()
         };
+        
         foreach (var VARIABLE in bob)
         {
             

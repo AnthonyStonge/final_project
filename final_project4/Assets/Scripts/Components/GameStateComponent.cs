@@ -2,7 +2,8 @@
 
 public struct GameStateComponent : IComponentData
 {
-    public GameState CurrentGameState { get; private set; }
+    // public GameState CurrentGameState { get; private set; } TODO
+    public GameState CurrentGameState { get;  set; }
     public GameState DesiredGameState;
 
     public bool IsInTransition;

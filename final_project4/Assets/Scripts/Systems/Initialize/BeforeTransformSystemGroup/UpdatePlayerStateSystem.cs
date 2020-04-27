@@ -16,6 +16,14 @@ public class UpdatePlayerStateSystem : SystemBase
         
         if (stateData.Value == StateActions.DYING)
         {
+            GameStateComponent gameStateComponent = EntityManager.GetComponentData<GameStateComponent>(GameLogicSystem.GameLogicEntity);
+            
+            //TODO Remove this code
+            gameStateComponent.CurrentGameState = GameState.GAME;
+            gameStateComponent.DesiredGameState = GameState.GAME;
+            
+            EntityManager.SetComponentData(GameLogicSystem.GameLogicEntity, gameStateComponent);
+            
         }
     }
 }

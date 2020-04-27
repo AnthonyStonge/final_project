@@ -7,7 +7,7 @@ public class GameLogicSystem : SystemBase
 {
     private static Dictionary<GameState, IStateLogic> LogicClassDict;
 
-    private Entity gameLogicEntity;
+    public static Entity GameLogicEntity;
     private EntityManager entityManager;
 
     private bool IsFadingOut = false;
@@ -24,9 +24,9 @@ public class GameLogicSystem : SystemBase
 
         entityManager = GameVariables.EntityManager;
 
-        gameLogicEntity = entityManager.CreateEntity();
+        GameLogicEntity = entityManager.CreateEntity();
 
-        entityManager.AddComponentData(gameLogicEntity, new GameStateComponent());
+        entityManager.AddComponentData(GameLogicEntity, new GameStateComponent());
 
         FadeSystem.OnFadeEnd += () => FadingOver = true;
 
