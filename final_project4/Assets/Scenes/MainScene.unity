@@ -29373,7 +29373,7 @@ Camera:
     height: 1
   near clip plane: 0.001
   far clip plane: 300
-  field of view: 60
+  field of view: 12
   orthographic: 0
   orthographic size: 8.5
   m_Depth: -1
@@ -32566,6 +32566,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_MaximumOrthoSize
       value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5428986828003345964, guid: 8db7e48852df40a4e952a447b53aad2e,
+        type: 3}
+      propertyPath: m_MinimumFOV
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5428986828003345964, guid: 8db7e48852df40a4e952a447b53aad2e,
+        type: 3}
+      propertyPath: m_MaximumFOV
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6189502534589122602, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
