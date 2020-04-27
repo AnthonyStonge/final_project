@@ -10090,8 +10090,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 968597343}
-  - component: {fileID: 968597342}
   - component: {fileID: 968597344}
+  - component: {fileID: 968597342}
   m_Layer: 0
   m_Name: MainEntry
   m_TagString: Untagged
@@ -20108,7 +20108,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912010581}
-  m_LocalRotation: {x: -0.080363885, y: -0.8732852, z: 0.45512277, w: -0.15420109}
+  m_LocalRotation: {x: -0.080363914, y: -0.8732852, z: 0.45512277, w: -0.15420114}
   m_LocalPosition: {x: -39.568874, y: 165.33508, z: 108.551605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -23107,7 +23107,7 @@ PrefabInstance:
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.080363885
+      value: -0.080363914
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
@@ -23122,7 +23122,7 @@ PrefabInstance:
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.15420109
+      value: -0.15420114
       objectReference: {fileID: 0}
     - target: {fileID: 8677752259014941809, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}

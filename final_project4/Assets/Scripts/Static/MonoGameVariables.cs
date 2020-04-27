@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,4 +27,6 @@ public class MonoGameVariables : MonoBehaviour
     #endregion
 
     public Transform CameraTransform;
+
+    public Entity prefab;
 }
