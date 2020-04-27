@@ -16,15 +16,15 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 40
+    m_Value: 5
     min: 0
   scatter:
     m_OverrideState: 1
-    m_Value: 0.515
+    m_Value: 0.4
     min: 0
     max: 1
   clamp:
@@ -42,7 +42,7 @@ MonoBehaviour:
     m_Value: 0
   dirtTexture:
     m_OverrideState: 0
-    m_Value: {fileID: 0}
+    m_Value: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
   dirtIntensity:
     m_OverrideState: 0
     m_Value: 0
