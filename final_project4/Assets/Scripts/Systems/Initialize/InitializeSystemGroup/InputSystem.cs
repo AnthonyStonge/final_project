@@ -23,6 +23,8 @@ public class InputSystem : SystemBase
             inputs.PartialReset();
         
             //Get input
+            if(Input.GetKeyDown(KeyCode.Escape))
+                Application.Quit();
         
             if (Input.GetKey(KeyCode.W))
                 inputs.Move.y += 1;
