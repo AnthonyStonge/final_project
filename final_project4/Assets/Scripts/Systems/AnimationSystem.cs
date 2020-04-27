@@ -35,7 +35,6 @@ public class AnimationSystem : SystemBase
                 animation.MeshIndexAt++;
                 animation.MeshIndexAt %= (ushort) c.AnimationsLength[(int) animation.AnimationType];
 
-                //
                 ecb.SetSharedComponent(entityInQueryIndex, e, new RenderMesh
                 {
                     mesh = AnimationHolder.AnimationFrames[animation.AnimationType][animation.MeshIndexAt],
