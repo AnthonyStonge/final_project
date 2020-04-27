@@ -14,6 +14,11 @@ public static class PlayerInitializer
 
         //Create player entity
         Entity player = entityManager.Instantiate(PlayerHolder.PlayerPrefabDict[PlayerType.Player]);
+        //Give player an animation batch
+        entityManager.AddSharedComponentData(player, new AnimationBatch
+        {
+            BatchId = AnimationHolder.AddAnimatedObject()
+        });
         /*entityManager.SetComponentData(player, new Translation
         {
             Value = float3.zero //TODO SET SPAWN POSITION

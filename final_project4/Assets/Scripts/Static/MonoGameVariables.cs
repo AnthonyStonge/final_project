@@ -27,6 +27,4 @@ public class MonoGameVariables : MonoBehaviour
     #endregion
 
     public Transform CameraTransform;
-
-    public GameObject prefab;
 }

@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using System.Linq;
 using Unity.Collections;
-using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Rendering;
-using Unity.Transforms;
 
 public static class AnimationHolder
 {
@@ -35,45 +29,6 @@ public static class AnimationHolder
         for (int i = 0; i < 15; i++)
         {
             AnimatedGroupsLength.Add(0);
-        }
-
-        //TODO STESS TEST
-        BlobAssetStore blob;
-        Entity prefab = ECSUtility.ConvertGameObjectPrefab(MonoGameVariables.Instance.prefab, out blob);
-        blob.Dispose();
-
-        EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-
-        float3 position = float3.zero;
-
-        for (int i = 0; i < 10; i++)
-        {
-            for (int j = 0; j < 10; j++)
-            {
-                for (int k = 0; k < 100; k++)
-                {
-                    //Create Entity
-                    Entity e = manager.Instantiate(prefab);
-
-                    //Set Position
-                    manager.SetComponentData(e, new Translation
-                    {
-                        Value = position
-                    });
-                    manager.AddSharedComponentData(e, new AnimationBatch
-                    {
-                        BatchId = AddAnimatedObject()
-                    });
-
-                    position.z += 3;
-                }
-
-                position.z = 0;
-                position.y += 3;
-            }
-
-            position.y = 0;
-            position.x += 3;
         }
     }
 
