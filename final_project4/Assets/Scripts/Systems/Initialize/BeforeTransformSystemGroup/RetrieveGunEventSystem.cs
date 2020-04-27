@@ -30,7 +30,7 @@ public class RetrieveGunEventSystem : SystemBase
     {
         entityCommandBuffer = World.GetExistingSystem<EndInitializationEntityCommandBufferSystem>();
         if (entityCommandBuffer == null)
-            Debug.Log("GET DOWN! Problem incoming..."); //ok
+            Debug.Log("GET DOWN! Problem incoming...");
         weaponFired = new NativeQueue<WeaponInfo>(Allocator.Persistent);
     }
 
