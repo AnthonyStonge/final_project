@@ -12,12 +12,11 @@ public class StateDyingSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        //Debug.Log("On HealthUpdate...");
         ////Act on all entities with HealthData.
-        Entities.ForEach((ref StateData state, in HealthData health) =>
+        Entities.ForEach((ref StateData state, in LifeComponent health) =>
         {
             //If health <= 0 -> set state to dying
-            if (health.Value <= 0)
+            if (health.CurrentLife <= 0)
                 state.Value = StateActions.DYING;
         }).ScheduleParallel();
     }

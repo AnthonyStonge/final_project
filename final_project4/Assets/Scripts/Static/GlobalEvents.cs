@@ -75,4 +75,5 @@ public static class GlobalEvents
         //Turn on fade system
         World.DefaultGameObjectInjectionWorld.GetExistingSystem<ShakeCamSystem>().Enabled = true;
     }
+    
 }

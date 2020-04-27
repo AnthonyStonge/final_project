@@ -9,7 +9,7 @@ public class MenuLogic : IStateLogic
     
     public void Enable()
     {
-        Debug.Log("Enable MenuLogic Systems");
+
     }
 
     public void Disable()

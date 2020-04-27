@@ -13,6 +13,7 @@ public class GameLogicSystem : SystemBase
     private bool IsFadingOut = false;
     private bool IsFadingIn = false;
 
+    private static bool FadingOver;
     protected override void OnCreate()
     {
         LogicClassDict = new Dictionary<GameState, IStateLogic>();
@@ -26,6 +27,9 @@ public class GameLogicSystem : SystemBase
         gameLogicEntity = entityManager.CreateEntity();
 
         entityManager.AddComponentData(gameLogicEntity, new GameStateComponent());
+
+        FadeSystem.OnFadeEnd += () => FadingOver = true;
+
     }
 
     protected override void OnStartRunning()
@@ -44,10 +48,8 @@ public class GameLogicSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        
-
         //var gameEntity = EntityManager.GetComponentData<GameStateComponent>();
-        Entities.WithoutBurst().ForEach((ref GameStateComponent gameStateComponent) =>
+        Entities.WithStructuralChanges().WithoutBurst().ForEach((ref GameStateComponent gameStateComponent) =>
         {
             if (Input.GetKeyDown(KeyCode.Keypad7))
             {
@@ -74,21 +76,25 @@ public class GameLogicSystem : SystemBase
                 if (IsFadingOut)
                 {
                     //Fading out
-                    if (FadeOut())
+                    if (FadingOver)
                     {
+                        FadingOver = false;
                         //Fade out over, Ready to init & disable last state
                         //Screen SHOULD hide the world to the player
                         DestroyLastState(gameStateComponent.CurrentGameState);
                         InitializeNextState(gameStateComponent.DesiredGameState);
                         IsFadingOut = false;
                         IsFadingIn = true;
+                        GlobalEvents.FadeIn();
+
                     }
                 }
                 else if (IsFadingIn)
                 {
                     //Fading In
-                    if (FadeIn())
+                    if (FadingOver)
                     {
+                        FadingOver = false;
                         //Fade In Over, Ready to change state
                         EnableNextState(gameStateComponent.DesiredGameState);
                         gameStateComponent.ConfirmChangeOfState();
@@ -102,25 +108,12 @@ public class GameLogicSystem : SystemBase
             //Initialization trigger once per Statechange
             if (gameStateComponent.IsChangeOfStateRequested())
             {
+                GlobalEvents.FadeOut();
                 gameStateComponent.IsInTransition = true;
                 IsFadingOut = true;
                 DisableLastState(gameStateComponent.CurrentGameState);
             }
         }).Run();
-    }
-
-    private static bool FadeIn()
-    {
-        //TODO logic
-        Debug.Log("FadeIn");
-        return true;
-    }
-
-    private static bool FadeOut()
-    {
-        //TODO logic
-        Debug.Log("FadeOut");
-        return true;
     }
 
     private static void EnableNextState(GameState state)

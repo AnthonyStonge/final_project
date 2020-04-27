@@ -12,15 +12,16 @@ public class UISystem : SystemBase
 
     protected override void OnUpdate()
     {
+        
         if (!GameVariables.UI.GunName) return;
+        
         if(GameVariables.Player.PlayerWeaponEntities.ContainsKey(GameVariables.Player.CurrentWeaponHeld))
             gunComponent = EntityManager.GetComponentData<GunComponent>(GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]);
         lifeComponent = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
 
+
         switch (gunComponent.WeaponType)
         {
-            //TODO Worst logic ever made in my life, I'm dying - Marc-Antoine GIrard
-            
             case WeaponType.Pistol:
                 GameVariables.UI.ShotgunImage.enabled = false;
                 GameVariables.UI.PistolImage.enabled = true;

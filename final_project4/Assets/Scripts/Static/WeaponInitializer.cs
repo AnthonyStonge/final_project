@@ -10,6 +10,9 @@ public class WeaponInitializer
 {
     public static void Initialize()
     {
+        if(Player.PlayerWeaponEntities.Count > 0)
+            Reset();
+        
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         Assert.IsNotNull(entityManager);
         //Create weapons for player
@@ -27,5 +30,16 @@ public class WeaponInitializer
         });
         entityManager.SetEnabled(shotgun, false);
         Player.PlayerWeaponEntities.Add(WeaponType.Shotgun, shotgun);
+    }
+
+    public static void Reset()
+    {
+        EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+        foreach (var playerWeaponEntity in Player.PlayerWeaponEntities)
+        {
+            entityManager.DestroyEntity(playerWeaponEntity.Value);
+        }
+        Player.PlayerWeaponEntities.Clear();
     }
 }

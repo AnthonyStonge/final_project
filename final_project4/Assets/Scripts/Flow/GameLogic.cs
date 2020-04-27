@@ -11,8 +11,6 @@ public class GameLogic : IStateLogic
     public void Enable()
     {
         Debug.Log("Enable GameLogic Systems");
-        
-        GlobalEvents.FadeIn();
 
         var world = World.DefaultGameObjectInjectionWorld;
         world.GetExistingSystem<LateInitializeManager>().Enabled = true;
@@ -33,9 +31,9 @@ public class GameLogic : IStateLogic
 
     public void Initialize()
     {
-
-        //Level Creation logic
-        //Entities creation logic
+        PlayerInitializer.Initialize();
+        WeaponInitializer.Initialize();
+        
         Debug.Log("Initialize GameLogic Systems");
     }
 
