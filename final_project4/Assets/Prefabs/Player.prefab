@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5691379923823341952}
   - component: {fileID: -5847042352946678514}
   - component: {fileID: 3008905911335532354}
+  - component: {fileID: -4707511758757419264}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -161,7 +162,7 @@ MonoBehaviour:
     Value:
       x: -90
       y: 0
-      z: 90
+      z: -90
     RotationOrder: 4
   m_Capsule:
     Height: 2
@@ -272,3 +273,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxLife: 100
   CurrentLife: 50
+--- !u!114 &-4707511758757419264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5935477466790467464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713051072dbd77949bf90782899e7885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimationType: 0
+  MeshIndexAt: 0
