@@ -760,10 +760,10 @@ MonoBehaviour:
   m_MaxDollyOut: 5000
   m_MinimumDistance: 1
   m_MaximumDistance: 5000
-  m_MinimumFOV: 3
-  m_MaximumFOV: 60
-  m_MinimumOrthoSize: 15
-  m_MaximumOrthoSize: 15
+  m_MinimumFOV: 12
+  m_MaximumFOV: 12
+  m_MinimumOrthoSize: 8.5
+  m_MaximumOrthoSize: 8.5
 --- !u!114 &5215372850820134755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,7 +777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 24.9, z: -50}
+  m_FollowOffset: {x: -45, y: 66, z: -45}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
