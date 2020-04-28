@@ -61,4 +61,5 @@ public class InputSystem : SystemBase
 
         entityManager.SetComponentData(GameVariables.Player.Entity, inputs);
     }
+
 }

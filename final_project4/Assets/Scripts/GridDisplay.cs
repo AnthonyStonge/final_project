@@ -13,7 +13,6 @@ public class GridDisplay : MonoBehaviour
 #if UNITY_EDITOR
         if (!ShowGrid)
                 return;
-        bool isHit = false;
         Event e = Event.current;
         Ray ray = HandleUtility.GUIPointToWorldRay( e.mousePosition );
         //grid = GameVariables.grid;

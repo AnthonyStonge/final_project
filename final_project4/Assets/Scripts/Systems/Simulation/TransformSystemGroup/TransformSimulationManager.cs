@@ -6,7 +6,7 @@ public class TransformSimulationManager : ComponentSystemGroup
     private MoveSystem moveSystem;
     private RotateEnemySystem rotateEnemySystem;
     private RotatePlayerSystem rotatePlayerSystem;
-    
+    private ProjectileHitDetectionSystem projectileHitDetectionSystem;
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
@@ -14,12 +14,14 @@ public class TransformSimulationManager : ComponentSystemGroup
         moveSystem = world.GetOrCreateSystem<MoveSystem>();
         rotateEnemySystem = world.GetOrCreateSystem<RotateEnemySystem>();
         rotatePlayerSystem = world.GetOrCreateSystem<RotatePlayerSystem>();
+        projectileHitDetectionSystem = world.GetOrCreateSystem<ProjectileHitDetectionSystem>();
 
         var transform = world.GetOrCreateSystem<TransformSimulationManager>();
         
         transform.AddSystemToUpdateList(moveSystem);
         transform.AddSystemToUpdateList(rotateEnemySystem);
         transform.AddSystemToUpdateList(rotatePlayerSystem);
+        transform.AddSystemToUpdateList(projectileHitDetectionSystem);
     }
 
     protected override void OnUpdate()
@@ -31,5 +33,6 @@ public class TransformSimulationManager : ComponentSystemGroup
         rotatePlayerSystem.Update();
         //Dependency : RotatePlayerEnemySystem
         moveSystem.Update();
+        projectileHitDetectionSystem.Update();
     }
 }

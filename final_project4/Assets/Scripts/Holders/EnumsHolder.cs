@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Enums
 {
     public enum WeaponType
@@ -11,6 +13,15 @@ namespace Enums
     {
         PistolBullet,
         ShotgunBullet
+    }
+
+    public enum Type
+    {
+        Player,
+        Pig,
+        Rat,
+        Chicken,
+        Gorilla
     }
 
     public enum EnemyType
