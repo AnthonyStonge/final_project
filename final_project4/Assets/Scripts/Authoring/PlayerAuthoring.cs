@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Enums;
+using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
@@ -14,6 +15,10 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.SetName(entity, "Player");
 #endif
 
+        dstManager.AddComponentData(entity, new StateComponent
+        {
+            CurrentState = State.Idle
+        });
         dstManager.AddComponent<PlayerTag>(entity);
         dstManager.AddComponent<TargetData>(entity);
         dstManager.AddComponent<AnimationData>(entity);

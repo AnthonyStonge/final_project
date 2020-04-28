@@ -50,7 +50,7 @@ namespace EventStruct
         //Event position
         public float3 Position;
         public quaternion Rotation;
-        
+
         public enum PlayerEventType
         {
             ON_SPAWN,
@@ -65,5 +65,20 @@ namespace EventStruct
     {
         public Entity Entity;
         public StateActions NewState;
+    }
+
+    public struct StateInfo
+    {
+        public Entity Entity;
+        public State DesiredState;
+        
+        public ActionType Action;
+        
+        public enum ActionType
+        {
+            TryChange,
+            TryChangeAndLock,
+            Unlock
+        }
     }
 }

@@ -49,4 +49,14 @@ namespace Enums
         //Life,
         Amunation
     }
+
+    public enum State
+    {
+        Idle,
+        Running,
+        Attacking,
+        Reloading,
+        Dashing,
+        Dying
+    }
 }
