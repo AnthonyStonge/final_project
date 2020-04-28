@@ -92,7 +92,7 @@ public class PathFinding : SystemBase
 
     protected override void OnUpdate()
     {
-        int2 bob = gridSize;
+        int2 _gridSize = gridSize;
         int offSet = offSetNumber;
         NativeArray<Node> nodeArray = this.nodeArray;
         NativeArray<int2> neightBourOffsetArrayJob = neightBourOffsetArray;
@@ -100,13 +100,13 @@ public class PathFinding : SystemBase
             {
                 if(pathFindingComp.findPath == 0)
                 {
-                    if (nodeArray[CalculateIndex(pathFindingComp.endPos.x, pathFindingComp.endPos.y, 100, offSet)].isWalkable)
+                    if (nodeArray[CalculateIndex(pathFindingComp.endPos.x, pathFindingComp.endPos.y, 100, offSet)].isWalkable && IsPositionInsideGrid(pathFindingComp.endPos, _gridSize))
                     {
                         //pathFindingComp.startPos = new int2((((int) translation.Value.x < 0) ? (int) translation.Value.x- 1 : (int) translation.Value.x), (((int)translation.Value.z < 0) ? (int)translation.Value.z - 1 : (int)translation.Value.z));
                         pathFindingComp.startPos = new int2((int) translation.Value.x, (int) translation.Value.z);
-
+                        
                         FindPath(pathFindingComp.startPos, pathFindingComp.endPos, ref pathFindingComp.findPath,
-                            pathBuffer, ref pathFollow, bob, nodeArray, neightBourOffsetArrayJob, offSet);
+                            pathBuffer, ref pathFollow, _gridSize, nodeArray, neightBourOffsetArrayJob, offSet);
                     }
                 }
             }).ScheduleParallel();
@@ -264,5 +264,11 @@ public class PathFinding : SystemBase
     {
         nodeArray.Dispose();
         neightBourOffsetArray.Dispose();
+    }
+    private static int BeginNodeChanger(int2 beginPos, NativeArray<Node> pathNode)
+    {
+        int index = 0;
+
+        return index;
     }
 }
