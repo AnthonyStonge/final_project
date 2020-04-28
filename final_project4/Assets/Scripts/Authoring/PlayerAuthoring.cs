@@ -15,10 +15,6 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.SetName(entity, "Player");
 #endif
 
-        dstManager.AddComponentData(entity, new StateComponent
-        {
-            CurrentState = State.Idle
-        });
         dstManager.AddComponent<PlayerTag>(entity);
         dstManager.AddComponent<TargetData>(entity);
         dstManager.AddComponent<AnimationData>(entity);
