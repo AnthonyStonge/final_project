@@ -25,7 +25,7 @@ public class DropSystem : SystemBase
                             AmunationDropHolder.DropItemPrefabDict[DropType.Amunation]);
                         EntityManager.SetComponentData(e, new Translation
                         {
-                            Value = info.HitPosition + math.up() * 0.5f
+                            Value = info.HitPosition
                         });
                         EntityManager.SetComponentData(e, new AmunationComponent()
                         {

@@ -33,7 +33,7 @@ public class Spawner : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             spawnYCounter = 0;
-            for (int i = 0; i < 500; i++)
+            for (int i = 0; i < 100; i++)
             {
                 createEntity(i % 25, spawnYCounter);
                 if (i % 25 == 0)

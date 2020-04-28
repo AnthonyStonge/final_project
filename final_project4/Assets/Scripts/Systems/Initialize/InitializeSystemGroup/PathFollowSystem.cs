@@ -14,19 +14,25 @@ public class PathFollowSystem : SystemBase
 {
     protected override void OnUpdate()
     {
-        NativeArray<float3> p = new NativeArray<float3>(1, Allocator.TempJob);
+        //NativeArray<float3> p = new NativeArray<float3>(1, Allocator.TempJob);
         float time = Time.DeltaTime;
         float3 playerPosition = float3.zero;
         float test = 0.5f;
-        p[0] = World.DefaultGameObjectInjectionWorld.EntityManager
-            .GetComponentData<Translation>(GameVariables.Player.Entity).Value;
-        Entities.ForEach((DynamicBuffer<PathPosition> pathPos, ref Translation translation, ref PathFollow pathFollow,
-            ref PathFindingComponent pathFindingComponent, ref PhysicsVelocity physicsVelocity) =>
+        bool findNewPath = true;
+        ScriptableGrid scriptableGrid = GameVariables.grid;
+        float3 posPlayer = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
+        //p[0] = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
+        Entities.ForEach((DynamicBuffer<PathPosition> pathPos, ref Translation translation, ref PathFollow pathFollow, ref PathFindingComponent pathFindingComponent, ref PhysicsVelocity physicsVelocity) =>
         {
             if (pathFindingComponent.timeBeforeCheck <= 0)
             {
-                pathFindingComponent.endPos = new int2((int) p[0].x, (int) p[0].z);
+                
+
+                //Debug.Log( new int2((((int) p[0].x < 0) ? (int) p[0].x - 1 : (int) p[0].x), (((int) p[0].z < 0) ? (int) p[0].z - 1 : (int) p[0].z)));
+                //pathFindingComponent.endPos = new int2((((int) p[0].x < 0) ? (int) p[0].x - 1 : (int) p[0].x), (((int) p[0].z < 0) ? (int) p[0].z - 1 : (int) p[0].z));
+                pathFindingComponent.endPos = new int2((int) posPlayer.x, (int) posPlayer.z);
                 pathFindingComponent.findPath = 0;
+                
                 pathFindingComponent.timeBeforeCheck = test;
             }
             else
@@ -43,12 +49,13 @@ public class PathFollowSystem : SystemBase
                 float3 moveDir = math.normalizesafe(targetPos2 - translation.Value);
                 float moveSpeed = 300;
                 physicsVelocity.Linear = moveDir * moveSpeed * time;
+                //translation.Value = moveDir * moveSpeed * time;
 
-                if (math.distance(translation.Value, targetPos2) < .1f)
+                if (math.distance(translation.Value, targetPos2) < .5f)
                 {
                     pathFollow.pathIndex--;
                 }
             }
-        }).WithDeallocateOnJobCompletion(p).ScheduleParallel();
+        }).ScheduleParallel();
     }
 }

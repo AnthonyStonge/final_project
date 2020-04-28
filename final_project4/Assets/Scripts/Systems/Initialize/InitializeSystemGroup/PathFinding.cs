@@ -71,7 +71,8 @@ public class PathFinding : SystemBase
         {
             for (int j = -gridSize.y / 2; j < (gridSize.y / 2); j++)
             {
-                bool iswalkable = !wall.Contains(i + j * gridSize.x);
+                bool iswalkable = !wall.Contains(CalculateIndex( i, j, gridSize.x, offSetNumber));
+                
                 Node node = new Node
                 {
                     x = i,
@@ -99,9 +100,14 @@ public class PathFinding : SystemBase
             {
                 if(pathFindingComp.findPath == 0)
                 {
-                    pathFindingComp.startPos = new int2((int) translation.Value.x,(int) translation.Value.z);
-                    
-                    FindPath(pathFindingComp.startPos, pathFindingComp.endPos, ref pathFindingComp.findPath, pathBuffer,ref pathFollow, bob, nodeArray, neightBourOffsetArrayJob, offSet);
+                    if (nodeArray[CalculateIndex(pathFindingComp.endPos.x, pathFindingComp.endPos.y, 100, offSet)].isWalkable)
+                    {
+                        //pathFindingComp.startPos = new int2((((int) translation.Value.x < 0) ? (int) translation.Value.x- 1 : (int) translation.Value.x), (((int)translation.Value.z < 0) ? (int)translation.Value.z - 1 : (int)translation.Value.z));
+                        pathFindingComp.startPos = new int2((int) translation.Value.x, (int) translation.Value.z);
+
+                        FindPath(pathFindingComp.startPos, pathFindingComp.endPos, ref pathFindingComp.findPath,
+                            pathBuffer, ref pathFollow, bob, nodeArray, neightBourOffsetArrayJob, offSet);
+                    }
                 }
             }).ScheduleParallel();
         
@@ -120,7 +126,6 @@ public class PathFinding : SystemBase
             {
                 var calculated = CalculateIndex(i, j, gridSize.x, offset);
                 Node basicNode = nodeArray[calculated];
-                
                 Node node = new Node
                 {
                     x = basicNode.x,
@@ -135,8 +140,7 @@ public class PathFinding : SystemBase
                 pathNode[node.index] = node;
             }
         }
-
-            
+        
         int endNodeIndex = CalculateIndex(endPos.x, endPos.y, gridSize.x, offset);
         Node startNode = pathNode[CalculateIndex(startPos.x, startPos.y, gridSize.x, offset)];
         startNode.gCost = 0;
@@ -145,12 +149,6 @@ public class PathFinding : SystemBase
         NativeList<int> openList = new NativeList<int>(Allocator.Temp);
         NativeList<int> closedList = new NativeList<int>(Allocator.Temp);
         openList.Add(startNode.index);
-        
-        
-        #region whileLoop Variables
-        
-        
-        #endregion
 
         while (openList.Length > 0)
         {
@@ -237,8 +235,9 @@ public class PathFinding : SystemBase
     {
         return gridPos.x >= -(gridSize.x / 2) && gridPos.y >= -(gridSize.y / 2) && gridPos.x < gridSize.x / 2 && gridPos.y < gridSize.y / 2;
     }
-    private static int CalculateIndex(in int x, in int y, in int gridWith, in int offset)
+    public static int CalculateIndex(in int x, in int y, in int gridWith, in int offset)
     {
+        
         return (x + y * gridWith) + offset;
     }
     private static int CalculateDistanceCost(in int2 aPos, in int2 bPos)
