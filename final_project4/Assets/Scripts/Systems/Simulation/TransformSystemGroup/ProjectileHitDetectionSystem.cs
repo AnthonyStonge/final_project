@@ -18,21 +18,21 @@ public class ProjectileHitDetectionSystem : SystemBase
         GroupIndex = 0
     };
     
-    private BuildPhysicsWorld physicsWorld;
+    private BuildPhysicsWorld buildPhysicsWorld;
     private EndSimulationEntityCommandBufferSystem endSimulationEntityCommandBufferSystem;
     private NativeQueue<BulletInfo> bulletEvents;
 
     protected override void OnCreate()
     {
         endSimulationEntityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-        physicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
+        buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
         bulletEvents = new NativeQueue<BulletInfo>(Allocator.Persistent);
     }
     
     protected override void OnUpdate()
     {
         
-        PhysicsWorld PhysicsWorld = physicsWorld.PhysicsWorld;
+        var physicsWorld = buildPhysicsWorld.PhysicsWorld;
         var entityCommandBuffer = endSimulationEntityCommandBufferSystem.CreateCommandBuffer().ToConcurrent();
         
         //Create parallel writer
@@ -47,8 +47,6 @@ public class ProjectileHitDetectionSystem : SystemBase
             Components = GetComponentDataFromEntity<DropChanceComponent>(true)
         };
 
-
-        
         
         JobHandle job = Entities.ForEach((Entity entity, int entityInQueryIndex, ref DamageProjectile projectile, ref Translation translation, in Rotation rotation) =>
         {
@@ -59,11 +57,11 @@ public class ProjectileHitDetectionSystem : SystemBase
                 Filter = Filter
             };
             
-            if (PhysicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
+            if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
             {
                 BulletInfo.BulletCollisionType collisionType = BulletInfo.BulletCollisionType.ON_WALL;
                 
-                Entity hitEntity = PhysicsWorld.Bodies[hit.RigidBodyIndex].Entity;
+                Entity hitEntity = physicsWorld.Bodies[hit.RigidBodyIndex].Entity;
 
                 if (enemies.Components.HasComponent(hitEntity))
                 {
