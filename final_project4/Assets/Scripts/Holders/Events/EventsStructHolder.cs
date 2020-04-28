@@ -64,14 +64,14 @@ namespace EventStruct
     public struct AnimationInfo
     {
         public Entity Entity;
-        public StateActions NewState;
+        public State NewState;
     }
 
     public struct StateInfo
     {
         public Entity Entity;
         public State DesiredState;
-        
+
         public ActionType Action;
         
         public enum ActionType

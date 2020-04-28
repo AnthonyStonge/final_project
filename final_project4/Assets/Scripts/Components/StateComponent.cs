@@ -13,4 +13,5 @@ public struct StateComponent : IComponentData
     
     public State CurrentState;
     [HideInInspector] public State DesiredState;
+    [HideInInspector] public bool ShouldStateBeLocked;
 }

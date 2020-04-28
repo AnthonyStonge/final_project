@@ -50,6 +50,7 @@ namespace Enums
         Amunation
     }
 
+    //Order is IMPORTANT (The bigger the value, the more important it is for the StateMachine)
     public enum State
     {
         Idle,
@@ -57,6 +58,7 @@ namespace Enums
         Attacking,
         Reloading,
         Dashing,
-        Dying
+        Dying,
+        Respawning
     }
 }

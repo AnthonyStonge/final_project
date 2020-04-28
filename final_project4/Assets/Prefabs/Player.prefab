@@ -127,6 +127,7 @@ MonoBehaviour:
   StateLocked: 0
   CurrentState: 0
   DesiredState: 0
+  ShouldStateBeLocked: 0
 --- !u!114 &5166479922082264158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f69feabb269c024d91cfb6631a08fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0
+  Value: 4
 --- !u!114 &1470288226251408204
 MonoBehaviour:
   m_ObjectHideFlags: 0

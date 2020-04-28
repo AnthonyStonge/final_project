@@ -1,25 +1,40 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Enums;
+﻿using Enums;
 using EventStruct;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
+using AnimationInfo = EventStruct.AnimationInfo;
 
+[DisableAutoCreation]
+[UpdateBefore(typeof(AnimationEventSystem))]
 public class StateEventSystem : SystemBase
 {
     private EntityManager entityManager;
 
+    private NativeQueue<AnimationInfo> statesChanged;
+
     protected override void OnCreate()
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        statesChanged = new NativeQueue<AnimationInfo>(Allocator.Persistent);
+    }
+
+    protected override void OnDestroy()
+    {
+        statesChanged.Dispose();
     }
 
     protected override void OnUpdate()
     {
         Debug.Log("On StateEvent Update");
+
+        //Create parallel writer
+        NativeQueue<AnimationInfo>.ParallelWriter animationEvents = statesChanged.AsParallelWriter();
+
+        ComponentDataContainer<AnimationData> animatedEntities = new ComponentDataContainer<AnimationData>
+        {
+            Components = GetComponentDataFromEntity<AnimationData>()
+        };
 
         //Should work, but might be slow because lots of foreach lolololololololol
         Entities.WithoutBurst().ForEach((Entity e, ref StateComponent component) =>
@@ -33,69 +48,107 @@ public class StateEventSystem : SystemBase
                     events.Add(info);
             }
 
-            //Act on each events
+            //Return if no events with this entity
+            if (events.Length <= 0)
+                return;
+
+            bool stateChanged = false;
 
             //Look for an unlock event
             foreach (StateInfo info in events)
             {
                 if (info.Action == StateInfo.ActionType.Unlock)
                 {
-                    //Unlock state machine
-                    component.StateLocked = false;
-
-                    //Set State to DesiredOne
-                    component.CurrentState = component.DesiredState;
+                    if (UnLock(ref component))
+                        stateChanged = true;
                 }
             }
 
-            //Might have multiple TryChange Events.
-            NativeList<State> statesDesired = new NativeList<State>(Allocator.Temp);
+            //Retrieve all states desired and choose the most important state
+            State stateToChangeTo = 0;
+            bool shouldStateMachineLock = false;
+            bool tryChangeEvent = false;
 
-            //Retrieve all states desired
             foreach (StateInfo info in events)
             {
-                if (info.Action == StateInfo.ActionType.TryChange ||
-                    info.Action == StateInfo.ActionType.TryChangeAndLock)
-                    statesDesired.Add(info.DesiredState);
+                if (info.Action == StateInfo.ActionType.TryChange)
+                {
+                    tryChangeEvent = true;
+
+                    if (info.DesiredState > stateToChangeTo)
+                    {
+                        stateToChangeTo = info.DesiredState;
+                        shouldStateMachineLock = false;
+                    }
+                }
+                else if (info.Action == StateInfo.ActionType.TryChangeAndLock)
+                {
+                    tryChangeEvent = true;
+
+                    if (info.DesiredState > stateToChangeTo)
+                    {
+                        stateToChangeTo = info.DesiredState;
+                        shouldStateMachineLock = true;
+                    }
+                }
             }
-
-            //Must make sure to treat State in least to most important order
-            if (statesDesired.Length <= 0)
-                return;
-
-            if (statesDesired.Length == 1)
-            {
-                TryChangeState(ref component, statesDesired[0]);
-                return;
-            }
-
-            //Choose most important state to change too
-            //TODO IMPLEMENT ORDER IN STATES
-            State stateToChangeTo = statesDesired[0];
 
             //Change state
-            TryChangeState(ref component, stateToChangeTo);
-
-            //Look if changing to this state implicates to lock the StateMachine
-            foreach (StateInfo info in events)
+            if (tryChangeEvent)
             {
-                if (info.DesiredState == stateToChangeTo)
-                    if (info.Action == StateInfo.ActionType.TryChangeAndLock)
-                        component.StateLocked = true;
+                stateChanged = TryChangeState(ref component, stateToChangeTo, shouldStateMachineLock);
+            }
+
+            //Create animation event (only if state changed)
+            if (stateChanged && animatedEntities.Components.HasComponent(e))
+            {
+                animationEvents.Enqueue(new AnimationInfo
+                {
+                    Entity = e,
+                    NewState = component.CurrentState
+                });
             }
 
             events.Dispose();
         }).ScheduleParallel();
+
+        //Empty queue in here because AnimationEvent come right after this system
     }
 
-    private static void TryChangeState(ref StateComponent component, State desiredState)
+    private static bool TryChangeState(ref StateComponent component, State desiredState, bool shouldLock)
     {
+        bool stateChanged = false;
         if (!component.StateLocked)
         {
             Debug.Log("Changing state to: " + desiredState);
-            component.CurrentState = desiredState;
+            stateChanged = true;
+            ChangeState(ref component, desiredState, shouldLock);
         }
 
+        //Always set desired values
         component.DesiredState = desiredState;
+        component.ShouldStateBeLocked = shouldLock;
+
+        return stateChanged;
+    }
+
+    private static bool UnLock(ref StateComponent component)
+    {
+        //Unlock state machine
+        component.StateLocked = false;
+
+        //Set State to DesiredOne
+        if (component.CurrentState == component.DesiredState)
+            return false;
+        
+        //Change state (if not the same)
+        ChangeState(ref component, component.DesiredState, component.ShouldStateBeLocked);
+        return true;
+    }
+
+    private static void ChangeState(ref StateComponent component, State state, bool shouldLock)
+    {
+        component.CurrentState = state;
+        component.StateLocked = shouldLock;
     }
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Enums;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using Unity.Collections;
 using Type = Enums.Type;
 
 public static class AnimationHolder
@@ -14,8 +13,8 @@ public static class AnimationHolder
         public Material Material;
     }
 
-    public static ConcurrentDictionary<Type, Dictionary<StateActions, Animation>> Animations =
-        new ConcurrentDictionary<Type, Dictionary<StateActions, Animation>>();
+    public static ConcurrentDictionary<Type, Dictionary<State, Animation>> Animations =
+        new ConcurrentDictionary<Type, Dictionary<State, Animation>>();
 
     //Animation Batch Dictionary
     public static List<int> AnimatedGroupsLength;
@@ -49,7 +48,7 @@ public static class AnimationHolder
         //TODO MAKE SURE THERES NO DUPLICATES
         foreach (AnimationScriptableObject animation in container.Animations)
         {
-            Animations.TryAdd(animation.Type, new Dictionary<StateActions, Animation>());
+            Animations.TryAdd(animation.Type, new Dictionary<State, Animation>());
             Animations[animation.Type].Add(animation.State, new Animation
             {
                 Frames = animation.Frames.ToArray(),
