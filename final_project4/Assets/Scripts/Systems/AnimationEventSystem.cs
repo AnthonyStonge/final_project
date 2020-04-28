@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Enums;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Rendering;
-using UnityEngine;
 
+[DisableAutoCreation]
+[UpdateAfter(typeof(StateEventSystem))]
 public class AnimationEventSystem : SystemBase
 {
     private EntityManager entityManager;
