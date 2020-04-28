@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Animation/Animation Container", fileName = "new AnimationContainer")]
 public class AnimationsContainer : ScriptableObject
 {
-    public List<Animation> Animations;
+    public List<AnimationScriptableObject> Animations;
 }
