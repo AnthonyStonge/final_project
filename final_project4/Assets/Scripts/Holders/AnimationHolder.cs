@@ -29,7 +29,7 @@ public static class AnimationHolder
         AnimatedGroupsLength = new List<int>();
 
         //Init all groups for 0
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 100; i++)
         {
             AnimatedGroupsLength.Add(0);
         }

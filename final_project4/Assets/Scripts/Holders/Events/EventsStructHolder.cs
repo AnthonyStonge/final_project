@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Enums;
+using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -57,5 +58,12 @@ namespace EventStruct
             ON_DIE,
             ON_TAKING_DAMAGE
         }
+    }
+
+    //For now only used to hard change a frame on an AnimatedObject
+    public struct AnimationInfo
+    {
+        public Entity Entity;
+        public StateActions NewState;
     }
 }
