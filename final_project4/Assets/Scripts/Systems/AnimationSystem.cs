@@ -23,6 +23,11 @@ public class AnimationSystem : SystemBase
         Entities.WithoutBurst().WithSharedComponentFilter(new AnimationBatch {BatchId = batchIdToUpdate}).ForEach(
             (Entity e, int entityInQueryIndex, ref AnimationData animation, in StateData state, in TypeData type) =>
             {
+                //Make sure animation exists for this type/state
+                if (!AnimationHolder.Animations.ContainsKey(type.Value) ||
+                    !AnimationHolder.Animations[type.Value].ContainsKey(state.Value))
+                    return;
+                
                 //Increment frame at + Clamp it
                 animation.MeshIndexAt++;
                 animation.MeshIndexAt %= (ushort) AnimationHolder.Animations[type.Value][state.Value].Frames.Length;
