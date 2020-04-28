@@ -9,58 +9,42 @@ using Unity.Physics;
 using Unity.Physics.Systems;
 using UnityEngine;
 [DisableAutoCreation]
-[UpdateBefore(typeof(EndFramePhysicsSystem))]
-[UpdateAfter(typeof(StepPhysicsWorld))]
-[UpdateBefore(typeof(ProjectileHitDetectionSystem))]
 public class LootSystem : SystemBase
 {
     private GunComponent gunComponent;
-    private BuildPhysicsWorld buildPhysicsWorld;
     private StepPhysicsWorld stepPhysicsWorld;
-    private EndSimulationEntityCommandBufferSystem endSimulationEntityCommandBufferSystem;
-    private EntityQuery entityQuery;
     
     protected override void OnCreate()
     {
-        endSimulationEntityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-        buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
         stepPhysicsWorld = World.GetOrCreateSystem<StepPhysicsWorld>();
-        EntityQueryDesc eqd = new EntityQueryDesc
-        {
-            All = new ComponentType[]
-            {
-                typeof(AmunationComponent)
-            }
-        };
-        entityQuery = GetEntityQuery(eqd);
     }
     protected override void OnUpdate()
     {
-        HavokTriggerEvents bob = ((HavokSimulation) stepPhysicsWorld.Simulation).TriggerEvents;
-        ComponentDataContainer<AmunationComponent> lol = new ComponentDataContainer<AmunationComponent>
+        HavokTriggerEvents triggerEvents = ((HavokSimulation) stepPhysicsWorld.Simulation).TriggerEvents;
+        ComponentDataContainer<AmunationComponent> amunitionComponents = new ComponentDataContainer<AmunationComponent>
         {
             Components = GetComponentDataFromEntity<AmunationComponent>()
         };
-        NativeList<Entity> tmp = new NativeList<Entity>(Allocator.Temp);
+        NativeList<Entity> entities = new NativeList<Entity>(Allocator.Temp);
         
-        foreach (var VARIABLE in bob)
+        foreach (var triggerEvent in triggerEvents)
         {
-            if(lol.Components.HasComponent(VARIABLE.Entities.EntityA))
+            if(amunitionComponents.Components.HasComponent(triggerEvent.Entities.EntityA))
             {
-                if(!tmp.Contains(VARIABLE.Entities.EntityA))
-                    tmp.Add(VARIABLE.Entities.EntityA);
+                if(!entities.Contains(triggerEvent.Entities.EntityA))
+                    entities.Add(triggerEvent.Entities.EntityA);
             }
-            if(lol.Components.HasComponent(VARIABLE.Entities.EntityB))
+            if(amunitionComponents.Components.HasComponent(triggerEvent.Entities.EntityB))
             {
-                if(!tmp.Contains(VARIABLE.Entities.EntityB))
-                    tmp.Add(VARIABLE.Entities.EntityB);
+                if(!entities.Contains(triggerEvent.Entities.EntityB))
+                    entities.Add(triggerEvent.Entities.EntityB);
             }
         }
         
-        foreach (var VARIABLE in tmp)
+        foreach (var entity in entities)
         {
-            AmunationComponent ac = EntityManager.GetComponentData<AmunationComponent>(VARIABLE);
-            EntityManager.DestroyEntity(VARIABLE);
+            AmunationComponent ac = EntityManager.GetComponentData<AmunationComponent>(entity);
+            EntityManager.DestroyEntity(entity);
             if (GameVariables.Player.PlayerWeaponEntities.ContainsKey(GameVariables.Player.CurrentWeaponHeld))
             {
                 gunComponent = EntityManager.GetComponentData<GunComponent>(GameVariables.Player.PlayerWeaponEntities[ac.TypeAmunation]);
@@ -68,7 +52,7 @@ public class LootSystem : SystemBase
                 EntityManager.SetComponentData(GameVariables.Player.PlayerWeaponEntities[ac.TypeAmunation], gunComponent);
             }
         }
-        tmp.Dispose();
+        entities.Dispose();
     }
 }
 

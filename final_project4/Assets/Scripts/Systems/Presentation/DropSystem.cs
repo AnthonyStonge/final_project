@@ -12,7 +12,11 @@ using Random = UnityEngine.Random;
 [DisableAutoCreation]
 public class DropSystem : SystemBase
 {
-    
+    protected override void OnCreate()
+    {
+        base.OnCreate();
+    }
+
     protected override void OnUpdate()
     {
         if(EventsHolder.BulletsEvents.Length != 0 && EventsHolder.BulletsEvents.IsCreated)
