@@ -2,6 +2,7 @@
 using EventStruct;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Jobs;
 using UnityEngine;
 using AnimationInfo = EventStruct.AnimationInfo;
 
@@ -26,7 +27,7 @@ public class StateEventSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        Debug.Log("On StateEvent Update");
+        //Debug.Log("On StateEvent Update");
 
         //Create parallel writer
         NativeQueue<AnimationInfo>.ParallelWriter animationEvents = statesChanged.AsParallelWriter();
@@ -37,7 +38,7 @@ public class StateEventSystem : SystemBase
         };
 
         //Should work, but might be slow because lots of foreach lolololololololol
-        Entities.WithoutBurst().ForEach((Entity e, ref StateComponent component) =>
+        JobHandle job = Entities.WithoutBurst().ForEach((Entity e, ref StateComponent component) =>
         {
             NativeList<StateInfo> events = new NativeList<StateInfo>(Allocator.Temp);
 
@@ -110,9 +111,15 @@ public class StateEventSystem : SystemBase
             }
 
             events.Dispose();
-        }).ScheduleParallel();
+        }).ScheduleParallel(Dependency);
 
+        job.Complete();
+        
         //Empty queue in here because AnimationEvent come right after this system
+        while (statesChanged.TryDequeue(out AnimationInfo info))
+        {
+            EventsHolder.AnimationEvents.Add(info);
+        }
     }
 
     private static bool TryChangeState(ref StateComponent component, State desiredState, bool shouldLock)
