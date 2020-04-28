@@ -8,9 +8,12 @@ using RaycastHit = Unity.Physics.RaycastHit;
 [DisableAutoCreation]
 public class PlayerTargetSystem : SystemBase
 {
+    private EntityManager entityManager;
+
     private BuildPhysicsWorld physicSystem;
     protected override void OnCreate()
     {
+        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         physicSystem = World.DefaultGameObjectInjectionWorld.GetExistingSystem<BuildPhysicsWorld>();
     }
 
@@ -18,27 +21,34 @@ public class PlayerTargetSystem : SystemBase
     {
         RaycastHit rayCastInfos;
         PhysicsWorld pw = physicSystem.PhysicsWorld;
-        RaycastInput rayInfo;
+
+        //Get Player InputsComponents
+        InputComponent input = entityManager.GetComponentData<InputComponent>(GameVariables.Player.Entity);
         
-        //Act on all entities with Target, Input and PlayerTag
-        Entities.WithoutBurst().WithAll<PlayerTag>().ForEach((ref TargetData target, in InputComponent inputs) =>
+        //Create ray cast
+        UnityEngine.Ray camRay = GameVariables.MainCamera.ScreenPointToRay(input.Mouse);
+        RaycastInput rayInfo = new RaycastInput
         {
-            UnityEngine.Ray camRay = GameVariables.MainCamera.ScreenPointToRay(inputs.Mouse);
-            rayInfo = new RaycastInput
+            Start = camRay.origin,
+            End = camRay.GetPoint(2000),
+            Filter = new CollisionFilter
             {
-                Start = camRay.origin,
-                End = camRay.GetPoint(2000),
-                Filter = new CollisionFilter
-                {
-                    BelongsTo = 1u << 31,
-                    CollidesWith = 1u << 30,
-                    GroupIndex = 0
-                }
-            };
-            if (pw.CastRay(rayInfo, out rayCastInfos))
-            {
-                target.Value = rayCastInfos.Position;
+                BelongsTo = 1u << 31,
+                CollidesWith = 1u << 30,
+                GroupIndex = 0
             }
-        }).Run();
+        };
+        
+        //Create TargetData
+        TargetData target = new TargetData();
+        
+        //Do ray cast
+        if (pw.CastRay(rayInfo, out rayCastInfos))
+        {
+            target.Value = rayCastInfos.Position;
+        }
+        
+        //Set Player new TargetData
+        entityManager.SetComponentData(GameVariables.Player.Entity, target);
     }
 }

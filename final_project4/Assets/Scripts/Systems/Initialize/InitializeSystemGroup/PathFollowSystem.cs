@@ -9,6 +9,7 @@ using Unity.Physics.Systems;
 using Unity.Transforms;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
+
 public class PathFollowSystem : SystemBase
 {
     protected override void OnUpdate()
@@ -17,12 +18,14 @@ public class PathFollowSystem : SystemBase
         float time = Time.DeltaTime;
         float3 playerPosition = float3.zero;
         float test = 0.5f;
-        JobHandle playerJob = Entities.WithAll<PlayerTag>().ForEach((ref Translation translation) => { p[0] = translation.Value; }).Schedule(Dependency);
-        JobHandle bob = Entities.ForEach((DynamicBuffer<PathPosition> pathPos, ref Translation translation, ref PathFollow pathFollow, ref PathFindingComponent pathFindingComponent, ref PhysicsVelocity physicsVelocity) =>
+        p[0] = World.DefaultGameObjectInjectionWorld.EntityManager
+            .GetComponentData<Translation>(GameVariables.Player.Entity).Value;
+        Entities.ForEach((DynamicBuffer<PathPosition> pathPos, ref Translation translation, ref PathFollow pathFollow,
+            ref PathFindingComponent pathFindingComponent, ref PhysicsVelocity physicsVelocity) =>
         {
             if (pathFindingComponent.timeBeforeCheck <= 0)
             {
-                pathFindingComponent.endPos = new int2((int)p[0].x,(int)p[0].z);
+                pathFindingComponent.endPos = new int2((int) p[0].x, (int) p[0].z);
                 pathFindingComponent.findPath = 0;
                 pathFindingComponent.timeBeforeCheck = test;
             }
@@ -30,6 +33,7 @@ public class PathFollowSystem : SystemBase
             {
                 pathFindingComponent.timeBeforeCheck -= time;
             }
+
             if (pathFollow.pathIndex > 0)
             {
                 //int2 pathPosition = translation.Value
@@ -39,14 +43,12 @@ public class PathFollowSystem : SystemBase
                 float3 moveDir = math.normalizesafe(targetPos2 - translation.Value);
                 float moveSpeed = 300;
                 physicsVelocity.Linear = moveDir * moveSpeed * time;
-                
+
                 if (math.distance(translation.Value, targetPos2) < .1f)
                 {
                     pathFollow.pathIndex--;
                 }
             }
-        }).WithDeallocateOnJobCompletion(p).ScheduleParallel(playerJob);
-        
-        Dependency = JobHandle.CombineDependencies(playerJob, bob);
+        }).WithDeallocateOnJobCompletion(p).ScheduleParallel();
     }
 }
