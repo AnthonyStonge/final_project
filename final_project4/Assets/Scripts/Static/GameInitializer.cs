@@ -111,7 +111,5 @@ public static class GameInitializer
         EnemyHolder.OnDestroy();
         WeaponHolder.OnDestroy();
         ProjectileHolder.OnDestroy();
-        
-        AnimationHolder.OnDestroy();
     }
 }

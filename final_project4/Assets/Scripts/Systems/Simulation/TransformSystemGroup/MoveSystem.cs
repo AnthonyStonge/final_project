@@ -19,6 +19,7 @@ using Unity.Transforms;
          //TODO With physicVelocity, the translation happens after, but when?
          Entities.ForEach((ref Translation translation, ref DamageProjectile projectile, in LocalToWorld localToWorld) =>
          {
+             projectile.PreviousPosition = translation.Value;
              translation.Value += localToWorld.Forward * projectile.Speed * dt;
          }).ScheduleParallel();
      }
