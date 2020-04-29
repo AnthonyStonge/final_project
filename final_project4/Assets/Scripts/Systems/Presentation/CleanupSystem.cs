@@ -8,5 +8,8 @@ public class CleanupSystem : SystemBase
     {
         EventsHolder.WeaponEvents.Clear();
         EventsHolder.BulletsEvents.Clear();
+        EventsHolder.PlayerEvents.Clear();
+        EventsHolder.StateEvents.Clear();
+        EventsHolder.AnimationEvents.Clear();
     }
 }

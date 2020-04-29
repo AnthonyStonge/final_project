@@ -22,6 +22,7 @@ public class PathFinding : SystemBase
         public int index;
         public int gCost;
         public int hCost;
+        
         public int FCost
         {
             get
