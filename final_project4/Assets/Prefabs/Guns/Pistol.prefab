@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponType: 0
-  OnSwapDelayToShoot: 0.2
+  OnSwapDelayToShoot: 0.02
   MaxBulletInMagazine: 20
   MaxBulletOnPlayer: 999
   ResetBetweenShotTime: 0.03

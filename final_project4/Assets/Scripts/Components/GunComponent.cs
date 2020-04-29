@@ -10,7 +10,7 @@ public struct GunComponent : IComponentData
     [Header("Variables")]
     public WeaponType WeaponType;
     [Tooltip("Must be above 1 frame so that ParentSystem can update its position")]
-    [Range(0.2f, 100f)]public float OnSwapDelayToShoot;
+    [Range(0.02f, 100f)]public float OnSwapDelayToShoot;
     
     [Space(5)]
     public int MaxBulletInMagazine;

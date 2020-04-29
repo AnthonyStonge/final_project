@@ -9,7 +9,7 @@ public class SwapWeaponSystem : SystemBase
 {
     private int gunEnumLength;
     private float swapWeaponTimer;
-    private float delaySwapWeapon = 0.5f;    //TODO CHOOSE A GOOD TIMER DELAY
+    private float delaySwapWeapon = 0.02f;    //TODO CHOOSE A GOOD TIMER DELAY
 
     protected override void OnCreate()
     {
