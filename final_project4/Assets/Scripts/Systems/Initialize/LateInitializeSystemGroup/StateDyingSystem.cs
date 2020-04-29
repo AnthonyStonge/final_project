@@ -19,6 +19,11 @@ public class StateDyingSystem : SystemBase
         entityCommandBuffer = World.GetExistingSystem<EndInitializationEntityCommandBufferSystem>();
     }
 
+    protected override void OnDestroy()
+    {
+        stateEvents.Dispose();
+    }
+
     protected override void OnUpdate()
     {
         //Create parallel writer
