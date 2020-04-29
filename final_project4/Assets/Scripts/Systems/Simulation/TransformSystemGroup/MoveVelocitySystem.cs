@@ -1,4 +1,6 @@
-﻿using Unity.Burst;
+﻿using Enums;
+using EventStruct;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -9,6 +11,7 @@ using Unity.Transforms;
 using static Unity.Mathematics.math;
 using float2 = Unity.Mathematics.float2;
 
+[UpdateInGroup(typeof(InitializationSystemGroup))]
 [UpdateBefore(typeof(BuildPhysicsWorld))]
 public class MoveVelocitySystem : SystemBase
 {
@@ -16,8 +19,8 @@ public class MoveVelocitySystem : SystemBase
     {
         float dt = Time.DeltaTime;
 
-        Entities.WithAll<PlayerTag>().ForEach(
-            (ref PhysicsVelocity physicsVelocity, ref StateData state, in SpeedData speedData, in InputComponent ic) =>
+        Entities.WithoutBurst().WithAll<PlayerTag>().ForEach(
+            (Entity entity, ref PhysicsVelocity physicsVelocity, ref StateData state, in SpeedData speedData, in InputComponent ic) =>
             {
                 if (ic.Enabled)
                 {
@@ -26,7 +29,12 @@ public class MoveVelocitySystem : SystemBase
                     //If inputs to move, change state
                     if (!ic.Move.Equals(float2.zero))
                     {
-                        state.Value = StateActions.MOVING;
+                        EventsHolder.StateEvents.Add(new StateInfo
+                        {
+                            Entity = entity,
+                            Action = StateInfo.ActionType.TryChange,
+                            DesiredState = State.Running
+                        });
                     }
                 }
             }).Schedule();

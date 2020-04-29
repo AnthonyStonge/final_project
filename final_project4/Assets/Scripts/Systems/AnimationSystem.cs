@@ -1,13 +1,11 @@
-﻿using Unity.Collections;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Rendering;
-using UnityEngine;
 
 [DisableAutoCreation]
 public class AnimationSystem : SystemBase
 {
     private EntityCommandBufferSystem entityCommandBuffer;
-    private int batchIdToUpdate;
+    public static int BatchIdToUpdate;
 
     protected override void OnCreate()
     {
@@ -20,28 +18,28 @@ public class AnimationSystem : SystemBase
         EntityCommandBuffer.Concurrent ecb = entityCommandBuffer.CreateCommandBuffer().ToConcurrent();
 
         //For each entity, swap frame to next one
-        Entities.WithoutBurst().WithSharedComponentFilter(new AnimationBatch {BatchId = batchIdToUpdate}).ForEach(
-            (Entity e, int entityInQueryIndex, ref AnimationData animation, in StateData state, in TypeData type) =>
+        Entities.WithoutBurst().WithSharedComponentFilter(new AnimationBatch {BatchId = BatchIdToUpdate}).ForEach(
+            (Entity e, int entityInQueryIndex, ref AnimationData animation, in StateComponent state, in TypeData type) =>
             {
                 //Make sure animation exists for this type/state
                 if (!AnimationHolder.Animations.ContainsKey(type.Value) ||
-                    !AnimationHolder.Animations[type.Value].ContainsKey(state.Value))
+                    !AnimationHolder.Animations[type.Value].ContainsKey(state.CurrentState))
                     return;
-                
+
                 //Increment frame at + Clamp it
                 animation.MeshIndexAt++;
-                animation.MeshIndexAt %= (ushort) AnimationHolder.Animations[type.Value][state.Value].Frames.Length;
+                animation.MeshIndexAt %= (ushort) AnimationHolder.Animations[type.Value][state.CurrentState].Frames.Length;
 
                 ecb.SetSharedComponent(entityInQueryIndex, e, new RenderMesh
                 {
-                    mesh = AnimationHolder.Animations[type.Value][state.Value].Frames[animation.MeshIndexAt],
-                    material = AnimationHolder.Animations[type.Value][state.Value].Material
+                    mesh = AnimationHolder.Animations[type.Value][state.CurrentState].Frames[animation.MeshIndexAt],
+                    material = AnimationHolder.Animations[type.Value][state.CurrentState].Material
                 });
             }).ScheduleParallel();
 
         entityCommandBuffer.AddJobHandleForProducer(Dependency);
 
-        batchIdToUpdate++;
-        batchIdToUpdate %= AnimationHolder.AnimatedGroupsLength.Count;
+        BatchIdToUpdate++;
+        BatchIdToUpdate %= AnimationHolder.AnimatedGroupsLength.Count;
     }
 }

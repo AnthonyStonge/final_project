@@ -49,4 +49,16 @@ namespace Enums
         //Life,
         Amunation
     }
+
+    //Order is IMPORTANT (The bigger the value, the more important it is for the StateMachine)
+    public enum State
+    {
+        Idle,
+        Running,
+        Attacking,
+        Reloading,
+        Dashing,
+        Dying,
+        Respawning
+    }
 }

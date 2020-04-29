@@ -11,11 +11,19 @@ public static class EventsHolder
     
     public static NativeList<PlayerInfo> PlayerEvents =
         new NativeList<PlayerInfo>(Allocator.Persistent);
+    
+    public static NativeList<StateInfo> StateEvents = 
+        new NativeList<StateInfo>(Allocator.Persistent);
+    
+    public static NativeList<AnimationInfo> AnimationEvents =
+        new NativeList<AnimationInfo>(Allocator.Persistent);
 
     public static void OnDestroy()
     {
         WeaponEvents.Dispose();
         BulletsEvents.Dispose();
         PlayerEvents.Dispose();
+        StateEvents.Dispose();
+        AnimationEvents.Dispose();
     }
 }

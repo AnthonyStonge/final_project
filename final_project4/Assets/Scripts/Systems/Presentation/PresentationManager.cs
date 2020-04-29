@@ -6,18 +6,27 @@ using UnityEngine;
 [DisableAutoCreation]
 public class PresentationManager : ComponentSystemGroup
 {
+    private StateEventSystem stateEventSystem;
+    private AnimationEventSystem animationEventSystem;
     
     private SoundEventSystem soundEventSystem;
     private VisualEventSystem visualEventSystem;
-    private CleanupSystem cleanupSystem;
+    
     private DropSystem dropSystem;
     private LootSystem lootSystem;
+    
     private PlayerCollisionSystem playerCollisionSystem;
+    
     private UISystem uiSystem;
+    
+    private CleanupSystem cleanupSystem;
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
 
+
+        stateEventSystem = world.GetOrCreateSystem<StateEventSystem>();
+        animationEventSystem = world.GetOrCreateSystem<AnimationEventSystem>();
         
         soundEventSystem = world.GetOrCreateSystem<SoundEventSystem>();
         lootSystem = world.GetOrCreateSystem<LootSystem>();
@@ -28,6 +37,9 @@ public class PresentationManager : ComponentSystemGroup
         uiSystem = world.GetOrCreateSystem<UISystem>();
 
         var presentation = world.GetOrCreateSystem<PresentationManager>();
+        presentation.AddSystemToUpdateList(stateEventSystem);
+        presentation.AddSystemToUpdateList(animationEventSystem);
+        
         presentation.AddSystemToUpdateList(playerCollisionSystem);
         presentation.AddSystemToUpdateList(lootSystem);
         presentation.AddSystemToUpdateList(visualEventSystem);
@@ -39,6 +51,9 @@ public class PresentationManager : ComponentSystemGroup
 
     protected override void OnUpdate()
     {
+        stateEventSystem.Update();
+        animationEventSystem.Update();
+        
         uiSystem.Update();
         playerCollisionSystem.Update();
         dropSystem.Update();

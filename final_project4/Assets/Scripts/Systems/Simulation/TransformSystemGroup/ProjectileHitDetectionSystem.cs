@@ -89,16 +89,16 @@ public class ProjectileHitDetectionSystem : SystemBase
     }
     
     struct EventQueueJob : IJob
-    {
-        public NativeQueue<BulletInfo> weaponInfos;
-        public void Execute()
-        {
-            while (weaponInfos.TryDequeue(out BulletInfo info))
-            {
-                EventsHolder.BulletsEvents.Add(info);
-            }
-        }
-    }
+     {
+         public NativeQueue<BulletInfo> weaponInfos;
+         public void Execute()
+         {
+             while (weaponInfos.TryDequeue(out BulletInfo info))
+             {
+                 EventsHolder.BulletsEvents.Add(info);
+             }
+         }
+     }
 
     protected override void OnDestroy()
     {
