@@ -33,6 +33,14 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 1972b64068ef8714aae4b6f5e3887ad9
+    m_Address: Pistol
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 2c1c7c62cc387814ca8b8cbf7ebea684
     m_Address: EffectsContainer
     m_ReadOnly: 0
@@ -81,22 +89,14 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
-  - m_GUID: a393625207c8d3f43a4bdf22ee3f588b
-    m_Address: Pistol
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
   - m_GUID: d114fa09940f71e4b92d609932f930c4
     m_Address: MapContainer
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_mainAssetType: MapContainerScriptable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: d114fa09940f71e4b92d609932f930c4, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: d114fa09940f71e4b92d609932f930c4, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e0ae6182e1a6b11438ffe0678d68e1df
     m_Address: Player
     m_ReadOnly: 0
