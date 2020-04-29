@@ -49,6 +49,11 @@ public static class AnimationHolder
         foreach (AnimationScriptableObject animation in container.Animations)
         {
             Animations.TryAdd(animation.Type, new Dictionary<State, Animation>());
+            if (Animations[animation.Type].ContainsKey(animation.State))
+            {
+                Debug.LogWarning($"Duplicate Animation state {animation.Type}. Check AnimationContainer");
+                continue;
+            }
             Animations[animation.Type].Add(animation.State, new Animation
             {
                 Frames = animation.Frames.ToArray(),

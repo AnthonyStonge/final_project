@@ -93,6 +93,11 @@ public class VisualEventSystem : SystemBase
             effectTextures[VisualEffectHolder.BulletEffects[info.ProjectileType][info.CollisionType]].
                 Add(info.HitPosition, math.forward(info.HitRotation) );
         }
+        foreach (var info in EventsHolder.WeaponEvents)
+        {
+            effectTextures[VisualEffectHolder.WeaponEffects[info.WeaponType][info.EventType]].
+                Add(info.Position, math.forward(info.Rotation) );
+        }
 
         foreach (var effect in effectTextures)
         {
