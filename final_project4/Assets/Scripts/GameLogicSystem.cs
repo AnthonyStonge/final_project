@@ -29,7 +29,6 @@ public class GameLogicSystem : SystemBase
         entityManager.AddComponentData(GameLogicEntity, new GameStateComponent());
 
         FadeSystem.OnFadeEnd += () => FadingOver = true;
-
     }
 
     protected override void OnStartRunning()
@@ -79,14 +78,13 @@ public class GameLogicSystem : SystemBase
                     if (FadingOver)
                     {
                         FadingOver = false;
+                        GlobalEvents.FadeIn();
                         //Fade out over, Ready to init & disable last state
                         //Screen SHOULD hide the world to the player
                         DestroyLastState(gameStateComponent.CurrentGameState);
                         InitializeNextState(gameStateComponent.DesiredGameState);
                         IsFadingOut = false;
                         IsFadingIn = true;
-                        GlobalEvents.FadeIn();
-
                     }
                 }
                 else if (IsFadingIn)
