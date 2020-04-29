@@ -38,5 +38,6 @@ public struct InputComponent : IComponentData
     public void PartialReset()
     {
         Move = float2.zero;
+        WeaponTypeDesired = GameVariables.Player.CurrentWeaponHeld;
     }
 }
