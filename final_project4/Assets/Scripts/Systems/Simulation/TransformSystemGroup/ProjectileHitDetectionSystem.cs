@@ -72,7 +72,6 @@ public class ProjectileHitDetectionSystem : SystemBase
 
                 //Destroy bullet
                 entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
-                
                 events.Enqueue(new BulletInfo
                 {
                     ProjectileType = projectile.Type,
