@@ -1,7 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Unity.Entities;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 public static class MapHolder
@@ -16,17 +15,31 @@ public static class MapHolder
     {
         currentNumberOfLoadedAssets = 0;
         numberOfAssetsToLoad = 1;
-        
+
         MapPrefabDict = new ConcurrentDictionary<string, Entity>();
     }
 
     public static void LoadAssets()
     {
-        
-            //Addressables.LoadAssetAsync<
-        
+        Addressables.LoadAssetAsync<MapContainerScriptable>("MapContainer").Completed += obj =>
+        {
+            var container = obj.Result;
+
+            foreach (var i in container.Links)
+            {
+                Entity newEntity = ECSUtility.ConvertGameObjectPrefab(i.Prefab, out BlobAssetStore blob);
+                if (blob != null)
+                {
+                    BloblAssetList.Add(blob);
+                }
+               
+                MapPrefabDict.TryAdd(i.KeyName, newEntity);
+            }
+
+            currentNumberOfLoadedAssets++;
+        };
     }
-    
+
     public static float CurrentLoadingPercentage()
     {
         return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
@@ -34,7 +47,6 @@ public static class MapHolder
 
     public static void OnDestroy()
     {
-        BloblAssetList.ForEach(i=>{ i.Dispose(); });
+        BloblAssetList.ForEach(i => { i.Dispose(); });
     }
-
 }

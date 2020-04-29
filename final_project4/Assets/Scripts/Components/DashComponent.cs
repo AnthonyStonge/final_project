@@ -8,6 +8,12 @@ using UnityEngine;
 [GenerateAuthoringComponent]
 public struct DashComponent : IComponentData
 {
+    [HideInInspector]
+    public quaternion TargetDuringDash;
+    
+    [HideInInspector]
+    public float2 InputDuringDash;
+    
     public float Speed;
     
     [ReadOnly] public float DashTime;
@@ -17,9 +23,7 @@ public struct DashComponent : IComponentData
     public float CurrentCooldownTime;
     [HideInInspector]
     public float CurrentDashTime;
-    [HideInInspector]
-    public float2 InputDuringDash;
-    [HideInInspector]
-    public quaternion TargetDuringDash;
+    
+    
 
 }
