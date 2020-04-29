@@ -1,7 +1,5 @@
-﻿using Unity.Collections;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Rendering;
-using UnityEngine;
 
 [DisableAutoCreation]
 public class AnimationSystem : SystemBase

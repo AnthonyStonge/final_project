@@ -10,13 +10,10 @@ using AnimationInfo = EventStruct.AnimationInfo;
 [UpdateBefore(typeof(AnimationEventSystem))]
 public class StateEventSystem : SystemBase
 {
-    private EntityManager entityManager;
-
     private NativeQueue<AnimationInfo> statesChanged;
 
     protected override void OnCreate()
     {
-        entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         statesChanged = new NativeQueue<AnimationInfo>(Allocator.Persistent);
     }
 
