@@ -27,7 +27,6 @@ public class PathFollowSystem : SystemBase
     }
     protected override void OnUpdate()
     {
-        //NativeArray<float3> p = new NativeArray<float3>(1, Allocator.TempJob);
         var physicsWorld = buildPhysicsWorld.PhysicsWorld;
         float time = Time.DeltaTime;
         float3 playerPosition = float3.zero;
@@ -35,7 +34,6 @@ public class PathFollowSystem : SystemBase
         //bool findNewPath = true;
         ScriptableGrid scriptableGrid = GameVariables.grid;
         float3 posPlayer = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
-        //p[0] = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
         Entities.WithoutBurst().ForEach((DynamicBuffer<PathPosition> pathPos, ref Translation translation, ref PathFollowComponent pathFollow, ref PathFindingComponent pathFindingComponent, ref PhysicsVelocity physicsVelocity) =>
         {
             if (pathFindingComponent.timeBeforeCheck <= 0)
@@ -71,7 +69,6 @@ public class PathFollowSystem : SystemBase
                 {
                     
                     int2 pathPosition = pathPos[pathFollow.pathIndex - compteur].position;
-                    //Debug.Log(pathPosition);
                     float3 pathPositionConvert = new float3(pathPosition.x, 0.2f, pathPosition.y);
                     RaycastInput raycastInput = new RaycastInput
                     {

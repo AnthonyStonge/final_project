@@ -54,7 +54,7 @@ public class Spawner : MonoBehaviour
         });
         em.SetComponentData(e, new Translation
         {
-            Value = new float3(Random.Range(-49,49),0,Random.Range(-49,49))
+            Value = new float3(Random.Range(0,100),0,Random.Range(0,100))
         });
         em.SetComponentData(e, new PathFollowComponent
         {

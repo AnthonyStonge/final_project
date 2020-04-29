@@ -25,7 +25,7 @@ public static class PlayerInitializer
         });
         entityManager.SetComponentData(player, new Translation
         {
-            Value = new float3(-47, 10, -30)
+            Value = new float3(3, 3, 20)
         });
         /*
         entityManager.SetComponentData(player, new Rotation

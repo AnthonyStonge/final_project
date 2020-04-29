@@ -43,7 +43,6 @@ public class PathFinding : SystemBase
     private List<int> wall;
     private NativeArray<int2> neightBourOffsetArray;
     private EntityQueryDesc queryDesc;
-    private int offSetNumber;
     protected override void OnCreate()
     {
         
@@ -64,15 +63,12 @@ public class PathFinding : SystemBase
         wall = GameVariables.grid.indexNoWalkable;
         gridSize = GameVariables.grid.gridSize;
         nodeSize = GameVariables.grid.nodeSize;
-        //nodeArray = new NativeArray<Node>();
-        nodeArray = new NativeArray<Node>(gridSize.x * gridSize.y, Allocator.Persistent);// [scriptableGrid.gridSize.x * scriptableGrid.gridSize.y];
-        //NativeArray<Node> pathNode = new NativeArray<Node>(gridSize.x * gridSize.y, Allocator.Temp);
-        offSetNumber = math.abs( -(gridSize.x / 2) + -(gridSize.y / 2) * gridSize.x);
-        for (int i = -gridSize.x / 2; i < (gridSize.x / 2); i++)
+        nodeArray = new NativeArray<Node>(gridSize.x * gridSize.y, Allocator.Persistent);
+        for (int i = 0; i < gridSize.x; i++)
         {
-            for (int j = -gridSize.y / 2; j < (gridSize.y / 2); j++)
+            for (int j = 0; j < gridSize.y; j++)
             {
-                bool iswalkable = !wall.Contains(CalculateIndex( i, j, gridSize.x, offSetNumber));
+                bool iswalkable = !wall.Contains(CalculateIndex( i, j, gridSize.x));
                 
                 Node node = new Node
                 {
@@ -80,7 +76,7 @@ public class PathFinding : SystemBase
                     y = j,
                     isWalkable = iswalkable,
                     gCost = int.MaxValue,
-                    index = CalculateIndex(i, j, gridSize.x, offSetNumber),
+                    index = CalculateIndex(i, j, gridSize.x),
                     cameFromNodeIndex = -1
                 };
                 //node.CalculFCost();
@@ -94,20 +90,19 @@ public class PathFinding : SystemBase
     protected override void OnUpdate()
     {
         int2 _gridSize = gridSize;
-        int offSet = offSetNumber;
         NativeArray<Node> nodeArray = this.nodeArray;
         NativeArray<int2> neightBourOffsetArrayJob = neightBourOffsetArray;
         Entities.WithSharedComponentFilter(new BatchFilter{Value = batchCall++}).ForEach((DynamicBuffer<PathPosition> pathBuffer, ref Translation translation, ref PathFindingComponent pathFindingComp, ref PathFollowComponent pathFollow) =>
             {
                 if(pathFindingComp.findPath == 0)
                 {
-                    if (nodeArray[CalculateIndex(pathFindingComp.endPos.x, pathFindingComp.endPos.y, 100, offSet)].isWalkable && IsPositionInsideGrid(pathFindingComp.endPos, _gridSize))
+                    if (nodeArray[CalculateIndex(pathFindingComp.endPos.x, pathFindingComp.endPos.y, 100)].isWalkable && IsPositionInsideGrid(pathFindingComp.endPos, _gridSize))
                     {
                         //pathFindingComp.startPos = new int2((((int) translation.Value.x < 0) ? (int) translation.Value.x- 1 : (int) translation.Value.x), (((int)translation.Value.z < 0) ? (int)translation.Value.z - 1 : (int)translation.Value.z));
                         pathFindingComp.startPos = new int2((int) translation.Value.x, (int) translation.Value.z);
                         
                         FindPath(pathFindingComp.startPos, pathFindingComp.endPos, ref pathFindingComp.findPath,
-                            pathBuffer, ref pathFollow, _gridSize, nodeArray, neightBourOffsetArrayJob, offSet);
+                            pathBuffer, ref pathFollow, _gridSize, nodeArray, neightBourOffsetArrayJob);
                     }
                 }
             }).ScheduleParallel();
@@ -116,16 +111,16 @@ public class PathFinding : SystemBase
         
     }
 
-    private static void FindPath(in int2 startPos, in int2 endPos, ref int pathFind, DynamicBuffer<PathPosition> pathBufferPos,ref PathFollowComponent pathFollowComponent, in int2 gridSize, in NativeArray<Node> nodeArray, in NativeArray<int2> neightBourOffsetArrayJob, in int offset)
+    private static void FindPath(in int2 startPos, in int2 endPos, ref int pathFind, DynamicBuffer<PathPosition> pathBufferPos,ref PathFollowComponent pathFollowComponent, in int2 gridSize, in NativeArray<Node> nodeArray, in NativeArray<int2> neightBourOffsetArrayJob)
     {
         
         NativeArray<Node> pathNode = new NativeArray<Node>(gridSize.x * gridSize.y, Allocator.Temp);
         
-        for (int i = -(gridSize.x / 2); i < gridSize.x / 2; i++)
+        for (int i = 0; i < gridSize.x; i++)
         {
-            for (int j = -(gridSize.y / 2); j < gridSize.y / 2; j++)
+            for (int j = 0; j < gridSize.y; j++)
             {
-                Node basicNode = nodeArray[CalculateIndex(i, j, gridSize.x, offset)];
+                Node basicNode = nodeArray[CalculateIndex(i, j, gridSize.x)];
                 Node node = new Node
                 {
                     x = basicNode.x,
@@ -141,8 +136,8 @@ public class PathFinding : SystemBase
             }
         }
         
-        int endNodeIndex = CalculateIndex(endPos.x, endPos.y, gridSize.x, offset);
-        Node startNode = pathNode[CalculateIndex(startPos.x, startPos.y, gridSize.x, offset)];
+        int endNodeIndex = CalculateIndex(endPos.x, endPos.y, gridSize.x);
+        Node startNode = pathNode[CalculateIndex(startPos.x, startPos.y, gridSize.x)];
         startNode.gCost = 0;
         //startNode.CalculFCost();
         pathNode[startNode.index] = startNode;
@@ -152,7 +147,7 @@ public class PathFinding : SystemBase
 
         while (openList.Length > 0)
         {
-            int currentNodeIndex = GetLowestCostFNodeIndex(openList, pathNode, gridSize.x, offset);
+            int currentNodeIndex = GetLowestCostFNodeIndex(openList, pathNode, gridSize.x);
             Node currentNode = pathNode[currentNodeIndex];
             if (currentNodeIndex == endNodeIndex)
                 break;
@@ -173,7 +168,7 @@ public class PathFinding : SystemBase
                     currentNode.y + neightbourOffSet.y);
                 if (!IsPositionInsideGrid(neightbourPos, gridSize))
                     continue;
-                int tmp = CalculateIndex(neightbourPos.x, neightbourPos.y, gridSize.x, offset);
+                int tmp = CalculateIndex(neightbourPos.x, neightbourPos.y, gridSize.x);
                 if (closedList.Contains(tmp))
                     continue;
                 Node neightbourNode = pathNode[tmp];
@@ -233,12 +228,12 @@ public class PathFinding : SystemBase
     }
     private static bool IsPositionInsideGrid(in int2 gridPos, in int2 gridSize)
     {
-        return gridPos.x >= -(gridSize.x / 2) && gridPos.y >= -(gridSize.y / 2) && gridPos.x < gridSize.x / 2 && gridPos.y < gridSize.y / 2;
+        return gridPos.x >= 0 && gridPos.y >= 0 && gridPos.x < gridSize.x && gridPos.y < gridSize.y;
     }
-    public static int CalculateIndex(in int x, in int y, in int gridWith, in int offset)
+    public static int CalculateIndex(in int x, in int y, in int gridWith)
     {
-        
-        return (x + y * gridWith) + offset;
+
+        return (x + y * gridWith);
     }
     private static int CalculateDistanceCost(in int2 aPos, in int2 bPos)
     {
@@ -247,7 +242,7 @@ public class PathFinding : SystemBase
         int remaining = math.abs(xDistance - yDistance);
         return MOVE_DIAGONAL_COST * math.min(xDistance, yDistance) + MOVE_STRAIGHT_COST * remaining;
     }
-    private static int GetLowestCostFNodeIndex(in NativeList<int> openList, in NativeArray<Node> pathNode, in int2 gridSize, in int offset)
+    private static int GetLowestCostFNodeIndex(in NativeList<int> openList, in NativeArray<Node> pathNode, in int2 gridSize)
     {
         Node lowestCost = pathNode[openList[0]];
         for (int i = 0; i < openList.Length; i++)
@@ -258,7 +253,7 @@ public class PathFinding : SystemBase
                 lowestCost = pathNode[openList[i]];
             }
         }
-        return CalculateIndex(lowestCost.x, lowestCost.y, gridSize.x, offset);
+        return CalculateIndex(lowestCost.x, lowestCost.y, gridSize.x);
     }
     protected override void OnDestroy()
     {

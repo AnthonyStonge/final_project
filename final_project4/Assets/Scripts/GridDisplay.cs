@@ -22,32 +22,34 @@ public class GridDisplay : MonoBehaviour
         
         if (Physics.Raycast(ray, out hit))
         {
-            int bob = (((int) hit.point.x < 0) ? (int) hit.point.x: (int) hit.point.x) + (((int) hit.point.z < 0)?(int) hit.point.z:(int) hit.point.z) * grid.gridSize.x;
-            bob += 5050;
+            int indexGrid = (int)(hit.point.x + 0.5f) + (int)(hit.point.z + 0.5f) * grid.gridSize.x;
             //int bob = (int)hit.point.x + (int)hit.point.z * grid.gridSize.x;
             if (e.shift)
-                if (!grid.indexNoWalkable.Contains(bob))
-                    grid.indexNoWalkable.Add(bob);
+                if (!grid.indexNoWalkable.Contains(indexGrid))
+                    grid.indexNoWalkable.Add(indexGrid);
             if (e.control)
-                if (grid.indexNoWalkable.Contains(bob))
-                    grid.indexNoWalkable.Remove(bob);
+                if (grid.indexNoWalkable.Contains(indexGrid))
+                    grid.indexNoWalkable.Remove(indexGrid);
         }
 
         bool cycle = false;
-        for (int i = -grid.gridSize.x / 2; i < grid.gridSize.x / 2; i++)
+        for (int i = 0; i < grid.gridSize.x; i++)
         {
-            for (int j = -grid.gridSize.y / 2; j < grid.gridSize.y / 2; j++)
+            for (int j = 0; j < grid.gridSize.y; j++)
             {
-                if (grid.indexNoWalkable.Contains((i + 50) + (j + 50) * grid.gridSize.x))
+                if (grid.indexNoWalkable.Contains(i + j * grid.gridSize.x))
                 {
                     Gizmos.color = Color.red;
                 }
                 else
                 {
-                    Gizmos.color = Color.white;
+                    if((i + j * grid.gridSize.x) % 2 == 0)
+                        Gizmos.color = Color.white;
+                    else
+                        Gizmos.color = Color.grey;
                     cycle = false;
                 }
-                Gizmos.DrawCube( new Vector3(i,0,j), new Vector3(grid.nodeSize.x,0f, grid.nodeSize.z));
+                Gizmos.DrawCube( new Vector3(i,0.1f,j), new Vector3(grid.nodeSize.x,0.1f, grid.nodeSize.z));
             }
 
             if (cycle)
