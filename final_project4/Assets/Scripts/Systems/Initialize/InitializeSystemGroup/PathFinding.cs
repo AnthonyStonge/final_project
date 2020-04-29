@@ -49,17 +49,17 @@ public class PathFinding : SystemBase
         batchCall = 0;
         queryDesc = new EntityQueryDesc
         {
-            All = new ComponentType[] {typeof(BatchFilter),typeof(Translation), typeof(PathFindingComponent), typeof(PathFollow)}
+            All = new ComponentType[] {typeof(BatchFilter),typeof(Translation), typeof(PathFindingComponent), typeof(PathFollowComponent)}
         };
         neightBourOffsetArray = new NativeArray<int2>(8, Allocator.Persistent);
         neightBourOffsetArray[0] = new int2(-1, 0);
         neightBourOffsetArray[1] = new int2(1, 0);
         neightBourOffsetArray[2] = new int2(0, 1);
         neightBourOffsetArray[3] = new int2(0, -1);
-        neightBourOffsetArray[4] = new int2(-1, -1);
-        neightBourOffsetArray[5] = new int2(-1, 1);
-        neightBourOffsetArray[6] = new int2(1, -1);
-        neightBourOffsetArray[7] = new int2(1, 1);
+        //neightBourOffsetArray[4] = new int2(-1, -1);
+       // neightBourOffsetArray[5] = new int2(-1, 1);
+        //neightBourOffsetArray[6] = new int2(1, -1);
+       // neightBourOffsetArray[7] = new int2(1, 1);
         wall = GameVariables.grid.indexNoWalkable;
         gridSize = GameVariables.grid.gridSize;
         nodeSize = GameVariables.grid.nodeSize;
@@ -96,7 +96,7 @@ public class PathFinding : SystemBase
         int offSet = offSetNumber;
         NativeArray<Node> nodeArray = this.nodeArray;
         NativeArray<int2> neightBourOffsetArrayJob = neightBourOffsetArray;
-        Entities.WithSharedComponentFilter(new BatchFilter{Value = batchCall++}).ForEach((DynamicBuffer<PathPosition> pathBuffer, ref Translation translation, ref PathFindingComponent pathFindingComp, ref PathFollow pathFollow) =>
+        Entities.WithSharedComponentFilter(new BatchFilter{Value = batchCall++}).ForEach((DynamicBuffer<PathPosition> pathBuffer, ref Translation translation, ref PathFindingComponent pathFindingComp, ref PathFollowComponent pathFollow) =>
             {
                 if(pathFindingComp.findPath == 0)
                 {
@@ -115,7 +115,7 @@ public class PathFinding : SystemBase
         
     }
 
-    private static void FindPath(in int2 startPos, in int2 endPos, ref int pathFind, DynamicBuffer<PathPosition> pathBufferPos,ref PathFollow pathFollow, in int2 gridSize, in NativeArray<Node> nodeArray, in NativeArray<int2> neightBourOffsetArrayJob, in int offset)
+    private static void FindPath(in int2 startPos, in int2 endPos, ref int pathFind, DynamicBuffer<PathPosition> pathBufferPos,ref PathFollowComponent pathFollowComponent, in int2 gridSize, in NativeArray<Node> nodeArray, in NativeArray<int2> neightBourOffsetArrayJob, in int offset)
     {
         
         NativeArray<Node> pathNode = new NativeArray<Node>(gridSize.x * gridSize.y, Allocator.Temp);
@@ -124,8 +124,7 @@ public class PathFinding : SystemBase
         {
             for (int j = -(gridSize.y / 2); j < gridSize.y / 2; j++)
             {
-                var calculated = CalculateIndex(i, j, gridSize.x, offset);
-                Node basicNode = nodeArray[calculated];
+                Node basicNode = nodeArray[CalculateIndex(i, j, gridSize.x, offset)];
                 Node node = new Node
                 {
                     x = basicNode.x,
@@ -199,7 +198,7 @@ public class PathFinding : SystemBase
         Node endNode = pathNode[endNodeIndex];
         if (endNode.cameFromNodeIndex == -1)
         {
-            pathFollow= new PathFollow
+            pathFollowComponent= new PathFollowComponent
             {
                 pathIndex = -1
             };
@@ -208,7 +207,7 @@ public class PathFinding : SystemBase
         {
             pathFind = 1;
             CalculatePath(pathNode, endNode, pathBufferPos);
-            pathFollow = new PathFollow
+            pathFollowComponent = new PathFollowComponent
             {
                 pathIndex = pathBufferPos.Length - 1
             };

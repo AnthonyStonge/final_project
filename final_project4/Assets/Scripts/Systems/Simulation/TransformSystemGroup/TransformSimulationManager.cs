@@ -7,21 +7,24 @@ public class TransformSimulationManager : ComponentSystemGroup
     private RotateEnemySystem rotateEnemySystem;
     private RotatePlayerSystem rotatePlayerSystem;
     private ProjectileHitDetectionSystem projectileHitDetectionSystem;
+    private PathFollowSystem pathFollowSystem;
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
-
+        
         moveSystem = world.GetOrCreateSystem<MoveSystem>();
         rotateEnemySystem = world.GetOrCreateSystem<RotateEnemySystem>();
         rotatePlayerSystem = world.GetOrCreateSystem<RotatePlayerSystem>();
         projectileHitDetectionSystem = world.GetOrCreateSystem<ProjectileHitDetectionSystem>();
-
+        pathFollowSystem = world.GetOrCreateSystem<PathFollowSystem>();
+        
         var transform = world.GetOrCreateSystem<TransformSimulationManager>();
         
         transform.AddSystemToUpdateList(moveSystem);
         transform.AddSystemToUpdateList(rotateEnemySystem);
         transform.AddSystemToUpdateList(rotatePlayerSystem);
         transform.AddSystemToUpdateList(projectileHitDetectionSystem);
+        transform.AddSystemToUpdateList(pathFollowSystem);
     }
 
     protected override void OnUpdate()
@@ -34,5 +37,6 @@ public class TransformSimulationManager : ComponentSystemGroup
         //Dependency : RotatePlayerEnemySystem
         moveSystem.Update();
         projectileHitDetectionSystem.Update();
+        pathFollowSystem.Update();
     }
 }

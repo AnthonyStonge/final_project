@@ -33,7 +33,7 @@ public class Spawner : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             spawnYCounter = 0;
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1; i++)
             {
                 createEntity(i % 25, spawnYCounter);
                 if (i % 25 == 0)
@@ -56,7 +56,7 @@ public class Spawner : MonoBehaviour
         {
             Value = new float3(Random.Range(-49,49),0,Random.Range(-49,49))
         });
-        em.SetComponentData(e, new PathFollow
+        em.SetComponentData(e, new PathFollowComponent
         {
             pathIndex = -1,
         });
