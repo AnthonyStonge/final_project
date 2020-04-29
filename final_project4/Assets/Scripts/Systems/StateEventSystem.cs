@@ -94,7 +94,8 @@ public class StateEventSystem : SystemBase
             //Change state
             if (tryChangeEvent)
             {
-                stateChanged = TryChangeState(ref component, stateToChangeTo, shouldStateMachineLock);
+                if (component.CurrentState != stateToChangeTo)
+                    stateChanged = TryChangeState(ref component, stateToChangeTo, shouldStateMachineLock);
             }
 
             //Create animation event (only if state changed)
@@ -111,7 +112,7 @@ public class StateEventSystem : SystemBase
         }).ScheduleParallel(Dependency);
 
         job.Complete();
-        
+
         //Empty queue in here because AnimationEvent come right after this system
         while (statesChanged.TryDequeue(out AnimationInfo info))
         {
@@ -144,7 +145,7 @@ public class StateEventSystem : SystemBase
         //Set State to DesiredOne
         if (component.CurrentState == component.DesiredState)
             return false;
-        
+
         //Change state (if not the same)
         ChangeState(ref component, component.DesiredState, component.ShouldStateBeLocked);
         return true;

@@ -48,9 +48,9 @@ public class RetrieveGunEventSystem : SystemBase
         EntityCommandBuffer.Concurrent ecb = entityCommandBuffer.CreateCommandBuffer().ToConcurrent();
 
         //Get all StateData components
-        ComponentDataContainer<StateData> states = new ComponentDataContainer<StateData>
+        ComponentDataContainer<StateComponent> states = new ComponentDataContainer<StateComponent>
         {
-            Components = GetComponentDataFromEntity<StateData>()
+            Components = GetComponentDataFromEntity<StateComponent>()
         };
 
         float deltaTime = Time.DeltaTime;
@@ -63,7 +63,7 @@ public class RetrieveGunEventSystem : SystemBase
                     return;
 
                 //Variables local to job
-                StateData state = states.Components[parent.Value];
+                StateComponent state = states.Components[parent.Value];
                 WeaponInfo.WeaponEventType? weaponEventType = null;
 
                 if (gun.IsReloading)
@@ -83,7 +83,7 @@ public class RetrieveGunEventSystem : SystemBase
                     gun.BetweenShotTime -= deltaTime;
                 }
 
-                if (state.Value == StateActions.RELOADING)
+                if (state.CurrentState == State.Reloading)
                     if (TryReload(ref gun))
                         weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
 
@@ -91,7 +91,7 @@ public class RetrieveGunEventSystem : SystemBase
                 if (TryStartReload(ref gun))
                     weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
 
-                if (state.Value == StateActions.ATTACKING)
+                if (state.CurrentState == State.Attacking)
                     if (TryShoot(ref gun))
                     {
                         weaponEventType = WeaponInfo.WeaponEventType.ON_SHOOT;
