@@ -31,8 +31,8 @@ public class GameLogic : IStateLogic
 
     public void Initialize()
     {
-        PlayerInitializer.Initialize();
-        WeaponInitializer.Initialize();
+        //PlayerInitializer.Initialize();
+        //WeaponInitializer.Initialize();
         
         //Debug.Log("Initialize GameLogic Systems");
     }
