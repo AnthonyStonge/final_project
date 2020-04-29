@@ -1,4 +1,8 @@
-﻿using Unity.Entities;
+﻿using Enums;
+using EventStruct;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Jobs;
 using Unity.Transforms;
 
 [DisableAutoCreation]
@@ -6,18 +10,54 @@ using Unity.Transforms;
 [UpdateAfter(typeof(UpdatePlayerStateSystem))]
 public class StateDyingSystem : SystemBase
 {
+    private NativeQueue<StateInfo> stateEvents;
+    private EntityCommandBufferSystem entityCommandBuffer;
+    
     protected override void OnCreate()
     {
+        stateEvents = new NativeQueue<StateInfo>(Allocator.Persistent);
+        entityCommandBuffer = World.GetExistingSystem<EndInitializationEntityCommandBufferSystem>();
     }
 
     protected override void OnUpdate()
     {
+        //Create parallel writer
+        NativeQueue<StateInfo>.ParallelWriter events = stateEvents.AsParallelWriter();
+        
         ////Act on all entities with HealthData.
-        Entities.ForEach((ref StateData state, in LifeComponent health) =>
+        JobHandle job = Entities.WithAll<StateComponent>().ForEach((Entity e, in LifeComponent health) =>
         {
             //If health <= 0 -> set state to dying
             if (health.CurrentLife <= 0)
-                state.Value = StateActions.DYING;
-        }).ScheduleParallel();
+                events.Enqueue(new StateInfo
+                {
+                    Entity = e,
+                    DesiredState = State.Dying,
+                    Action = StateInfo.ActionType.TryChangeAndLock
+                });
+        }).ScheduleParallel(Dependency);
+            
+        //Create job
+        JobHandle emptyEventQueueJob = new EmptyEventQueueJob
+        {
+            EventsQueue = stateEvents
+        }.Schedule(job);
+        
+        //Link all jobs
+        Dependency = JobHandle.CombineDependencies(job, emptyEventQueueJob);
+        entityCommandBuffer.AddJobHandleForProducer(Dependency);
+    }
+    
+    struct EmptyEventQueueJob : IJob
+    {
+        public NativeQueue<StateInfo> EventsQueue;
+
+        public void Execute()
+        {
+            while (EventsQueue.TryDequeue(out StateInfo info))
+            {
+                EventsHolder.StateEvents.Add(info);
+            }
+        }
     }
 }

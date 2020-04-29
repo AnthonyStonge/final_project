@@ -1,4 +1,6 @@
-﻿using Unity.Entities;
+﻿using Enums;
+using EventStruct;
+using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
@@ -20,10 +22,12 @@ public class StateAttackingSystem : SystemBase
 
         if (playerInputs.Shoot)
         {
-            //Change player state
-            SetComponent(player, new StateData
+            //Add StateEvent
+            EventsHolder.StateEvents.Add(new StateInfo
             {
-                Value = StateActions.ATTACKING
+                Entity = player,
+                DesiredState = State.Attacking,
+                Action = StateInfo.ActionType.TryChange
             });
         }
 
