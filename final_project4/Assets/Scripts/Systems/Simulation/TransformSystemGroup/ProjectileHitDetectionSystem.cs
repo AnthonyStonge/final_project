@@ -72,7 +72,6 @@ public class ProjectileHitDetectionSystem : SystemBase
 
                 //Destroy bullet
                 entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
-                
                 events.Enqueue(new BulletInfo
                 {
                     ProjectileType = projectile.Type,
@@ -90,16 +89,16 @@ public class ProjectileHitDetectionSystem : SystemBase
     }
     
     struct EventQueueJob : IJob
-    {
-        public NativeQueue<BulletInfo> weaponInfos;
-        public void Execute()
-        {
-            while (weaponInfos.TryDequeue(out BulletInfo info))
-            {
-                EventsHolder.BulletsEvents.Add(info);
-            }
-        }
-    }
+     {
+         public NativeQueue<BulletInfo> weaponInfos;
+         public void Execute()
+         {
+             while (weaponInfos.TryDequeue(out BulletInfo info))
+             {
+                 EventsHolder.BulletsEvents.Add(info);
+             }
+         }
+     }
 
     protected override void OnDestroy()
     {

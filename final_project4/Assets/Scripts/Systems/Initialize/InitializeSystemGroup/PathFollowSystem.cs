@@ -32,7 +32,7 @@ public class PathFollowSystem : SystemBase
         float time = Time.DeltaTime;
         float3 playerPosition = float3.zero;
         float test = 0.5f;
-        bool findNewPath = true;
+        //bool findNewPath = true;
         ScriptableGrid scriptableGrid = GameVariables.grid;
         float3 posPlayer = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
         //p[0] = World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;

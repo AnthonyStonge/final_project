@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Enums;
+using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -49,13 +50,35 @@ namespace EventStruct
         //Event position
         public float3 Position;
         public quaternion Rotation;
-        
+
         public enum PlayerEventType
         {
             ON_SPAWN,
             ON_RESPAWN,
             ON_DIE,
             ON_TAKING_DAMAGE
+        }
+    }
+
+    //For now only used to hard change a frame on an AnimatedObject
+    public struct AnimationInfo
+    {
+        public Entity Entity;
+        public State NewState;
+    }
+
+    public struct StateInfo
+    {
+        public Entity Entity;
+        public State DesiredState;
+
+        public ActionType Action;
+        
+        public enum ActionType
+        {
+            TryChange,
+            TryChangeAndLock,
+            Unlock
         }
     }
 }

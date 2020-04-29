@@ -1,16 +1,17 @@
 ﻿using Unity.Entities;
+using Unity.Rendering;
 using UnityEngine;
 
 public class GameLogic : IStateLogic
 {
     public GameLogic()
     {
-       // Debug.Log("OnCreate GameLogic");
+        // Debug.Log("OnCreate GameLogic");
     }
 
     public void Enable()
     {
-       // Debug.Log("Enable GameLogic Systems");
+        // Debug.Log("Enable GameLogic Systems");
 
         var world = World.DefaultGameObjectInjectionWorld;
         world.GetExistingSystem<LateInitializeManager>().Enabled = true;
@@ -20,10 +21,9 @@ public class GameLogic : IStateLogic
 
     public void Disable()
     {
-       // Debug.Log("Disable GameLogic Systems");
+        // Debug.Log("Disable GameLogic Systems");
 
         var world = World.DefaultGameObjectInjectionWorld;
-
         world.GetExistingSystem<LateInitializeManager>().Enabled = false;
         world.GetExistingSystem<LateSimulationManager>().Enabled = false;
         world.GetExistingSystem<TransformSimulationManager>().Enabled = false;
