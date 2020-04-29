@@ -21,7 +21,7 @@ public class GameLogic : IStateLogic
 
     public void Disable()
     {
-       // Debug.Log("Disable GameLogic Systems");
+        // Debug.Log("Disable GameLogic Systems");
 
         var world = World.DefaultGameObjectInjectionWorld;
         world.GetExistingSystem<LateInitializeManager>().Enabled = false;

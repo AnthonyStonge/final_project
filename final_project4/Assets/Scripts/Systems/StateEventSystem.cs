@@ -124,7 +124,7 @@ public class StateEventSystem : SystemBase
         bool stateChanged = false;
         if (!component.StateLocked)
         {
-            Debug.Log("Changing state to: " + desiredState);
+            //Debug.Log("Changing state to: " + desiredState);
             stateChanged = true;
             ChangeState(ref component, desiredState, shouldLock);
         }
