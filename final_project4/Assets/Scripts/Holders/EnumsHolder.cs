@@ -3,19 +3,19 @@ using System;
 
 namespace Enums
 {
-    public enum WeaponType : byte
+    public enum WeaponType
     {
         Pistol,
         Shotgun
     }
 
-    public enum ProjectileType: byte
+    public enum ProjectileType
     {
         PistolBullet,
         ShotgunBullet
     }
 
-    public enum Type : byte
+    public enum Type
     {
         Player,
         Pig,
@@ -24,17 +24,17 @@ namespace Enums
         Gorilla
     }
 
-    public enum EnemyType : byte
+    public enum EnemyType
     {
         Enemy
     }
 
-    public enum PlayerType : byte
+    public enum PlayerType
     {
         Player
     }
 
-    public enum AudioSourceType : byte
+    public enum AudioSourceType
     {
         BackgroundMusic,
         PlayerWeaponActionsPlay, //Shoot, Reload, Swap
