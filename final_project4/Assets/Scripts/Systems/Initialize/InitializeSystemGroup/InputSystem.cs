@@ -21,21 +21,34 @@ public class InputSystem : SystemBase
         if (inputs.Enabled)
         {
             inputs.PartialReset();
-        
+
             //Get input
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
                 Application.Quit();
-        
+
             if (Input.GetKey(KeyCode.W))
-                inputs.Move.y += 1;
-            if (Input.GetKey(KeyCode.S))
-                inputs.Move.y -= 1;
-        
-            if (Input.GetKey(KeyCode.A))
-                inputs.Move.x -= 1;
-        
-            if (Input.GetKey(KeyCode.D))
+            {
                 inputs.Move.x += 1;
+                inputs.Move.y += 1;
+            }
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                inputs.Move.x -= 1;
+                inputs.Move.y -= 1;
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                inputs.Move.x -= 1;
+                inputs.Move.y = 1;
+            }
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                inputs.Move.x = 1;
+                inputs.Move.y -= 1;
+            }
 
             inputs.Interact = Input.GetKeyDown(KeyCode.E);
 
