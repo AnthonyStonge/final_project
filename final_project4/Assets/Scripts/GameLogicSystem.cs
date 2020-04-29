@@ -64,6 +64,11 @@ public class GameLogicSystem : SystemBase
             {
                 gameStateComponent.DesiredGameState = GameState.GAME;
             }
+
+            if (Input.GetKeyDown(KeyCode.Keypad4))
+            {
+                MapInitializer.NextLevel();
+            }
             
             //Normal Logic
             if (!gameStateComponent.IsChangeOfStateRequested())
