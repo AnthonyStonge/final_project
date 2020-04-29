@@ -73,6 +73,11 @@ public class SwapWeaponSystem : SystemBase
 
         EntityManager.SetEnabled(currentWeaponEntity, false);
         EntityManager.SetEnabled(desiredWeaponEntity, true);
+        
+        //Set Cooldown to shoot after swap
+        GunComponent gun = EntityManager.GetComponentData<GunComponent>(desiredWeaponEntity);
+        gun.SwapTimer = gun.OnSwapDelayToShoot;
+        EntityManager.SetComponentData(desiredWeaponEntity, gun);
 
         //Set CurrentGunType
         GameVariables.Player.CurrentWeaponHeld = type;

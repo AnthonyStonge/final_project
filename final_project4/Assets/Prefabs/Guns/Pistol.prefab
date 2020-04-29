@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponType: 0
+  OnSwapDelayToShoot: 0.2
   MaxBulletInMagazine: 20
   MaxBulletOnPlayer: 999
   ResetBetweenShotTime: 0.03
@@ -68,6 +69,7 @@ MonoBehaviour:
   CurrentAmountBulletOnPlayer: 999
   BetweenShotTime: 0
   ReloadTime: 0
+  SwapTimer: 0
 --- !u!1 &8085121456273243606
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,7 +82,7 @@ GameObject:
   - component: {fileID: 3947442604338229005}
   - component: {fileID: 8698457568014670707}
   m_Layer: 0
-  m_Name: Pistol
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
