@@ -8,7 +8,7 @@ public struct StateData : IComponentData
     public StateActions Value;
 }
 
-public enum StateActions
+public enum StateActions : byte
 {
     IDLE,
     MOVING,
