@@ -83,7 +83,7 @@ public class GameLogicSystem : SystemBase
                     if (FadingOver)
                     {
                         FadingOver = false;
-                        GlobalEvents.FadeIn();
+                        GlobalEvents.CameraEvents.FadeIn();
                         //Fade out over, Ready to init & disable last state
                         //Screen SHOULD hide the world to the player
                         DestroyLastState(gameStateComponent.CurrentGameState);
@@ -111,7 +111,7 @@ public class GameLogicSystem : SystemBase
             //Initialization trigger once per Statechange
             if (gameStateComponent.IsChangeOfStateRequested())
             {
-                GlobalEvents.FadeOut();
+                GlobalEvents.CameraEvents.FadeOut();
                 gameStateComponent.IsInTransition = true;
                 IsFadingOut = true;
                 DisableLastState(gameStateComponent.CurrentGameState);
