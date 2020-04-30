@@ -19,29 +19,23 @@ public class PlayerCollisionSystem : SystemBase
     {
         HavokCollisionEvents collisionEvents = ((HavokSimulation) stepPhysicsWorld.Simulation).CollisionEvents;
         
-        ComponentDataContainer<PlayerTag> player = new ComponentDataContainer<PlayerTag>
-        {
-            Components = GetComponentDataFromEntity<PlayerTag>()
-        };
-        ComponentDataContainer<EnemyTag> enemy = new ComponentDataContainer<EnemyTag>
-        {
-            Components = GetComponentDataFromEntity<EnemyTag>()
-        };
+        var player = GetComponentDataFromEntity<PlayerTag>(true);
+        var enemy = GetComponentDataFromEntity<EnemyTag>(true);
         
         foreach (var collisionEvent in collisionEvents)
         {
             
             bool isHit = false;
-            if(player.Components.HasComponent(collisionEvent.Entities.EntityA))
+            if(player.HasComponent(collisionEvent.Entities.EntityA))
             {
-                if (enemy.Components.HasComponent(collisionEvent.Entities.EntityB))
+                if (enemy.HasComponent(collisionEvent.Entities.EntityB))
                 {
                     isHit = true;
                 }
             }
-            if(player.Components.HasComponent(collisionEvent.Entities.EntityB))
+            if(player.HasComponent(collisionEvent.Entities.EntityB))
             {
-                if (enemy.Components.HasComponent(collisionEvent.Entities.EntityA))
+                if (enemy.HasComponent(collisionEvent.Entities.EntityA))
                 {
                     isHit = true;
                 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PistolShot
   m_EditorClassIdentifier: 
   Effect: {fileID: 800871890946317216, guid: c20756789bb7c5e4793457e4a5b8b3c6, type: 3}
-  MaxAmount: 2048
+  MaxAmount: 4000
   Weapons:
   - WeaponType: 0
     EventType: 0
