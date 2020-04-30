@@ -57,18 +57,7 @@ public static class MapEvents
         int idMapToLoad = (int) CurrentTypeLoaded + 1;
         
         //If on last level -> return to first one
-        if ((int) CurrentTypeLoaded >= Enum.GetNames(typeof(MapType)).Length)
-            idMapToLoad = 0;
-        
-        LoadMap((MapType)idMapToLoad);
-    }
-
-    public static void LoadNextMapSafe()
-    {
-        int idMapToLoad = (int) CurrentTypeLoaded + 1;
-        
-        //If on last level -> return to first one
-        if ((int) CurrentTypeLoaded >= Enum.GetNames(typeof(MapType)).Length)
+        if (idMapToLoad >= Enum.GetNames(typeof(MapType)).Length)
             idMapToLoad = 0;
         
         LoadMap((MapType)idMapToLoad);
