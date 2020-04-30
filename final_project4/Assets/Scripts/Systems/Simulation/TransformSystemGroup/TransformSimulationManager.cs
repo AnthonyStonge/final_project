@@ -3,11 +3,14 @@
 [DisableAutoCreation]
 public class TransformSimulationManager : ComponentSystemGroup
 {
+    private PathFinding pathFinding;
+    private PathFollowSystem pathFollowSystem;
+    private EnnemieFollowSystem ennemieFollowSystem;
+    private TestToRenameIfWork testToRenameIfWork;
     private MoveSystem moveSystem;
     private RotateEnemySystem rotateEnemySystem;
     private RotatePlayerSystem rotatePlayerSystem;
     private ProjectileHitDetectionSystem projectileHitDetectionSystem;
-    private PathFollowSystem pathFollowSystem;
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
@@ -16,15 +19,21 @@ public class TransformSimulationManager : ComponentSystemGroup
         rotateEnemySystem = world.GetOrCreateSystem<RotateEnemySystem>();
         rotatePlayerSystem = world.GetOrCreateSystem<RotatePlayerSystem>();
         projectileHitDetectionSystem = world.GetOrCreateSystem<ProjectileHitDetectionSystem>();
+        pathFinding = world.GetOrCreateSystem<PathFinding>();
         pathFollowSystem = world.GetOrCreateSystem<PathFollowSystem>();
-        
+        testToRenameIfWork = world.GetOrCreateSystem<TestToRenameIfWork>();
+        ennemieFollowSystem = world.GetOrCreateSystem<EnnemieFollowSystem>();
+
         var transform = world.GetOrCreateSystem<TransformSimulationManager>();
         
+        transform.AddSystemToUpdateList(pathFinding);
+        transform.AddSystemToUpdateList(pathFollowSystem);
+        transform.AddSystemToUpdateList(testToRenameIfWork);
+        transform.AddSystemToUpdateList(ennemieFollowSystem);
         transform.AddSystemToUpdateList(moveSystem);
         transform.AddSystemToUpdateList(rotateEnemySystem);
         transform.AddSystemToUpdateList(rotatePlayerSystem);
         transform.AddSystemToUpdateList(projectileHitDetectionSystem);
-        transform.AddSystemToUpdateList(pathFollowSystem);
     }
 
     protected override void OnUpdate()
@@ -36,7 +45,10 @@ public class TransformSimulationManager : ComponentSystemGroup
         rotatePlayerSystem.Update();
         //Dependency : RotatePlayerEnemySystem
         moveSystem.Update();
-        projectileHitDetectionSystem.Update();
+        testToRenameIfWork.Update();
+        pathFinding.Update();
         pathFollowSystem.Update();
+        ennemieFollowSystem.Update();
+        projectileHitDetectionSystem.Update();
     }
 }

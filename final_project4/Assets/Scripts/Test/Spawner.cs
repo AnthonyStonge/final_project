@@ -50,15 +50,15 @@ public class Spawner : MonoBehaviour
         em.SetComponentData(e, new PathFindingComponent()
         {
             startPos = new int2(-1, -1),
-            endPos = new int2(Random.Range(0,20), Random.Range(0,20))
         });
         em.SetComponentData(e, new Translation
         {
             Value = new float3(Random.Range(0,100),0,Random.Range(0,100))
         });
-        em.SetComponentData(e, new PathFollowComponent
+        em.AddComponentData(e, new PathFollowComponent
         {
             pathIndex = -1,
+            EnemyReachedTarget = true
         });
         em.AddSharedComponentData(e, new BatchFilter
         {

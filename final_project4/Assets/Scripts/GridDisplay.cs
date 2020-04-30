@@ -43,7 +43,7 @@ public class GridDisplay : MonoBehaviour
                 }
                 else
                 {
-                    if((i + j * grid.gridSize.x) % 2 == 0)
+                    if((i + j) % 2 == 0)
                         Gizmos.color = Color.white;
                     else
                         Gizmos.color = Color.grey;

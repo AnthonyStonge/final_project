@@ -10,6 +10,7 @@ using Unity.Transforms;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 [DisableAutoCreation]
+[UpdateBefore(typeof(EnnemieFollowSystem))]
 public class PathFollowSystem : SystemBase
 {
     private static readonly CollisionFilter Filter = new CollisionFilter
@@ -27,26 +28,16 @@ public class PathFollowSystem : SystemBase
     }
     protected override void OnUpdate()
     {
+        
         var physicsWorld = buildPhysicsWorld.PhysicsWorld;
         float time = Time.DeltaTime;
-        float3 playerPosition = float3.zero;
         float test = 0.5f;
         //bool findNewPath = true;
         ScriptableGrid scriptableGrid = GameVariables.grid;
         float3 posPlayer = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
-        Entities.WithoutBurst().ForEach((DynamicBuffer<PathPosition> pathPos, ref Translation translation, ref PathFollowComponent pathFollow, ref PathFindingComponent pathFindingComponent, ref PhysicsVelocity physicsVelocity) =>
+        Entities.ForEach((DynamicBuffer<PathPosition> pathPos, ref Translation translation, ref PathFollowComponent pathFollow, ref PathFindingComponent pathFindingComponent, ref PhysicsVelocity physicsVelocity) =>
         {
-            if (pathFindingComponent.timeBeforeCheck <= 0)
-            {
-                pathFindingComponent.endPos = new int2((int) posPlayer.x, (int) posPlayer.z);
-                pathFindingComponent.findPath = 0;
-                pathFindingComponent.timeBeforeCheck = test;
-            }
-            else
-            {
-                pathFindingComponent.timeBeforeCheck -= time;
-            }
-            if (pathFollow.pathIndex > 0)
+            if (pathFollow.EnemyReachedTarget)
             {
                 //previousPos = PATHRESET;
                 pathFollow.PositionToGo = new int2(1000);
@@ -65,14 +56,20 @@ public class PathFollowSystem : SystemBase
                         findPlayer = true;
                     }
                 }
-                while (!findPlayer && compteur != pathPos.Length)
+                while (!findPlayer && (compteur != pathPos.Length && compteur != 5))
                 {
-                    
-                    int2 pathPosition = pathPos[pathFollow.pathIndex - compteur].position;
+                    int2 basePos = pathPos[pathFollow.pathIndex].position;
+                    int2 pathPosition;
+                    if (pathFollow.pathIndex - compteur > 0)
+                        pathPosition = pathPos[pathFollow.pathIndex - compteur].position;
+                    else
+                        pathPosition = pathPos[0].position;
+
                     float3 pathPositionConvert = new float3(pathPosition.x, 0.2f, pathPosition.y);
+                    float3 basePosConvert = new float3(basePos.x, 0.2f, basePos.y);
                     RaycastInput raycastInput = new RaycastInput
                     {
-                        Start = translation.Value,
+                        Start = basePosConvert,
                         End = pathPositionConvert,
                         Filter = Filter
                     };
@@ -80,28 +77,30 @@ public class PathFollowSystem : SystemBase
                     {
                         if (!HasComponent<PlayerTag>(hit.Entity))
                         {
-                            pathFollow.PositionToGo = pathPosition;
+                            pathFollow.PositionToGo = pathPos[(pathFollow.pathIndex - compteur) + 1].position;
+                            pathFollow.EnemyReachedTarget = false;
+                            Debug.Log("bob1");
                             break;
+                            
                         }
                     }
                     compteur++;
                 }
-                if (pathFollow.PositionToGo.x != 1000)
+                if (compteur == 5)
                 {
-                    float3 targetPos = new float3(pathFollow.PositionToGo.x, 0, pathFollow.PositionToGo.y);
-                    float3 moveDir = math.normalizesafe(targetPos - translation.Value);
-                    float moveSpeed = 300;
-                    physicsVelocity.Linear = moveDir * moveSpeed * time;
+                    pathFollow.PositionToGo = pathPos[(pathFollow.pathIndex - compteur)].position;
+                    pathFollow.EnemyReachedTarget = false;
+                    Debug.Log("bob2");
                 }
-                else
+                else if (findPlayer)
                 {
-                    Debug.Log("bob");
-                    float3 targetPos = new float3(playerPosition.x, 0, playerPosition.z);
-                    float3 moveDir = math.normalizesafe(targetPos - translation.Value);
-                    float moveSpeed = 300;
-                    physicsVelocity.Linear = moveDir * moveSpeed * time;
+                    pathFollow.PositionToGo = new int2((int) posPlayer.x, (int) posPlayer.z);
+                    pathFollow.EnemyReachedTarget = false;
+                    Debug.Log("bob3");
                 }
+                
             }
+            
         }).ScheduleParallel();
     }
 }

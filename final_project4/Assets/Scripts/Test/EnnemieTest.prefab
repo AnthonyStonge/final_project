@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 1186073651184453208}
   - component: {fileID: 535555355057455111}
   - component: {fileID: 4121944931462576235}
-  - component: {fileID: 970178156359264373}
   - component: {fileID: 231434817930348432}
   - component: {fileID: 2609799129606695432}
   - component: {fileID: 1555304894338503018}
   - component: {fileID: 4226565682145345198}
   - component: {fileID: -687038097855541950}
   - component: {fileID: -5285836355235067111}
+  - component: {fileID: -8528630370491565401}
   m_Layer: 0
   m_Name: EnnemieTest
   m_TagString: Untagged
@@ -86,20 +86,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &970178156359264373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8564223512416964792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e81a02ea5f91b54b893f93a1648c66b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathIndex: 0
-  timeBetweenCheck: 0.5
 --- !u!114 &231434817930348432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,8 +186,8 @@ MonoBehaviour:
     y: 0
     z: 0
   m_PrimitiveSize:
-    x: 1.4145803
-    y: 1.4145803
+    x: 1
+    y: 1
     z: 2
   m_PrimitiveOrientation:
     Value:
@@ -211,11 +197,11 @@ MonoBehaviour:
     RotationOrder: 4
   m_Capsule:
     Height: 2
-    Radius: 0.7072902
+    Radius: 0.5
     Axis: 2
   m_Cylinder:
     Height: 2
-    Radius: 0.7072902
+    Radius: 0.5
     Axis: 2
   m_CylinderSideCount: 20
   m_SphereRadius: 1
@@ -280,3 +266,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PourcentChanceOfDrop: 0
+--- !u!114 &-8528630370491565401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8564223512416964792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27395b8c9ec0a2a4ebb4829c1c8405f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

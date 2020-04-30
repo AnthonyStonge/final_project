@@ -13,6 +13,7 @@ public struct BatchFilter : ISharedComponentData
     public ushort Value;
 }
 [DisableAutoCreation]
+[UpdateBefore(typeof(PathFollowSystem))]
 public class PathFinding : SystemBase
 {
     public struct Node
@@ -79,12 +80,10 @@ public class PathFinding : SystemBase
                     index = CalculateIndex(i, j, gridSize.x),
                     cameFromNodeIndex = -1
                 };
-                //node.CalculFCost();
-                
                 nodeArray[node.index] = node;
             }
         }
-        
+        Debug.Log(wall.Count);
     }
 
     protected override void OnUpdate()
@@ -94,15 +93,12 @@ public class PathFinding : SystemBase
         NativeArray<int2> neightBourOffsetArrayJob = neightBourOffsetArray;
         Entities.WithSharedComponentFilter(new BatchFilter{Value = batchCall++}).ForEach((DynamicBuffer<PathPosition> pathBuffer, ref Translation translation, ref PathFindingComponent pathFindingComp, ref PathFollowComponent pathFollow) =>
             {
-                if(pathFindingComp.findPath == 0)
+                if(pathFollow.EnemyReachedTarget)
                 {
                     if (nodeArray[CalculateIndex(pathFindingComp.endPos.x, pathFindingComp.endPos.y, 100)].isWalkable && IsPositionInsideGrid(pathFindingComp.endPos, _gridSize))
                     {
-                        //pathFindingComp.startPos = new int2((((int) translation.Value.x < 0) ? (int) translation.Value.x- 1 : (int) translation.Value.x), (((int)translation.Value.z < 0) ? (int)translation.Value.z - 1 : (int)translation.Value.z));
                         pathFindingComp.startPos = new int2((int) translation.Value.x, (int) translation.Value.z);
-                        
-                        FindPath(pathFindingComp.startPos, pathFindingComp.endPos, ref pathFindingComp.findPath,
-                            pathBuffer, ref pathFollow, _gridSize, nodeArray, neightBourOffsetArrayJob);
+                        FindPath(pathFindingComp.startPos, pathFindingComp.endPos, ref pathFindingComp.findPath, pathBuffer, ref pathFollow, _gridSize, nodeArray, neightBourOffsetArrayJob);
                     }
                 }
             }).ScheduleParallel();
