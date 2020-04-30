@@ -1,4 +1,6 @@
 ﻿using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
 
 public static class GlobalEvents
 {
@@ -24,10 +26,32 @@ public static class GlobalEvents
             //Destroy entities with query
             manager.DestroyEntity(query);
         }
+
+        public static void GameLost()
+        {
+            
+        }
     }
     
     public static class PlayerEvents
     {
+        public static void OnPlayerDie()
+        {
+            //Look if Player should respawn in current level
+            if(GameVariables.Player.AmountLife <= 0)
+                GameEvents.GameLost();
+                
+        }
+
+        public static void SetPlayerPosition(float3 position)
+        {
+            EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            manager.SetComponentData(GameVariables.Player.Entity, new Translation
+            {
+                Value = position
+            });
+        }
+
         public static void LockUserInputs()
         {
             //Get input components / Player entity

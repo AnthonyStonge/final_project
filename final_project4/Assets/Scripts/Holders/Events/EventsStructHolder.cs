@@ -81,4 +81,14 @@ namespace EventStruct
             Unlock
         }
     }
+
+    public struct InteractableInfo
+    {
+        public Entity Entity;
+        public InteractableType Type;
+        
+        //Position of the entity (not the collision event)
+        public float3 Position;
+        public quaternion Rotation;
+    }
 }

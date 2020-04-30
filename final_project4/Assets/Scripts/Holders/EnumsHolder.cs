@@ -61,4 +61,12 @@ namespace Enums
         Dying,
         Respawning
     }
+
+    public enum InteractableType
+    {
+        Portal,
+        Door,
+        Switch,
+        Light
+    }
 }
