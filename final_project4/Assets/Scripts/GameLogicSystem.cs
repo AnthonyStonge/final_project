@@ -14,6 +14,7 @@ public class GameLogicSystem : SystemBase
     private bool IsFadingIn = false;
 
     private static bool FadingOver;
+
     protected override void OnCreate()
     {
         LogicClassDict = new Dictionary<GameState, IStateLogic>();
@@ -67,9 +68,12 @@ public class GameLogicSystem : SystemBase
 
             if (Input.GetKeyDown(KeyCode.Keypad4))
             {
-                MapInitializer.NextLevel();
+                MapEvents.LoadNextMap();
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.Keypad5))
+                MapEvents.LoadPreviousMap();
+
             //Normal Logic
             if (!gameStateComponent.IsChangeOfStateRequested())
                 return;
@@ -83,7 +87,7 @@ public class GameLogicSystem : SystemBase
                     if (FadingOver)
                     {
                         FadingOver = false;
-                        GlobalEvents.FadeIn();
+                        GlobalEvents.CameraEvents.FadeIn();
                         //Fade out over, Ready to init & disable last state
                         //Screen SHOULD hide the world to the player
                         DestroyLastState(gameStateComponent.CurrentGameState);
@@ -111,7 +115,7 @@ public class GameLogicSystem : SystemBase
             //Initialization trigger once per Statechange
             if (gameStateComponent.IsChangeOfStateRequested())
             {
-                GlobalEvents.FadeOut();
+                GlobalEvents.CameraEvents.FadeOut();
                 gameStateComponent.IsInTransition = true;
                 IsFadingOut = true;
                 DisableLastState(gameStateComponent.CurrentGameState);

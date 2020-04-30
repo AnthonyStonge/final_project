@@ -25,7 +25,7 @@ public class DashSystem : SystemBase
                     dashComponent.TargetDuringDash = rotation.Value;
                     
                     //Disable input during dash
-                    GlobalEvents.LockUserInputs(ref ic);
+                    GlobalEvents.PlayerEvents.LockUserInputs(ref ic);
                 }
 
                 else if (dashComponent.CurrentCooldownTime > 0)
@@ -44,7 +44,7 @@ public class DashSystem : SystemBase
                     }
                     else
                     {
-                        GlobalEvents.UnlockUserInputs(ref ic);
+                        GlobalEvents.PlayerEvents.UnlockUserInputs(ref ic);
                     }
                 }
             }).Schedule();
