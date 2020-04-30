@@ -41,7 +41,7 @@ public class UISystem : SystemBase
     }
     private static float PlayerLifePourcent(LifeComponent lifeComponent)
     {
-        return (lifeComponent.CurrentLife * 100) / lifeComponent.MaxLife;
+        return (lifeComponent.Life.Value * 100) / lifeComponent.Life.Max;
     }
     private static float PlayerUiWidth(float pourcentOfLife, float width)
     {

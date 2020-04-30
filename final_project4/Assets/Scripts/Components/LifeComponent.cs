@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Entities;
-using UnityEngine;
+﻿using Unity.Entities;
+
 [GenerateAuthoringComponent]
 public struct LifeComponent : IComponentData
 {
-    public int MaxLife;
-    public int CurrentLife;
+    public Range Life;
 }
