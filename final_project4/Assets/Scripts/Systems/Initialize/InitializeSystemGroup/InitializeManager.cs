@@ -18,7 +18,7 @@ public class InitializeManager : ComponentSystemGroup
         inputSystem = world.GetOrCreateSystem<InputSystem>();
         swapWeaponSystem = world.GetOrCreateSystem<SwapWeaponSystem>();
         playerTargetSystem = world.GetOrCreateSystem<PlayerTargetSystem>();
-        pathFinding= world.GetOrCreateSystem<PathFinding>();
+        //pathFinding= world.GetOrCreateSystem<PathFinding>();
         gameLogicSystem = world.GetOrCreateSystem<GameLogicSystem>();
         
         var initialize = world.GetOrCreateSystem<InitializeManager>();
@@ -43,7 +43,7 @@ public class InitializeManager : ComponentSystemGroup
             //Dependency: None   
             inputSystem.Update();
             
-            pathFinding.Update();
+            //pathFinding.Update();
             
             swapWeaponSystem.Update();
             
