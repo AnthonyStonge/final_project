@@ -95,7 +95,6 @@ public class VisualEventSystem : SystemBase
         }
         foreach (var info in EventsHolder.WeaponEvents)
         {
-            Debug.Log(effectTextures[VisualEffectHolder.WeaponEffects[info.WeaponType][info.EventType]].Count);
             effectTextures[VisualEffectHolder.WeaponEffects[info.WeaponType][info.EventType]].
                 Add(info.Position, math.forward(info.Rotation) );
         }
