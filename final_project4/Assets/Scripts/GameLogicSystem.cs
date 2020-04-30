@@ -14,6 +14,7 @@ public class GameLogicSystem : SystemBase
     private bool IsFadingIn = false;
 
     private static bool FadingOver;
+
     protected override void OnCreate()
     {
         LogicClassDict = new Dictionary<GameState, IStateLogic>();
@@ -67,9 +68,12 @@ public class GameLogicSystem : SystemBase
 
             if (Input.GetKeyDown(KeyCode.Keypad4))
             {
-                MapInitializer.NextLevel();
+                MapEvents.LoadNextMap();
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.Keypad5))
+                MapEvents.LoadPreviousMap();
+
             //Normal Logic
             if (!gameStateComponent.IsChangeOfStateRequested())
                 return;
