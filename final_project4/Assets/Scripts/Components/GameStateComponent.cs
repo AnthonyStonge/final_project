@@ -27,7 +27,7 @@ public struct GameStateComponent : IComponentData
     }
 }
 
-public enum GameState : byte
+public enum GameState
 {
     INTRO,
     MENU,
