@@ -61,4 +61,10 @@ namespace Enums
         Dying,
         Respawning
     }
+    public enum EnnemyState
+    {
+        Wondering,
+        Attack,
+        Chase
+    }
 }

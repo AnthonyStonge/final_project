@@ -18622,34 +18622,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShapeType: 0
   m_PrimitiveCenter:
-    x: -1.2499957
-    y: 1.4985003
-    z: 0.08180359
+    x: 0
+    y: 0
+    z: 0
   m_PrimitiveSize:
-    x: 2.4999914
-    y: 2.9970007
-    z: 0.16360474
+    x: 0
+    y: 0
+    z: 0
   m_PrimitiveOrientation:
     Value:
-      x: -0
+      x: 0
       y: 0
       z: 0
-    RotationOrder: 4
+    RotationOrder: 0
   m_Capsule:
-    Height: 2.9970007
-    Radius: 1.2499957
-    Axis: 1
+    Height: 0
+    Radius: 0
+    Axis: 0
   m_Cylinder:
-    Height: 0.16360474
-    Radius: 1.4985003
+    Height: 0
+    Radius: 0
     Axis: 2
-  m_CylinderSideCount: 20
-  m_SphereRadius: 1.4985003
-  m_MinimumSkinnedVertexWeight: 0.1
+  m_CylinderSideCount: 3
+  m_SphereRadius: 0
+  m_MinimumSkinnedVertexWeight: 0
   m_ConvexHullGenerationParameters:
-    m_SimplificationTolerance: 0.015
+    m_SimplificationTolerance: 0
     m_BevelRadius: 0
-    m_MinimumAngle: 2.5000002
+    m_MinimumAngle: 0
   m_CustomMesh: {fileID: 0}
   m_ForceUnique: 0
   m_Material:
@@ -18661,19 +18661,19 @@ MonoBehaviour:
     m_Friction:
       m_Override: 0
       m_Value:
-        Value: 0.5
+        Value: 0
         CombineMode: 0
     m_Restitution:
       m_Override: 0
       m_Value:
         Value: 0
-        CombineMode: 2
+        CombineMode: 0
     m_BelongsTo:
       m_Override: 0
-      m_Value: 0000000000000000000001000000000000000000000000000000000000000000
+      m_Value: 0000000000000000000000000000000000000000000000000000000000000000
     m_CollidesWith:
       m_Override: 0
-      m_Value: 0101010101000000000000000000000000000000000000000000000000000000
+      m_Value: 0000000000000000000000000000000000000000000000000000000000000000
     m_RaisesCollisionEvents:
       m_Override: 0
       m_Value: 0

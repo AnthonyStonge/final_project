@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Enums;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
@@ -14,7 +15,7 @@ public class TestToRenameIfWork : SystemBase
         float3 posPlayer = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
         Entities.ForEach((ref PathFollowComponent pathFollow, ref PathFindingComponent pathFindingComponent) =>
         {
-            if (pathFollow.EnemyReachedTarget)
+            if (pathFollow.ennemyState == EnnemyState.Chase)
             {
                 pathFindingComponent.endPos = new int2((int) posPlayer.x, (int) posPlayer.z);
             }
