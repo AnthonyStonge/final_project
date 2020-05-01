@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Enums;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Type = Enums.Type;
@@ -20,7 +21,7 @@ public static class AnimationHolder
     public static List<int> AnimatedGroupsLength;
 
     private static int currentNumberOfLoadedAssets = 0;
-    private static int numberOfAssetsToLoad = 1;
+    private static int numberOfAssetsToLoad = 2;
 
 
     public static void Initialize()
@@ -39,6 +40,11 @@ public static class AnimationHolder
         Addressables.LoadAssetAsync<AnimationsContainer>("AnimationsContainer").Completed += handle =>
         {
             ExtractDataFromContainer(handle.Result);
+            currentNumberOfLoadedAssets++;
+        };
+        Addressables.LoadAssetAsync<UnHandledStatesContainer>("UnHandledStatesContainer").Completed += handle =>
+        {
+            ExtractUnHandledStates(handle.Result);
             currentNumberOfLoadedAssets++;
         };
     }
@@ -67,6 +73,23 @@ public static class AnimationHolder
                 Frames = frames,
                 Material = animation.Material
             });
+        }
+    }
+
+    private static void ExtractUnHandledStates(UnHandledStatesContainer container)
+    {
+        //Get System
+        AnimationEventSystem system =
+            World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<AnimationEventSystem>();
+        
+        //Add to list
+        foreach (UnHandledStatesContainer.Links link in container.UnHandledStates)
+        {
+            //TODO LOOK FOR DUPLICATES
+            if(!system.UnHandledStates.ContainsKey(link.Type))
+                system.UnHandledStates.Add(link.Type, new HashSet<State>());
+
+            system.UnHandledStates[link.Type].Add(link.State);
         }
     }
 

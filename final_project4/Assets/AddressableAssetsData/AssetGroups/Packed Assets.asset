@@ -137,6 +137,15 @@ MonoBehaviour:
       type: 3}
     m_TargetAsset: {fileID: 1361505397808347161, guid: e7c153c60fa5ce6409e1cb79cd816229,
       type: 3}
+  - m_GUID: f6a036e450e4f724f92f291a19575c97
+    m_Address: UnHandledStatesContainer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    m_mainAssetType: UnHandledStatesContainer, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 11400000, guid: f6a036e450e4f724f92f291a19575c97, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: f6a036e450e4f724f92f291a19575c97, type: 2}
   - m_GUID: fb754b1338196a442b09bf879b333b11
     m_Address: AnimationsContainer
     m_ReadOnly: 0
