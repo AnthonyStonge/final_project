@@ -70,8 +70,12 @@ public class InitializeManager : ComponentSystemGroup
         }
     }
 
-
     protected override void OnDestroy()
     {
+    }
+
+    public void OnSwapLevel()
+    {
+        
     }
 }

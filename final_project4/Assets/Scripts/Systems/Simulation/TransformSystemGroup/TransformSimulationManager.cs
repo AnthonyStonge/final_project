@@ -39,4 +39,9 @@ public class TransformSimulationManager : ComponentSystemGroup
         projectileHitDetectionSystem.Update();
         pathFollowSystem.Update();
     }
+    
+    public void OnSwapLevel()
+    {
+        
+    }
 }
