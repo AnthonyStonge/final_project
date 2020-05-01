@@ -95,7 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   ObjectType: 0
-  MapType: 0
+  CurrentMapType: 0
   PortalId: 0
   PlayerSpawnPosition: {fileID: 0}
   MapTypeLeadingTo: 0
