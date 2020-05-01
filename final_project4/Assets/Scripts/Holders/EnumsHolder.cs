@@ -64,9 +64,14 @@ namespace Enums
 
     public enum InteractableType
     {
-        Portal,
-        Door,
+        UseOnInput,
+        UseOnEnterZone
+    }
+
+    public enum InteractableObjectType
+    {
         Switch,
-        Light
+        Portal,
+        Ammo
     }
 }

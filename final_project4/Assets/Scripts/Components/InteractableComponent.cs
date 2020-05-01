@@ -4,7 +4,8 @@ using Enums;
 using Unity.Entities;
 using UnityEngine;
 
-public class InteractableComponent : IComponentData
+public struct InteractableComponent : IComponentData
 {
     public InteractableType Type;
+    public InteractableObjectType ObjectType;
 }

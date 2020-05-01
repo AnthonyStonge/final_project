@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cinemachine;
 using Enums;
+using EventStruct;
 using TMPro;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -39,5 +40,10 @@ public static class GameVariables
         public static RectTransform lifeRect;
         public static RectTransform lifeBgRect;
         public static FadeObject FadeObject;
+    }
+
+    public static class Interactables
+    {
+        public static InteractableInfo? Info;
     }
 }

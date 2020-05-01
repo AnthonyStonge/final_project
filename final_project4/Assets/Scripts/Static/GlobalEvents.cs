@@ -52,6 +52,15 @@ public static class GlobalEvents
             });
         }
 
+        public static void SetPlayerRotation(quaternion rotation)
+        {
+            EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            manager.SetComponentData(GameVariables.Player.Entity, new Rotation
+            {
+                Value = rotation
+            });
+        }
+
         public static void LockUserInputs()
         {
             //Get input components / Player entity
