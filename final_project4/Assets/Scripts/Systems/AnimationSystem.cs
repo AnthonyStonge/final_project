@@ -28,7 +28,7 @@ public class AnimationSystem : SystemBase
 
                 //Increment frame at + Clamp it
                 animation.MeshIndexAt++;
-                animation.MeshIndexAt %= (ushort) AnimationHolder.Animations[type.Value][state.CurrentState].Frames.Length;
+                animation.MeshIndexAt %= (short) AnimationHolder.Animations[type.Value][state.CurrentState].Frames.Length;
 
                 ecb.SetSharedComponent(entityInQueryIndex, e, new RenderMesh
                 {

@@ -16,5 +16,4 @@ MonoBehaviour:
   State: 0
   Material: {fileID: 2100000, guid: bf6b5488f058e124380579a33325c0b8, type: 2}
   Frames:
-  - {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-  - {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: -927199367670048503, guid: 03effea72fa60254fbb60d5afee0eb8f, type: 3}

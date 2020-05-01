@@ -30,10 +30,10 @@ public class StateDyingSystem : SystemBase
         NativeQueue<StateInfo>.ParallelWriter events = stateEvents.AsParallelWriter();
         
         ////Act on all entities with HealthData.
-        JobHandle job = Entities.WithAll<StateComponent>().ForEach((Entity e, in LifeComponent health) =>
+        JobHandle job = Entities.WithAll<StateComponent>().ForEach(delegate(Entity e, in LifeComponent health)
         {
             //If health <= 0 -> set state to dying
-            if (health.CurrentLife <= 0)
+            if (health.Life.Value <= 0)
                 events.Enqueue(new StateInfo
                 {
                     Entity = e,

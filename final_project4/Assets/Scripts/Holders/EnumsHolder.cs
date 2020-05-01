@@ -61,4 +61,17 @@ namespace Enums
         Dying,
         Respawning
     }
+
+    public enum InteractableType
+    {
+        UseOnInput,
+        UseOnEnterZone
+    }
+
+    public enum InteractableObjectType
+    {
+        Switch,
+        Portal,
+        Ammo
+    }
 }
