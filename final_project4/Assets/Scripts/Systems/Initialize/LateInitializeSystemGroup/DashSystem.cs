@@ -62,7 +62,7 @@ public class DashSystem : SystemBase
         GlobalEvents.PlayerEvents.UnlockUserInputs();
         dash.WasDashingPreviousFrame = false;
         //Set delay on weapon so it can shoot right away
-        gun.SwapTimer = 0.015f;
+        gun.SwapTimer = 0.015f;    //Put a bigger delay if player stays in Dash animation after dashing (because there was a big delta time)
     }
 
     private static bool TryDash(DashComponent dash, InputComponent inputs)
