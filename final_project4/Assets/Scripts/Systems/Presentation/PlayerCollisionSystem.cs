@@ -43,7 +43,7 @@ public class PlayerCollisionSystem : SystemBase
             if (isHit)
             {
                 LifeComponent lifeComponent = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
-                lifeComponent.CurrentLife -= 1;
+                lifeComponent.Life.Value -= 1;
                 EntityManager.SetComponentData(GameVariables.Player.Entity, lifeComponent);
             }
             

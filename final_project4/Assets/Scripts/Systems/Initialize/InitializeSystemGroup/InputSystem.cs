@@ -41,15 +41,17 @@ public class InputSystem : SystemBase
             if (Input.GetKey(KeyCode.A))
             {
                 inputs.Move.x -= 1;
-                inputs.Move.y = 1;
+                inputs.Move.y += 1;
             }
 
             if (Input.GetKey(KeyCode.D))
             {
-                inputs.Move.x = 1;
+                inputs.Move.x += 1;
                 inputs.Move.y -= 1;
             }
 
+            inputs.Move = math.normalizesafe(inputs.Move);
+            
             inputs.Interact = Input.GetKeyDown(KeyCode.E);
 
             inputs.Shoot = Input.GetMouseButton(0);

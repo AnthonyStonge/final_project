@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c61c0f72492d3458b569cabee886a5, type: 3}
   m_Name: PlayerPistolShot
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: 70dba6f310c1f5d459512f27004a0092, type: 3}
+  Clip: {fileID: 8300000, guid: a0ae47b7564662840a920ed67dbbace3, type: 3}
   AudioSourceType: 1
   Delay: 0.06
   Weapons:

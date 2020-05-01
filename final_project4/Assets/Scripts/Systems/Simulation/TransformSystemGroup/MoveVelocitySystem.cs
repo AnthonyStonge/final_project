@@ -22,20 +22,19 @@ public class MoveVelocitySystem : SystemBase
         Entities.WithoutBurst().WithAll<PlayerTag>().ForEach(
             (Entity entity, ref PhysicsVelocity physicsVelocity, ref StateData state, in SpeedData speedData, in InputComponent ic) =>
             {
-                if (ic.Enabled)
-                {
-                    physicsVelocity.Linear.xz = math.normalizesafe(ic.Move) * speedData.Value * dt;
+                if (!ic.Enabled) return;
+                
+                physicsVelocity.Linear.xz = ic.Move * speedData.Value * dt;
                     
-                    //If inputs to move, change state
-                    if (!ic.Move.Equals(float2.zero))
+                //If inputs to move, change state
+                if (!ic.Move.Equals(float2.zero))
+                {
+                    EventsHolder.StateEvents.Add(new StateInfo
                     {
-                        EventsHolder.StateEvents.Add(new StateInfo
-                        {
-                            Entity = entity,
-                            Action = StateInfo.ActionType.TryChange,
-                            DesiredState = State.Running
-                        });
-                    }
+                        Entity = entity,
+                        Action = StateInfo.ActionType.TryChange,
+                        DesiredState = State.Running
+                    });
                 }
             }).Schedule();
     }
