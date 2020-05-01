@@ -31,7 +31,7 @@ public class AnimationEventSystem : SystemBase
             if(UnHandledStates.ContainsKey(type.Value))
                 if (UnHandledStates[type.Value].Contains(info.NewState))
                 {
-                    Debug.Log("Animation not handled... Staying on current animation");
+                    //Debug.Log("Animation not handled... Staying on current animation");
                     continue;
                 }
             
