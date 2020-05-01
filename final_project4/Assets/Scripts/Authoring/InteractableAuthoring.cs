@@ -9,7 +9,7 @@ public class InteractableAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     public InteractableType Type;
     public InteractableObjectType ObjectType;
 
-    public MapType MapType;
+    public MapType CurrentMapType;
 
     [Header("Portal")]
     public ushort PortalId;
@@ -35,11 +35,16 @@ public class InteractableAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         if (ObjectType == InteractableObjectType.Portal)
         {
             //Create MapInfo for this MapType
-            if (!MapHolder.MapsInfo.ContainsKey(MapType))
-                MapHolder.MapsInfo.Add(MapType, new MapInfo());
+            if (!MapHolder.MapsInfo.ContainsKey(CurrentMapType))
+                MapHolder.MapsInfo.Add(CurrentMapType, new MapInfo());
 
+            if (ReferenceEquals(PlayerSpawnPosition, null))
+            {
+                PlayerSpawnPosition = transform;
+            }
+            
             //Add info
-            MapHolder.MapsInfo[MapType].Portals.Add(PortalId, new MapInfo.Portal
+            MapHolder.MapsInfo[CurrentMapType].Portals.Add(PortalId, new MapInfo.Portal
             {
                 Id = PortalId,
                 Position = PlayerSpawnPosition.position,

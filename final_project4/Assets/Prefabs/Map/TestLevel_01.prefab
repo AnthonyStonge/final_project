@@ -323,11 +323,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   ObjectType: 1
-  MapType: 1
-  PortalId: 5
+  CurrentMapType: 1
+  PortalId: 101
   PlayerSpawnPosition: {fileID: 107800901590208294}
-  MapTypeLeadingTo: 0
-  PortalIdLeadingTo: 0
+  MapTypeLeadingTo: 1
+  PortalIdLeadingTo: 101
 --- !u!1 &9044775325000084865
 GameObject:
   m_ObjectHideFlags: 0
