@@ -23,17 +23,17 @@ public class AnimationSystem : SystemBase
             {
                 //Make sure animation exists for this type/state
                 if (!AnimationHolder.Animations.ContainsKey(type.Value) ||
-                    !AnimationHolder.Animations[type.Value].ContainsKey(state.CurrentState))
+                    !AnimationHolder.Animations[type.Value].ContainsKey(state.CurrentAnimationState))
                     return;
 
                 //Increment frame at + Clamp it
                 animation.MeshIndexAt++;
-                animation.MeshIndexAt %= (short) AnimationHolder.Animations[type.Value][state.CurrentState].Frames.Length;
+                animation.MeshIndexAt %= (short) AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Frames.Length;
 
                 ecb.SetSharedComponent(entityInQueryIndex, e, new RenderMesh
                 {
-                    mesh = AnimationHolder.Animations[type.Value][state.CurrentState].Frames[animation.MeshIndexAt],
-                    material = AnimationHolder.Animations[type.Value][state.CurrentState].Material
+                    mesh = AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Frames[animation.MeshIndexAt],
+                    material = AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Material
                 });
             }).ScheduleParallel();
 
