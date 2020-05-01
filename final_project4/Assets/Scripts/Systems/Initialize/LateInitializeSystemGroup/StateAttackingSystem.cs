@@ -9,7 +9,6 @@ using Unity.Transforms;
 [UpdateAfter(typeof(StateMovingSystem))]
 public class StateAttackingSystem : SystemBase
 {
-
     protected override void OnCreate()
     {
     }
@@ -19,8 +18,11 @@ public class StateAttackingSystem : SystemBase
         //Player state
         Entity player = GameVariables.Player.Entity;
         InputComponent playerInputs = GetComponent<InputComponent>(player);
+        GunComponent gun = GetComponent<GunComponent>(
+            GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]);
 
-        if (playerInputs.Shoot)
+        //Make sure player can attack (Weapon not on cooldown)
+        if (gun.SwapTimer <= 0 && playerInputs.Shoot)
         {
             //Add StateEvent
             EventsHolder.StateEvents.Add(new StateInfo
@@ -34,13 +36,14 @@ public class StateAttackingSystem : SystemBase
         //TODO DONT RUN QUERY IF NO ENNEMIES EXISTS
         var playerPos = GetComponent<Translation>(player);
         //Act on all entities with AttackStateData and EnemyTag
-        Entities.WithAll<EnemyTag>().ForEach((ref StateData state, in Translation currentPosition, in AttackStateData range) =>
-        {
-            //Compare distance between current position and target position. If distance <= range -> set state to attack
-            if (math.distancesq(currentPosition.Value, playerPos.Value) <= range.Value * range.Value)
+        Entities.WithAll<EnemyTag>().ForEach(
+            (ref StateData state, in Translation currentPosition, in AttackStateData range) =>
             {
-                state.Value = StateActions.ATTACKING;
-            }
-        }).ScheduleParallel();
+                //Compare distance between current position and target position. If distance <= range -> set state to attack
+                if (math.distancesq(currentPosition.Value, playerPos.Value) <= range.Value * range.Value)
+                {
+                    state.Value = StateActions.ATTACKING;
+                }
+            }).ScheduleParallel();
     }
 }
