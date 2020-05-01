@@ -21,7 +21,6 @@ public class DashSystem : SystemBase
         PhysicsVelocity physicsVelocity = EntityManager.GetComponentData<PhysicsVelocity>(playerEntity);
         DashComponent dash = EntityManager.GetComponentData<DashComponent>(playerEntity);
         InputComponent inputs = EntityManager.GetComponentData<InputComponent>(playerEntity);
-        GunComponent gun = EntityManager.GetComponentData<GunComponent>(playerWeaponEntity);
         Rotation rotation = EntityManager.GetComponentData<Rotation>(playerEntity);
 
         //Is Player currently dashing? -> Keep moving
@@ -35,8 +34,7 @@ public class DashSystem : SystemBase
         //Is dash finished? -> Unlock inputs...
         else if (dash.WasDashingPreviousFrame)
         {
-            OnDashEnd(ref dash, ref gun);
-            EntityManager.SetComponentData(playerWeaponEntity, gun);
+            OnDashEnd(ref dash);
         }
 
         //
@@ -57,12 +55,10 @@ public class DashSystem : SystemBase
         return math.normalizesafe(dash.TargetEndDash) * dash.Speed * 100 * delta;
     }
 
-    private static void OnDashEnd(ref DashComponent dash, ref GunComponent gun)
+    private static void OnDashEnd(ref DashComponent dash)
     {
         GlobalEvents.PlayerEvents.UnlockUserInputs();
         dash.WasDashingPreviousFrame = false;
-        //Set delay on weapon so it can shoot right away
-        gun.SwapTimer = 0.015f;    //Put a bigger delay if player stays in Dash animation after dashing (because there was a big delta time)
     }
 
     private static bool TryDash(DashComponent dash, InputComponent inputs)
