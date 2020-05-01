@@ -26,25 +26,14 @@ public class AnimationEventSystem : SystemBase
         {
             //Get Type of Entity
             TypeData type = entityManager.GetComponentData<TypeData>(info.Entity);
-            
-            //Get StateComponent
-            StateComponent state = entityManager.GetComponentData<StateComponent>(info.Entity);
 
             //Make sure animation exists for this type/state
             if (!AnimationHolder.Animations.ContainsKey(type.Value) ||
                 !AnimationHolder.Animations[type.Value].ContainsKey(info.NewState))
                 continue;
-            
-            //Make sure AnimationState desired isnt already playing
-            if(state.CurrentAnimationState == info.NewState)
-                continue;
 
             //Get AnimationComponent
             AnimationData animation = entityManager.GetComponentData<AnimationData>(info.Entity);
-
-            //Set new AnimationState
-            state.CurrentAnimationState = info.NewState;
-            entityManager.SetComponentData(info.Entity, state);
 
             //Set new frame
             animation.MeshIndexAt = 0;
