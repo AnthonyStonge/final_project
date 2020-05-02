@@ -51,9 +51,11 @@ public static class GlobalEvents
         
             //Create Query
             EntityQuery query = manager.CreateEntityQuery(typeof(AmunationComponent));
+            EntityQuery bulletQuery = manager.CreateEntityQuery(typeof(BulletTag));
         
             //Destroy entities with query
             manager.DestroyEntity(query);
+            manager.DestroyEntity(bulletQuery);
         }
 
         public static void GameLost()
@@ -70,6 +72,12 @@ public static class GlobalEvents
         {
             Application.Quit();
         }
+
+        public static void OnSwapLevel()
+        {
+            DestroyAllDrops();
+        }
+        
     }
     
     public static class PlayerEvents

@@ -84,6 +84,8 @@ public static class MapEvents
     {
         World world = World.DefaultGameObjectInjectionWorld;
         
+        GlobalEvents.GameEvents.OnSwapLevel();
+        
         world.GetOrCreateSystem<InitializeManager>().OnSwapLevel();
         world.GetOrCreateSystem<LateInitializeManager>().OnSwapLevel();
         world.GetOrCreateSystem<TransformSimulationManager>().OnSwapLevel();
