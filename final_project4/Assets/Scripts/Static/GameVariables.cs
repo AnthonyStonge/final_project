@@ -40,6 +40,8 @@ public static class GameVariables
         public static RectTransform lifeRect;
         public static RectTransform lifeBgRect;
         public static FadeObject FadeObject;
+
+        public static GameObject PausedMenu;
     }
 
     public static class Interactables

@@ -70,7 +70,7 @@ public class InteractableEventSystem : SystemBase
 
     private static void OnEnterPortal(InteractableInfo info)
     {
-        Debug.Log("Entered Portal");
+         Debug.Log("Entered Portal");
 
         //Get PortalComponent
         PortalData data =

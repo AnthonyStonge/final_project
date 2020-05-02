@@ -15,6 +15,7 @@ public class UiAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     public RectTransform lifeRectBg;
     public Image FadeImage;
     public float FadeSpeed;
+    public GameObject PausedMenu;
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         GameVariables.UI.NbBulletInMagazine = NbBulletInMagazine;
@@ -24,7 +25,7 @@ public class UiAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         GameVariables.UI.ShotgunImage = ShotgunImage;
         GameVariables.UI.lifeRect = lifeRect;
         GameVariables.UI.lifeBgRect = lifeRectBg;
-        
+        GameVariables.UI.PausedMenu = PausedMenu;
 
         GameVariables.UI.FadeObject = new FadeObject
         {

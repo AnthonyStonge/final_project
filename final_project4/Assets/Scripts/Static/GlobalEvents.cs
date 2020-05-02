@@ -31,7 +31,7 @@ public static class GlobalEvents
 
         private static void ShowPauseMenu()
         {
-            
+            GameVariables.UI.PausedMenu.SetActive(!TogglePauseGame);
         }
 
         public static void DestroyAllEnemies()
