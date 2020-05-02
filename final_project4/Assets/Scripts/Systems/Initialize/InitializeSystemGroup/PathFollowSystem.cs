@@ -27,7 +27,7 @@ public class PathFollowSystem : SystemBase
     }
     protected override void OnUpdate()
     {
-        rSeed = new Random(1235);
+        //rSeed = new Random(1235);
         ComponentDataContainer<PlayerTag> Player = new ComponentDataContainer<PlayerTag>
         {
             Components = GetComponentDataFromEntity<PlayerTag>()

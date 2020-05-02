@@ -78,11 +78,11 @@ public class StateEventSystem : SystemBase
                     {
                         stateToChangeTo = info.DesiredState;
                         shouldStateMachineLock = false;
-
+                    }
+                    if (info.DesiredState > animationStateToChangeTo)
                         if (AnimationHolder.Animations.ContainsKey(type.Value))
                             if (AnimationHolder.Animations[type.Value].ContainsKey(info.DesiredState))
                                 animationStateToChangeTo = info.DesiredState;
-                    }
                 }
                 else if (info.Action == StateInfo.ActionType.TryChangeAndLock)
                 {
@@ -92,11 +92,11 @@ public class StateEventSystem : SystemBase
                     {
                         stateToChangeTo = info.DesiredState;
                         shouldStateMachineLock = true;
-
+                    }
+                    if (info.DesiredState > animationStateToChangeTo)
                         if (AnimationHolder.Animations.ContainsKey(type.Value))
                             if (AnimationHolder.Animations[type.Value].ContainsKey(info.DesiredState))
                                 animationStateToChangeTo = info.DesiredState;
-                    }
                 }
             }
 
@@ -118,7 +118,7 @@ public class StateEventSystem : SystemBase
                     animationEvents.Enqueue(new AnimationInfo
                     {
                         Entity = e,
-                        NewState = component.CurrentState
+                        NewState = animationStateToChangeTo
                     });
                 }
             }
