@@ -27,6 +27,7 @@ public class AnimationEventSystem : SystemBase
             //Get Type of Entity
             TypeData type = entityManager.GetComponentData<TypeData>(info.Entity);
 
+            //TODO CAN REMOVE UNDER IN THEORIE
             //Make sure animation exists for this type/state
             if (!AnimationHolder.Animations.ContainsKey(type.Value) ||
                 !AnimationHolder.Animations[type.Value].ContainsKey(info.NewState))
