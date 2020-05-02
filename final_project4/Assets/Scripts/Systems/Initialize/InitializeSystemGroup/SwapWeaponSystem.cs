@@ -8,8 +8,6 @@ using UnityEngine;
 public class SwapWeaponSystem : SystemBase
 {
     private int gunEnumLength;
-    private float swapWeaponTimer;
-    private float delaySwapWeapon = 0.02f;    //TODO CHOOSE A GOOD TIMER DELAY
 
     protected override void OnCreate()
     {
@@ -23,13 +21,6 @@ public class SwapWeaponSystem : SystemBase
 
         if (!inputs.Enabled)
             return;
-
-        //Delay to swap weapon < 0
-        if (swapWeaponTimer > 0)
-        {
-            swapWeaponTimer -= Time.DeltaTime;
-            return;
-        }
 
         //Number > mouse wheel (override)
         if (inputs.WeaponTypeDesired != GameVariables.Player.CurrentWeaponHeld)
@@ -58,8 +49,6 @@ public class SwapWeaponSystem : SystemBase
 
     private void SwapWeapon(WeaponType type)
     {
-        swapWeaponTimer = delaySwapWeapon;
-
         //Add event to NativeList
         EventsHolder.WeaponEvents.Add(new WeaponInfo
         {
@@ -73,11 +62,6 @@ public class SwapWeaponSystem : SystemBase
 
         EntityManager.SetEnabled(currentWeaponEntity, false);
         EntityManager.SetEnabled(desiredWeaponEntity, true);
-        
-        //Set Cooldown to shoot after swap
-        GunComponent gun = EntityManager.GetComponentData<GunComponent>(desiredWeaponEntity);
-        gun.SwapTimer = gun.OnSwapDelayToShoot;
-        EntityManager.SetComponentData(desiredWeaponEntity, gun);
 
         //Set CurrentGunType
         GameVariables.Player.CurrentWeaponHeld = type;

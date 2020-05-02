@@ -1,33 +1,11 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Unity.Entities;
-using Unity.Mathematics;
 using UnityEngine.AddressableAssets;
-
-public class MapInfo
-{
-    public Dictionary<ushort, Portal> Portals = new Dictionary<ushort, Portal>();
-    
-    public struct Portal
-    {
-        //Personal info
-        public ushort Id;
-        public float3 Position;
-        public quaternion Rotation;
-        
-        //When going into, where is it going
-        public MapType MapTypeLeadingTo;
-        public ushort PortalIdLeadingTo;
-    }
-}
 
 public static class MapHolder
 {
-    public static ConcurrentDictionary<MapType, Entity> MapPrefabDict = 
-        new ConcurrentDictionary<MapType, Entity>();
-
-    public static Dictionary<MapType, MapInfo> MapsInfo =
-        new Dictionary<MapType, MapInfo>();
+    public static ConcurrentDictionary<string, Entity> MapPrefabDict;
 
     public static List<BlobAssetStore> BloblAssetList = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets;
@@ -37,23 +15,25 @@ public static class MapHolder
     {
         currentNumberOfLoadedAssets = 0;
         numberOfAssetsToLoad = 1;
+
+        MapPrefabDict = new ConcurrentDictionary<string, Entity>();
     }
 
     public static void LoadAssets()
     {
         Addressables.LoadAssetAsync<MapContainerScriptable>("MapContainer").Completed += obj =>
         {
-            MapContainerScriptable container = obj.Result;
+            var container = obj.Result;
 
-            foreach (MapContainerScriptable.MapObjectLinks map in container.Links)
+            foreach (var i in container.Links)
             {
-                Entity mapEntity = ECSUtility.ConvertGameObjectPrefab(map.Prefab, out BlobAssetStore blob);
+                Entity newEntity = ECSUtility.ConvertGameObjectPrefab(i.Prefab, out BlobAssetStore blob);
                 if (blob != null)
                 {
                     BloblAssetList.Add(blob);
                 }
                
-                MapPrefabDict.TryAdd(map.Type, mapEntity);
+                MapPrefabDict.TryAdd(i.KeyName, newEntity);
             }
 
             currentNumberOfLoadedAssets++;

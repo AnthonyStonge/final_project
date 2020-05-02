@@ -16,7 +16,111 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 116d0d87901a1984ea3bf4b295415015
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 0583b798eb7e811419d77d60d911d32f
+    m_Address: ShotgunBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 0d586cd5c66d5414fb82a92aa57251a5
+    m_Address: Enemy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 2c1c7c62cc387814ca8b8cbf7ebea684
+    m_Address: EffectsContainer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: EffectsContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 4415b89aced59ff41819888c782445dc
+    m_Address: AudioSourceContainer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: AudioSourcesContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 5711f946471167948ad81b654dc60c3c
+    m_Address: Assets/Materials/InteractableBullet.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 60f0d0549d8db2d42851dab63cd22a39
+    m_Address: Amunation
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8608ea675a3da4146bdd02b2d363944c
+    m_Address: SoundsContainer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: SoundsContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 950f480c66d432542924efec9f68e4f1
+    m_Address: PistolBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: a393625207c8d3f43a4bdf22ee3f588b
+    m_Address: Pistol
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: d114fa09940f71e4b92d609932f930c4
+    m_Address: MapContainer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: MapContainerScriptable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_MainAsset: {fileID: 11400000, guid: d114fa09940f71e4b92d609932f930c4, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: d114fa09940f71e4b92d609932f930c4, type: 2}
+  - m_GUID: e0ae6182e1a6b11438ffe0678d68e1df
+    m_Address: Player
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: e7c153c60fa5ce6409e1cb79cd816229
+    m_Address: Shotgun
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: fb754b1338196a442b09bf879b333b11
+    m_Address: AnimationsContainer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_mainAssetType: AnimationsContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3c5e8f3b98606ca43b2a070e5fd7e106, type: 2}
   m_SchemaSet:

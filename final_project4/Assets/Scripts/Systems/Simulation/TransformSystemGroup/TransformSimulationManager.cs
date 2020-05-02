@@ -51,9 +51,4 @@ public class TransformSimulationManager : ComponentSystemGroup
         ennemieFollowSystem.Update();
         projectileHitDetectionSystem.Update();
     }
-    
-    public void OnSwapLevel()
-    {
-        
-    }
 }

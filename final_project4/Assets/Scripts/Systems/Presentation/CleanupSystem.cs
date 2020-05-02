@@ -11,6 +11,5 @@ public class CleanupSystem : SystemBase
         EventsHolder.PlayerEvents.Clear();
         EventsHolder.StateEvents.Clear();
         EventsHolder.AnimationEvents.Clear();
-        EventsHolder.InteractableEvents.Clear();
     }
 }

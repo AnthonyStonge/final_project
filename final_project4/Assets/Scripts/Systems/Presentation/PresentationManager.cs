@@ -8,8 +8,6 @@ public class PresentationManager : ComponentSystemGroup
 {
     private StateEventSystem stateEventSystem;
     private AnimationEventSystem animationEventSystem;
-
-    private InteractableEventSystem interactableEventSystem;
     
     private SoundEventSystem soundEventSystem;
     private VisualEventSystem visualEventSystem;
@@ -29,8 +27,6 @@ public class PresentationManager : ComponentSystemGroup
 
         stateEventSystem = world.GetOrCreateSystem<StateEventSystem>();
         animationEventSystem = world.GetOrCreateSystem<AnimationEventSystem>();
-
-        interactableEventSystem = world.GetOrCreateSystem<InteractableEventSystem>();
         
         soundEventSystem = world.GetOrCreateSystem<SoundEventSystem>();
         lootSystem = world.GetOrCreateSystem<LootSystem>();
@@ -41,10 +37,9 @@ public class PresentationManager : ComponentSystemGroup
         uiSystem = world.GetOrCreateSystem<UISystem>();
 
         var presentation = world.GetOrCreateSystem<PresentationManager>();
-        
         presentation.AddSystemToUpdateList(stateEventSystem);
         presentation.AddSystemToUpdateList(animationEventSystem);
-        presentation.AddSystemToUpdateList(interactableEventSystem);
+        
         presentation.AddSystemToUpdateList(playerCollisionSystem);
         presentation.AddSystemToUpdateList(lootSystem);
         presentation.AddSystemToUpdateList(visualEventSystem);
@@ -59,8 +54,6 @@ public class PresentationManager : ComponentSystemGroup
         stateEventSystem.Update();
         animationEventSystem.Update();
         
-        interactableEventSystem.Update();
-        
         uiSystem.Update();
         playerCollisionSystem.Update();
         dropSystem.Update();
@@ -68,10 +61,5 @@ public class PresentationManager : ComponentSystemGroup
         soundEventSystem.Update();
         visualEventSystem.Update();
         cleanupSystem.Update();
-    }
-    
-    public void OnSwapLevel()
-    {
-        
     }
 }

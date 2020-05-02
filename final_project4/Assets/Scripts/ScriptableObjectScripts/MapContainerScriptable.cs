@@ -10,17 +10,8 @@ public class MapContainerScriptable : ScriptableObject
     [Serializable]
     public struct MapObjectLinks
     {
-        public MapType Type;
+        public string KeyName;
+        public Type type;
         public GameObject Prefab;
     }
-}
-
-public enum MapType
-{
-    LevelMenu,
-    Level_01,
-    Level_02,
-    Level_03,
-    Level_04,
-    Level_05
 }

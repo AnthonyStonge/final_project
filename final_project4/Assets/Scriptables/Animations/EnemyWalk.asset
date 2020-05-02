@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyWalk
   m_EditorClassIdentifier: 
   Type: 1
-  State: 0
   Material: {fileID: 2100000, guid: 02a8fb06cc0408844ac22debd75a3883, type: 2}
   Frames:
-  - {fileID: -927199367670048503, guid: c0152b96c88b0b24287af8e20af5fbf0, type: 3}
+  - {fileID: 4300000, guid: 2e229aeefbd276a40a5347940abfe280, type: 3}
+  - {fileID: 4300000, guid: f0acec595f5f77b479b28844d040f308, type: 3}

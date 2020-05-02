@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cinemachine;
 using Enums;
-using EventStruct;
 using TMPro;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -25,8 +24,6 @@ public static class GameVariables
         public static Dictionary<WeaponType, Entity> PlayerWeaponEntities = new Dictionary<WeaponType, Entity>();
         public static WeaponType CurrentWeaponHeld;
 
-        public static ushort AmountLife;
-
         //Unity linker
         public static Transform Transform;
     }
@@ -40,10 +37,5 @@ public static class GameVariables
         public static RectTransform lifeRect;
         public static RectTransform lifeBgRect;
         public static FadeObject FadeObject;
-    }
-
-    public static class Interactables
-    {
-        public static InteractableInfo? Info;
     }
 }

@@ -9,8 +9,6 @@ public struct GunComponent : IComponentData
 {
     [Header("Variables")]
     public WeaponType WeaponType;
-    [Tooltip("Must be above 1 frame so that ParentSystem can update its position")]
-    [Range(0.02f, 100f)]public float OnSwapDelayToShoot;
     
     [Space(5)]
     public int MaxBulletInMagazine;
@@ -31,7 +29,6 @@ public struct GunComponent : IComponentData
     
     [HideInInspector] public float BetweenShotTime;
     [HideInInspector] public float ReloadTime;
-    [HideInInspector] public float SwapTimer;
     
     [HideInInspector] public bool IsBetweenShot => BetweenShotTime > 0;
     [HideInInspector] public bool IsReloading => ReloadTime > 0;

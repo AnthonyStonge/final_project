@@ -21,19 +21,20 @@ public class LootSystem : SystemBase
     protected override void OnUpdate()
     {
         HavokTriggerEvents triggerEvents = ((HavokSimulation) stepPhysicsWorld.Simulation).TriggerEvents;
-        
-        var amunitionComponents = GetComponentDataFromEntity<AmunationComponent>(true);
-        
+        ComponentDataContainer<AmunationComponent> amunitionComponents = new ComponentDataContainer<AmunationComponent>
+        {
+            Components = GetComponentDataFromEntity<AmunationComponent>()
+        };
         NativeList<Entity> entities = new NativeList<Entity>(Allocator.Temp);
         
         foreach (var triggerEvent in triggerEvents)
         {
-            if(amunitionComponents.HasComponent(triggerEvent.Entities.EntityA))
+            if(amunitionComponents.Components.HasComponent(triggerEvent.Entities.EntityA))
             {
                 if(!entities.Contains(triggerEvent.Entities.EntityA))
                     entities.Add(triggerEvent.Entities.EntityA);
             }
-            if(amunitionComponents.HasComponent(triggerEvent.Entities.EntityB))
+            if(amunitionComponents.Components.HasComponent(triggerEvent.Entities.EntityB))
             {
                 if(!entities.Contains(triggerEvent.Entities.EntityB))
                     entities.Add(triggerEvent.Entities.EntityB);

@@ -206,7 +206,7 @@ Canvas:
   m_GameObject: {fileID: 518319123873077930}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -804,7 +804,7 @@ MonoBehaviour:
   m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 0
   m_FrequencyGain: 1
-  mNoiseOffsets: {x: -211.28091, y: -547.2539, z: 315.2878}
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &6366307756115398208
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,7 +975,7 @@ PrefabInstance:
     - target: {fileID: 2043510414682520872, guid: 3138f7a50b1a8c9479115c8e1b816157,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0000077752
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2043510414682520872, guid: 3138f7a50b1a8c9479115c8e1b816157,
         type: 3}
@@ -1020,12 +1020,12 @@ PrefabInstance:
     - target: {fileID: 2043510414682520872, guid: 3138f7a50b1a8c9479115c8e1b816157,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 95.174
+      value: 101
       objectReference: {fileID: 0}
     - target: {fileID: 2043510414682520872, guid: 3138f7a50b1a8c9479115c8e1b816157,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -58.5
+      value: 153
       objectReference: {fileID: 0}
     - target: {fileID: 2043510414682520872, guid: 3138f7a50b1a8c9479115c8e1b816157,
         type: 3}
@@ -1040,22 +1040,22 @@ PrefabInstance:
     - target: {fileID: 2043510414682520872, guid: 3138f7a50b1a8c9479115c8e1b816157,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.003342538
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2043510414682520872, guid: 3138f7a50b1a8c9479115c8e1b816157,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.98016715
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2043510414682520872, guid: 3138f7a50b1a8c9479115c8e1b816157,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.003342538
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2043510414682520872, guid: 3138f7a50b1a8c9479115c8e1b816157,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.98016715
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2043510414682520872, guid: 3138f7a50b1a8c9479115c8e1b816157,
         type: 3}

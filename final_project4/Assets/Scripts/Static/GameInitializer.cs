@@ -47,7 +47,7 @@ public static class GameInitializer
         //GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
         //Game Initializer?
         
-        MapEvents.Initialize();
+        MapInitializer.Initialize();
         PlayerInitializer.Initialize();
         WeaponInitializer.Initialize();
 

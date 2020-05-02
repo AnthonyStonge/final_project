@@ -81,22 +81,4 @@ namespace EventStruct
             Unlock
         }
     }
-
-    public struct InteractableInfo
-    {
-        public Entity Entity;
-        public InteractableType InteractableType;
-        public InteractableObjectType ObjectType;
-        public InteractableCollisionType CollisionType;
-        
-        //Position of the entity (not the collision event)
-        public float3 Position;
-        public quaternion Rotation;
-
-        public enum InteractableCollisionType
-        {
-            OnTriggerEnter,
-            OnTriggerExit
-        }
-    }
 }

@@ -17,9 +17,6 @@ public static class EventsHolder
     
     public static NativeList<AnimationInfo> AnimationEvents =
         new NativeList<AnimationInfo>(Allocator.Persistent);
-    
-    public static NativeList<InteractableInfo> InteractableEvents =
-        new NativeList<InteractableInfo>(Allocator.Persistent);
 
     public static void OnDestroy()
     {
@@ -28,6 +25,5 @@ public static class EventsHolder
         PlayerEvents.Dispose();
         StateEvents.Dispose();
         AnimationEvents.Dispose();
-        InteractableEvents.Dispose();
     }
 }

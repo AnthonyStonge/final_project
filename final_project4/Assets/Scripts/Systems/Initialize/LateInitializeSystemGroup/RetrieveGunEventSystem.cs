@@ -58,13 +58,6 @@ public class RetrieveGunEventSystem : SystemBase
         JobHandle gunJob = Entities.ForEach(
             (Entity e, int entityInQueryIndex, ref GunComponent gun, in LocalToWorld transform, in Parent parent) =>
             {
-                //Make sure SwapDelay < 0
-                if (gun.SwapTimer > 0)
-                {
-                    gun.SwapTimer -= deltaTime;
-                    return;
-                }
-                
                 //Make sure gun has a parent
                 if (!states.Components.HasComponent(parent.Value))
                     return;
