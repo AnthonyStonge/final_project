@@ -1,8 +1,6 @@
 ﻿using System;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Physics;
-using Unity.Physics.Systems;
 using Unity.Transforms;
 using UnityEngine;
 
@@ -10,14 +8,16 @@ public static class GlobalEvents
 {
     public static class GameEvents
     {
-        public static bool TogglePauseGame = true; 
-        
+        public static bool TogglePauseGame = true;
+
         public static void PauseGame()
         {
             var world = World.DefaultGameObjectInjectionWorld;
-            
+
             TogglePauseGame = !TogglePauseGame;
+#if UNITY_EDITOR
             Debug.Log(TogglePauseGame);
+#endif
             //world.GetOrCreateSystem<InitializeManager>().Enabled = TogglePauseGame;
             world.GetOrCreateSystem<LateInitializeManager>().Enabled = TogglePauseGame;
             world.GetOrCreateSystem<TransformSimulationManager>().Enabled = TogglePauseGame;
@@ -26,7 +26,7 @@ public static class GlobalEvents
             //world.GetOrCreateSystem<BuildPhysicsWorld>().Enabled = TogglePauseGame;
 
             world.GetOrCreateSystem<SimulationSystemGroup>().Enabled = TogglePauseGame;
-            
+
             ShowPauseMenu();
         }
 
@@ -38,10 +38,10 @@ public static class GlobalEvents
         public static void DestroyAllEnemies()
         {
             EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        
+
             //Create Query
             EntityQuery query = manager.CreateEntityQuery(typeof(EnemyTag));
-        
+
             //Destroy entities with query
             manager.DestroyEntity(query);
         }
@@ -60,11 +60,11 @@ public static class GlobalEvents
         public static void DestroyAllDrops()
         {
             EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        
+
             //Create Query
             EntityQuery query = manager.CreateEntityQuery(typeof(AmmunitionComponent));
             EntityQuery bulletQuery = manager.CreateEntityQuery(typeof(BulletTag));
-        
+
             //Destroy entities with query
             manager.DestroyEntity(query);
             manager.DestroyEntity(bulletQuery);
@@ -74,9 +74,9 @@ public static class GlobalEvents
         {
             //Return player to Menu
             MapEvents.LoadMap(MapType.LevelMenu);
-            
+
             //Set Player position to Menu CheckPoint
-            
+
             //TODO Reset GameValue???
         }
 
@@ -90,19 +90,19 @@ public static class GlobalEvents
             Destroy<AmmunitionComponent>();
             Destroy<BulletTag>();
         }
-        
     }
-    
+
     public static class PlayerEvents
     {
         public static void OnPlayerDie()
         {
+#if UNITY_EDITOR
             Debug.Log("On Player Death");
-
+#endif
             GameVariables.Player.AmountLife--;
-            
+
             //Look if Player should respawn in current level
-            if(GameVariables.Player.AmountLife <= 0)
+            if (GameVariables.Player.AmountLife <= 0)
                 GameEvents.GameLost();
             else
                 RespawnPlayerOnCheckPoint();
@@ -112,14 +112,12 @@ public static class GlobalEvents
         {
             //Reset Life of Player
             ResetPlayerHp();
-            
+
             //Get last saved spawn position
-            
         }
 
         private static void SpawnOnCheckPoint(MapType mapType, ushort checkPointId)
         {
-            
         }
 
         private static void ResetPlayerHp()
@@ -154,31 +152,30 @@ public static class GlobalEvents
             //Get input components / Player entity
             EntityManager e = World.DefaultGameObjectInjectionWorld.EntityManager;
             Entity entity = GameVariables.Player.Entity;
-        
+
             //Set disable
             InputComponent inputs = e.GetComponentData<InputComponent>(entity);
             inputs.Enabled = false;
             e.SetComponentData(entity, inputs);
-    
         }
 
         public static void LockUserInputs(ref InputComponent inputs)
         {
             inputs.Enabled = false;
         }
-        
+
         public static void UnlockUserInputs()
         {
             //Get input components / Player entity
             EntityManager e = World.DefaultGameObjectInjectionWorld.EntityManager;
             Entity entity = GameVariables.Player.Entity;
-        
+
             //Set enable
             InputComponent inputs = e.GetComponentData<InputComponent>(entity);
             inputs.Enabled = true;
             e.SetComponentData(entity, inputs);
         }
-    
+
         public static void UnlockUserInputs(ref InputComponent inputs)
         {
             inputs.Enabled = true;
@@ -196,7 +193,7 @@ public static class GlobalEvents
         {
             SetFadeInfo(FadeObject.FadeType.FadeOut, 0);
         }
-        
+
         private static void SetFadeInfo(FadeObject.FadeType type, float startValue)
         {
             //Set fade component info
@@ -206,7 +203,7 @@ public static class GlobalEvents
             //Turn on fade system
             World.DefaultGameObjectInjectionWorld.GetExistingSystem<FadeSystem>().Enabled = true;
         }
-        
+
         public static void ShakeCam(float time, float shakeAmplitude, float shakeFrequency)
         {
             //Set fade component info
