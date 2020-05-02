@@ -12,7 +12,7 @@ public class MoveVelocitySystem : SystemBase
         float dt = Time.DeltaTime;
 
         Entities.WithoutBurst().WithAll<PlayerTag>().ForEach(
-            (Entity entity, ref PhysicsVelocity physicsVelocity, ref StateData state, in SpeedData speedData, in InputComponent ic) =>
+            (Entity entity, ref PhysicsVelocity physicsVelocity, in SpeedData speedData, in InputComponent ic) =>
             {
                 if (!ic.Enabled) return;
                 

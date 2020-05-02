@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5394405648703489097}
   - component: {fileID: 6383876509084117563}
   - component: {fileID: 42969534990531222}
-  - component: {fileID: 7337423134452421649}
+  - component: {fileID: 4257840470159146399}
   - component: {fileID: -6434783325635037793}
   - component: {fileID: -536652855229859866}
   m_Layer: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6673f8ae6c1c0634687991dbd7f8ec3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7337423134452421649
+--- !u!114 &4257840470159146399
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,10 +104,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4386793886523506817}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f69feabb269c024d91cfb6631a08fd6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2dd3d52205b6d92419c01c19421514c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0
+  StateLocked: 0
+  CurrentState: 0
+  CurrentAnimationState: 0
+  DesiredState: 0
+  ShouldStateBeLocked: 0
 --- !u!114 &-6434783325635037793
 MonoBehaviour:
   m_ObjectHideFlags: 0

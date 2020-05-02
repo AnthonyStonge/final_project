@@ -33,16 +33,17 @@ public class StateAttackingSystem : SystemBase
             });
         }
 
-        //TODO DONT RUN QUERY IF NO ENNEMIES EXISTS
+        //TODO DONT RUN QUERY IF NO ENEMIES EXISTS
         var playerPos = GetComponent<Translation>(player);
         //Act on all entities with AttackStateData and EnemyTag
         Entities.WithAll<EnemyTag>().ForEach(
-            (ref StateData state, in Translation currentPosition, in AttackStateData range) =>
+            (ref StateComponent state, in Translation currentPosition, in AttackStateData range) =>
             {
+                //TODO IMPLEMENT STATE MACHINE WITH ENEMIES
                 //Compare distance between current position and target position. If distance <= range -> set state to attack
                 if (math.distancesq(currentPosition.Value, playerPos.Value) <= range.Value * range.Value)
                 {
-                    state.Value = StateActions.ATTACKING;
+                    state.CurrentState = State.Attacking;
                 }
             }).ScheduleParallel();
     }
