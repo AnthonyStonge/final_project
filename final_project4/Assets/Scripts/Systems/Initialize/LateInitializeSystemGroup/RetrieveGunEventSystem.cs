@@ -97,10 +97,11 @@ public class RetrieveGunEventSystem : SystemBase
                 //Should weapon be reloading?    //Deactivate this line to block auto reload
                 if (TryStartReload(ref gun))
                     weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
-
+                Debug.Log(state.CurrentState);
                 if (state.CurrentState == State.Attacking)
                     if (TryShoot(ref gun))
                     {
+                        
                         weaponEventType = WeaponInfo.WeaponEventType.ON_SHOOT;
                         Shoot(entityInQueryIndex, ecb, ref gun, transform);
                     }
