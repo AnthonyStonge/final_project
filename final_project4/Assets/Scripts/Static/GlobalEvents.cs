@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using System;
+using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
@@ -44,13 +45,24 @@ public static class GlobalEvents
             //Destroy entities with query
             manager.DestroyEntity(query);
         }
+        public static void Destroy<T>() where T : IComponentData
+        {
+            EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        
+            //Create Query
+            EntityQuery query = manager.CreateEntityQuery(typeof(T));
+        
+            //Destroy entities with query
+            manager.DestroyEntity(query);
+        }
 
+        [Obsolete("Use Destroy<AmunationComponent> and Destroy<BulletTag> instead")]
         public static void DestroyAllDrops()
         {
             EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
             //Create Query
-            EntityQuery query = manager.CreateEntityQuery(typeof(AmunationComponent));
+            EntityQuery query = manager.CreateEntityQuery(typeof(AmmunitionComponent));
             EntityQuery bulletQuery = manager.CreateEntityQuery(typeof(BulletTag));
 
             //Destroy entities with query
@@ -75,7 +87,8 @@ public static class GlobalEvents
 
         public static void OnSwapLevel()
         {
-            DestroyAllDrops();
+            Destroy<AmmunitionComponent>();
+            Destroy<BulletTag>();
         }
     }
 

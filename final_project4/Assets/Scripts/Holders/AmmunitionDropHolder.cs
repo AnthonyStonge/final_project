@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using static ECSUtility;
 
-public static class AmunationDropHolder
+public static class AmmunitionDropHolder
 {
     public static ConcurrentDictionary<DropType, Entity> DropItemPrefabDict;
 

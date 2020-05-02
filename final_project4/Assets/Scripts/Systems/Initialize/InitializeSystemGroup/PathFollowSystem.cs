@@ -57,7 +57,7 @@ public class PathFollowSystem : SystemBase
                     ChaseFollow(ref pathFollow, translation, posPlayer, ref physicsWorld, pathPos, ref Player);
                     break;
                 case EnnemyState.Wondering:
-                    WonderingFollow(ref pathFollow, translation, ref physicsWorld, time, entityInQueryIndex, deltaTime);
+                    WonderingFollow(ref pathFollow,ref physicsWorld, translation, time, entityInQueryIndex, deltaTime);
                     break;
             }
 
@@ -151,26 +151,31 @@ public class PathFollowSystem : SystemBase
             pathFollow.EnemyReachedTarget = false;
         }
     }
-
-    private static void WonderingFollow(ref PathFollowComponent pathFollow, in Translation translation,
-        ref PhysicsWorld physicsWorld, in double time, int entityInQueryIndex, float deltaTime)
+    private static void WonderingFollow(ref PathFollowComponent pathFollow,ref PhysicsWorld physicsWorld, in Translation translation, in double time, in int entityInQueryIndex,in float deltaTime)
     {
         if (pathFollow.timeWonderingCounter < 0)
         {
-            var rSeed = new Random((uint) (time + entityInQueryIndex));
-
+            //Get next seed
+            var rSeed = new Random((uint)( time + entityInQueryIndex ));
+            
+            //Get random Angle, distance and time to wonder
             int randomAngle = rSeed.NextInt(0, 360);
             int rayDistance = rSeed.NextInt(3, 7);
             pathFollow.timeWonderingCounter = rSeed.NextInt(1, 6);
+            
+            //Set the angle of wondering
             float angle = math.radians(randomAngle);
             float2 pos = new float2(math.cos(angle), math.sin(angle) * rayDistance);
-            pathFollow.PositionToGo = (int2) (translation.Value.xz + pos);
+            pathFollow.PositionToGo = (int2)(translation.Value.xz + pos);
+            
+            //Check if it collides with anything
             RaycastInput raycastInput = new RaycastInput
             {
                 Start = translation.Value,
                 End = new float3(pathFollow.PositionToGo.x, 0.5f, pathFollow.PositionToGo.y),
                 Filter = Filter
             };
+            //If collides, do not move
             if (physicsWorld.CollisionWorld.CastRay(raycastInput))
             {
                 pathFollow.PositionToGo = new int2(-1);

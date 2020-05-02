@@ -5,7 +5,7 @@ using EventStruct;
 using Unity.Assertions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-
+using Object = UnityEngine.Object;
 public class Clip
 {
     public AudioClip AudioClip;
@@ -118,8 +118,7 @@ public static class SoundHolder
         foreach (AudioSourcesContainer.AudioSourceLink link in container.AudioSources)
         {
             //Instantiate (with camera as parent)
-            AudioSource source =
-                GameObject.Instantiate<AudioSource>(link.Source, MonoGameVariables.Instance.CameraTransform);
+            AudioSource source = Object.Instantiate(link.Source, MonoGameVariables.Instance.CameraTransform);
 
             //Add to dictonary
             AudioSources.Add(link.Type, new Source
