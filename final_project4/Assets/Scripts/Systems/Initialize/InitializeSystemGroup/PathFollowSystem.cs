@@ -18,15 +18,15 @@ public class PathFollowSystem : SystemBase
     };
     private BuildPhysicsWorld buildPhysicsWorld;
     private EndSimulationEntityCommandBufferSystem endSimulationEntityCommandBufferSystem;
-    static Unity.Mathematics.Random rSeed;
+    static Random rSeed;
     protected override void OnCreate()
     {
-        rSeed = new Random(1235);
         endSimulationEntityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
     }
     protected override void OnUpdate()
     {
+        rSeed = new Random(1235);
         ComponentDataContainer<PlayerTag> Player = new ComponentDataContainer<PlayerTag>
         {
             Components = GetComponentDataFromEntity<PlayerTag>()
