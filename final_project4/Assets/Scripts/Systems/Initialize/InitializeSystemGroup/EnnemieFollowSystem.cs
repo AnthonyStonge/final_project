@@ -27,9 +27,9 @@ public class EnnemieFollowSystem : SystemBase
         float time = Time.DeltaTime;
         Entities.WithoutBurst().ForEach((DynamicBuffer<PathPosition> pathPos, ref Translation translation,
             ref PathFollowComponent pathFollow, ref PathFindingComponent pathFindingComponent,
-            ref PhysicsVelocity physicsVelocity) =>
+            ref PhysicsVelocity physicsVelocity, ref EnnemyComponent ennemyComponent) =>
         {
-            if (!pathFollow.PositionToGo.Equals(new int2(-1)) && math.distance(new float3(pathFollow.PositionToGo.x, 0.5f, pathFollow.PositionToGo.y), translation.Value) > 1f)
+            if (!pathFollow.PositionToGo.Equals(new int2(-1)) && math.distance(new float3(pathFollow.PositionToGo.x, 0.5f, pathFollow.PositionToGo.y), translation.Value) > 1f && !ennemyComponent.inRange)
             {
                 float3 targetPos = new float3(pathFollow.PositionToGo.x, 0, pathFollow.PositionToGo.y);
                 float3 moveDir = math.normalizesafe((int3)targetPos - translation.Value);

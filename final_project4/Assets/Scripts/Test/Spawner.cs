@@ -28,13 +28,13 @@ public class Spawner : MonoBehaviour
         batch = 0;
         em = World.DefaultGameObjectInjectionWorld.EntityManager;
         createPlayer();
-    }
-    void Update()
+    }        
+    void Update()        
     {
         if (Input.GetMouseButtonDown(1))
         {
             spawnYCounter = 0;
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 15; i++)
             {
                 createEntity(i % 25, spawnYCounter);
                 if (i % 25 == 0)

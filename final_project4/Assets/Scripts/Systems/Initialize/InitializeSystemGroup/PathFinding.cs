@@ -84,7 +84,6 @@ public class PathFinding : SystemBase
                 nodeArray[node.index] = node;
             }
         }
-        Debug.Log(wall.Count);
     }
 
     protected override void OnUpdate()
@@ -93,20 +92,20 @@ public class PathFinding : SystemBase
         NativeArray<Node> nodeArray = this.nodeArray;
         NativeArray<int2> neightBourOffsetArrayJob = neightBourOffsetArray;
         Entities.WithSharedComponentFilter(new BatchFilter{Value = batchCall++}).ForEach((DynamicBuffer<PathPosition> pathBuffer, ref Translation translation, ref PathFindingComponent pathFindingComp, ref PathFollowComponent pathFollow) =>
+        {
+            if(pathFollow.ennemyState == EnnemyState.Chase)
             {
-                if(pathFollow.ennemyState == EnnemyState.Chase)
+                if (nodeArray[CalculateIndex(pathFindingComp.endPos.x, pathFindingComp.endPos.y, 100)].isWalkable && IsPositionInsideGrid(pathFindingComp.endPos, _gridSize))
                 {
-                    if (nodeArray[CalculateIndex(pathFindingComp.endPos.x, pathFindingComp.endPos.y, 100)].isWalkable && IsPositionInsideGrid(pathFindingComp.endPos, _gridSize))
+                    int2 tmp = new int2((int) translation.Value.x, (int) translation.Value.z);
+                    if (nodeArray[CalculateIndex(tmp.x, tmp.y, _gridSize.x)].isWalkable && IsPositionInsideGrid(tmp, _gridSize))
                     {
-                        int2 tmp = new int2((int) translation.Value.x, (int) translation.Value.z);
-                        if (nodeArray[CalculateIndex(tmp.x, tmp.y, _gridSize.x)].isWalkable && IsPositionInsideGrid(tmp, _gridSize))
-                        {
-                            pathFindingComp.startPos = tmp;
-                        }
-                        FindPath(pathFindingComp.startPos, pathFindingComp.endPos, ref pathFindingComp.findPath, pathBuffer, ref pathFollow, _gridSize, nodeArray, neightBourOffsetArrayJob);
+                        pathFindingComp.startPos = tmp;
                     }
+                    FindPath(pathFindingComp.startPos, pathFindingComp.endPos, ref pathFindingComp.findPath, pathBuffer, ref pathFollow, _gridSize, nodeArray, neightBourOffsetArrayJob);
                 }
-            }).ScheduleParallel();
+            }
+        }).ScheduleParallel();
         
         batchCall %= 8;
         
