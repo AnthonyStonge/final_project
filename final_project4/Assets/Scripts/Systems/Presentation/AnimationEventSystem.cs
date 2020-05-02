@@ -26,29 +26,14 @@ public class AnimationEventSystem : SystemBase
         {
             //Get Type of Entity
             TypeData type = entityManager.GetComponentData<TypeData>(info.Entity);
-            
-            //Make sure State is handled
-            if(UnHandledStates.ContainsKey(type.Value))
-                if (UnHandledStates[type.Value].Contains(info.NewState))
-                {
-                    //Debug.Log("Animation not handled... Staying on current animation");
-                    continue;
-                }
-            
-            //Get StateComponent
-            StateComponent state = entityManager.GetComponentData<StateComponent>(info.Entity);
-            
-            //Get AnimationComponent
-            AnimationData animation = entityManager.GetComponentData<AnimationData>(info.Entity);
-            
+
             //Make sure animation exists for this type/state
             if (!AnimationHolder.Animations.ContainsKey(type.Value) ||
                 !AnimationHolder.Animations[type.Value].ContainsKey(info.NewState))
                 continue;
-            
-            //Set new AnimationState
-            state.CurrentAnimationState = info.NewState;
-            entityManager.SetComponentData(info.Entity, state);
+
+            //Get AnimationComponent
+            AnimationData animation = entityManager.GetComponentData<AnimationData>(info.Entity);
 
             //Set new frame
             animation.MeshIndexAt = 0;

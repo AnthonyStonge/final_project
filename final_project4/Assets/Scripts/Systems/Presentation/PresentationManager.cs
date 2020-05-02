@@ -69,4 +69,9 @@ public class PresentationManager : ComponentSystemGroup
         visualEventSystem.Update();
         cleanupSystem.Update();
     }
+    
+    public void OnSwapLevel()
+    {
+        
+    }
 }

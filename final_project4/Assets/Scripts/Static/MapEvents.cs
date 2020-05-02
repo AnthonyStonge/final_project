@@ -29,9 +29,6 @@ public static class MapEvents
         
         //Complete all jobs
         entityManager.CompleteAllJobs();
-        //Clear previous collision
-        World.DefaultGameObjectInjectionWorld.GetOrCreateSystem<RetrieveInteractableCollisionsSystem>()
-            .PreviousFrameCollisions.Clear();
 
         //Fade out
         GlobalEvents.CameraEvents.FadeOut();
@@ -39,6 +36,7 @@ public static class MapEvents
         if (GameVariables.Player.Entity != Entity.Null)
             GlobalEvents.PlayerEvents.LockUserInputs();
 
+        OnSwapLevel();
         TryUnloadMap();
 
         //Load new map
@@ -50,6 +48,7 @@ public static class MapEvents
         //Unlock player inputs
         if (GameVariables.Player.Entity != Entity.Null)
             GlobalEvents.PlayerEvents.UnlockUserInputs();
+        
     }
 
     private static void TryUnloadMap()
@@ -79,5 +78,16 @@ public static class MapEvents
             idMapToLoad = 0;
 
         LoadMap((MapType) idMapToLoad);
+    }
+
+    public static void OnSwapLevel()
+    {
+        World world = World.DefaultGameObjectInjectionWorld;
+        
+        world.GetOrCreateSystem<InitializeManager>().OnSwapLevel();
+        world.GetOrCreateSystem<LateInitializeManager>().OnSwapLevel();
+        world.GetOrCreateSystem<TransformSimulationManager>().OnSwapLevel();
+        world.GetOrCreateSystem<LateSimulationManager>().OnSwapLevel();
+        world.GetOrCreateSystem<PresentationManager>().OnSwapLevel();
     }
 }

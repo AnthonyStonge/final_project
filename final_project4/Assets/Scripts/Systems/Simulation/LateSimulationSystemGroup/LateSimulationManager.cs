@@ -33,4 +33,10 @@ public class LateSimulationManager : ComponentSystemGroup
         
         retrieveInteractableCollisionsSystem.Update();
     }
+    
+    public void OnSwapLevel()
+    {
+        //Clear previous collision
+        retrieveInteractableCollisionsSystem.PreviousFrameCollisions.Clear();
+    }
 }
