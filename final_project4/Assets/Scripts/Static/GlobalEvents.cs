@@ -45,6 +45,17 @@ public static class GlobalEvents
             manager.DestroyEntity(query);
         }
 
+        public static void DestroyAllDrops()
+        {
+            EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        
+            //Create Query
+            EntityQuery query = manager.CreateEntityQuery(typeof(AmunationComponent));
+        
+            //Destroy entities with query
+            manager.DestroyEntity(query);
+        }
+
         public static void GameLost()
         {
             //Return player to Menu
