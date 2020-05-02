@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StateLocked: 0
   CurrentState: 0
+  CurrentAnimationState: 0
   DesiredState: 0
   ShouldStateBeLocked: 0
 --- !u!114 &5166479922082264158
@@ -153,13 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c067765999e4274e802fe8c64339b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetDuringDash:
-    value:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-  InputDuringDash:
+  TargetEndDash:
     x: 0
     y: 0
   Speed: 30
@@ -167,6 +162,7 @@ MonoBehaviour:
   CooldownTime: 1
   CurrentCooldownTime: 0
   CurrentDashTime: 0
+  WasDashingPreviousFrame: 0
 --- !u!114 &3008905911335532354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,10 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1630bb18d59b1534c9a423c98a59ac07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life:
+  Value:
     Min: 0
-    Max: 100
-    value: 60
+    Max: 10
+    hiddenValue: 10
 --- !u!114 &5691379923823341952
 MonoBehaviour:
   m_ObjectHideFlags: 0

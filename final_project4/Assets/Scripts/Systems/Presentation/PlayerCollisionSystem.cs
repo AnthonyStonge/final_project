@@ -42,9 +42,9 @@ public class PlayerCollisionSystem : SystemBase
             }
             if (isHit)
             {
-                LifeData lifeData = EntityManager.GetComponentData<LifeData>(GameVariables.Player.Entity);
-                lifeData.Value.Value -= 1;
-                EntityManager.SetComponentData(GameVariables.Player.Entity, lifeData);
+                LifeComponent lifeComponent = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
+                lifeComponent.Life.Value -= 1;
+                EntityManager.SetComponentData(GameVariables.Player.Entity, lifeComponent);
             }
             
         }

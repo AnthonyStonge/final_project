@@ -8,7 +8,7 @@ using UnityEngine;
 public class UISystem : SystemBase
 {
     private GunComponent gunComponent;
-    private LifeData lifeData;
+    private LifeComponent lifeComponent;
 
     protected override void OnUpdate()
     {
@@ -17,7 +17,7 @@ public class UISystem : SystemBase
         
         if(GameVariables.Player.PlayerWeaponEntities.ContainsKey(GameVariables.Player.CurrentWeaponHeld))
             gunComponent = EntityManager.GetComponentData<GunComponent>(GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]);
-        lifeData = EntityManager.GetComponentData<LifeData>(GameVariables.Player.Entity);
+        lifeComponent = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
 
 
         switch (gunComponent.WeaponType)
@@ -36,12 +36,12 @@ public class UISystem : SystemBase
         }
         GameVariables.UI.NbBulletInMagazine.text = gunComponent.CurrentAmountBulletInMagazine.ToString();
         GameVariables.UI.NbBulletOnPlayer.text = gunComponent.CurrentAmountBulletOnPlayer.ToString();
-        GameVariables.UI.lifeRect.sizeDelta = new Vector2(PlayerUiWidth(PlayerLifePourcent(lifeData),  GameVariables.UI.lifeBgRect.rect.size.x), GameVariables.UI.lifeBgRect.sizeDelta.y);
+        GameVariables.UI.lifeRect.sizeDelta = new Vector2(PlayerUiWidth(PlayerLifePourcent(lifeComponent),  GameVariables.UI.lifeBgRect.rect.size.x), GameVariables.UI.lifeBgRect.sizeDelta.y);
 
     }
-    private static float PlayerLifePourcent(LifeData lifeData)
+    private static float PlayerLifePourcent(LifeComponent lifeComponent)
     {
-        return (lifeData.Value.Value * 100) / lifeData.Value.Max;
+        return (lifeComponent.Life.Value * 100) / lifeComponent.Life.Max;
     }
     private static float PlayerUiWidth(float pourcentOfLife, float width)
     {

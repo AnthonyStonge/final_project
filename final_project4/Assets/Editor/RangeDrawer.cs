@@ -13,7 +13,7 @@ namespace DefaultNamespace
                 name = property.displayName;
                 min = property.FindPropertyRelative("Min");
                 max = property.FindPropertyRelative("Max");
-                value = property.FindPropertyRelative("value");
+                value = property.FindPropertyRelative("hiddenValue");
         
                 Rect contentPosition = EditorGUI.PrefixLabel(position, new GUIContent(name));
                 float half = contentPosition.width / 2;

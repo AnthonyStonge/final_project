@@ -25,7 +25,7 @@ public static class GameVariables
         public static Dictionary<WeaponType, Entity> PlayerWeaponEntities = new Dictionary<WeaponType, Entity>();
         public static WeaponType CurrentWeaponHeld;
 
-        public static ushort AmountLife;
+        public static ushort AmountLife = 3;    //TODO MOVE MAGIC NUMEBR
 
         //Unity linker
         public static Transform Transform;

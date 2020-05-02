@@ -72,8 +72,8 @@ public class InitializeManager : ComponentSystemGroup
         if (Input.GetKeyDown(KeyCode.Keypad6))
         {
             Debug.Log("Oh no! You killed yourself lol");
-            LifeData life = EntityManager.GetComponentData<LifeData>(GameVariables.Player.Entity);
-            life.Value.Value = 0;
+            LifeComponent life = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
+            life.Life.Value = 0;
             EntityManager.SetComponentData(GameVariables.Player.Entity, life);
         }
     }
