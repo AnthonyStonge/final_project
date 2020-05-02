@@ -60,6 +60,7 @@ public static class GameInitializer
 
         //System Group Handles (From Unity)
         var initialization = world.GetOrCreateSystem<InitializationSystemGroup>();
+        var simulation = world.GetOrCreateSystem<SimulationSystemGroup>();
         var transform = world.GetOrCreateSystem<TransformSystemGroup>();
         var lateSimulation = world.GetOrCreateSystem<LateSimulationSystemGroup>();
         var presentation = world.GetOrCreateSystem<PresentationSystemGroup>();
@@ -86,6 +87,7 @@ public static class GameInitializer
 
         //Sorting
         initialization.SortSystemUpdateList();
+        simulation.SortSystemUpdateList();
         transform.SortSystemUpdateList();
         lateSimulation.SortSystemUpdateList();
         presentation.SortSystemUpdateList();

@@ -1,19 +1,37 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
+using Unity.Physics.Systems;
 using Unity.Transforms;
+using UnityEngine;
 
 public static class GlobalEvents
 {
     public static class GameEvents
     {
+        public static bool TogglePauseGame = true; 
+        
         public static void PauseGame()
         {
-        
+            var world = World.DefaultGameObjectInjectionWorld;
+            
+            TogglePauseGame = !TogglePauseGame;
+            Debug.Log(TogglePauseGame);
+            //world.GetOrCreateSystem<InitializeManager>().Enabled = TogglePauseGame;
+            world.GetOrCreateSystem<LateInitializeManager>().Enabled = TogglePauseGame;
+            world.GetOrCreateSystem<TransformSimulationManager>().Enabled = TogglePauseGame;
+            world.GetOrCreateSystem<LateSimulationManager>().Enabled = TogglePauseGame;
+            world.GetOrCreateSystem<PresentationManager>().Enabled = TogglePauseGame;
+            //world.GetOrCreateSystem<BuildPhysicsWorld>().Enabled = TogglePauseGame;
+
+            world.GetOrCreateSystem<SimulationSystemGroup>().Enabled = TogglePauseGame;
+            
+            ShowPauseMenu();
         }
 
-        public static void UnPauseGame()
+        private static void ShowPauseMenu()
         {
-        
+            
         }
 
         public static void DestroyAllEnemies()
@@ -30,6 +48,11 @@ public static class GlobalEvents
         public static void GameLost()
         {
             
+        }
+
+        public static void QuitApplication()
+        {
+            Application.Quit();
         }
     }
     
@@ -71,6 +94,7 @@ public static class GlobalEvents
             InputComponent inputs = e.GetComponentData<InputComponent>(entity);
             inputs.Enabled = false;
             e.SetComponentData(entity, inputs);
+    
         }
 
         public static void LockUserInputs(ref InputComponent inputs)

@@ -14,7 +14,8 @@ public class LateInitializeManager : ComponentSystemGroup
     private StateDyingSystem stateDyingSystem;
     private StateDashingSystem stateDashingSystem;
     private DashSystem dashSystem;
-    
+    private MoveVelocitySystem moveVelocitySystem;
+
     private RetrieveGunEventSystem retrieveGunEventSystem;
     protected override void OnCreate()
     {
@@ -28,6 +29,7 @@ public class LateInitializeManager : ComponentSystemGroup
         stateDyingSystem = world.GetOrCreateSystem<StateDyingSystem>();
         stateDashingSystem = world.GetOrCreateSystem<StateDashingSystem>();
         dashSystem = world.GetOrCreateSystem<DashSystem>();
+        moveVelocitySystem = world.GetOrCreateSystem<MoveVelocitySystem>();
 
         retrieveGunEventSystem = world.GetOrCreateSystem<RetrieveGunEventSystem>();
 
@@ -42,6 +44,7 @@ public class LateInitializeManager : ComponentSystemGroup
         initialize.AddSystemToUpdateList(stateDashingSystem);
         initialize.AddSystemToUpdateList(retrieveGunEventSystem);
         initialize.AddSystemToUpdateList(dashSystem);
+        initialize.AddSystemToUpdateList(moveVelocitySystem);
     }
 
     protected override void OnStartRunning()
@@ -71,6 +74,8 @@ public class LateInitializeManager : ComponentSystemGroup
 
         //Dependency : StateDyingSystem
         dashSystem.Update();
+
+        moveVelocitySystem.Update();
 
         retrieveGunEventSystem.Update();
     }

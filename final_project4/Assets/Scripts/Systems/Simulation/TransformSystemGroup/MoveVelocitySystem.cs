@@ -1,18 +1,10 @@
 ﻿using Enums;
 using EventStruct;
-using Unity.Burst;
-using Unity.Collections;
 using Unity.Entities;
-using Unity.Jobs;
-using Unity.Mathematics;
 using Unity.Physics;
-using Unity.Physics.Systems;
-using Unity.Transforms;
-using static Unity.Mathematics.math;
 using float2 = Unity.Mathematics.float2;
 
-[UpdateInGroup(typeof(InitializationSystemGroup))]
-[UpdateBefore(typeof(BuildPhysicsWorld))]
+[DisableAutoCreation]
 public class MoveVelocitySystem : SystemBase
 {
     protected override void OnUpdate()
