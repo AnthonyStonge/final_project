@@ -20,7 +20,8 @@ public class PresentationManager : ComponentSystemGroup
     private PlayerCollisionSystem playerCollisionSystem;
     
     private UISystem uiSystem;
-    
+
+    private GlobalEventListenerSystem globalEventListenerSystem;
     private CleanupSystem cleanupSystem;
     protected override void OnCreate()
     {
@@ -29,7 +30,7 @@ public class PresentationManager : ComponentSystemGroup
 
         stateEventSystem = world.GetOrCreateSystem<StateEventSystem>();
         animationEventSystem = world.GetOrCreateSystem<AnimationEventSystem>();
-
+        
         interactableEventSystem = world.GetOrCreateSystem<InteractableEventSystem>();
         
         soundEventSystem = world.GetOrCreateSystem<SoundEventSystem>();
@@ -39,6 +40,8 @@ public class PresentationManager : ComponentSystemGroup
         dropSystem = world.GetOrCreateSystem<DropSystem>();
         playerCollisionSystem = world.GetOrCreateSystem<PlayerCollisionSystem>();
         uiSystem = world.GetOrCreateSystem<UISystem>();
+
+        globalEventListenerSystem = world.GetOrCreateSystem<GlobalEventListenerSystem>();
 
         var presentation = world.GetOrCreateSystem<PresentationManager>();
         
@@ -52,6 +55,9 @@ public class PresentationManager : ComponentSystemGroup
         presentation.AddSystemToUpdateList(cleanupSystem);
         presentation.AddSystemToUpdateList(dropSystem);
         presentation.AddSystemToUpdateList(uiSystem);
+        presentation.AddSystemToUpdateList(globalEventListenerSystem);
+        
+        presentation.SortSystemUpdateList();
     }
 
     protected override void OnUpdate()
@@ -67,6 +73,8 @@ public class PresentationManager : ComponentSystemGroup
         lootSystem.Update();
         soundEventSystem.Update();
         visualEventSystem.Update();
+        
+        globalEventListenerSystem.Update();
         cleanupSystem.Update();
     }
     

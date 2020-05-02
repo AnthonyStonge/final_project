@@ -12,19 +12,19 @@ public struct Range
     
     [SerializeField]
     [Tooltip("Current Value in Range")]
-    private float value;
+    private float hiddenValue;
 
     public Range(float min, float max, float value)
     {
         Min = min;
         Max = max;
-        this.value = value;
-        Value = this.value;
+        this.hiddenValue = value;
+        Value = this.hiddenValue;
     }
     public float Value
     {
-        get => value;
-        set => math.clamp(value, Min, Max);
+        get => hiddenValue;
+        set => hiddenValue = math.clamp(value, Min, Max);
     }
     
     

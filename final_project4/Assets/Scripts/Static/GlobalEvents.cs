@@ -47,7 +47,12 @@ public static class GlobalEvents
 
         public static void GameLost()
         {
+            //Return player to Menu
+            MapEvents.LoadMap(MapType.LevelMenu);
             
+            //Set Player position to Menu CheckPoint
+            
+            //TODO Reset GameValue???
         }
 
         public static void QuitApplication()
@@ -60,10 +65,38 @@ public static class GlobalEvents
     {
         public static void OnPlayerDie()
         {
+            Debug.Log("On Player Death");
+
+            GameVariables.Player.AmountLife--;
+            
             //Look if Player should respawn in current level
             if(GameVariables.Player.AmountLife <= 0)
                 GameEvents.GameLost();
-                
+            else
+                RespawnPlayerOnCheckPoint();
+        }
+
+        private static void RespawnPlayerOnCheckPoint()
+        {
+            //Reset Life of Player
+            ResetPlayerHp();
+            
+            //Get last saved spawn position
+            
+        }
+
+        private static void SpawnOnCheckPoint(MapType mapType, ushort checkPointId)
+        {
+            
+        }
+
+        private static void ResetPlayerHp()
+        {
+            Entity player = GameVariables.Player.Entity;
+            EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            LifeComponent life = manager.GetComponentData<LifeComponent>(player);
+            life.Reset();
+            manager.SetComponentData(player, life);
         }
 
         public static void SetPlayerPosition(float3 position)
