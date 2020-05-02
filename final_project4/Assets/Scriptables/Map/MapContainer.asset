@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: MapContainer
   m_EditorClassIdentifier: 
   Links:
-  - KeyName: Floor
-    Prefab: {fileID: 7562387319405164717, guid: 61a5193fe1f0a2243bbaf917d449ff55,
+  - Type: 0
+    Prefab: {fileID: 9044775325000084865, guid: f5d44c35140de5e4ea89f0f59743f81d,
+      type: 3}
+  - Type: 1
+    Prefab: {fileID: 9044775325000084865, guid: 6c87c926618e395438b1a68cad8695a9,
       type: 3}

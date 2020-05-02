@@ -67,4 +67,16 @@ namespace Enums
         Attack,
         Chase
     }
+    public enum InteractableType
+    {
+        UseOnInput,
+        UseOnEnterZone
+    }
+
+    public enum InteractableObjectType
+    {
+        Switch,
+        Portal,
+        Ammo
+    }
 }

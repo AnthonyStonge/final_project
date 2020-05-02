@@ -153,20 +153,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c067765999e4274e802fe8c64339b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 30
-  DashTime: 0.3
-  CooldownTime: 1
-  CurrentCooldownTime: 0
-  CurrentDashTime: 0
-  InputDuringDash:
-    x: 0
-    y: 0
   TargetDuringDash:
     value:
       x: 0
       y: 0
       z: 0
       w: 0
+  InputDuringDash:
+    x: 0
+    y: 0
+  Speed: 30
+  DashTime: 0.3
+  CooldownTime: 1
+  CurrentCooldownTime: 0
+  CurrentDashTime: 0
 --- !u!114 &3008905911335532354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,8 +179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1630bb18d59b1534c9a423c98a59ac07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxLife: 100
-  CurrentLife: 50
+  Life:
+    Min: 0
+    Max: 100
+    value: 60
 --- !u!114 &5691379923823341952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +248,7 @@ MonoBehaviour:
       m_Value: 0001000000000000000000000000000000000000000000000000000000000000
     m_CollidesWith:
       m_Override: 0
-      m_Value: 0000010001010000000001000000000000000000000000000000000000000000
+      m_Value: 0000010001010000000001000000000000000000010000000000000000000000
     m_RaisesCollisionEvents:
       m_Override: 0
       m_Value: 1

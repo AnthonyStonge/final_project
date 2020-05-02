@@ -74,4 +74,9 @@ public class LateInitializeManager : ComponentSystemGroup
 
         retrieveGunEventSystem.Update();
     }
+
+    public void OnSwapLevel()
+    {
+        
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Enums;
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Type = Enums.Type;
@@ -28,7 +29,7 @@ public static class AnimationHolder
         AnimatedGroupsLength = new List<int>();
 
         //Init all groups for 0
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 1; i++)
         {
             AnimatedGroupsLength.Add(0);
         }
@@ -49,9 +50,22 @@ public static class AnimationHolder
         foreach (AnimationScriptableObject animation in container.Animations)
         {
             Animations.TryAdd(animation.Type, new Dictionary<State, Animation>());
+            if (Animations[animation.Type].ContainsKey(animation.State))
+            {
+                Debug.LogWarning($"Duplicate Animation state {animation.Type}. Check AnimationContainer");
+                continue;
+            }
+            
+            //Extract meshes from gameobjects
+            Mesh[] frames = new Mesh[animation.Frames.Count];
+            for (int i = 0; i < animation.Frames.Count; i++)
+            {
+                frames[i] = animation.Frames[i].GetComponentInChildren<MeshFilter>().sharedMesh;
+            }
+            
             Animations[animation.Type].Add(animation.State, new Animation
             {
-                Frames = animation.Frames.ToArray(),
+                Frames = frames,
                 Material = animation.Material
             });
         }

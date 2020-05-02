@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Enums;
 using EventStruct;
 using Unity.Collections;
@@ -11,7 +12,7 @@ using UnityEngine.VFX;
 [DisableAutoCreation]
 public class VisualEventSystem : SystemBase
 {
-    public class EffectTexture
+    private class EffectTexture
     {
         public Texture2D TexturePositions;
         public Texture2D TextureRotations;
@@ -42,7 +43,6 @@ public class VisualEventSystem : SystemBase
             color.g = rotation.y;
             color.b = rotation.z;
             Rotations[indexAt] = color;
-
             indexAt++;
         }
 
@@ -93,11 +93,16 @@ public class VisualEventSystem : SystemBase
             effectTextures[VisualEffectHolder.BulletEffects[info.ProjectileType][info.CollisionType]].
                 Add(info.HitPosition, math.forward(info.HitRotation) );
         }
+        foreach (var info in EventsHolder.WeaponEvents)
+        {
+            effectTextures[VisualEffectHolder.WeaponEffects[info.WeaponType][info.EventType]].
+                Add(info.Position, math.forward(info.Rotation) );
+        }
 
         foreach (var effect in effectTextures)
         {
-            VisualEffectHolder.Effects[effect.Key].VisualEffect.SetInt(VisualEffectHolder.PropertyCount, effect.Value.Count);
             if(!effect.Value.Set()) continue;
+            VisualEffectHolder.Effects[effect.Key].VisualEffect.SetInt(VisualEffectHolder.PropertyCount, effect.Value.Count);
             VisualEffectHolder.Effects[effect.Key].VisualEffect.Play();
         }
     }

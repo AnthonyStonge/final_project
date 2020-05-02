@@ -12,5 +12,5 @@ public class AnimationScriptableObject : ScriptableObject
     
     [Tooltip("The material for the Object")]
     public Material Material;
-    public List<Mesh> Frames;
+    public List<GameObject> Frames;
 }

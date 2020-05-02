@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BulletExplosion
   m_EditorClassIdentifier: 
   Effect: {fileID: 1924355167149483344, guid: ee3ec6f61dfaf304899fa8252a67405a, type: 3}
-  MaxAmount: 2048
+  MaxAmount: 200
   Weapons: []
   Bullets:
   - BulletType: 0
