@@ -177,8 +177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Value:
     Min: 0
-    Max: 10
-    hiddenValue: 10
+    Max: 20
+    value: 20
 --- !u!114 &5691379923823341952
 MonoBehaviour:
   m_ObjectHideFlags: 0

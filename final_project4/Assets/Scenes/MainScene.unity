@@ -179,6 +179,8 @@ GameObject:
   m_Component:
   - component: {fileID: 560499556}
   - component: {fileID: 560499555}
+  - component: {fileID: 560499558}
+  - component: {fileID: 560499557}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -218,6 +220,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &560499557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560499554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConversionMode: 1
+--- !u!114 &560499558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560499554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd1392eb90e0f24496ab3c216150450, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 11400000, guid: 61b0704d670c15c4ea52ec3c7bdf8163, type: 2}
 --- !u!1 &960251532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,7 +1220,7 @@ PrefabInstance:
     - target: {fileID: 2155649931370062685, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 95.17401
+      value: 95.25
       objectReference: {fileID: 0}
     - target: {fileID: 3281231277854201815, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
