@@ -28,7 +28,6 @@ public class PlayerAssetsScriptableObject : ScriptableObject
     public Rotation StartingRotation;
 
     [Space(5)]
-    public StateActions StartingState = StateActions.DYING;
     public short StartingHealth = 1;
 
     //[Header("Inputs")] 
