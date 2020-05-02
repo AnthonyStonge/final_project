@@ -21,19 +21,20 @@ public class AnimationSystem : SystemBase
         Entities.WithoutBurst().WithSharedComponentFilter(new AnimationBatch {BatchId = BatchIdToUpdate}).ForEach(
             (Entity e, int entityInQueryIndex, ref AnimationData animation, in StateComponent state, in TypeData type) =>
             {
+                var animations = AnimationHolder.Animations;
                 //Make sure animation exists for this type/state
-                if (!AnimationHolder.Animations.ContainsKey(type.Value) ||
-                    !AnimationHolder.Animations[type.Value].ContainsKey(state.CurrentAnimationState))
+                if (!animations.ContainsKey(type.Value) ||
+                    !animations[type.Value].ContainsKey(state.CurrentAnimationState))
                     return;
 
                 //Increment frame at + Clamp it
                 animation.MeshIndexAt++;
-                animation.MeshIndexAt %= (short) AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Frames.Length;
+                animation.MeshIndexAt %= (short) animations[type.Value][state.CurrentAnimationState].Frames.Length;
 
                 ecb.SetSharedComponent(entityInQueryIndex, e, new RenderMesh
                 {
-                    mesh = AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Frames[animation.MeshIndexAt],
-                    material = AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Material
+                    mesh = animations[type.Value][state.CurrentAnimationState].Frames[animation.MeshIndexAt],
+                    material = animations[type.Value][state.CurrentAnimationState].Material
                 });
             }).ScheduleParallel();
 

@@ -31,9 +31,9 @@ public class DropSystem : SystemBase
                         {
                             Value = info.HitPosition
                         });
-                        EntityManager.SetComponentData(e, new AmunationComponent()
+                        EntityManager.SetComponentData(e, new AmunationComponent
                         {
-                            TypeAmunation = ((WeaponType) Random.Range(0, 2)),
+                            TypeAmunation = (WeaponType) Random.Range(0, 2),
                             AmunationQuantity = Random.Range(1, 5)
                         });
                 }

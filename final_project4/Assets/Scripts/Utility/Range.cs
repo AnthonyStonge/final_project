@@ -4,14 +4,14 @@ using UnityEngine;
 [Serializable]
 public struct Range
 {
-    [Tooltip("Minimum Value in Range")]
+    // [Tooltip("Minimum Value in Range")]
     public float Min;
     
-    [Tooltip("Maximum Value in Range")]
+    // [Tooltip("Maximum Value in Range")]
     public float Max;
     
     [SerializeField]
-    [Tooltip("Current Value in Range")]
+    // [Tooltip("Current Value in Range")]
     private float hiddenValue;
 
     public Range(float min, float max, float value)
