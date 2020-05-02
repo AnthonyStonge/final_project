@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
-using Unity.Burst;
+using Enums;
 using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
-using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 
 public struct BatchFilter : ISharedComponentData
 {
     public ushort Value;
 }
 [DisableAutoCreation]
+[UpdateBefore(typeof(PathFollowSystem))]
 public class PathFinding : SystemBase
 {
     public struct Node
@@ -56,10 +54,10 @@ public class PathFinding : SystemBase
         neightBourOffsetArray[1] = new int2(1, 0);
         neightBourOffsetArray[2] = new int2(0, 1);
         neightBourOffsetArray[3] = new int2(0, -1);
-        //neightBourOffsetArray[4] = new int2(-1, -1);
-       // neightBourOffsetArray[5] = new int2(-1, 1);
-        //neightBourOffsetArray[6] = new int2(1, -1);
-       // neightBourOffsetArray[7] = new int2(1, 1);
+        neightBourOffsetArray[4] = new int2(-1, -1);
+        neightBourOffsetArray[5] = new int2(-1, 1);
+        neightBourOffsetArray[6] = new int2(1, -1);
+        neightBourOffsetArray[7] = new int2(1, 1);
         wall = GameVariables.grid.indexNoWalkable;
         gridSize = GameVariables.grid.gridSize;
         nodeSize = GameVariables.grid.nodeSize;
@@ -79,12 +77,9 @@ public class PathFinding : SystemBase
                     index = CalculateIndex(i, j, gridSize.x),
                     cameFromNodeIndex = -1
                 };
-                //node.CalculFCost();
-                
                 nodeArray[node.index] = node;
             }
         }
-        
     }
 
     protected override void OnUpdate()
@@ -93,19 +88,20 @@ public class PathFinding : SystemBase
         NativeArray<Node> nodeArray = this.nodeArray;
         NativeArray<int2> neightBourOffsetArrayJob = neightBourOffsetArray;
         Entities.WithSharedComponentFilter(new BatchFilter{Value = batchCall++}).ForEach((DynamicBuffer<PathPosition> pathBuffer, ref Translation translation, ref PathFindingComponent pathFindingComp, ref PathFollowComponent pathFollow) =>
+        {
+            if(pathFollow.ennemyState == EnnemyState.Chase)
             {
-                if(pathFindingComp.findPath == 0)
+                if (nodeArray[CalculateIndex(pathFindingComp.endPos.x, pathFindingComp.endPos.y, 100)].isWalkable && IsPositionInsideGrid(pathFindingComp.endPos, _gridSize))
                 {
-                    if (nodeArray[CalculateIndex(pathFindingComp.endPos.x, pathFindingComp.endPos.y, 100)].isWalkable && IsPositionInsideGrid(pathFindingComp.endPos, _gridSize))
+                    int2 tmp = new int2((int) translation.Value.x, (int) translation.Value.z);
+                    if (nodeArray[CalculateIndex(tmp.x, tmp.y, _gridSize.x)].isWalkable && IsPositionInsideGrid(tmp, _gridSize))
                     {
-                        //pathFindingComp.startPos = new int2((((int) translation.Value.x < 0) ? (int) translation.Value.x- 1 : (int) translation.Value.x), (((int)translation.Value.z < 0) ? (int)translation.Value.z - 1 : (int)translation.Value.z));
-                        pathFindingComp.startPos = new int2((int) translation.Value.x, (int) translation.Value.z);
-                        
-                        FindPath(pathFindingComp.startPos, pathFindingComp.endPos, ref pathFindingComp.findPath,
-                            pathBuffer, ref pathFollow, _gridSize, nodeArray, neightBourOffsetArrayJob);
+                        pathFindingComp.startPos = tmp;
                     }
+                    FindPath(pathFindingComp.startPos, pathFindingComp.endPos, ref pathFindingComp.findPath, pathBuffer, ref pathFollow, _gridSize, nodeArray, neightBourOffsetArrayJob);
                 }
-            }).ScheduleParallel();
+            }
+        }).ScheduleParallel();
         
         batchCall %= 8;
         
@@ -203,10 +199,7 @@ public class PathFinding : SystemBase
         {
             pathFind = 1;
             CalculatePath(pathNode, endNode, pathBufferPos);
-            pathFollowComponent = new PathFollowComponent
-            {
-                pathIndex = pathBufferPos.Length - 1
-            };
+            pathFollowComponent.pathIndex = pathBufferPos.Length - 1;
         }
         pathNode.Dispose();
         openList.Dispose();
@@ -259,11 +252,5 @@ public class PathFinding : SystemBase
     {
         nodeArray.Dispose();
         neightBourOffsetArray.Dispose();
-    }
-    private static int BeginNodeChanger(int2 beginPos, NativeArray<Node> pathNode)
-    {
-        int index = 0;
-
-        return index;
     }
 }

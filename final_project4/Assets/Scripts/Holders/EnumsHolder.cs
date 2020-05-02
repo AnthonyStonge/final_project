@@ -74,4 +74,10 @@ namespace Enums
         Portal,
         Ammo
     }
+    public enum EnnemyState
+    {
+        Wondering,
+        Attack,
+        Chase
+    }
 }

@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Enums;
+using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
@@ -27,13 +28,13 @@ public class Spawner : MonoBehaviour
         batch = 0;
         em = World.DefaultGameObjectInjectionWorld.EntityManager;
         createPlayer();
-    }
-    void Update()
+    }        
+    void Update()        
     {
         if (Input.GetMouseButtonDown(1))
         {
             spawnYCounter = 0;
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 15; i++)
             {
                 createEntity(i % 25, spawnYCounter);
                 if (i % 25 == 0)
@@ -49,16 +50,18 @@ public class Spawner : MonoBehaviour
         Entity e = em.Instantiate(en);
         em.SetComponentData(e, new PathFindingComponent()
         {
-            startPos = new int2(-1, -1),
-            endPos = new int2(Random.Range(0,20), Random.Range(0,20))
+            //startPos = new int2(-1, -1),
+            
         });
         em.SetComponentData(e, new Translation
         {
-            Value = new float3(Random.Range(0,100),0,Random.Range(0,100))
+            Value = new float3(Random.Range(1,100),0,Random.Range(1,100))
         });
-        em.SetComponentData(e, new PathFollowComponent
+        em.AddComponentData(e, new PathFollowComponent
         {
             pathIndex = -1,
+            EnemyReachedTarget = true,
+            ennemyState = EnnemyState.Wondering
         });
         em.AddSharedComponentData(e, new BatchFilter
         {
