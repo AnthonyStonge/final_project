@@ -12,7 +12,7 @@ public static class GameInitializer
         PlayerHolder.Initialize();
         EnemyHolder.Initialize();
         WeaponHolder.Initialize();
-        AmunationDropHolder.Initialize();
+        AmmunitionDropHolder.Initialize();
         ProjectileHolder.Initialize();
         SoundHolder.Initialize();
         VisualEffectHolder.Initialize();
@@ -26,7 +26,7 @@ public static class GameInitializer
         OnLoadingStatus += SoundHolder.CurrentLoadingPercentage;
         OnLoadingStatus += VisualEffectHolder.CurrentLoadingPercentage;
         OnLoadingStatus += AnimationHolder.CurrentLoadingPercentage;
-        OnLoadingStatus += AmunationDropHolder.CurrentLoadingPercentage;
+        OnLoadingStatus += AmmunitionDropHolder.CurrentLoadingPercentage;
         OnLoadingStatus += MapHolder.CurrentLoadingPercentage;
         
         PlayerHolder.LoadAssets();
@@ -36,7 +36,7 @@ public static class GameInitializer
         SoundHolder.LoadAssets();
         VisualEffectHolder.LoadAssets();
         AnimationHolder.LoadAssets();
-        AmunationDropHolder.LoadAssets();
+        AmmunitionDropHolder.LoadAssets();
         MapHolder.LoadAssets();
     }
     
@@ -111,7 +111,7 @@ public static class GameInitializer
     public static void OnDestroy()
     {
         EventsHolder.OnDestroy();
-        AmunationDropHolder.OnDestroy();
+        AmmunitionDropHolder.OnDestroy();
         //Holders
         PlayerHolder.OnDestroy();
         EnemyHolder.OnDestroy();

@@ -22,7 +22,7 @@ public class LootSystem : SystemBase
     {
         HavokTriggerEvents triggerEvents = ((HavokSimulation) stepPhysicsWorld.Simulation).TriggerEvents;
         
-        var amunitionComponents = GetComponentDataFromEntity<AmunationComponent>(true);
+        var amunitionComponents = GetComponentDataFromEntity<AmmunitionComponent>(true);
         
         NativeList<Entity> entities = new NativeList<Entity>(Allocator.Temp);
         
@@ -42,7 +42,7 @@ public class LootSystem : SystemBase
         
         foreach (var entity in entities)
         {
-            AmunationComponent ac = EntityManager.GetComponentData<AmunationComponent>(entity);
+            AmmunitionComponent ac = EntityManager.GetComponentData<AmmunitionComponent>(entity);
             EntityManager.DestroyEntity(entity);
             if (GameVariables.Player.PlayerWeaponEntities.ContainsKey(GameVariables.Player.CurrentWeaponHeld))
             {

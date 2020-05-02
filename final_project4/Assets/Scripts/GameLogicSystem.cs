@@ -54,7 +54,7 @@ public class GameLogicSystem : SystemBase
             if (Input.GetKeyDown(KeyCode.M))
             {
                 //Replaces GlobalEvents.GameEvents.DestroyAllDrops();
-                GlobalEvents.GameEvents.Destroy<AmunationComponent>();
+                GlobalEvents.GameEvents.Destroy<AmmunitionComponent>();
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
