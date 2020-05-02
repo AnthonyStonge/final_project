@@ -51,6 +51,10 @@ public class GameLogicSystem : SystemBase
         //var gameEntity = EntityManager.GetComponentData<GameStateComponent>();
         Entities.WithStructuralChanges().WithoutBurst().ForEach((ref GameStateComponent gameStateComponent) =>
         {
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                GlobalEvents.GameEvents.DestroyAllDrops();
+            }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 GlobalEvents.GameEvents.PauseGame();
