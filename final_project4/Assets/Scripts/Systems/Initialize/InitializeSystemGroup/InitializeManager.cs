@@ -68,10 +68,22 @@ public class InitializeManager : ComponentSystemGroup
         {
             GlobalEvents.CameraEvents.ShakeCam(0.2f, 3, 3);
         }
-    }
 
+        if (Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            Debug.Log("Oh no! You killed yourself lol");
+            LifeData life = EntityManager.GetComponentData<LifeData>(GameVariables.Player.Entity);
+            life.Value.Value = 0;
+            EntityManager.SetComponentData(GameVariables.Player.Entity, life);
+        }
+    }
 
     protected override void OnDestroy()
     {
+    }
+
+    public void OnSwapLevel()
+    {
+        
     }
 }

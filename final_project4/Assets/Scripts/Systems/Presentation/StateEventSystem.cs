@@ -35,7 +35,7 @@ public class StateEventSystem : SystemBase
         };
 
         //Should work, but might be slow because lots of foreach lolololololololol
-        JobHandle job = Entities.WithoutBurst().ForEach((Entity e, ref StateComponent component) =>
+        JobHandle job = Entities.WithoutBurst().ForEach((Entity e, ref StateComponent component, in TypeData type) =>
         {
             NativeList<StateInfo> events = new NativeList<StateInfo>(Allocator.Temp);
 
@@ -64,6 +64,7 @@ public class StateEventSystem : SystemBase
 
             //Retrieve all states desired and choose the most important state
             State stateToChangeTo = 0;
+            State animationStateToChangeTo = 0;
             bool shouldStateMachineLock = false;
             bool tryChangeEvent = false;
 
@@ -77,6 +78,10 @@ public class StateEventSystem : SystemBase
                     {
                         stateToChangeTo = info.DesiredState;
                         shouldStateMachineLock = false;
+
+                        if (AnimationHolder.Animations.ContainsKey(type.Value))
+                            if (AnimationHolder.Animations[type.Value].ContainsKey(info.DesiredState))
+                                animationStateToChangeTo = info.DesiredState;
                     }
                 }
                 else if (info.Action == StateInfo.ActionType.TryChangeAndLock)
@@ -87,6 +92,10 @@ public class StateEventSystem : SystemBase
                     {
                         stateToChangeTo = info.DesiredState;
                         shouldStateMachineLock = true;
+
+                        if (AnimationHolder.Animations.ContainsKey(type.Value))
+                            if (AnimationHolder.Animations[type.Value].ContainsKey(info.DesiredState))
+                                animationStateToChangeTo = info.DesiredState;
                     }
                 }
             }
@@ -99,13 +108,19 @@ public class StateEventSystem : SystemBase
             }
 
             //Create animation event (only if state changed)
-            if (stateChanged && animatedEntities.Components.HasComponent(e))
+            if (animatedEntities.Components.HasComponent(e))
             {
-                animationEvents.Enqueue(new AnimationInfo
+                //Make sure animation desired isnt already playing
+                if (component.CurrentAnimationState != animationStateToChangeTo)
                 {
-                    Entity = e,
-                    NewState = component.CurrentState
-                });
+                    component.CurrentAnimationState = animationStateToChangeTo;
+                    
+                    animationEvents.Enqueue(new AnimationInfo
+                    {
+                        Entity = e,
+                        NewState = component.CurrentState
+                    });
+                }
             }
 
             events.Dispose();
