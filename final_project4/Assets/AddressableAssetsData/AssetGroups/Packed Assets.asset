@@ -53,6 +53,15 @@ MonoBehaviour:
       PublicKeyToken=null
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 4017a4eaf1c33c646b0f01465a2712fe
+    m_Address: EnemyPrefabContainer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    m_mainAssetType: EnemyPrefabContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_MainAsset: {fileID: 11400000, guid: 4017a4eaf1c33c646b0f01465a2712fe, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 4017a4eaf1c33c646b0f01465a2712fe, type: 2}
   - m_GUID: 4415b89aced59ff41819888c782445dc
     m_Address: AudioSourceContainer
     m_ReadOnly: 0
@@ -114,10 +123,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 5935477466790467464, guid: e0ae6182e1a6b11438ffe0678d68e1df,
-      type: 3}
-    m_TargetAsset: {fileID: 5935477466790467464, guid: e0ae6182e1a6b11438ffe0678d68e1df,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: e7c153c60fa5ce6409e1cb79cd816229
     m_Address: Shotgun
     m_ReadOnly: 0

@@ -18,6 +18,7 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponent<PlayerTag>(entity);
         dstManager.AddComponent<TargetData>(entity);
         dstManager.AddComponent<AnimationData>(entity);
+        dstManager.AddComponent<DirectionData>(entity);
         dstManager.AddComponentData(entity, new InputComponent
         {
             Enabled = true

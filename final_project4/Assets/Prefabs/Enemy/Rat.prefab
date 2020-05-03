@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 4437519277436640620}
   - component: {fileID: 7166649424122522291}
   - component: {fileID: 6266690371279704703}
+  - component: {fileID: -3080834078430796105}
   - component: {fileID: 8227971529083276615}
-  - component: {fileID: 9015067461462732513}
   - component: {fileID: 3247000289918827036}
   - component: {fileID: 5812531943527265235}
   m_Layer: 0
@@ -33,8 +33,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468872737916222920}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.34, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6673f8ae6c1c0634687991dbd7f8ec3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackRange: 0
 --- !u!114 &7166649424122522291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +129,19 @@ MonoBehaviour:
   CurrentAnimationState: 0
   DesiredState: 0
   ShouldStateBeLocked: 0
+--- !u!114 &-3080834078430796105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468872737916222920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c412270cb899a42897a996e4cf6483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 200
 --- !u!114 &8227971529083276615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,19 +158,6 @@ MonoBehaviour:
     Min: 0
     Max: 100
     hiddenValue: 1
---- !u!114 &9015067461462732513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468872737916222920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f69feabb269c024d91cfb6631a08fd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Value: 0
 --- !u!114 &3247000289918827036
 MonoBehaviour:
   m_ObjectHideFlags: 0

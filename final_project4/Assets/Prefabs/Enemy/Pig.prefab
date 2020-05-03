@@ -14,10 +14,11 @@ GameObject:
   - component: {fileID: 4135240037617068553}
   - component: {fileID: 8879081561977248629}
   - component: {fileID: 99644599399877538}
+  - component: {fileID: -3332032430624653975}
   - component: {fileID: 733054488255378287}
-  - component: {fileID: 6640620326036194446}
   - component: {fileID: 2254320853834523904}
   - component: {fileID: 4717124122687465337}
+  - component: {fileID: 2906006149669303537}
   m_Layer: 0
   m_Name: Pig
   m_TagString: Untagged
@@ -33,8 +34,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 367887501688541214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.34, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6673f8ae6c1c0634687991dbd7f8ec3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackRange: 0
 --- !u!114 &8879081561977248629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +130,19 @@ MonoBehaviour:
   CurrentAnimationState: 0
   DesiredState: 0
   ShouldStateBeLocked: 0
+--- !u!114 &-3332032430624653975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367887501688541214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c412270cb899a42897a996e4cf6483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 200
 --- !u!114 &733054488255378287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,19 +159,6 @@ MonoBehaviour:
     Min: 0
     Max: 100
     hiddenValue: 3
---- !u!114 &6640620326036194446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 367887501688541214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f69feabb269c024d91cfb6631a08fd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Value: 0
 --- !u!114 &2254320853834523904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +233,7 @@ MonoBehaviour:
     Value:
       x: -90
       y: 0
-      z: 90
+      z: -90
     RotationOrder: 4
   m_Capsule:
     Height: 2
@@ -279,3 +281,23 @@ MonoBehaviour:
       m_Override: 0
       m_Value: 0000000000000000
   m_ConvexRadius_Deprecated: -1
+--- !u!114 &2906006149669303537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367887501688541214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df888e4ae1a72624baf69149050ebd31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBeforeCheck: 0.5
+  startPos:
+    x: 0
+    y: 0
+  endPos:
+    x: 0
+    y: 0
+  findPath: 0

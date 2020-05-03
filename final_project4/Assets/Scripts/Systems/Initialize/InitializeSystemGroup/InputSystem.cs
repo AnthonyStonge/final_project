@@ -51,6 +51,10 @@ public class InputSystem : SystemBase
             }
 
             inputs.Move = math.normalizesafe(inputs.Move);
+            entityManager.SetComponentData(GameVariables.Player.Entity, new DirectionData
+            {
+                Value = inputs.Move
+            });
             
             inputs.Interact = Input.GetKeyDown(KeyCode.E);
 
