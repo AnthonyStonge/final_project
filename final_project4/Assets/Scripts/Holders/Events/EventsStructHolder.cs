@@ -99,4 +99,18 @@ namespace EventStruct
             OnTriggerExit
         }
     }
+
+    public struct LevelInfo
+    {
+        //public int CurrentLevel;
+        public LevelEventType LevelEvent;
+        
+        public enum LevelEventType
+        {
+            OnStart,
+            OnActionBegin,
+            OnActionEnd,
+            OnEnd
+        }
+    }
 }

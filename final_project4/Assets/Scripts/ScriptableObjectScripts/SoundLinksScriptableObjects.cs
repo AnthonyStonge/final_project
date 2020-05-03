@@ -21,6 +21,10 @@ public class SoundLinksScriptableObjects : ScriptableObject
     public List<WeaponLinks> Weapons;
 
     public List<BulletLinks> Bullets;
+
+    public List<SoundType> GenericSounds;
+
+    public List<DropType> Drops;
     
     [Serializable]
     public struct WeaponLinks

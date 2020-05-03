@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4530103333020398372}
   - component: {fileID: 9022814985470388364}
   m_Layer: 0
-  m_Name: BackgroundMusic
+  m_Name: Soundtrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,8 @@ AudioSource:
   m_GameObject: {fileID: 7807331600601115770}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -9102595064423387386, guid: e6db263e566f7da4cb0d72d4946cabd5,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

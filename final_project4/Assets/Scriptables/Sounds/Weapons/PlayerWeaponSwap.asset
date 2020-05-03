@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerWeaponSwap
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: b5a4cbb7f8439344f9f8759c72a818eb, type: 3}
-  AudioSourceType: 2
+  AudioSourceType: 3
   Delay: 0
   Weapons:
   - WeaponType: 0
@@ -21,3 +21,4 @@ MonoBehaviour:
   - WeaponType: 1
     EventType: 2
   Bullets: []
+  GenericSounds: 

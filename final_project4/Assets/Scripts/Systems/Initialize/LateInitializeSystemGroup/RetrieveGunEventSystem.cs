@@ -52,8 +52,7 @@ public class RetrieveGunEventSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<StateComponent>()
         };
-
-        float3 playerPosition = GetComponent<Translation>(GameVariables.Player.Entity).Value;
+        
         float deltaTime = Time.DeltaTime;
         
         JobHandle gunJob = Entities.ForEach(

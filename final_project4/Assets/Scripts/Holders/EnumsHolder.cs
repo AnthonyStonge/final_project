@@ -29,9 +29,19 @@ namespace Enums
         Player
     }
 
+    //These sounds are link to global event and generic event (NOT interactables/player/enemies)
+    public enum SoundType
+    {
+        Backgrounds,
+        Soundtracks,
+        SFX
+    }
+    
     public enum AudioSourceType
     {
-        BackgroundMusic,
+        Soundtrack,
+        AmbienceMusic,
+        AmbienceSFX,
         PlayerWeaponActionsPlay, //Shoot, Reload, Swap
         PlayerWeaponActionPOSO,
         PlayerActions,    //Take damage, Die
@@ -42,7 +52,7 @@ namespace Enums
     public enum DropType
     {
         //Life,
-        Amunation
+        Ammunition
     }
 
     //Order is IMPORTANT (The bigger the value, the more important it is for the StateMachine)
@@ -75,4 +85,6 @@ namespace Enums
         Attack,
         Chase
     }
+
+    
 }

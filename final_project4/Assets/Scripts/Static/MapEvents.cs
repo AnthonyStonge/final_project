@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Net;
 using Unity.Entities;
 using Unity.Jobs;
 using UnityEngine;
@@ -35,7 +36,14 @@ public static class MapEvents
         GlobalEvents.CameraEvents.FadeOut();
         //Lock player inputs
         if (GameVariables.Player.Entity != Entity.Null)
+        {
+            //Set delay on Player Weapon (Quick fix for bullets spawning at wrong spot)
+            Entity weaponEntity = GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
+            GunComponent weapon = entityManager.GetComponentData<GunComponent>(weaponEntity);
+            weapon.SwapTimer = 0.02f;
+            entityManager.SetComponentData(weaponEntity, weapon);
             GlobalEvents.PlayerEvents.LockUserInputs();
+        }
 
         OnSwapLevel();
         TryUnloadMap();

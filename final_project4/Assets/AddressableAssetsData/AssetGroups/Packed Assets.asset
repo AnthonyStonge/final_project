@@ -60,8 +60,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: EnemyPrefabContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 4017a4eaf1c33c646b0f01465a2712fe, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 4017a4eaf1c33c646b0f01465a2712fe, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 4415b89aced59ff41819888c782445dc
     m_Address: AudioSourceContainer
     m_ReadOnly: 0
@@ -69,8 +69,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: AudioSourcesContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 4415b89aced59ff41819888c782445dc, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 4415b89aced59ff41819888c782445dc, type: 2}
   - m_GUID: 5711f946471167948ad81b654dc60c3c
     m_Address: InteractableBullet
     m_ReadOnly: 0
@@ -81,14 +81,16 @@ MonoBehaviour:
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
   - m_GUID: 60f0d0549d8db2d42851dab63cd22a39
-    m_Address: Amunation
+    m_Address: Ammunition
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8899465809852885384, guid: 60f0d0549d8db2d42851dab63cd22a39,
+      type: 3}
+    m_TargetAsset: {fileID: 8899465809852885384, guid: 60f0d0549d8db2d42851dab63cd22a39,
+      type: 3}
   - m_GUID: 67ea742ccaa8c354b80aa42c3cb57e1c
     m_Address: MapContainer
     m_ReadOnly: 0
@@ -105,8 +107,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: SoundsContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 11400000, guid: 8608ea675a3da4146bdd02b2d363944c, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 8608ea675a3da4146bdd02b2d363944c, type: 2}
   - m_GUID: 950f480c66d432542924efec9f68e4f1
     m_Address: PistolBullet
     m_ReadOnly: 0
@@ -114,8 +116,10 @@ MonoBehaviour:
     - default
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8337288439267534834, guid: 950f480c66d432542924efec9f68e4f1,
+      type: 3}
+    m_TargetAsset: {fileID: 8337288439267534834, guid: 950f480c66d432542924efec9f68e4f1,
+      type: 3}
   - m_GUID: e0ae6182e1a6b11438ffe0678d68e1df
     m_Address: Player
     m_ReadOnly: 0
