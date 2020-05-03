@@ -12,6 +12,21 @@ public struct LifeComponent : IComponentData
     public bool IsInvincible { get; private set; }
     public InvincibilityType Invincibility { get; private set; }
 
+    public bool IsDead()
+    {
+        if (Life.Value <= 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void Kill()
+    {
+        Life.Value = 0;
+    }
+    
     public void SetInvincibility(InvincibilityType type)
     {
         IsInvincible = true;
@@ -38,6 +53,5 @@ public struct LifeComponent : IComponentData
     public void Reset()
     {
         Life.Value = Life.Max;
-        Debug.Log("Max : " + Life.Max);
     }
 }
