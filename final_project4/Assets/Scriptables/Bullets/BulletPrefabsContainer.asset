@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f0936d45d2cfa43bb13abaf069aa88, type: 3}
+  m_Name: BulletPrefabsContainer
+  m_EditorClassIdentifier: 
+  Prefabs:
+  - Type: 0
+    Prefab: {fileID: 8337288439267534834, guid: 950f480c66d432542924efec9f68e4f1,
+      type: 3}
+    Filter: {fileID: 3008133050972636598, guid: 24d1d19bc5fca5944a421c16a9d68b17,
+      type: 3}
+  - Type: 1
+    Prefab: {fileID: 1184732517643075236, guid: 0583b798eb7e811419d77d60d911d32f,
+      type: 3}
+    Filter: {fileID: 3008133050972636598, guid: 24d1d19bc5fca5944a421c16a9d68b17,
+      type: 3}
+  - Type: 4
+    Prefab: {fileID: 1184732517643075236, guid: f3085b6cf9ee6ac488ff10b8cdf3fdf7,
+      type: 3}
+    Filter: {fileID: 3008133050972636598, guid: f2e967d7f0365f04cb6f7a58c61184ec,
+      type: 3}
+  - Type: 5
+    Prefab: {fileID: 1184732517643075236, guid: 95836ed9ce036bf4e8f2107f6f043db4,
+      type: 3}
+    Filter: {fileID: 3008133050972636598, guid: f2e967d7f0365f04cb6f7a58c61184ec,
+      type: 3}

@@ -216,10 +216,10 @@ public class RetrieveGunEventSystem : SystemBase
                 ShootShotgun(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);
                 break;
             case WeaponType.PigWeapon:
-                ShootPigWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);    //TODO IMPLEMENT BULLET FOR PIG WEAPON
+                ShootPigWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);
                 break;
             case WeaponType.GorillaWeapon:
-                ShootGorillaWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);    //TODO IMPLEMENT BULLET FOR GORILLA WEAPON
+                ShootGorillaWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);
                 break;
         }
     }
