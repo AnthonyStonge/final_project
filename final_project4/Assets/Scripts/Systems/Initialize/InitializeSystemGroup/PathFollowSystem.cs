@@ -1,11 +1,9 @@
 ﻿using Enums;
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
-using Debug = UnityEngine.Debug;
 
 [DisableAutoCreation]
 [UpdateBefore(typeof(EnnemieFollowSystem))]
@@ -90,7 +88,7 @@ public class PathFollowSystem : SystemBase
             {
                 pathFollow.ennemyState = EnnemyState.Wondering;
             }
-        }).ScheduleParallel();
+        }).ScheduleParallel(Dependency).Complete();
     }
 
     private static void ChaseFollow(ref PathFollowComponent pathFollow, in Translation translation, in float3 posPlayer,
@@ -153,7 +151,7 @@ public class PathFollowSystem : SystemBase
         if (pathFollow.timeWonderingCounter < 0)
         {
             //Get next seed
-            var rSeed = new Random((uint)( time + entityInQueryIndex ));
+            var rSeed = new Random((uint)( time + entityInQueryIndex + 1 ));
             
             //Get random Angle, distance and time to wonder
             int randomAngle = rSeed.NextInt(0, 360);

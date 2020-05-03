@@ -33,6 +33,8 @@ public class MoveVelocitySystem : SystemBase
         JobHandle job = Entities.ForEach((Entity e, ref PhysicsVelocity velocity, in DirectionData direction, in SpeedData speed) =>
         {
             velocity.Linear.xz = direction.Value * speed.Value * dt;
+            velocity.Linear.y = 0;
+            velocity.Angular.xz = 0;
             
             //If inputs to move, change state
             

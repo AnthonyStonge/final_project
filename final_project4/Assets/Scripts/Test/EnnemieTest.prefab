@@ -213,7 +213,7 @@ MonoBehaviour:
     m_BevelRadius: 0
     m_MinimumAngle: 2.5000002
   m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
+  m_ForceUnique: 1
   m_Material:
     m_SupportsTemplate: 1
     m_Template: {fileID: 0}
@@ -255,7 +255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6673f8ae6c1c0634687991dbd7f8ec3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRange: 0
 --- !u!114 &-5285836355235067111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,5 +314,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b77c5f35789e848a5bbc103f422bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 5
+  Distance: 0
   IsInRange: 0

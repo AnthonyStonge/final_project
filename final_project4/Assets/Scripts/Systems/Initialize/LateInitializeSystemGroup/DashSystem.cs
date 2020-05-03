@@ -27,7 +27,7 @@ public class DashSystem : SystemBase
         {
             dash.CurrentDashTime -= dt;
 
-            direction.Value = GetVelocity(dash, dt);
+            direction.Value = GetVelocity(dash);
             EntityManager.SetComponentData(playerEntity, direction);
         }
         //Is dash finished? -> Unlock inputs...
@@ -36,22 +36,21 @@ public class DashSystem : SystemBase
             OnDashEnd(ref dash);
         }
 
-        //
         if (!dash.IsAvailable)
             dash.CurrentCooldownTime -= dt;
 
         if (TryDash(dash, inputs))
         {
             //Dash
-            Dash(ref dash, inputs, rotation);
+            Dash(ref dash, rotation);
         }
 
         EntityManager.SetComponentData(playerEntity, dash);
     }
 
-    private static float2 GetVelocity(DashComponent dash, float delta)
+    private static float2 GetVelocity(in DashComponent dash)
     {
-        return math.normalizesafe(dash.TargetEndDash) * dash.Speed * 100 * delta;
+        return math.normalizesafe(dash.Direction) * dash.Speed;
     }
 
     private static void OnDashEnd(ref DashComponent dash)
@@ -60,7 +59,7 @@ public class DashSystem : SystemBase
         dash.WasDashingPreviousFrame = false;
     }
 
-    private static bool TryDash(DashComponent dash, InputComponent inputs)
+    private static bool TryDash(in DashComponent dash, in InputComponent inputs)
     {
         //Is Dash Requested
         if (!dash.IsAvailable)
@@ -72,18 +71,14 @@ public class DashSystem : SystemBase
         return true;
     }
 
-    private static void Dash(ref DashComponent dash, InputComponent inputs, Rotation rotation)
+    private static void Dash(ref DashComponent dash, in Rotation rotation)
     {
         //Dash
         dash.OnDash();
         GlobalEvents.PlayerEvents.LockUserInputs();
 
-        //Set target
-        if (inputs.Move.Equals(float2.zero))
-            //Go toward mouse
-            dash.TargetEndDash = math.forward(rotation.Value).xz * 1000;
-        else
-            //Go toward moving direction
-            dash.TargetEndDash = inputs.Move;
+        //Dash toward Mouse
+        dash.Direction = math.forward(rotation.Value).xz;
+  
     }
 }

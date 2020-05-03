@@ -17,15 +17,6 @@ public class EnnemieFollowSystem : SystemBase
         GroupIndex = 0
     };
 
-    private BuildPhysicsWorld buildPhysicsWorld;
-    private EndSimulationEntityCommandBufferSystem endSimulationEntityCommandBufferSystem;
-
-    protected override void OnCreate()
-    {
-        endSimulationEntityCommandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
-        buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
-    }
-
     protected override void OnUpdate()
     {
         Entities.ForEach((ref PathFollowComponent pathFollow, ref DirectionData direction,
