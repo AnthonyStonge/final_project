@@ -103,7 +103,7 @@ public class RetrieveGunEventSystem : SystemBase
                     {
                         
                         weaponEventType = WeaponInfo.WeaponEventType.ON_SHOOT;
-                        Shoot(entityInQueryIndex, ecb, ref gun, transform, playerPosition);
+                        Shoot(entityInQueryIndex, ecb, ref gun, transform);
                     }
 
                 //Add event to NativeQueue
@@ -199,7 +199,7 @@ public class RetrieveGunEventSystem : SystemBase
     }
 
     private static void Shoot(int jobIndex, EntityCommandBuffer.Concurrent ecb, ref GunComponent gun,
-        in LocalToWorld transform, in float3 playerPosition)
+        in LocalToWorld transform)
     {
         //Decrease bullets
         gun.CurrentAmountBulletInMagazine--;
