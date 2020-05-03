@@ -16,7 +16,11 @@ namespace Enums
     public enum ProjectileType
     {
         PistolBullet,
-        ShotgunBullet
+        ShotgunBullet,
+        RatBullet,
+        ChickenBullet,
+        PigBullet,
+        GorillaBullet
     }
 
     public enum Type

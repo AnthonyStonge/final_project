@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3753824560780474451}
   - component: {fileID: -1984397322180024506}
   m_Layer: 0
-  m_Name: ShotgunBullet
+  m_Name: PigBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,6 +109,6 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  Type: 1
-  Speed: 100
+  Type: 4
+  Speed: 90
   Radius: 0

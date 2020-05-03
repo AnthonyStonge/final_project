@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4814130295468034817}
   - component: {fileID: 4608159221114107102}
   - component: {fileID: 4164041567664846853}
-  - component: {fileID: 7045334463234939401}
+  - component: {fileID: -947948658309796887}
   - component: {fileID: -4146011551685310214}
   m_Layer: 0
   m_Name: PistolBullet
@@ -81,7 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &7045334463234939401
+--- !u!114 &-947948658309796887
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8337288439267534834}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 463db2cced169754ca4e97789ce372f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b1d6c44cb25ff541aaaffc9f12e52f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &-4146011551685310214
