@@ -12,5 +12,7 @@ public class CleanupSystem : SystemBase
         EventsHolder.StateEvents.Clear();
         EventsHolder.AnimationEvents.Clear();
         EventsHolder.InteractableEvents.Clear();
+        
+        //Do not clean LevelInfo from EventsHolder
     }
 }

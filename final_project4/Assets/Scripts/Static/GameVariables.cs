@@ -26,7 +26,6 @@ public static class GameVariables
         public static WeaponType CurrentWeaponHeld;
 
         public static ushort AmountLife = 3;    //TODO MOVE MAGIC NUMEBR
-        public static ushort PlayerDeathCount = 0;
 
         //Unity linker
         public static Transform Transform;

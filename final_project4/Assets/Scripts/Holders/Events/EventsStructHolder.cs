@@ -107,6 +107,7 @@ namespace EventStruct
         public int NbEnemy;
         public int NbEnemyMax;
         public int Difficulty;
+        public int DeathCount;
         
         public enum LevelEventType
         {
