@@ -54,7 +54,7 @@ public class StateAttackingSystem : SystemBase
         Translation playerPos = GetComponent<Translation>(player);
         //Act on Enemies
         JobHandle job = Entities.WithAll<EnemyTag>().ForEach(
-            (in TypeData type, in StateComponent state, in Translation currentPosition, in AttackRangeComponent range) =>
+            (Entity e, in TypeData type, in StateComponent state, in Translation currentPosition, in AttackRangeComponent range) =>
             {
                 //Is distance small enough to Attack
                 if (math.distancesq(currentPosition.Value, playerPos.Value) > range.Distance * range.Distance)
@@ -77,7 +77,7 @@ public class StateAttackingSystem : SystemBase
                 //Add StateEvent
                 events.Enqueue(new StateInfo
                 {
-                    Entity = player,
+                    Entity = e,
                     DesiredState = State.Attacking,
                     Action = actionType
                 });
