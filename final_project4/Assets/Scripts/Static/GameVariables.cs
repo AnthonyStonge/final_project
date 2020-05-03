@@ -23,6 +23,7 @@ public static class GameVariables
         public static Entity Entity;
 
         public static Dictionary<WeaponType, Entity> PlayerWeaponEntities = new Dictionary<WeaponType, Entity>();
+        public static List<WeaponType> PlayerWeaponTypes = new List<WeaponType>();
         public static WeaponType CurrentWeaponHeld;
 
         public static ushort AmountLife = 3;    //TODO MOVE MAGIC NUMEBR

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6488378529882087763}
   - component: {fileID: -3753824560780474451}
   - component: {fileID: -1984397322180024506}
-  - component: {fileID: -6488445756917798425}
+  - component: {fileID: -2295288595136735561}
   m_Layer: 0
-  m_Name: ShotgunBullet
+  m_Name: MachineGunBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d0ce75683c545304aa65e8afc4251f71, type: 2}
+  - {fileID: 2100000, guid: c250c164132b0f547ae7215f1fb1470d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,9 +110,9 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  Type: 1
+  Type: 2
   Speed: 100
---- !u!114 &-6488445756917798425
+--- !u!114 &-2295288595136735561
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -22,12 +22,12 @@ public static class ProjectileHolder
     public static void Initialize()
     {
     }
-    
+
     public static void LoadAssets()
     {
         Addressables.LoadAssetAsync<BulletPrefabsContainer>("BulletPrefabsContainer").Completed += handle =>
         {
-            ExtractPrefabs(handle.Result);
+            // ExtractPrefabs(handle.Result);
             currentNumberOfLoadedAssets++;
         };
     }
@@ -41,7 +41,7 @@ public static class ProjectileHolder
 
             if (e != Entity.Null)
                 if(!ProjectilePrefabDict.TryAdd(bullet.Type, e))
-                    Debug.Log($"Couldnt add bullet type {bullet.Type}");
+                    Debug.Log($"Couldn't add bullet type {bullet.Type}");
             
             //Create filter
             CollisionFilter filter = new CollisionFilter

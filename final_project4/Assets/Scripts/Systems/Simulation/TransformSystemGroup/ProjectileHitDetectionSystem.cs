@@ -12,12 +12,12 @@ using Unity.Transforms;
 [UpdateAfter(typeof(TranslateSystem))] // Important
 public class ProjectileHitDetectionSystem : SystemBase
 {
-    private static readonly CollisionFilter Filter = new CollisionFilter
-    {
-        BelongsTo = 1,
-        CollidesWith = 1 << 10 | 1 << 2,
-        GroupIndex = 0
-    };
+    // private static readonly CollisionFilter Filter = new CollisionFilter
+    // {
+    //     BelongsTo = 1,
+    //     CollidesWith = 1 << 10 | 1 << 2,
+    //     GroupIndex = 0
+    // };
     
     private BuildPhysicsWorld buildPhysicsWorld;
     private EndSimulationEntityCommandBufferSystem endSimulationEntityCommandBufferSystem;
@@ -63,17 +63,19 @@ public class ProjectileHitDetectionSystem : SystemBase
         Entity player = GameVariables.Player.Entity;
 
         
-        JobHandle job = Entities.WithoutBurst().ForEach((Entity entity, int entityInQueryIndex, ref DamageProjectile projectile, ref Translation translation, in Rotation rotation) =>
+        JobHandle job = Entities.ForEach((Entity entity, int entityInQueryIndex, ref DamageProjectile projectile, ref Translation translation, in Rotation rotation, in BulletCollider bulletCollider) =>
         {
-            //Make sure Filter exists for ProjectileType
-            if(!ProjectileHolder.ProjectileFilters.ContainsKey(projectile.Type))
-                return;
-
+            CollisionFilter Filter = new CollisionFilter
+            {
+                BelongsTo = bulletCollider.BelongsTo.Value,
+                CollidesWith = bulletCollider.CollidesWith.Value,
+                GroupIndex = bulletCollider.GroupIndex
+            };
             RaycastInput raycastInput = new RaycastInput
             {
                 Start = projectile.PreviousPosition,
                 End = translation.Value,
-                Filter = ProjectileHolder.ProjectileFilters[projectile.Type]
+                Filter = Filter
             };
             
             //Cast ray
