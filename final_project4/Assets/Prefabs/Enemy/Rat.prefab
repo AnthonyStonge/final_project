@@ -16,8 +16,10 @@ GameObject:
   - component: {fileID: 6266690371279704703}
   - component: {fileID: -3080834078430796105}
   - component: {fileID: 8227971529083276615}
+  - component: {fileID: 5366042892375690422}
   - component: {fileID: 3247000289918827036}
   - component: {fileID: 5812531943527265235}
+  - component: {fileID: -5705367344933930829}
   m_Layer: 0
   m_Name: Rat
   m_TagString: Untagged
@@ -98,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6673f8ae6c1c0634687991dbd7f8ec3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRange: 0
 --- !u!114 &7166649424122522291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c412270cb899a42897a996e4cf6483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 200
+  Value: 300
 --- !u!114 &8227971529083276615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +159,20 @@ MonoBehaviour:
     Min: 0
     Max: 100
     hiddenValue: 1
+--- !u!114 &5366042892375690422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468872737916222920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4b77c5f35789e848a5bbc103f422bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Distance: 2
+  IsInRange: 0
 --- !u!114 &3247000289918827036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,7 +247,7 @@ MonoBehaviour:
     Value:
       x: -90
       y: 0
-      z: 90
+      z: -90
     RotationOrder: 4
   m_Capsule:
     Height: 2
@@ -280,3 +295,22 @@ MonoBehaviour:
       m_Override: 0
       m_Value: 0000000000000000
   m_ConvexRadius_Deprecated: -1
+--- !u!114 &-5705367344933930829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468872737916222920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df888e4ae1a72624baf69149050ebd31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPos:
+    x: 0
+    y: 0
+  endPos:
+    x: 0
+    y: 0
+  findPath: 0

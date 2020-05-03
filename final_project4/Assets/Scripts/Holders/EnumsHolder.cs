@@ -6,7 +6,11 @@ namespace Enums
     public enum WeaponType
     {
         Pistol,
-        Shotgun
+        Shotgun,
+        RatWeapon,
+        ChickenWeapon,
+        PigWeapon,
+        GorillaWeapon
     }
 
     public enum ProjectileType

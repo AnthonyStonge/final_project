@@ -31,7 +31,7 @@ public class Spawner : MonoBehaviour
     }        
     void Update()        
     {
-        if (Input.GetMouseButtonDown(1))
+        /*if (Input.GetMouseButtonDown(1))
         {
             spawnYCounter = 0;
             for (int i = 0; i < 15; i++)
@@ -43,7 +43,7 @@ public class Spawner : MonoBehaviour
                 }
             }
             
-        }
+        }*/
     }
     private void createEntity(int i, int j)
     {

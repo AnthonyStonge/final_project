@@ -19,8 +19,7 @@ GameObject:
   - component: {fileID: -750876704245837785}
   - component: {fileID: 2254320853834523904}
   - component: {fileID: 4717124122687465337}
-  - component: {fileID: 2906006149669303537}
-  - component: {fileID: 6392648304740334690}
+  - component: {fileID: -3925247471137375748}
   m_Layer: 0
   m_Name: Pig
   m_TagString: Untagged
@@ -172,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b77c5f35789e848a5bbc103f422bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Distance: 3
+  Distance: 8
   IsInRange: 0
 --- !u!114 &2254320853834523904
 MonoBehaviour:
@@ -296,7 +295,7 @@ MonoBehaviour:
       m_Override: 0
       m_Value: 0000000000000000
   m_ConvexRadius_Deprecated: -1
---- !u!114 &2906006149669303537
+--- !u!114 &-3925247471137375748
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -308,7 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df888e4ae1a72624baf69149050ebd31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBeforeCheck: 0.5
   startPos:
     x: 0
     y: 0
@@ -316,16 +314,3 @@ MonoBehaviour:
     x: 0
     y: 0
   findPath: 0
---- !u!114 &6392648304740334690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 367887501688541214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e76239738c458f49a49b579a61928ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Values: []

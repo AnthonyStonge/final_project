@@ -18,12 +18,31 @@ public class TemporaryEnemySpawnerSystem : SystemBase
 
     protected override void OnUpdate()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                CreateEnemy(Type.Rat, out Entity rat);
+                if (rat != Entity.Null)
+                    CreateWeapon(WeaponType.Pistol, rat);
+                CreateEnemy(Type.Chicken, out Entity chicken);
+                if (chicken != Entity.Null)
+                    CreateWeapon(WeaponType.Pistol, chicken);
+                CreateEnemy(Type.Pig, out Entity pig);
+                if (pig != Entity.Null)
+                    CreateWeapon(WeaponType.Shotgun, pig);
+                CreateEnemy(Type.Gorilla, out Entity gorilla);
+                if (gorilla != Entity.Null)
+                    CreateWeapon(WeaponType.Shotgun, gorilla);
+            }
+        }
+        
         if (Input.GetKeyDown(KeyCode.P))
             for (int i = 0; i < 10; i++)
             {
                 CreateEnemy(Type.Pig, out Entity e);
                 if (e != Entity.Null)
-                    CreateWeapon(WeaponType.Pistol, e);
+                    CreateWeapon(WeaponType.Shotgun, e);
             }
 
         if (Input.GetKeyDown(KeyCode.O))
@@ -47,7 +66,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
             {
                 CreateEnemy(Type.Gorilla, out Entity e);
                 if (e != Entity.Null)
-                    CreateWeapon(WeaponType.Pistol, e);
+                    CreateWeapon(WeaponType.Shotgun, e);
             }
     }
 

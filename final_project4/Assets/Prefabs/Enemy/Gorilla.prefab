@@ -16,8 +16,10 @@ GameObject:
   - component: {fileID: 1360782636548063616}
   - component: {fileID: 6559124237042876261}
   - component: {fileID: 4197825061565892029}
+  - component: {fileID: -1608877509368591665}
   - component: {fileID: 3366007197555392048}
   - component: {fileID: 1376549537748639665}
+  - component: {fileID: 4760105264523539892}
   m_Layer: 0
   m_Name: Gorilla
   m_TagString: Untagged
@@ -98,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6673f8ae6c1c0634687991dbd7f8ec3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackRange: 0
 --- !u!114 &3973794831464715209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c412270cb899a42897a996e4cf6483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 200
+  Value: 100
 --- !u!114 &4197825061565892029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +159,20 @@ MonoBehaviour:
     Min: 0
     Max: 100
     hiddenValue: 10
+--- !u!114 &-1608877509368591665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4865549000073731967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4b77c5f35789e848a5bbc103f422bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Distance: 1000
+  IsInRange: 0
 --- !u!114 &3366007197555392048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,3 +295,22 @@ MonoBehaviour:
       m_Override: 0
       m_Value: 0000000000000000
   m_ConvexRadius_Deprecated: -1
+--- !u!114 &4760105264523539892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4865549000073731967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df888e4ae1a72624baf69149050ebd31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPos:
+    x: 0
+    y: 0
+  endPos:
+    x: 0
+    y: 0
+  findPath: 0

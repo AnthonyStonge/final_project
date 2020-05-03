@@ -16,5 +16,7 @@ public class EnemyAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponent<TargetData>(entity);
         dstManager.AddComponent<AnimationData>(entity);
         dstManager.AddComponent<DirectionData>(entity);
+
+        dstManager.AddComponent<PathPosition>(entity);
     }
 }
