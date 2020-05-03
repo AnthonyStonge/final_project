@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 4257840470159146399}
   - component: {fileID: -6434783325635037793}
   - component: {fileID: -536652855229859866}
+  - component: {fileID: -2759392152706667580}
+  - component: {fileID: 2385975517665732080}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -234,3 +236,40 @@ MonoBehaviour:
       m_Override: 0
       m_Value: 0000000000000000
   m_ConvexRadius_Deprecated: -1
+--- !u!114 &-2759392152706667580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4386793886523506817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df888e4ae1a72624baf69149050ebd31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPos:
+    x: 0
+    y: 0
+  endPos:
+    x: 0
+    y: 0
+  findPath: 0
+--- !u!114 &2385975517665732080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4386793886523506817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e81a02ea5f91b54b893f93a1648c66b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PositionToGo:
+    x: 0
+    y: 0
+  pathIndex: 0
+  EnemyState: 0
+  timeWonderingCounter: 0

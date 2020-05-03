@@ -49,6 +49,6 @@ public class TransformSimulationManager : ComponentSystemGroup
     
     public void OnSwapLevel()
     {
-        
+        pathFinding.InitializeGrid(EventsHolder.LevelEvents.CurrentLevel);
     }
 }

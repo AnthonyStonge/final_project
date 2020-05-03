@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7561944489094159550
+--- !u!114 &8409349739095331843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd1392eb90e0f24496ab3c216150450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 11400000, guid: 07580655e27b9794d80bc98744e79a53, type: 2}
-  mapType: 4
+  grid: {fileID: 11400000, guid: 67e4e6f9626b64741892a1645a55299a, type: 2}
+  mapType: 6
 --- !u!1 &7337849480856376681
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,180 +221,6 @@ Transform:
   m_Father: {fileID: 9044775325000084866}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7417159242899250017
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8779024857393243760}
-  - component: {fileID: 3248885697725841988}
-  m_Layer: 0
-  m_Name: Enter Door
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8779024857393243760
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7417159242899250017}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -44, y: 1, z: -43}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9044775325000084866}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3248885697725841988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7417159242899250017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90cb9e4b31c503747a4a9936926789ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 1
-  ObjectType: 1
-  CurrentMapType: 4
-  PortalId: 104
-  PlayerSpawnPosition: {fileID: 8779024857393243760}
-  MapTypeLeadingTo: 0
-  PortalIdLeadingTo: 999
---- !u!1 &8874741472099524458
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3026508557050671001}
-  - component: {fileID: 7810576524521488158}
-  - component: {fileID: 1221053838360605629}
-  m_Layer: 0
-  m_Name: Exit Door
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3026508557050671001
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8874741472099524458}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 41.8, y: 0.7, z: 42}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 9044775325000084866}
-  m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7810576524521488158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8874741472099524458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90cb9e4b31c503747a4a9936926789ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 1
-  ObjectType: 1
-  CurrentMapType: 4
-  PortalId: 1002
-  PlayerSpawnPosition: {fileID: 3026508557050671001}
-  MapTypeLeadingTo: 5
-  PortalIdLeadingTo: 105
---- !u!114 &1221053838360605629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8874741472099524458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShapeType: 0
-  m_PrimitiveCenter:
-    x: 0
-    y: 0
-    z: 0
-  m_PrimitiveSize:
-    x: 2.75
-    y: 4.37
-    z: 3.17
-  m_PrimitiveOrientation:
-    Value:
-      x: 0
-      y: 0
-      z: 0
-    RotationOrder: 4
-  m_Capsule:
-    Height: 4.37
-    Radius: 1.585
-    Axis: 1
-  m_Cylinder:
-    Height: 4.37
-    Radius: 1.585
-    Axis: 1
-  m_CylinderSideCount: 20
-  m_SphereRadius: 2.185
-  m_MinimumSkinnedVertexWeight: 0.1
-  m_ConvexHullGenerationParameters:
-    m_SimplificationTolerance: 0.015
-    m_BevelRadius: 0
-    m_MinimumAngle: 2.5000002
-  m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
-  m_Material:
-    m_SupportsTemplate: 1
-    m_Template: {fileID: 0}
-    m_IsTrigger:
-      m_Override: 0
-      m_Value: 1
-    m_Friction:
-      m_Override: 0
-      m_Value:
-        Value: 0.5
-        CombineMode: 0
-    m_Restitution:
-      m_Override: 0
-      m_Value:
-        Value: 0
-        CombineMode: 2
-    m_BelongsTo:
-      m_Override: 0
-      m_Value: 0000000000000000000000000000000000000000010000000000000000000000
-    m_CollidesWith:
-      m_Override: 0
-      m_Value: 0001000000000000000000000000000000000000000000000000000000000000
-    m_RaisesCollisionEvents:
-      m_Override: 0
-      m_Value: 0
-    m_CustomTags:
-      m_Override: 0
-      m_Value: 0000000000000000
-  m_ConvexRadius_Deprecated: -1
 --- !u!1 &9044775325000084865
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9044775325000084866}
   m_Layer: 0
-  m_Name: level_04
+  m_Name: level_hell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,8 +262,6 @@ Transform:
   - {fileID: 6585454681302146223}
   - {fileID: 3579915335672721143}
   - {fileID: 4424128140508893618}
-  - {fileID: 8779024857393243760}
-  - {fileID: 3026508557050671001}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
