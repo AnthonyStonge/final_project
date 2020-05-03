@@ -95,6 +95,11 @@ namespace Enums
         Attack,
         Chase
     }
-
-    
+    public enum InvincibilityType{
+        Hit,
+        Spawn,
+        Death,
+        Dash,
+        None
+    }
 }

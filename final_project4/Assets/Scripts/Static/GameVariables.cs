@@ -17,6 +17,12 @@ public static class GameVariables
     public static Dictionary<MapType, ScriptableGrid> Grids = new Dictionary<MapType, ScriptableGrid>();
     public static CinemachineBasicMultiChannelPerlin CamNoiseProfile;
     public static ShakeCamComponent ShakeComponent;
+    
+    public static float InvincibleDashTime = 1.0f;
+    public static float InvincibleDeathTime = 5.0f;
+    public static float InvincibleSpawnTime = 5.0f;
+    public static float InvicibleHitTime = 3.0f;
+
     public static class Player
     {
         //Player general infos (Can change during gameplay)

@@ -19,6 +19,7 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponent<TargetData>(entity);
         dstManager.AddComponent<AnimationData>(entity);
         dstManager.AddComponent<DirectionData>(entity);
+        dstManager.AddComponent<InvincibleData>(entity);    
         dstManager.AddComponentData(entity, new InputComponent
         {
             Enabled = true
@@ -29,6 +30,5 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         {
             Value = 333
         });
-
     }
 }

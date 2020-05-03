@@ -39,11 +39,13 @@ public class GlobalEventListenerSystem : SystemBase
         }
 
         //Look for player hp
-        if (EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity).Life.Value <= 0)
+        if (EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity).IsDead())
         {
             if (levelEvents.CurrentLevel != MapType.Level_Hell)
             {
-                EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity).Reset();
+                var lifeComponent = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
+                lifeComponent.Reset();
+                EntityManager.SetComponentData(GameVariables.Player.Entity, lifeComponent);
                 
                 LastMap = EventsHolder.LevelEvents.CurrentLevel;
                 EventsHolder.LevelEvents.DeathCount++;

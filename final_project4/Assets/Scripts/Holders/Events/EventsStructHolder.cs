@@ -64,7 +64,15 @@ namespace EventStruct
     public struct AnimationInfo
     {
         public Entity Entity;
+        public EventType Type;
         public State NewState;
+
+        public enum EventType
+        {
+            OnSwapAnimation,
+            OnAnimationStart,
+            OnAnimationEnd
+        }
     }
 
     public struct StateInfo

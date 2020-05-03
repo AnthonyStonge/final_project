@@ -12,9 +12,12 @@ using static ECSUtility;
 //TODO UNLESS WE MAKE BULLET THAT DONT HAVE WEAPON, WE SHOULD REMOVE THIS CLASS
 public static class ProjectileHolder
 {
-    public static ConcurrentDictionary<ProjectileType, Entity> ProjectilePrefabDict = new ConcurrentDictionary<ProjectileType, Entity>();
-    public static ConcurrentDictionary<ProjectileType, CollisionFilter> ProjectileFilters = new ConcurrentDictionary<ProjectileType, CollisionFilter>();
-    
+    public static ConcurrentDictionary<ProjectileType, Entity> ProjectilePrefabDict =
+        new ConcurrentDictionary<ProjectileType, Entity>();
+
+    public static ConcurrentDictionary<ProjectileType, CollisionFilter> ProjectileFilters =
+        new ConcurrentDictionary<ProjectileType, CollisionFilter>();
+
     private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets = 0;
     private static int numberOfAssetsToLoad = 1;
@@ -40,30 +43,38 @@ public static class ProjectileHolder
             Entity e = ConvertGameObjectPrefab(bullet.Prefab, out BlobAssetStore blob);
 
             if (e != Entity.Null)
-                if(!ProjectilePrefabDict.TryAdd(bullet.Type, e))
-                    Debug.Log($"Couldn't add bullet type {bullet.Type}");
-            
+                if (!ProjectilePrefabDict.TryAdd(bullet.Type, e))
+                {
+#if UNITY_EDITOR
+                    Debug.Log($"Couldnt add bullet type {bullet.Type}");
+#endif
+                }
+
             //Create filter
             CollisionFilter filter = new CollisionFilter
             {
                 BelongsTo = bullet.Filter.BelongsTo.Value,
                 CollidesWith = bullet.Filter.CollidesWith.Value
             };
-            if(!ProjectileFilters.TryAdd(bullet.Type, filter))
+            if (!ProjectileFilters.TryAdd(bullet.Type, filter))
+            {
+#if UNITY_EDITOR
                 Debug.Log($"Couldnt add filter for type {bullet.Type}");
-            
-            if(blob != null)
+#endif
+            }
+
+            if (blob != null)
                 blobAssetStores.Add(blob);
         }
     }
-    
+
     public static float CurrentLoadingPercentage()
     {
         return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
     }
-    
+
     public static void OnDestroy()
     {
-        blobAssetStores.ForEach(i=> { i.Dispose(); });
-    }    
+        blobAssetStores.ForEach(i => { i.Dispose(); });
+    }
 }

@@ -115,6 +115,7 @@ public class StateEventSystem : SystemBase
                     animationEvents.Enqueue(new AnimationInfo
                     {
                         Entity = e,
+                        Type = AnimationInfo.EventType.OnSwapAnimation,
                         NewState = animationStateToChangeTo
                     });
                 }
