@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 [DisableAutoCreation]
-[UpdateAfter(typeof(StateDyingSystem))]
+[UpdateBefore(typeof(MoveVelocitySystem))]
 public class DashSystem : SystemBase
 {
     protected override void OnUpdate()
@@ -15,10 +15,9 @@ public class DashSystem : SystemBase
 
         //Get Entities
         Entity playerEntity = GameVariables.Player.Entity;
-        Entity playerWeaponEntity = GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
 
         //Get Components
-        PhysicsVelocity physicsVelocity = EntityManager.GetComponentData<PhysicsVelocity>(playerEntity);
+        DirectionData direction = EntityManager.GetComponentData<DirectionData>(playerEntity);
         DashComponent dash = EntityManager.GetComponentData<DashComponent>(playerEntity);
         InputComponent inputs = EntityManager.GetComponentData<InputComponent>(playerEntity);
         Rotation rotation = EntityManager.GetComponentData<Rotation>(playerEntity);
@@ -28,8 +27,8 @@ public class DashSystem : SystemBase
         {
             dash.CurrentDashTime -= dt;
 
-            physicsVelocity.Linear.xz = GetVelocity(dash, dt);
-            EntityManager.SetComponentData(playerEntity, physicsVelocity);
+            direction.Value = GetVelocity(dash, dt);
+            EntityManager.SetComponentData(playerEntity, direction);
         }
         //Is dash finished? -> Unlock inputs...
         else if (dash.WasDashingPreviousFrame)
