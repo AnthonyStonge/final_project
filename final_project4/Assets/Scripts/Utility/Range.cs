@@ -25,6 +25,8 @@ public struct Range
     {
         get => hiddenValue;
         set => hiddenValue = math.clamp(value, Min, Max);
+       
+
     }
     
     
