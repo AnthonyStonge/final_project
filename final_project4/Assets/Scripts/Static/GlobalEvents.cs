@@ -137,11 +137,6 @@ public static class GlobalEvents
             e.SetComponentData(entity, inputs);
         }
 
-        public static void LockUserInputs(ref InputComponent inputs)
-        {
-            inputs.Enabled = false;
-        }
-
         public static void UnlockUserInputs()
         {
             //Get input components / Player entity
@@ -152,11 +147,6 @@ public static class GlobalEvents
             InputComponent inputs = e.GetComponentData<InputComponent>(entity);
             inputs.Enabled = true;
             e.SetComponentData(entity, inputs);
-        }
-
-        public static void UnlockUserInputs(ref InputComponent inputs)
-        {
-            inputs.Enabled = true;
         }
     }
 

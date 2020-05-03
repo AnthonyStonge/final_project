@@ -69,7 +69,7 @@ namespace Enums
         Portal,
         Ammo
     }
-    public enum EnnemyState
+    public enum EnemyState
     {
         Wondering,
         Attack,

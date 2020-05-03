@@ -15,8 +15,8 @@ public static class EventsHolder
     public static NativeList<StateInfo> StateEvents = 
         new NativeList<StateInfo>(Allocator.Persistent);
     
-    public static NativeList<AnimationInfo> AnimationEvents =
-        new NativeList<AnimationInfo>(Allocator.Persistent);
+    public static NativeQueue<AnimationInfo> AnimationEvents =
+        new NativeQueue<AnimationInfo>(Allocator.Persistent);
     
     public static NativeList<InteractableInfo> InteractableEvents =
         new NativeList<InteractableInfo>(Allocator.Persistent);

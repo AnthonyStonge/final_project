@@ -8,7 +8,7 @@ using Unity.Physics.Systems;
 using Unity.Transforms;
 
 [DisableAutoCreation]
-[UpdateAfter(typeof(MoveSystem))] // Important
+[UpdateAfter(typeof(TranslateSystem))] // Important
 public class ProjectileHitDetectionSystem : SystemBase
 {
     private static readonly CollisionFilter Filter = new CollisionFilter
@@ -77,7 +77,7 @@ public class ProjectileHitDetectionSystem : SystemBase
                     ProjectileType = projectile.Type,
                     CollisionType = collisionType,
                     HitPosition = hit.Position,
-                    HitRotation = math.inverse(rotation.Value)
+                    HitRotation = rotation.Value
                 });
             }
         }).ScheduleParallel(Dependency);

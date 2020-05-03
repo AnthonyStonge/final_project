@@ -1,9 +1,7 @@
 ﻿using Havok.Physics;
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Physics;
 using Unity.Physics.Systems;
-using UnityEngine;
 [DisableAutoCreation]
 public class PlayerCollisionSystem : SystemBase
 {

@@ -2,8 +2,6 @@
 using EventStruct;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Jobs;
-using UnityEngine;
 using AnimationInfo = EventStruct.AnimationInfo;
 
 [DisableAutoCreation]
@@ -27,7 +25,7 @@ public class StateEventSystem : SystemBase
         //Debug.Log("On StateEvent Update");
 
         //Create parallel writer
-        NativeQueue<AnimationInfo>.ParallelWriter animationEvents = statesChanged.AsParallelWriter();
+        NativeQueue<AnimationInfo>.ParallelWriter animationEvents = EventsHolder.AnimationEvents.AsParallelWriter();
 
         ComponentDataContainer<AnimationData> animatedEntities = new ComponentDataContainer<AnimationData>
         {
@@ -35,30 +33,31 @@ public class StateEventSystem : SystemBase
         };
 
         //Should work, but might be slow because lots of foreach lolololololololol
-        JobHandle job = Entities.WithoutBurst().ForEach((Entity e, ref StateComponent component, in TypeData type) =>
+        Entities.WithoutBurst().ForEach((Entity e, ref StateComponent component, in TypeData type) =>
         {
+            var animations = AnimationHolder.Animations;
             NativeList<StateInfo> events = new NativeList<StateInfo>(Allocator.Temp);
 
             //Retrieve all event corresponding to this entity
-            foreach (StateInfo info in EventsHolder.StateEvents)
+            for (var index = 0; index < EventsHolder.StateEvents.Length; index++)
             {
+                var info = EventsHolder.StateEvents[index];
                 if (info.Entity == e)
                     events.Add(info);
             }
-
             //Return if no events with this entity
             if (events.Length <= 0)
                 return;
 
-            bool stateChanged = false;
+            // bool stateChanged = false;
 
             //Look for an unlock event
-            foreach (StateInfo info in events)
+            for (var index = 0; index < events.Length; index++)
             {
-                if (info.Action == StateInfo.ActionType.Unlock)
+                if (events[index].Action == StateInfo.ActionType.Unlock)
                 {
-                    if (UnLock(ref component))
-                        stateChanged = true;
+                    UnLock(ref component);
+                    // stateChanged = true;
                 }
             }
 
@@ -67,44 +66,42 @@ public class StateEventSystem : SystemBase
             State animationStateToChangeTo = 0;
             bool shouldStateMachineLock = false;
             bool tryChangeEvent = false;
-
-            foreach (StateInfo info in events)
+            
+            for (var index = 0; index < events.Length; index++)
             {
+                var info = events[index];
                 if (info.Action == StateInfo.ActionType.TryChange)
                 {
                     tryChangeEvent = true;
-
                     if (info.DesiredState > stateToChangeTo)
                     {
                         stateToChangeTo = info.DesiredState;
                         shouldStateMachineLock = false;
                     }
                     if (info.DesiredState > animationStateToChangeTo)
-                        if (AnimationHolder.Animations.ContainsKey(type.Value))
-                            if (AnimationHolder.Animations[type.Value].ContainsKey(info.DesiredState))
+                        if (animations.ContainsKey(type.Value))
+                            if (animations[type.Value].ContainsKey(info.DesiredState))
                                 animationStateToChangeTo = info.DesiredState;
                 }
                 else if (info.Action == StateInfo.ActionType.TryChangeAndLock)
                 {
                     tryChangeEvent = true;
-
                     if (info.DesiredState > stateToChangeTo)
                     {
                         stateToChangeTo = info.DesiredState;
                         shouldStateMachineLock = true;
                     }
                     if (info.DesiredState > animationStateToChangeTo)
-                        if (AnimationHolder.Animations.ContainsKey(type.Value))
-                            if (AnimationHolder.Animations[type.Value].ContainsKey(info.DesiredState))
+                        if (animations.ContainsKey(type.Value))
+                            if (animations[type.Value].ContainsKey(info.DesiredState))
                                 animationStateToChangeTo = info.DesiredState;
                 }
             }
-
             //Change state
             if (tryChangeEvent)
             {
                 if (component.CurrentState != stateToChangeTo)
-                    stateChanged = TryChangeState(ref component, stateToChangeTo, shouldStateMachineLock);
+                    TryChangeState(ref component, stateToChangeTo, shouldStateMachineLock);
             }
 
             //Create animation event (only if state changed)
@@ -122,26 +119,18 @@ public class StateEventSystem : SystemBase
                     });
                 }
             }
-
             events.Dispose();
-        }).ScheduleParallel(Dependency);
+            
+        }).ScheduleParallel(Dependency).Complete();
 
-        job.Complete();
-
-        //Empty queue in here because AnimationEvent come right after this system
-        while (statesChanged.TryDequeue(out AnimationInfo info))
-        {
-            EventsHolder.AnimationEvents.Add(info);
-        }
     }
 
-    private static bool TryChangeState(ref StateComponent component, State desiredState, bool shouldLock)
+    private static void TryChangeState(ref StateComponent component, State desiredState, bool shouldLock)
     {
-        bool stateChanged = false;
+        // bool stateChanged = false;
         if (!component.StateLocked)
         {
             //Debug.Log("Changing state to: " + desiredState);
-            stateChanged = true;
             ChangeState(ref component, desiredState, shouldLock);
         }
 
@@ -149,7 +138,6 @@ public class StateEventSystem : SystemBase
         component.DesiredState = desiredState;
         component.ShouldStateBeLocked = shouldLock;
 
-        return stateChanged;
     }
 
     private static bool UnLock(ref StateComponent component)

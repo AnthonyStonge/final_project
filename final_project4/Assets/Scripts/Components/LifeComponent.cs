@@ -8,10 +8,10 @@ public struct LifeComponent : IComponentData
 {
     public Range Life;
 
-    [SerializeField] private float ResetValue;
+    // [SerializeField] private float resetValue;
 
     public void Reset()
     {
-        Life.Value = ResetValue;
+        Life.Value = Life.Max;
     }
 }

@@ -21,9 +21,13 @@ public class AnimationEventSystem : SystemBase
     protected override void OnUpdate()
     {
         //Cycle through all AnimationEvents and change there animation frame
-
-        foreach (EventStruct.AnimationInfo info in EventsHolder.AnimationEvents)
+        var s = EventsHolder.AnimationEvents;
+        while (s.TryDequeue(out EventStruct.AnimationInfo info))
         {
+            
+
+        // foreach (EventStruct.AnimationInfo info in EventsHolder.AnimationEvents)
+        // {
             //Get Type of Entity
             TypeData type = entityManager.GetComponentData<TypeData>(info.Entity);
 
@@ -52,4 +56,6 @@ public class AnimationEventSystem : SystemBase
             });
         }
     }
+
+    // }
 }

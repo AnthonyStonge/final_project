@@ -140,11 +140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c067765999e4274e802fe8c64339b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetEndDash:
+  Direction:
     x: 0
     y: 0
-  Speed: 3
-  DashTime: 0.3
+  Speed: 6
+  DashTime: 0.2
   CooldownTime: 1
   CurrentCooldownTime: 0
   CurrentDashTime: 0

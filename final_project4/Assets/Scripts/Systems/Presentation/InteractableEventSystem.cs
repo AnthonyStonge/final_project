@@ -4,7 +4,6 @@ using Unity.Entities;
 using UnityEngine;
 
 [DisableAutoCreation]
-[UpdateAfter(typeof(RetrieveInteractableCollisionsSystem))]
 public class InteractableEventSystem : SystemBase
 {
     protected override void OnUpdate()
@@ -102,6 +101,7 @@ public class InteractableEventSystem : SystemBase
         //Set player position/rotation
         GlobalEvents.PlayerEvents.SetPlayerPosition(objectivePortal.Position);
         GlobalEvents.PlayerEvents.SetPlayerRotation(objectivePortal.Rotation);
+        
     }
 
     private static bool TryEnterPortal(MapType mapType, ushort portalId)

@@ -7,7 +7,7 @@ public class AnimationSystem : SystemBase
     private EntityCommandBufferSystem entityCommandBuffer;
     public static int BatchIdToUpdate;
 
-    private bool isUpdateAnimationFrame;
+    // private bool isUpdateAnimationFrame;
     private float timer;
     private float resetTimer = 0.02f;
 
@@ -51,7 +51,7 @@ public class AnimationSystem : SystemBase
             entityCommandBuffer.AddJobHandleForProducer(Dependency);
 
             //Reset Timer
-            isUpdateAnimationFrame = false;
+            // isUpdateAnimationFrame = false;
             timer += resetTimer;
 
             //Increment batch

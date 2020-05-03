@@ -8,7 +8,7 @@ using Unity.Transforms;
 using UnityEngine;
 
 [DisableAutoCreation]
-public class EnnemieFollowSystem : SystemBase
+public class EnemyFollowSystem : SystemBase
 {
     private static readonly CollisionFilter Filter = new CollisionFilter
     {
@@ -19,8 +19,8 @@ public class EnnemieFollowSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        Entities.ForEach((ref PathFollowComponent pathFollow, ref DirectionData direction,
-            in AttackRangeComponent range, in Translation translation) =>
+        Entities.ForEach((ref PathFollowComponent pathFollow, ref DirectionData direction, ref TargetData targetData,ref Translation translation,
+            in AttackRangeComponent range) =>
         {
             direction.Value = new float2(0);
 
@@ -36,16 +36,10 @@ public class EnnemieFollowSystem : SystemBase
                 return;
 
             float2 targetPos = new float2(pathFollow.PositionToGo.x, pathFollow.PositionToGo.y);
-            //TODO WHY CAST INT2...
-            targetPos = (int2) targetPos;
             float2 moveDir = math.normalizesafe(targetPos - translation.Value.xz);
 
-            if (math.distancesq(targetPos, translation.Value.xz) <= 1)
-            {
-                pathFollow.EnemyReachedTarget = true;
-            }
-
             direction.Value = moveDir;
+            targetData.Value.xz = translation.Value.xz + moveDir;
         }).ScheduleParallel();
     }
 }

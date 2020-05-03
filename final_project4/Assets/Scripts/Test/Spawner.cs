@@ -48,11 +48,7 @@ public class Spawner : MonoBehaviour
     private void createEntity(int i, int j)
     {
         Entity e = em.Instantiate(en);
-        em.SetComponentData(e, new PathFindingComponent()
-        {
-            //startPos = new int2(-1, -1),
-            
-        });
+        
         em.SetComponentData(e, new Translation
         {
             Value = new float3(Random.Range(1,100),0,Random.Range(1,100))
@@ -60,8 +56,7 @@ public class Spawner : MonoBehaviour
         em.AddComponentData(e, new PathFollowComponent
         {
             pathIndex = -1,
-            EnemyReachedTarget = true,
-            ennemyState = EnnemyState.Wondering
+            EnemyState = EnemyState.Wondering
         });
         em.AddSharedComponentData(e, new BatchFilter
         {

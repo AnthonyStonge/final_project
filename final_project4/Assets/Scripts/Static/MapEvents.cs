@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using Unity.Entities;
+using Unity.Jobs;
 using UnityEngine;
 
 public static class MapEvents
@@ -48,7 +49,6 @@ public static class MapEvents
         //Unlock player inputs
         if (GameVariables.Player.Entity != Entity.Null)
             GlobalEvents.PlayerEvents.UnlockUserInputs();
-        
     }
 
     private static void TryUnloadMap()
@@ -85,7 +85,7 @@ public static class MapEvents
         World world = World.DefaultGameObjectInjectionWorld;
         
         GlobalEvents.GameEvents.OnSwapLevel();
-        
+
         world.GetOrCreateSystem<InitializeManager>().OnSwapLevel();
         world.GetOrCreateSystem<LateInitializeManager>().OnSwapLevel();
         world.GetOrCreateSystem<TransformSimulationManager>().OnSwapLevel();

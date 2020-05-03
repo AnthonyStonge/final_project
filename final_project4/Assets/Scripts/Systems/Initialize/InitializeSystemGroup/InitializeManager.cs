@@ -5,7 +5,6 @@ using UnityEngine;
 [AlwaysUpdateSystem]
 public class InitializeManager : ComponentSystemGroup
 {
-    private PathFinding pathFinding;
     private InputSystem inputSystem;
     private SwapWeaponSystem swapWeaponSystem;
     private PlayerTargetSystem playerTargetSystem;
@@ -23,7 +22,6 @@ public class InitializeManager : ComponentSystemGroup
         
         var initialize = world.GetOrCreateSystem<InitializeManager>();
         
-        initialize.AddSystemToUpdateList(pathFinding);
         initialize.AddSystemToUpdateList(inputSystem);
         initialize.AddSystemToUpdateList(swapWeaponSystem);
         initialize.AddSystemToUpdateList(playerTargetSystem);
@@ -37,8 +35,6 @@ public class InitializeManager : ComponentSystemGroup
         {
             //Dependency: None   
             inputSystem.Update();
-            
-            //pathFinding.Update();
             
             swapWeaponSystem.Update();
             

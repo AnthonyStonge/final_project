@@ -53,8 +53,9 @@ public class RetrieveGunEventSystem : SystemBase
             Components = GetComponentDataFromEntity<StateComponent>()
         };
 
+        float3 playerPosition = GetComponent<Translation>(GameVariables.Player.Entity).Value;
         float deltaTime = Time.DeltaTime;
-
+        
         JobHandle gunJob = Entities.ForEach(
             (Entity e, int entityInQueryIndex, ref GunComponent gun, in LocalToWorld transform, in Parent parent) =>
             {
@@ -103,7 +104,7 @@ public class RetrieveGunEventSystem : SystemBase
                     {
                         
                         weaponEventType = WeaponInfo.WeaponEventType.ON_SHOOT;
-                        Shoot(entityInQueryIndex, ecb, ref gun, transform);
+                        Shoot(entityInQueryIndex, ecb, ref gun, transform, playerPosition);
                     }
 
                 //Add event to NativeQueue
@@ -199,7 +200,7 @@ public class RetrieveGunEventSystem : SystemBase
     }
 
     private static void Shoot(int jobIndex, EntityCommandBuffer.Concurrent ecb, ref GunComponent gun,
-        in LocalToWorld transform)
+        in LocalToWorld transform, in float3 playerPosition)
     {
         //Decrease bullets
         gun.CurrentAmountBulletInMagazine--;

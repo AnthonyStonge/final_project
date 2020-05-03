@@ -89,7 +89,7 @@ public class PathFinding : SystemBase
         NativeArray<int2> neightBourOffsetArrayJob = neightBourOffsetArray;
         Entities.WithSharedComponentFilter(new BatchFilter{Value = batchCall++}).ForEach((DynamicBuffer<PathPosition> pathBuffer, ref Translation translation, ref PathFindingComponent pathFindingComp, ref PathFollowComponent pathFollow) =>
         {
-            if(pathFollow.ennemyState == EnnemyState.Chase)
+            if(pathFollow.EnemyState == EnemyState.Chase)
             {
                 if (nodeArray[CalculateIndex(pathFindingComp.endPos.x, pathFindingComp.endPos.y, 100)].isWalkable && IsPositionInsideGrid(pathFindingComp.endPos, _gridSize))
                 {

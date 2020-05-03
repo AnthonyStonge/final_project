@@ -21,6 +21,7 @@ public class PresentationManager : ComponentSystemGroup
 
     private GlobalEventListenerSystem globalEventListenerSystem;
     private CleanupSystem cleanupSystem;
+    private PlayerCollisionSystem playerCollisionSystem;
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
@@ -37,8 +38,8 @@ public class PresentationManager : ComponentSystemGroup
         cleanupSystem = world.GetOrCreateSystem<CleanupSystem>();
         dropSystem = world.GetOrCreateSystem<DropSystem>();
         uiSystem = world.GetOrCreateSystem<UISystem>();
-
         globalEventListenerSystem = world.GetOrCreateSystem<GlobalEventListenerSystem>();
+        playerCollisionSystem = world.GetOrCreateSystem<PlayerCollisionSystem>();
 
         var presentation = world.GetOrCreateSystem<PresentationManager>();
         
@@ -52,6 +53,7 @@ public class PresentationManager : ComponentSystemGroup
         presentation.AddSystemToUpdateList(dropSystem);
         presentation.AddSystemToUpdateList(uiSystem);
         presentation.AddSystemToUpdateList(globalEventListenerSystem);
+        // presentation.AddSystemToUpdateList(playerCollisionSystem);
         
         presentation.SortSystemUpdateList();
     }
@@ -71,6 +73,7 @@ public class PresentationManager : ComponentSystemGroup
         
         globalEventListenerSystem.Update();
         cleanupSystem.Update();
+        // playerCollisionSystem.Update();
     }
     
     public void OnSwapLevel()

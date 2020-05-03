@@ -3,53 +3,48 @@
 [DisableAutoCreation]
 public class TransformSimulationManager : ComponentSystemGroup
 {
-    private MoveSystem moveSystem;
-    private RotateEnemySystem rotateEnemySystem;
-    private RotatePlayerSystem rotatePlayerSystem;
+    private TranslateSystem translateSystem;
+    private RotateSystem rotateSystem;
     private ProjectileHitDetectionSystem projectileHitDetectionSystem;
     private PathFinding pathFinding;
     private PathFollowSystem pathFollowSystem;
-    private EnnemieFollowSystem ennemieFollowSystem;
+    private EnemyFollowSystem enemyFollowSystem;
     private TestToRenameIfWork testToRenameIfWork;
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
         
-        moveSystem = world.GetOrCreateSystem<MoveSystem>();
-        rotateEnemySystem = world.GetOrCreateSystem<RotateEnemySystem>();
-        rotatePlayerSystem = world.GetOrCreateSystem<RotatePlayerSystem>();
+        translateSystem = world.GetOrCreateSystem<TranslateSystem>();
+        rotateSystem = world.GetOrCreateSystem<RotateSystem>();
         projectileHitDetectionSystem = world.GetOrCreateSystem<ProjectileHitDetectionSystem>();
         pathFinding = world.GetOrCreateSystem<PathFinding>();
         pathFollowSystem = world.GetOrCreateSystem<PathFollowSystem>();
         testToRenameIfWork = world.GetOrCreateSystem<TestToRenameIfWork>();
-        ennemieFollowSystem = world.GetOrCreateSystem<EnnemieFollowSystem>();
+        enemyFollowSystem = world.GetOrCreateSystem<EnemyFollowSystem>();
         
         var transform = world.GetOrCreateSystem<TransformSimulationManager>();
         
-        transform.AddSystemToUpdateList(moveSystem);
-        transform.AddSystemToUpdateList(rotateEnemySystem);
-        transform.AddSystemToUpdateList(rotatePlayerSystem);
+        transform.AddSystemToUpdateList(translateSystem);
+        transform.AddSystemToUpdateList(rotateSystem);
         transform.AddSystemToUpdateList(projectileHitDetectionSystem);
         transform.AddSystemToUpdateList(pathFinding);
         transform.AddSystemToUpdateList(pathFollowSystem);
         transform.AddSystemToUpdateList(testToRenameIfWork);
-        transform.AddSystemToUpdateList(ennemieFollowSystem);
+        transform.AddSystemToUpdateList(enemyFollowSystem);
     }
 
     protected override void OnUpdate()
     {
         //Debug.Log("TransformSimulation Manager Update");
         //Dependency : None
-        rotateEnemySystem.Update();
-        //Dependency : None
-        rotatePlayerSystem.Update();
+        rotateSystem.Update();
         //Dependency : RotatePlayerEnemySystem
-        moveSystem.Update();
+        translateSystem.Update();
         projectileHitDetectionSystem.Update();
         testToRenameIfWork.Update();
         pathFinding.Update();
         pathFollowSystem.Update();
-        ennemieFollowSystem.Update();
+        enemyFollowSystem.Update();
     }
     
     public void OnSwapLevel()

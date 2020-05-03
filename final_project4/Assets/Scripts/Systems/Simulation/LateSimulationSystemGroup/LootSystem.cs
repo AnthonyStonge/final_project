@@ -23,9 +23,8 @@ public class LootSystem : SystemBase
         HavokTriggerEvents triggerEvents = ((HavokSimulation) stepPhysicsWorld.Simulation).TriggerEvents;
         
         var amunitionComponents = GetComponentDataFromEntity<AmmunitionComponent>(true);
-        
         NativeList<Entity> entities = new NativeList<Entity>(Allocator.Temp);
-        
+
         foreach (var triggerEvent in triggerEvents)
         {
             if(amunitionComponents.HasComponent(triggerEvent.Entities.EntityA))
@@ -39,6 +38,8 @@ public class LootSystem : SystemBase
                     entities.Add(triggerEvent.Entities.EntityB);
             }
         }
+
+        
         
         foreach (var entity in entities)
         {

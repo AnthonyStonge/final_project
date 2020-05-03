@@ -10,8 +10,6 @@ using UnityEngine;
 
 
 [DisableAutoCreation]
-//[UpdateBefore(typeof(EndFramePhysicsSystem))]
-//[UpdateAfter(typeof(StepPhysicsWorld))]
 public class RetrieveInteractableCollisionsSystem : SystemBase
 {
     private StepPhysicsWorld stepPhysicsWorld;
@@ -25,6 +23,7 @@ public class RetrieveInteractableCollisionsSystem : SystemBase
     //Will be slow if lots of TriggerEvent (Change to parallel)
     protected override void OnUpdate()
     {
+            
         //Get Collision Events
         HavokTriggerEvents triggerEvents = ((HavokSimulation) stepPhysicsWorld.Simulation).TriggerEvents;
 
@@ -87,7 +86,7 @@ public class RetrieveInteractableCollisionsSystem : SystemBase
                 });
             }
         }
-
         PreviousFrameCollisions = currentFrameCollisions;
     }
+            
 }

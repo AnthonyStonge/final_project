@@ -83,8 +83,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
         entityManager.AddComponentData(e, new PathFollowComponent
         {
             pathIndex = -1,
-            EnemyReachedTarget = true,
-            ennemyState = EnnemyState.Wondering
+            EnemyState = EnemyState.Wondering
         });
 
         //Clamp batch filter
