@@ -34,9 +34,19 @@ namespace Enums
         Player
     }
 
+    //These sounds are link to global event and generic event (NOT interactables/player/enemies)
+    public enum SoundType
+    {
+        Backgrounds,
+        Soundtracks,
+        SFX
+    }
+    
     public enum AudioSourceType
     {
-        BackgroundMusic,
+        Soundtrack,
+        AmbienceMusic,
+        AmbienceSFX,
         PlayerWeaponActionsPlay, //Shoot, Reload, Swap
         PlayerWeaponActionPOSO,
         PlayerActions,    //Take damage, Die
@@ -80,4 +90,6 @@ namespace Enums
         Attack,
         Chase
     }
+
+    
 }

@@ -26,6 +26,7 @@ public static class SoundHolder
     public static Dictionary<int, AudioSourceType> SoundsToAudioSource;
     public static Dictionary<AudioSourceType, Source> AudioSources;
 
+    public static Dictionary<SoundType, List<int>> GenericSounds;
     public static Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>> WeaponSounds;
     public static Dictionary<ProjectileType, Dictionary<BulletInfo.BulletCollisionType, int>> BulletSounds;
 
@@ -37,6 +38,13 @@ public static class SoundHolder
         Sounds = new Dictionary<int, Clip>();
         SoundsToAudioSource = new Dictionary<int, AudioSourceType>();
         AudioSources = new Dictionary<AudioSourceType, Source>();
+        
+        //GenericSounds
+        GenericSounds = new Dictionary<SoundType, List<int>>();
+        for (int i = 0; i < Enum.GetNames(typeof(SoundType)).Length; i++)
+        {
+            GenericSounds.Add((SoundType) i, new List<int>());
+        }
 
         //Weapons
         WeaponSounds = new Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>>();
@@ -104,6 +112,12 @@ public static class SoundHolder
                 //TODO MAKE SURE THERES NO DUPLICATES
                 //Add to bullet dictionary
                 BulletSounds[bullet.BulletType].Add(bullet.CollisionType, nextClipID);
+            }
+
+            //Generic Sounds
+            foreach (var i in links.GenericSounds)
+            {
+                GenericSounds[i].Add(nextClipID);
             }
 
             //Increment ID

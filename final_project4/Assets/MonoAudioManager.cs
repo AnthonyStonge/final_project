@@ -34,8 +34,10 @@ public class MonoAudioManager : MonoBehaviour
         {
             changeNow = false;
             currentSongPlaying++;
+            
             if (currentSongPlaying == 7)
                 currentSongPlaying = 1;
+            
             switch (currentSongPlaying)
             {
                 case 1:
