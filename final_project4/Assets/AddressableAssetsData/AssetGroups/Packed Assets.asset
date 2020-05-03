@@ -24,8 +24,10 @@ MonoBehaviour:
     - default
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1184732517643075236, guid: 0583b798eb7e811419d77d60d911d32f,
+      type: 3}
+    m_TargetAsset: {fileID: 1184732517643075236, guid: 0583b798eb7e811419d77d60d911d32f,
+      type: 3}
   - m_GUID: 0d586cd5c66d5414fb82a92aa57251a5
     m_Address: Enemy
     m_ReadOnly: 0
@@ -33,17 +35,10 @@ MonoBehaviour:
     - default
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 1972b64068ef8714aae4b6f5e3887ad9
-    m_Address: Pistol
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - default
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 4386793886523506817, guid: 0d586cd5c66d5414fb82a92aa57251a5,
+      type: 3}
+    m_TargetAsset: {fileID: 4386793886523506817, guid: 0d586cd5c66d5414fb82a92aa57251a5,
+      type: 3}
   - m_GUID: 2c1c7c62cc387814ca8b8cbf7ebea684
     m_Address: EffectsContainer
     m_ReadOnly: 0
@@ -120,17 +115,17 @@ MonoBehaviour:
       type: 3}
     m_TargetAsset: {fileID: 8337288439267534834, guid: 950f480c66d432542924efec9f68e4f1,
       type: 3}
-  - m_GUID: e0ae6182e1a6b11438ffe0678d68e1df
-    m_Address: Player
+  - m_GUID: b2d8722f20d4caf46b31b88ad1638aac
+    m_Address: WeaponPrefabContainer
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
-    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: e7c153c60fa5ce6409e1cb79cd816229
-    m_Address: Shotgun
+    m_mainAssetType: WeaponPrefabContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_MainAsset: {fileID: 11400000, guid: b2d8722f20d4caf46b31b88ad1638aac, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: b2d8722f20d4caf46b31b88ad1638aac, type: 2}
+  - m_GUID: e0ae6182e1a6b11438ffe0678d68e1df
+    m_Address: Player
     m_ReadOnly: 0
     m_SerializedLabels:
     - default

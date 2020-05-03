@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638b9a2847f700047832e5c0105bf78b, type: 3}
   m_Name: WeaponPrefabContainer
   m_EditorClassIdentifier: 
-  Prefabs: []
+  Prefabs:
+  - Type: 0
+    Prefab: {fileID: 8068390896768803375, guid: 1972b64068ef8714aae4b6f5e3887ad9,
+      type: 3}
+  - Type: 1
+    Prefab: {fileID: 1361505397808347161, guid: e7c153c60fa5ce6409e1cb79cd816229,
+      type: 3}
+  - Type: 4
+    Prefab: {fileID: 4708919828098123150, guid: c246b96c53632224eb11679afb0a0c66,
+      type: 3}

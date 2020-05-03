@@ -9,18 +9,14 @@ using static ECSUtility;
 
 public static class WeaponHolder
 {
-    public static ConcurrentDictionary<WeaponType, Entity> WeaponPrefabDict;
+    public static ConcurrentDictionary<WeaponType, Entity> WeaponPrefabDict = new ConcurrentDictionary<WeaponType, Entity>();
 
     private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
-    private static int currentNumberOfLoadedAssets;
-    private static int numberOfAssetsToLoad;
+    private static int currentNumberOfLoadedAssets = 0;
+    private static int numberOfAssetsToLoad = 1;
 
     public static void Initialize()
     {
-        WeaponPrefabDict = new ConcurrentDictionary<WeaponType, Entity>();
-
-        currentNumberOfLoadedAssets = 0;
-        numberOfAssetsToLoad = Enum.GetNames(typeof(WeaponType)).Length;
     }
 
     public static void LoadAssets()
