@@ -22,10 +22,6 @@ public class InputSystem : SystemBase
         {
             inputs.PartialReset();
 
-            //Get input
-            if (Input.GetKeyDown(KeyCode.Escape))
-                Application.Quit();
-
             if (Input.GetKey(KeyCode.W))
             {
                 inputs.Move.x += 1;
@@ -65,7 +61,7 @@ public class InputSystem : SystemBase
             inputs.Reload = Input.GetKeyDown(KeyCode.R);
 
             inputs.Cancel = Input.GetKeyDown(KeyCode.Escape);
-        
+
             //Weapon desired
             inputs.MouseWheel = Input.mouseScrollDelta;
 
@@ -76,9 +72,9 @@ public class InputSystem : SystemBase
         }
         else
             inputs.Reset();
+
         inputs.Mouse = Input.mousePosition;
 
         entityManager.SetComponentData(GameVariables.Player.Entity, inputs);
     }
-
 }
