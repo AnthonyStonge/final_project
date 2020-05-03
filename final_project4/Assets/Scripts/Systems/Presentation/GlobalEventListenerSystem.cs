@@ -11,5 +11,6 @@ public class GlobalEventListenerSystem : SystemBase
         //Look for player hp
         if(EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity).Life.Value <= 0)
             GlobalEvents.PlayerEvents.OnPlayerDie();
+        
     }
 }

@@ -46,7 +46,6 @@ public static class GlobalEvents
             manager.DestroyEntity(query);
         }
 
-
         public static void GameLost()
         {
             //Return player to Menu
@@ -77,13 +76,22 @@ public static class GlobalEvents
 #if UNITY_EDITOR
             Debug.Log("On Player Death");
 #endif
-            GameVariables.Player.AmountLife--;
+           /* GameVariables.Player.AmountLife--;
 
             //Look if Player should respawn in current level
             if (GameVariables.Player.AmountLife <= 0)
                 GameEvents.GameLost();
             else
-                RespawnPlayerOnCheckPoint();
+                RespawnPlayerOnCheckPoint();*/
+
+           //Number of the time the player dies defines the difficulties of "Hell Level"
+           GameVariables.Player.PlayerDeathCount++;
+
+        }
+
+        private static void SpawnPlayerOnHellLevel()
+        {
+            
         }
 
         private static void RespawnPlayerOnCheckPoint()
