@@ -52,18 +52,12 @@ public class RetrieveGunEventSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<StateComponent>()
         };
-        
-        //Get Player inputs
-        InputComponent inputs = EntityManager.GetComponentData<InputComponent>(GameVariables.Player.Entity);
 
         float deltaTime = Time.DeltaTime;
 
         JobHandle gunJob = Entities.ForEach(
             (Entity e, int entityInQueryIndex, ref GunComponent gun, in LocalToWorld transform, in Parent parent) =>
             {
-                if (!inputs.Enabled)
-                    return;
-                
                 //Make sure SwapDelay < 0
                 if (gun.SwapTimer > 0)
                 {
