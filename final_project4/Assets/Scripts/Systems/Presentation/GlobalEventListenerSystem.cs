@@ -43,7 +43,9 @@ public class GlobalEventListenerSystem : SystemBase
         {
             if (levelEvents.CurrentLevel != MapType.Level_Hell)
             {
-                EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity).Reset();
+                var lifeComponent = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
+                lifeComponent.Reset();
+                EntityManager.SetComponentData(GameVariables.Player.Entity, lifeComponent);
                 
                 LastMap = EventsHolder.LevelEvents.CurrentLevel;
                 EventsHolder.LevelEvents.DeathCount++;
