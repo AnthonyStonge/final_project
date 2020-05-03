@@ -14,38 +14,42 @@ public class PlayerCollisionSystem : SystemBase
     {
         stepPhysicsWorld = World.GetOrCreateSystem<StepPhysicsWorld>();
     }
-    
+
     protected override void OnUpdate()
     {
         HavokCollisionEvents collisionEvents = ((HavokSimulation) stepPhysicsWorld.Simulation).CollisionEvents;
-        
+
         var player = GetComponentDataFromEntity<PlayerTag>(true);
         var enemy = GetComponentDataFromEntity<EnemyTag>(true);
-        
-        foreach (var collisionEvent in collisionEvents)
+
+        var playerEntity = GameVariables.Player.Entity;
+        bool isHit = false;
+        Job.WithCode(() =>
         {
-            bool isHit = false;
-            if(player.HasComponent(collisionEvent.Entities.EntityA))
+            foreach (var collisionEvent in collisionEvents)
             {
-                if (enemy.HasComponent(collisionEvent.Entities.EntityB))
+                if (player.HasComponent(collisionEvent.Entities.EntityA))
                 {
-                    isHit = true;
+                    if (enemy.HasComponent(collisionEvent.Entities.EntityB))
+                    {
+                        isHit = true;
+                    }
+                }
+                if (player.HasComponent(collisionEvent.Entities.EntityB))
+                {
+                    if (enemy.HasComponent(collisionEvent.Entities.EntityA))
+                    {
+                        isHit = true;
+                    }
                 }
             }
-            if(player.HasComponent(collisionEvent.Entities.EntityB))
-            {
-                if (enemy.HasComponent(collisionEvent.Entities.EntityA))
-                {
-                    isHit = true;
-                }
-            }
-            if (isHit)
-            {
-                LifeComponent lifeComponent = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
-                lifeComponent.Life.Value -= 1;
-                EntityManager.SetComponentData(GameVariables.Player.Entity, lifeComponent);
-            }
-            
+        }).Run();
+        if (isHit)
+        {
+            LifeComponent lifeComponent = EntityManager.GetComponentData<LifeComponent>(playerEntity);
+            lifeComponent.Life.Value -= 1;
+            EntityManager.SetComponentData(playerEntity, lifeComponent);
         }
     }
+
 }
