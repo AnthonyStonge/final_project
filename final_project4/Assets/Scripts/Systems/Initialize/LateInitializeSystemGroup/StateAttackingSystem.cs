@@ -1,16 +1,29 @@
-﻿using Enums;
+﻿using System;
+using Enums;
 using EventStruct;
+using Unity.Collections;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
+using Type = Enums.Type;
 
 [DisableAutoCreation]
 [AlwaysUpdateSystem]
 [UpdateAfter(typeof(StateMovingSystem))]
 public class StateAttackingSystem : SystemBase
 {
+    private EntityCommandBufferSystem entityCommandBuffer;
+    private NativeQueue<StateInfo> stateEvents = new NativeQueue<StateInfo>(Allocator.Persistent);
+
     protected override void OnCreate()
     {
+        entityCommandBuffer = World.GetExistingSystem<EndInitializationEntityCommandBufferSystem>();
+    }
+
+    protected override void OnDestroy()
+    {
+        stateEvents.Dispose();
     }
 
     protected override void OnUpdate()
@@ -33,17 +46,64 @@ public class StateAttackingSystem : SystemBase
             });
         }
 
-        //TODO DONT RUN QUERY IF NO ENNEMIES EXISTS
-        var playerPos = GetComponent<Translation>(player);
-        //Act on all entities with AttackStateData and EnemyTag
-        Entities.WithAll<EnemyTag>().ForEach(
-            (ref StateData state, in Translation currentPosition, in AttackStateData range) =>
+        //TODO REMOVE BECAUSE I THINK ITS ALREADY DONE SOMEWHERE ELSE...
+        //TODO DONT RUN QUERY IF NO ENEMIES EXISTS
+        //Create parallel writer
+        NativeQueue<StateInfo>.ParallelWriter events = stateEvents.AsParallelWriter();
+        
+        Translation playerPos = GetComponent<Translation>(player);
+        //Act on Enemies
+        JobHandle job = Entities.WithAll<EnemyTag>().ForEach(
+            (in TypeData type, in StateComponent state, in Translation currentPosition, in AttackRangeComponent range) =>
             {
-                //Compare distance between current position and target position. If distance <= range -> set state to attack
-                if (math.distancesq(currentPosition.Value, playerPos.Value) <= range.Value * range.Value)
+                //Is distance small enough to Attack
+                if (math.distancesq(currentPosition.Value, playerPos.Value) > range.Distance * range.Distance)
+                    return;
+
+                StateInfo.ActionType actionType = StateInfo.ActionType.TryChange;
+                
+                switch (type.Value)
                 {
-                    state.Value = StateActions.ATTACKING;
+                    case Type.Pig:
+                        break;
+                    case Type.Rat:
+                        break;
+                    case Type.Chicken:
+                        break;
+                    case Type.Gorilla:
+                        actionType = StateInfo.ActionType.TryChangeAndLock;
+                        break;
                 }
-            }).ScheduleParallel();
+                //Add StateEvent
+                events.Enqueue(new StateInfo
+                {
+                    Entity = player,
+                    DesiredState = State.Attacking,
+                    Action = actionType
+                });
+            }).ScheduleParallel(Dependency);
+        
+        //Create job
+        JobHandle emptyEventQueueJob = new EmptyEventQueueJob
+        {
+            EventsQueue = stateEvents
+        }.Schedule(job);
+
+        //Link all jobs
+        Dependency = JobHandle.CombineDependencies(job, emptyEventQueueJob);
+        entityCommandBuffer.AddJobHandleForProducer(Dependency);
+    }
+    
+    struct EmptyEventQueueJob : IJob
+    {
+        public NativeQueue<StateInfo> EventsQueue;
+
+        public void Execute()
+        {
+            while (EventsQueue.TryDequeue(out StateInfo info))
+            {
+                EventsHolder.StateEvents.Add(info);
+            }
+        }
     }
 }

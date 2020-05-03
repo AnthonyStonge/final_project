@@ -24,11 +24,6 @@ namespace Enums
         Gorilla
     }
 
-    public enum EnemyType
-    {
-        Enemy
-    }
-
     public enum PlayerType
     {
         Player

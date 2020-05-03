@@ -8,7 +8,7 @@ using UnityEngine;
 [GenerateAuthoringComponent]
 public struct DashComponent : IComponentData
 {
-    [HideInInspector] public float2 TargetEndDash;
+    [HideInInspector] public float2 Direction;
     
     public float Speed;
     
@@ -19,8 +19,8 @@ public struct DashComponent : IComponentData
     [HideInInspector] public float CurrentDashTime;
 
     [HideInInspector] public bool WasDashingPreviousFrame;
-    [HideInInspector] public bool IsAvailable => CurrentCooldownTime <= 0;
-    [HideInInspector] public bool IsDashing => CurrentDashTime > 0;
+    public bool IsAvailable => CurrentCooldownTime <= 0;
+    public bool IsDashing => CurrentDashTime > 0;
 
 
     public void OnDash()

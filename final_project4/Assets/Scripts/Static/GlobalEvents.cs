@@ -35,16 +35,6 @@ public static class GlobalEvents
             GameVariables.UI.PausedMenu.SetActive(!TogglePauseGame);
         }
 
-        public static void DestroyAllEnemies()
-        {
-            EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-
-            //Create Query
-            EntityQuery query = manager.CreateEntityQuery(typeof(EnemyTag));
-
-            //Destroy entities with query
-            manager.DestroyEntity(query);
-        }
         public static void Destroy<T>() where T : IComponentData
         {
             EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -56,19 +46,6 @@ public static class GlobalEvents
             manager.DestroyEntity(query);
         }
 
-        [Obsolete("Use Destroy<AmunationComponent> and Destroy<BulletTag> instead")]
-        public static void DestroyAllDrops()
-        {
-            EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-
-            //Create Query
-            EntityQuery query = manager.CreateEntityQuery(typeof(AmmunitionComponent));
-            EntityQuery bulletQuery = manager.CreateEntityQuery(typeof(BulletTag));
-
-            //Destroy entities with query
-            manager.DestroyEntity(query);
-            manager.DestroyEntity(bulletQuery);
-        }
 
         public static void GameLost()
         {
@@ -89,6 +66,7 @@ public static class GlobalEvents
         {
             Destroy<AmmunitionComponent>();
             Destroy<BulletTag>();
+            Destroy<EnemyTag>();
         }
     }
 

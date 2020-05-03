@@ -16,9 +16,7 @@ public class PresentationManager : ComponentSystemGroup
     
     private DropSystem dropSystem;
     private LootSystem lootSystem;
-    
-    private PlayerCollisionSystem playerCollisionSystem;
-    
+
     private UISystem uiSystem;
 
     private GlobalEventListenerSystem globalEventListenerSystem;
@@ -38,7 +36,6 @@ public class PresentationManager : ComponentSystemGroup
         visualEventSystem = world.GetOrCreateSystem<VisualEventSystem>();
         cleanupSystem = world.GetOrCreateSystem<CleanupSystem>();
         dropSystem = world.GetOrCreateSystem<DropSystem>();
-        playerCollisionSystem = world.GetOrCreateSystem<PlayerCollisionSystem>();
         uiSystem = world.GetOrCreateSystem<UISystem>();
 
         globalEventListenerSystem = world.GetOrCreateSystem<GlobalEventListenerSystem>();
@@ -48,7 +45,6 @@ public class PresentationManager : ComponentSystemGroup
         presentation.AddSystemToUpdateList(stateEventSystem);
         presentation.AddSystemToUpdateList(animationEventSystem);
         presentation.AddSystemToUpdateList(interactableEventSystem);
-        presentation.AddSystemToUpdateList(playerCollisionSystem);
         presentation.AddSystemToUpdateList(lootSystem);
         presentation.AddSystemToUpdateList(visualEventSystem);
         presentation.AddSystemToUpdateList(soundEventSystem);
@@ -68,7 +64,6 @@ public class PresentationManager : ComponentSystemGroup
         interactableEventSystem.Update();
         
         uiSystem.Update();
-        playerCollisionSystem.Update();
         dropSystem.Update();
         lootSystem.Update();
         soundEventSystem.Update();

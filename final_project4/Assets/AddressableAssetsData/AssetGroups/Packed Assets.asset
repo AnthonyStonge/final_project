@@ -42,10 +42,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 8068390896768803375, guid: 1972b64068ef8714aae4b6f5e3887ad9,
-      type: 3}
-    m_TargetAsset: {fileID: 8068390896768803375, guid: 1972b64068ef8714aae4b6f5e3887ad9,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 2c1c7c62cc387814ca8b8cbf7ebea684
     m_Address: EffectsContainer
     m_ReadOnly: 0
@@ -53,8 +51,17 @@ MonoBehaviour:
     - default
     m_mainAssetType: EffectsContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 2c1c7c62cc387814ca8b8cbf7ebea684, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 2c1c7c62cc387814ca8b8cbf7ebea684, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 4017a4eaf1c33c646b0f01465a2712fe
+    m_Address: EnemyPrefabContainer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    m_mainAssetType: EnemyPrefabContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 4415b89aced59ff41819888c782445dc
     m_Address: AudioSourceContainer
     m_ReadOnly: 0
@@ -71,8 +78,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2100000, guid: 5711f946471167948ad81b654dc60c3c, type: 2}
-    m_TargetAsset: {fileID: 2100000, guid: 5711f946471167948ad81b654dc60c3c, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 60f0d0549d8db2d42851dab63cd22a39
     m_Address: Amunation
     m_ReadOnly: 0
@@ -89,8 +96,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: MapContainerScriptable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 67ea742ccaa8c354b80aa42c3cb57e1c, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 67ea742ccaa8c354b80aa42c3cb57e1c, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 8608ea675a3da4146bdd02b2d363944c
     m_Address: SoundsContainer
     m_ReadOnly: 0
@@ -98,8 +105,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: SoundsContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 8608ea675a3da4146bdd02b2d363944c, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 8608ea675a3da4146bdd02b2d363944c, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 950f480c66d432542924efec9f68e4f1
     m_Address: PistolBullet
     m_ReadOnly: 0
@@ -134,8 +141,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: AnimationsContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: fb754b1338196a442b09bf879b333b11, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: fb754b1338196a442b09bf879b333b11, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3c5e8f3b98606ca43b2a070e5fd7e106, type: 2}
   m_SchemaSet:

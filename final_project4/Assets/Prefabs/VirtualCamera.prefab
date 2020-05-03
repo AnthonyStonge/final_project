@@ -608,6 +608,7 @@ MonoBehaviour:
   lifeRectBg: {fileID: 2155649931370062685}
   FadeImage: {fileID: 8128373404522193258}
   FadeSpeed: 100
+  PausedMenu: {fileID: 0}
 --- !u!1 &4848910993049097920
 GameObject:
   m_ObjectHideFlags: 0

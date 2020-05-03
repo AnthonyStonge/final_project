@@ -11,7 +11,10 @@ public class EnemyAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         #if UNITY_EDITOR
         dstManager.SetName(entity, "Enemy");
         #endif
+        
         dstManager.AddComponent<EnemyTag>(entity);
         dstManager.AddComponent<TargetData>(entity);
+        dstManager.AddComponent<AnimationData>(entity);
+        dstManager.AddComponent<DirectionData>(entity);
     }
 }

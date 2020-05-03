@@ -1,11 +1,9 @@
 ﻿using Enums;
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
-using Debug = UnityEngine.Debug;
 
 [DisableAutoCreation]
 [UpdateBefore(typeof(EnnemieFollowSystem))]
@@ -42,16 +40,13 @@ public class PathFollowSystem : SystemBase
         float deltaTime = Time.DeltaTime;
         float test = 0.5f;
         float3 posPlayer = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
-        Entities.ForEach(delegate(int entityInQueryIndex, DynamicBuffer<PathPosition> pathPos,
-            ref Translation translation, ref PathFollowComponent pathFollow,
-            ref PathFindingComponent pathFindingComponent, ref PhysicsVelocity physicsVelocity,
-            ref EnnemyComponent ennemyComponent)
+        Entities.ForEach(delegate(int entityInQueryIndex, DynamicBuffer<PathPosition> pathPos, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, in Translation translation)
         {
-            ennemyComponent.inRange = false;
+            range.IsInRange = false;
             switch (pathFollow.ennemyState)
             {
                 case EnnemyState.Attack:
-                    AttackFollow(ref pathFollow, posPlayer, translation, ref ennemyComponent);
+                    AttackFollow(ref pathFollow, posPlayer, translation, ref range);
                     break;
                 case EnnemyState.Chase:
                     ChaseFollow(ref pathFollow, translation, posPlayer, ref physicsWorld, pathPos, ref Player);
@@ -93,7 +88,7 @@ public class PathFollowSystem : SystemBase
             {
                 pathFollow.ennemyState = EnnemyState.Wondering;
             }
-        }).ScheduleParallel();
+        }).ScheduleParallel(Dependency).Complete();
     }
 
     private static void ChaseFollow(ref PathFollowComponent pathFollow, in Translation translation, in float3 posPlayer,
@@ -156,7 +151,7 @@ public class PathFollowSystem : SystemBase
         if (pathFollow.timeWonderingCounter < 0)
         {
             //Get next seed
-            var rSeed = new Random((uint)( time + entityInQueryIndex ));
+            var rSeed = new Random((uint)( time + entityInQueryIndex + 1 ));
             
             //Get random Angle, distance and time to wonder
             int randomAngle = rSeed.NextInt(0, 360);
@@ -189,13 +184,13 @@ public class PathFollowSystem : SystemBase
     }
 
     private static void AttackFollow(ref PathFollowComponent pathFollow, float3 pos, in Translation translation,
-        ref EnnemyComponent ennemyComponent)
+        ref AttackRangeComponent range)
     {
-        if (math.distance(pos, translation.Value) >= ennemyComponent.attackDistance)
+        if (math.distance(pos, translation.Value) >= range.Distance)
             pathFollow.PositionToGo = (int2) pos.xz;
         else
         {
-            ennemyComponent.inRange = true;
+            range.IsInRange = true;
         }
     }
 }

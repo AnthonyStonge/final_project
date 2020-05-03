@@ -18,7 +18,8 @@ GameObject:
   - component: {fileID: -687038097855541950}
   - component: {fileID: -5285836355235067111}
   - component: {fileID: 8588721792156235697}
-  - component: {fileID: 7308579510758229331}
+  - component: {fileID: 8813986860230229783}
+  - component: {fileID: -8135179965197345684}
   m_Layer: 0
   m_Name: EnnemieTest
   m_TagString: Untagged
@@ -212,7 +213,7 @@ MonoBehaviour:
     m_BevelRadius: 0
     m_MinimumAngle: 2.5000002
   m_CustomMesh: {fileID: 0}
-  m_ForceUnique: 0
+  m_ForceUnique: 1
   m_Material:
     m_SupportsTemplate: 1
     m_Template: {fileID: 0}
@@ -288,7 +289,7 @@ MonoBehaviour:
   ennemyState: 0
   IsWalking: 0
   timeWonderingCounter: 0
---- !u!114 &7308579510758229331
+--- !u!114 &8813986860230229783
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -297,8 +298,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 8564223512416964792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a00052e590a050f4980285020ed3b3e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 67c412270cb899a42897a996e4cf6483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDistance: 5
-  inRange: 0
+  Value: 200
+--- !u!114 &-8135179965197345684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8564223512416964792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4b77c5f35789e848a5bbc103f422bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Distance: 0
+  IsInRange: 0
