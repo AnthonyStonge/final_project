@@ -21,34 +21,45 @@ public class TemporaryEnemySpawnerSystem : SystemBase
         if (Input.GetKeyDown(KeyCode.P))
             for (int i = 0; i < 10; i++)
             {
-                CreateEnemy(Type.Pig);
+                CreateEnemy(Type.Pig, out Entity e);
+                if (e != Entity.Null)
+                    CreateWeapon(WeaponType.Pistol, e);
             }
+
         if (Input.GetKeyDown(KeyCode.O))
             for (int i = 0; i < 10; i++)
             {
-                CreateEnemy(Type.Rat);
+                CreateEnemy(Type.Rat, out Entity e);
+                if (e != Entity.Null)
+                    CreateWeapon(WeaponType.Pistol, e);
             }
 
         if (Input.GetKeyDown(KeyCode.I))
             for (int i = 0; i < 10; i++)
             {
-                CreateEnemy(Type.Chicken);
+                CreateEnemy(Type.Chicken, out Entity e);
+                if (e != Entity.Null)
+                    CreateWeapon(WeaponType.Pistol, e);
             }
 
         if (Input.GetKeyDown(KeyCode.U))
             for (int i = 0; i < 10; i++)
             {
-                CreateEnemy(Type.Gorilla);
+                CreateEnemy(Type.Gorilla, out Entity e);
+                if (e != Entity.Null)
+                    CreateWeapon(WeaponType.Pistol, e);
             }
     }
 
-    private void CreateEnemy(Type type)
+    private void CreateEnemy(Type type, out Entity e)
     {
+        e = Entity.Null;
+
         //Make sure desired type exists
         if (!EnemyHolder.EnemyPrefabDict.ContainsKey(type))
             return;
 
-        Entity e = entityManager.Instantiate(EnemyHolder.EnemyPrefabDict[type]);
+        e = entityManager.Instantiate(EnemyHolder.EnemyPrefabDict[type]);
 
         //Set position
         entityManager.SetComponentData(e, new Translation
@@ -79,5 +90,15 @@ public class TemporaryEnemySpawnerSystem : SystemBase
         //Clamp batch filter
         batchFilter++;
         batchFilter %= 8; //TODO REMOVE MAGIC NUMBER
+    }
+
+    private void CreateWeapon(WeaponType type, Entity parent)
+    {
+        Entity e = entityManager.Instantiate(WeaponHolder.WeaponPrefabDict[type]);
+
+        entityManager.SetComponentData(e, new Parent
+        {
+            Value = parent
+        });
     }
 }
