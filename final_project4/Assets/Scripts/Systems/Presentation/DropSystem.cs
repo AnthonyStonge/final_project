@@ -34,7 +34,7 @@ public class DropSystem : SystemBase
                         EntityManager.SetComponentData(e, new AmmunitionComponent
                         {
                             TypeAmunation = (WeaponType) Random.Range(0, 2),
-                            AmunationQuantity = Random.Range(1, 5)
+                            AmmunitionQuantity = Random.Range(1, 5)
                         });
                 }
             }
