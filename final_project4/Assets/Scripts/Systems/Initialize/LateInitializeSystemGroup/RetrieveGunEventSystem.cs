@@ -52,7 +52,7 @@ public class RetrieveGunEventSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<StateComponent>()
         };
-
+        
         float deltaTime = Time.DeltaTime;
 
         JobHandle gunJob = Entities.ForEach(
