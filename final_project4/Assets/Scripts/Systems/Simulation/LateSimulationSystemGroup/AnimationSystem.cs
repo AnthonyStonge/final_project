@@ -1,5 +1,9 @@
-﻿using Unity.Entities;
+﻿using Enums;
+using Unity.Collections;
+using Unity.Entities;
 using Unity.Rendering;
+using UnityEngine;
+using AnimationInfo = EventStruct.AnimationInfo;
 
 [DisableAutoCreation]
 public class AnimationSystem : SystemBase
@@ -22,6 +26,9 @@ public class AnimationSystem : SystemBase
         
         while (timer <= 0)
         {
+            //Create parallel writer
+            NativeQueue<AnimationInfo>.ParallelWriter events = EventsHolder.AnimationEvents.AsParallelWriter();
+
             //Create ECB
             EntityCommandBuffer.Concurrent ecb = entityCommandBuffer.CreateCommandBuffer().ToConcurrent();
 
@@ -35,10 +42,26 @@ public class AnimationSystem : SystemBase
                         !AnimationHolder.Animations[type.Value].ContainsKey(state.CurrentAnimationState))
                         return;
 
-                    //Increment frame at + Clamp it
+                    //Increment frame at
                     animation.MeshIndexAt++;
-                    animation.MeshIndexAt %= (short) AnimationHolder.Animations[type.Value][state.CurrentAnimationState]
-                        .Frames.Length;
+                    short animationLength = (short) AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Frames.Length;
+                    
+                    //If reached end of animation -> Create Event
+                    if (animation.MeshIndexAt == animationLength)
+                    {
+                        events.Enqueue(new AnimationInfo
+                        {
+                            Entity = e,
+                            Type = AnimationInfo.EventType.OnAnimationEnd,
+                            NewState = state.CurrentState
+                        });
+
+                        if (state.CurrentState == State.Dying)
+                            animation.MeshIndexAt--;
+                    }
+                    
+                    //Clamp frame at
+                    animation.MeshIndexAt %= animationLength;
 
                     ecb.SetSharedComponent(entityInQueryIndex, e, new RenderMesh
                     {
@@ -46,7 +69,7 @@ public class AnimationSystem : SystemBase
                             .Frames[animation.MeshIndexAt],
                         material = AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Material
                     });
-                }).ScheduleParallel();
+                }).ScheduleParallel(Dependency).Complete();
 
             entityCommandBuffer.AddJobHandleForProducer(Dependency);
 
@@ -59,4 +82,5 @@ public class AnimationSystem : SystemBase
             BatchIdToUpdate %= AnimationHolder.AnimatedGroupsLength.Count;
         }
     }
+
 }
