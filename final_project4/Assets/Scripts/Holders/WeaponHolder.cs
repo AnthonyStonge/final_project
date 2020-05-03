@@ -25,18 +25,25 @@ public static class WeaponHolder
 
     public static void LoadAssets()
     {
-        foreach (var i in Enum.GetNames(typeof(WeaponType)))
+        Addressables.LoadAssetAsync<WeaponPrefabContainer>("WeaponPrefabContainer").Completed += handle =>
         {
-            Addressables.LoadAssetAsync<GameObject>(i).Completed += obj =>
-            {
-                WeaponPrefabDict.TryAdd((WeaponType) Enum.Parse(typeof(WeaponType), i),
-                    ConvertGameObjectPrefab(obj.Result, out BlobAssetStore blob));
-                currentNumberOfLoadedAssets++;
-                if (blob != null)
-                {
-                    blobAssetStores.Add(blob);
-                }
-            };
+            ExtractPrefab(handle.Result);
+            currentNumberOfLoadedAssets++;
+        };
+    }
+
+    private static void ExtractPrefab(WeaponPrefabContainer container)
+    {
+        foreach (WeaponPrefabContainer.PrefabLink gun in container.Prefabs)
+        {
+            //Convert
+            Entity weaponEntity = ConvertGameObjectPrefab(gun.Prefab, out BlobAssetStore blob);
+
+            if(!WeaponPrefabDict.TryAdd(gun.Type, weaponEntity))
+                Debug.Log($"Couldnt add weapon prefab of type {gun.Type}");
+            
+            if(blob != null)
+                blobAssetStores.Add(blob);
         }
     }
     
