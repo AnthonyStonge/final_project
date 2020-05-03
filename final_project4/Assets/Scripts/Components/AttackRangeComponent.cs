@@ -6,7 +6,7 @@ using Unity.Entities;
 public struct AttackRangeComponent : IComponentData
 {
     //Act as the range to attack
-    public float Value;
+    public float Distance;
 
     public bool IsInRange;
 }

@@ -24,7 +24,6 @@ public class PlayerCollisionSystem : SystemBase
         
         foreach (var collisionEvent in collisionEvents)
         {
-            
             bool isHit = false;
             if(player.HasComponent(collisionEvent.Entities.EntityA))
             {

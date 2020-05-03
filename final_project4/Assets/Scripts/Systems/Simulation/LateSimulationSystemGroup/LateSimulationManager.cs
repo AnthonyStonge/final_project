@@ -9,6 +9,7 @@ public class LateSimulationManager : ComponentSystemGroup
     private CameraFollowSystem cameraFollowSystem;
 
     private RetrieveInteractableCollisionsSystem retrieveInteractableCollisionsSystem;
+    private PlayerCollisionSystem playerCollisionSystem;
 
     protected override void OnCreate()
     {        
@@ -18,12 +19,16 @@ public class LateSimulationManager : ComponentSystemGroup
         cameraFollowSystem = world.GetOrCreateSystem<CameraFollowSystem>();
 
         retrieveInteractableCollisionsSystem = world.GetOrCreateSystem<RetrieveInteractableCollisionsSystem>();
+        playerCollisionSystem = world.GetOrCreateSystem<PlayerCollisionSystem>();
 
         var lateSimulation = world.GetOrCreateSystem<LateSimulationManager>();
     
         lateSimulation.AddSystemToUpdateList(animationSystem);
         lateSimulation.AddSystemToUpdateList(cameraFollowSystem);
         lateSimulation.AddSystemToUpdateList(retrieveInteractableCollisionsSystem);
+        lateSimulation.AddSystemToUpdateList(playerCollisionSystem);
+        
+        lateSimulation.SortSystemUpdateList();
     }
 
     protected override void OnUpdate()
@@ -32,6 +37,7 @@ public class LateSimulationManager : ComponentSystemGroup
         cameraFollowSystem.Update();
         
         retrieveInteractableCollisionsSystem.Update();
+        playerCollisionSystem.Update();
     }
     
     public void OnSwapLevel()

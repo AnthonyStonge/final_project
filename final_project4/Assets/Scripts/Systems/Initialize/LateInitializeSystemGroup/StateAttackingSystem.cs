@@ -57,7 +57,7 @@ public class StateAttackingSystem : SystemBase
             (in TypeData type, in StateComponent state, in Translation currentPosition, in AttackRangeComponent range) =>
             {
                 //Is distance small enough to Attack
-                if (math.distancesq(currentPosition.Value, playerPos.Value) > range.Value * range.Value)
+                if (math.distancesq(currentPosition.Value, playerPos.Value) > range.Distance * range.Distance)
                     return;
 
                 StateInfo.ActionType actionType = StateInfo.ActionType.TryChange;
