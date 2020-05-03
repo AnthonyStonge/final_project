@@ -29,11 +29,6 @@ public class InitializeManager : ComponentSystemGroup
         initialize.AddSystemToUpdateList(playerTargetSystem);
         initialize.AddSystemToUpdateList(gameLogicSystem);
     }
-
-    protected override void OnStartRunning()
-    {
-    }
-
     protected override void OnUpdate()
     {
         gameLogicSystem.Update();
