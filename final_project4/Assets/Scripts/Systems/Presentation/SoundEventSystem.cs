@@ -34,6 +34,9 @@ public class SoundEventSystem : SystemBase
         //Weapons
         foreach (WeaponInfo info in EventsHolder.WeaponEvents)
         {
+            if (!SoundHolder.WeaponSounds.ContainsKey(info.WeaponType) ||
+                !SoundHolder.WeaponSounds[info.WeaponType].ContainsKey(info.EventType))
+                continue;
             int soundId = SoundHolder.WeaponSounds[info.WeaponType][info.EventType];
 
             if (TryPlaySound(soundId))
@@ -43,6 +46,9 @@ public class SoundEventSystem : SystemBase
         //Bullets
         foreach (BulletInfo info in EventsHolder.BulletsEvents)
         {
+            if (!SoundHolder.BulletSounds.ContainsKey(info.ProjectileType) ||
+                !SoundHolder.BulletSounds[info.ProjectileType].ContainsKey(info.CollisionType))
+                continue;
             int soundId = SoundHolder.BulletSounds[info.ProjectileType][info.CollisionType];
 
             if (TryPlaySound(soundId))
