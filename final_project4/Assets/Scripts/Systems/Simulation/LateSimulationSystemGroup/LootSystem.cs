@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Enums;
 using Havok.Physics;
 using Unity.Burst;
 using Unity.Collections;
@@ -51,10 +52,13 @@ public class LootSystem : SystemBase
             {
                 gunComponent =
                     EntityManager.GetComponentData<GunComponent>(
-                        GameVariables.Player.PlayerWeaponEntities[ac.TypeAmunation]);
+                        GameVariables.Player.PlayerWeaponEntities[ac.TypeAmmunition]);
                 gunComponent.CurrentAmountBulletOnPlayer += ac.AmmunitionQuantity;
-                EntityManager.SetComponentData(GameVariables.Player.PlayerWeaponEntities[ac.TypeAmunation],
+                EntityManager.SetComponentData(GameVariables.Player.PlayerWeaponEntities[ac.TypeAmmunition],
                     gunComponent);
+                
+                SoundEventSystem.PlayPickupSound(DropType.Ammunition);
+                //TODO Play VFX
             }
         }
 

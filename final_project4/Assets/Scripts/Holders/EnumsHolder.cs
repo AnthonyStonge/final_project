@@ -52,7 +52,7 @@ namespace Enums
     public enum DropType
     {
         //Life,
-        Amunation
+        Ammunition
     }
 
     //Order is IMPORTANT (The bigger the value, the more important it is for the StateMachine)

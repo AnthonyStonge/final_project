@@ -26,14 +26,14 @@ public class DropSystem : SystemBase
                 {
                         //Debug.Log(AmunationDropHolder.DropItemPrefabDict.Count);
                         Entity e = EntityManager.Instantiate(
-                            AmmunitionDropHolder.DropItemPrefabDict[DropType.Amunation]);
+                            AmmunitionDropHolder.DropItemPrefabDict[DropType.Ammunition]);
                         EntityManager.SetComponentData(e, new Translation
                         {
                             Value = info.HitPosition
                         });
                         EntityManager.SetComponentData(e, new AmmunitionComponent
                         {
-                            TypeAmunation = (WeaponType) Random.Range(0, 2),
+                            TypeAmmunition = (WeaponType) Random.Range(0, 2),
                             AmmunitionQuantity = Random.Range(1, 5)
                         });
                 }
