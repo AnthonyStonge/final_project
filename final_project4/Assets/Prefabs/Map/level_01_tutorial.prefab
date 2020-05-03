@@ -407,7 +407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9044775325000084866}
   m_Layer: 0
-  m_Name: level_tutorial
+  m_Name: level_01_tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -432,6 +432,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3717432978392192747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9044775325257914235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd1392eb90e0f24496ab3c216150450, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 11400000, guid: 4de210886b0e0ed4ca9c570f2f110ac8, type: 2}
+  mapType: 1
 --- !u!1001 &241283717257473533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9315,6 +9329,12 @@ PrefabInstance:
 --- !u!4 &9044775325257914239 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2262145449272113576, guid: 3b37758a740f92e448ca59752ffac622,
+    type: 3}
+  m_PrefabInstance: {fileID: 7125185475082858199}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9044775325257914235 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2262145449272113580, guid: 3b37758a740f92e448ca59752ffac622,
     type: 3}
   m_PrefabInstance: {fileID: 7125185475082858199}
   m_PrefabAsset: {fileID: 0}

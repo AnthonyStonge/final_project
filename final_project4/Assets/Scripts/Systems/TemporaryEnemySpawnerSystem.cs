@@ -83,7 +83,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
         //Set position
         entityManager.SetComponentData(e, new Translation
         {
-            Value = new float3(Random.Range(1, 100), 0, Random.Range(1, 100))
+            Value = new float3(Random.Range(5, 10), 0, Random.Range(5, 10))
         });
 
         //Set BatchFilter

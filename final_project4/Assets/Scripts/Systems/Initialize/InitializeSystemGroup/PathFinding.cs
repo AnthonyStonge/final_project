@@ -4,7 +4,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-
+using UnityEngine;
 public struct BatchFilter : ISharedComponentData
 {
     public ushort Value;
@@ -43,12 +43,6 @@ public class PathFinding : SystemBase
     private EntityQueryDesc queryDesc;
     protected override void OnCreate()
     {
-        
-        batchCall = 0;
-        queryDesc = new EntityQueryDesc
-        {
-            All = new ComponentType[] {typeof(BatchFilter),typeof(Translation), typeof(PathFindingComponent), typeof(PathFollowComponent)}
-        };
         neightBourOffsetArray = new NativeArray<int2>(8, Allocator.Persistent);
         neightBourOffsetArray[0] = new int2(-1, 0);
         neightBourOffsetArray[1] = new int2(1, 0);
@@ -58,9 +52,20 @@ public class PathFinding : SystemBase
         neightBourOffsetArray[5] = new int2(-1, 1);
         neightBourOffsetArray[6] = new int2(1, -1);
         neightBourOffsetArray[7] = new int2(1, 1);
-        wall = GameVariables.grid.indexNoWalkable;
-        gridSize = GameVariables.grid.gridSize;
-        nodeSize = GameVariables.grid.nodeSize;
+        //InitializeGrid();
+    }
+    public void InitializeGrid(MapType MapToLoad)
+    {
+        batchCall = 0;
+        queryDesc = new EntityQueryDesc
+        {
+            All = new ComponentType[] {typeof(BatchFilter),typeof(Translation), typeof(PathFindingComponent), typeof(PathFollowComponent)}
+        };
+        wall = GameVariables.Grids[MapToLoad].indexNoWalkable;
+        gridSize = GameVariables.Grids[MapToLoad].gridSize;
+        nodeSize = GameVariables.Grids[MapToLoad].nodeSize;
+        if (nodeArray.IsCreated)
+            nodeArray.Dispose();
         nodeArray = new NativeArray<Node>(gridSize.x * gridSize.y, Allocator.Persistent);
         for (int i = 0; i < gridSize.x; i++)
         {

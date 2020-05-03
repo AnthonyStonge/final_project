@@ -28,7 +28,6 @@ public static class MapHolder
 
     public static Dictionary<MapType, MapInfo> MapsInfo =
         new Dictionary<MapType, MapInfo>();
-
     public static List<BlobAssetStore> BloblAssetList = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets;
     private static int numberOfAssetsToLoad;

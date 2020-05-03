@@ -14,7 +14,7 @@ public static class GameVariables
     public static Camera MainCamera;
     public static Transform MouseToTransform;
     public static GameState StartingState = GameState.GAME;
-    public static ScriptableGrid grid;
+    public static Dictionary<MapType, ScriptableGrid> Grids = new Dictionary<MapType, ScriptableGrid>();
     public static CinemachineBasicMultiChannelPerlin CamNoiseProfile;
     public static ShakeCamComponent ShakeComponent;
     public static class Player

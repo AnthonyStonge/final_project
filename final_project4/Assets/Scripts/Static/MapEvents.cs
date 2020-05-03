@@ -44,7 +44,7 @@ public static class MapEvents
             entityManager.SetComponentData(weaponEntity, weapon);
             GlobalEvents.PlayerEvents.LockUserInputs();
         }
-
+        EventsHolder.LevelEvents.CurrentLevel = type;
         OnSwapLevel();
         TryUnloadMap();
 
