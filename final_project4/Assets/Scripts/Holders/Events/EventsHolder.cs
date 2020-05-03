@@ -3,6 +3,9 @@ using EventStruct;
 
 public static class EventsHolder
 {
+    public static NativeList<LevelInfo> LevelEvents = 
+        new NativeList<LevelInfo>(Allocator.Persistent);
+    
     public static NativeList<WeaponInfo> WeaponEvents =
         new NativeList<WeaponInfo>(Allocator.Persistent);
     
@@ -29,5 +32,6 @@ public static class EventsHolder
         StateEvents.Dispose();
         AnimationEvents.Dispose();
         InteractableEvents.Dispose();
+        LevelEvents.Dispose();
     }
 }

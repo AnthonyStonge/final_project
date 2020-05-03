@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: PlayerPistolShot
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: a0ae47b7564662840a920ed67dbbace3, type: 3}
-  AudioSourceType: 1
+  AudioSourceType: 4
   Delay: 0.06
   Weapons:
   - WeaponType: 0
     EventType: 0
   Bullets: []
+  GenericSounds: 

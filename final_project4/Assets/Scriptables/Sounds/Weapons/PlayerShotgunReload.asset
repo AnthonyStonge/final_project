@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: PlayerShotgunReload
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: 82baa0d0b456cc14395806d21d5821c6, type: 3}
-  AudioSourceType: 2
+  AudioSourceType: 4
   Delay: 0
   Weapons:
   - WeaponType: 1
     EventType: 1
   Bullets: []
+  GenericSounds: 

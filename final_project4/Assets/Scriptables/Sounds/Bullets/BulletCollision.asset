@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BulletCollision
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: 81f092f21275f6244bfce34ed24d5d31, type: 3}
-  AudioSourceType: 6
+  AudioSourceType: 8
   Delay: 0.04
   Weapons: []
   Bullets:
@@ -29,3 +29,4 @@ MonoBehaviour:
     CollisionType: 1
   - BulletType: 1
     CollisionType: 2
+  GenericSounds: 

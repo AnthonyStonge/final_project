@@ -2,15 +2,24 @@
 using Enums;
 using EventStruct;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = Unity.Mathematics.Random;
 
 [DisableAutoCreation]
 public class SoundEventSystem : SystemBase
 {
     private static int currentSoundPlaying;
+    private static int frameCounter;
+
+    private static Random seed;
+    private static bool rndSet;
+    private static int rndNumber;
     protected override void OnStartRunning()
     {
+        seed = new Random(12354);
         PlayGenericSoundtrack();
+        PlayAmbienceSounds();
     }
 
     protected override void OnUpdate()
@@ -19,6 +28,8 @@ public class SoundEventSystem : SystemBase
         {
             PlayGenericSoundtrack();
         }
+
+        PlayRandomlyAmbienceSFX();
 
         //Weapons
         foreach (WeaponInfo info in EventsHolder.WeaponEvents)
@@ -43,6 +54,33 @@ public class SoundEventSystem : SystemBase
         SoundManager.DecrementNotAvailableSounds(deltaTime);
     }
 
+    private static void PlayAmbienceSounds()
+    {
+        List<int> backgroundSounds = SoundHolder.GenericSounds[SoundType.Backgrounds];
+        PlaySound(backgroundSounds[0]);
+    }
+
+    private static void PlayRandomlyAmbienceSFX()
+    {
+        frameCounter++;
+        if (frameCounter > 300)
+        {
+            if (rndSet == false)
+            {
+                rndSet = true;
+                rndNumber = seed.NextInt(1000);
+            }
+
+            if (frameCounter % 1000 == rndNumber)
+            {
+                List<int> SFXSounds = SoundHolder.GenericSounds[SoundType.SFX];
+                PlaySound(SFXSounds[seed.NextInt(0, SFXSounds.Count - 1)]);
+                frameCounter = 0;
+                rndSet = false;
+            }
+        }
+    }
+    
     private static void PlayGenericSoundtrack()
     {
         List<int> genericSoundId = SoundHolder.GenericSounds[SoundType.Soundtracks];
