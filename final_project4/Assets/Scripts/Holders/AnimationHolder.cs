@@ -52,17 +52,19 @@ public static class AnimationHolder
             Animations.TryAdd(animation.Type, new Dictionary<State, Animation>());
             if (Animations[animation.Type].ContainsKey(animation.State))
             {
+#if UNITY_EDITOR
                 Debug.LogWarning($"Duplicate Animation state {animation.Type}. Check AnimationContainer");
+#endif
                 continue;
             }
-            
+
             //Extract meshes from gameobjects
             Mesh[] frames = new Mesh[animation.Frames.Count];
             for (int i = 0; i < animation.Frames.Count; i++)
             {
                 frames[i] = animation.Frames[i].GetComponentInChildren<MeshFilter>().sharedMesh;
             }
-            
+
             Animations[animation.Type].Add(animation.State, new Animation
             {
                 Frames = frames,

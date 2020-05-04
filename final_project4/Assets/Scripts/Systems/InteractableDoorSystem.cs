@@ -14,13 +14,17 @@ public class InteractableDoorSystem : SystemBase
     protected override void OnStartRunning()
     {
         //Toggle UI on
+#if UNITY_EDITOR
         Debug.Log("Walk in Interactable Door...");
+#endif
     }
 
     protected override void OnStopRunning()
     {
         //Toggle UI off
+#if UNITY_EDITOR
         Debug.Log("Walk out Interactable Door...");
+#endif
 
         GameVariables.Interactables.PreviousInteractableSelected = null;
     }
@@ -30,13 +34,15 @@ public class InteractableDoorSystem : SystemBase
         //Listen for input
         if (!Input.GetKeyDown(KeyCode.E))
             return;
-        
+
         OnAction();
     }
 
     private static void OnAction()
     {
         //Open Door
+#if UNITY_EDITOR
         Debug.Log("Opened Door...");
+#endif
     }
 }

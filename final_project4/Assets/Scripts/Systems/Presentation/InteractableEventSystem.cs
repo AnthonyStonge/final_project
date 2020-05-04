@@ -67,14 +67,16 @@ public class InteractableEventSystem : SystemBase
 
     private static void OnEnterInputInteractable(InteractableInfo info)
     {
+#if UNITY_EDITOR
         Debug.Log($"Entered InputInteractable of type {info.ObjectType}");
+#endif
         //Set Object in GameVariables
         GameVariables.Interactables.CurrentInteractableSelected = new GameVariables.Interactables.Interactable
         {
             Entity = info.Entity,
             ObjectType = info.ObjectType
         };
-        
+
         //Toggle desired system on
         switch (info.ObjectType)
         {
@@ -88,11 +90,14 @@ public class InteractableEventSystem : SystemBase
 
     private static void OnExitInputInteractable(InteractableInfo info)
     {
+#if UNITY_EDITOR
         Debug.Log($"Exited InputInteractable of type {info.ObjectType}");
+#endif
         //Remove Object in GameVariables
-        GameVariables.Interactables.PreviousInteractableSelected = GameVariables.Interactables.CurrentInteractableSelected;
+        GameVariables.Interactables.PreviousInteractableSelected =
+            GameVariables.Interactables.CurrentInteractableSelected;
         GameVariables.Interactables.CurrentInteractableSelected = null;
-        
+
         //Toggle desired system off
         switch (info.ObjectType)
         {
@@ -103,7 +108,7 @@ public class InteractableEventSystem : SystemBase
                 break;
         }
     }
-    
+
     private static void ToggleSystem<T>(bool enable) where T : SystemBase
     {
         Unity.Entities.World.DefaultGameObjectInjectionWorld.GetExistingSystem<T>().Enabled = enable;
@@ -139,7 +144,6 @@ public class InteractableEventSystem : SystemBase
         //Set player position/rotation
         GlobalEvents.PlayerEvents.SetPlayerPosition(objectivePortal.Position);
         GlobalEvents.PlayerEvents.SetPlayerRotation(objectivePortal.Rotation);
-        
     }
 
     private static bool TryEnterPortal(MapType mapType, ushort portalId)
@@ -175,15 +179,15 @@ public class InteractableEventSystem : SystemBase
     {
         //Get Door Entity
         Entity door = manager.GetComponentData<InteractableComponent>(info.Entity).DoorToOpen;
-        
+
         //Remove Door collider
         manager.RemoveComponent<PhysicsCollider>(door);
-        
+
         //TODO Start animation
-        
+
         //TODO REMOVE UNDER
         manager.RemoveComponent<RenderMesh>(door);
-        
+
         //Remove Trigger (because its been use so...)
         manager.DestroyEntity(info.Entity);
     }
