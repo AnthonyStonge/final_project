@@ -52,6 +52,13 @@ public static class GameVariables
 
     public static class Interactables
     {
-        public static InteractableInfo? Info;
+        public static Interactable? CurrentInteractableSelected;
+        public static Interactable? PreviousInteractableSelected;
+        
+        public struct Interactable
+        {
+            public Entity Entity;
+            public InteractableObjectType ObjectType;
+        }
     }
 }

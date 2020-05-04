@@ -84,6 +84,7 @@ namespace Enums
     public enum InteractableObjectType
     {
         Switch,
+        Door,
         Portal,
         Ammo
     }

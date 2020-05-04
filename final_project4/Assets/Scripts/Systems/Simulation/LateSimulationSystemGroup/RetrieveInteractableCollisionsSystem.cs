@@ -20,20 +20,20 @@ public class RetrieveInteractableCollisionsSystem : SystemBase
         stepPhysicsWorld = World.GetOrCreateSystem<StepPhysicsWorld>();
     }
 
+    //TODO FIGURE OUT WHY ON EXIT IS CALLED EVEN WHEN NOT EXITED...
     //Will be slow if lots of TriggerEvent (Change to parallel)
     protected override void OnUpdate()
     {
-            
         //Get Collision Events
         HavokTriggerEvents triggerEvents = ((HavokSimulation) stepPhysicsWorld.Simulation).TriggerEvents;
 
         //Get all Interactable Entities
         ComponentDataFromEntity<InteractableComponent> interactables =
             GetComponentDataFromEntity<InteractableComponent>(true);
-        
+
         ComponentDataFromEntity<Translation> interactablePositions =
             GetComponentDataFromEntity<Translation>(true);
-        
+
         ComponentDataFromEntity<Rotation> interactableRotations =
             GetComponentDataFromEntity<Rotation>(true);
 
@@ -69,7 +69,7 @@ public class RetrieveInteractableCollisionsSystem : SystemBase
                 });
             }
         }
-        
+
         foreach (Entity entity in PreviousFrameCollisions)
         {
             //if previous collision not detected this frame -> OnTriggerExit
@@ -82,11 +82,12 @@ public class RetrieveInteractableCollisionsSystem : SystemBase
                     Position = interactablePositions[entity].Value,
                     Rotation = interactableRotations[entity].Value,
                     InteractableType = interactables[entity].Type,
+                    ObjectType = interactables[entity].ObjectType,
                     CollisionType = InteractableInfo.InteractableCollisionType.OnTriggerExit
                 });
             }
         }
+
         PreviousFrameCollisions = currentFrameCollisions;
     }
-            
 }
