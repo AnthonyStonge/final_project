@@ -6,14 +6,6 @@ using UnityEngine;
 [DisableAutoCreation]
 public class InvincibleSystem : SystemBase
 {
-   
-
-    protected override void OnCreate()
-    {
-        //TODO Change these values for real values
-        
-    }
-
     protected override void OnUpdate()
     {
         float delta = Time.DeltaTime;

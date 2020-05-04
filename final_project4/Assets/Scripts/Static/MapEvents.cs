@@ -17,10 +17,10 @@ public static class MapEvents
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-        LoadMap(MapType.LevelMenu);
+        LoadMap(MapType.LevelMenu, true);
     }
 
-    public static void LoadMap(MapType type)
+    public static void LoadMap(MapType type, bool SetNewSpawnPos = false)
     {
         //Make sure Dictionary contains Type desired (before unloading current map)
         if (!MapHolder.MapPrefabDict.ContainsKey(type))
@@ -28,7 +28,7 @@ public static class MapEvents
             Debug.LogError($"Map {type} doesn't exist... Staying on current map...");
             return;
         }
-        
+
         //Complete all jobs
         entityManager.CompleteAllJobs();
 
@@ -44,13 +44,23 @@ public static class MapEvents
             entityManager.SetComponentData(weaponEntity, weapon);
             GlobalEvents.PlayerEvents.LockUserInputs();
         }
+        
         EventsHolder.LevelEvents.CurrentLevel = type;
         OnSwapLevel();
         TryUnloadMap();
-
+        
         //Load new map
         CurrentTypeLoaded = type;
         CurrentMapLoaded = entityManager.Instantiate(MapHolder.MapPrefabDict[type]);
+        
+        //Set New Spawn Pos if Needed
+        if (SetNewSpawnPos)
+        {
+            if (GameVariables.Player.Entity != Entity.Null)
+            {
+                GlobalEvents.PlayerEvents.SetPlayerPosition(MapHolder.MapsInfo[type].SpawnPosition);
+            }
+        }
 
         //Fade in
         GlobalEvents.CameraEvents.FadeIn();
@@ -74,7 +84,7 @@ public static class MapEvents
         if (idMapToLoad < 0)
             idMapToLoad = Enum.GetNames(typeof(MapType)).Length - 1;
 
-        LoadMap((MapType) idMapToLoad);
+        LoadMap((MapType) idMapToLoad, true);
     }
 
     public static void LoadNextMap()
@@ -85,7 +95,7 @@ public static class MapEvents
         if (idMapToLoad >= Enum.GetNames(typeof(MapType)).Length)
             idMapToLoad = 0;
 
-        LoadMap((MapType) idMapToLoad);
+        LoadMap((MapType) idMapToLoad, true);
     }
 
     public static void OnSwapLevel()

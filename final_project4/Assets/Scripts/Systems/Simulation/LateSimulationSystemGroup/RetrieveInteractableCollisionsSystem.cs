@@ -72,20 +72,21 @@ public class RetrieveInteractableCollisionsSystem : SystemBase
 
         foreach (Entity entity in PreviousFrameCollisions)
         {
-            //if previous collision not detected this frame -> OnTriggerExit
-            if (!currentFrameCollisions.Contains(entity))
-            {
-                //Create Event
-                EventsHolder.InteractableEvents.Add(new InteractableInfo
+            if (EntityManager.Exists(entity))
+                //if previous collision not detected this frame -> OnTriggerExit
+                if (!currentFrameCollisions.Contains(entity))
                 {
-                    Entity = entity,
-                    Position = interactablePositions[entity].Value,
-                    Rotation = interactableRotations[entity].Value,
-                    InteractableType = interactables[entity].Type,
-                    ObjectType = interactables[entity].ObjectType,
-                    CollisionType = InteractableInfo.InteractableCollisionType.OnTriggerExit
-                });
-            }
+                    //Create Event
+                    EventsHolder.InteractableEvents.Add(new InteractableInfo
+                    {
+                        Entity = entity,
+                        Position = interactablePositions[entity].Value,
+                        Rotation = interactableRotations[entity].Value,
+                        InteractableType = interactables[entity].Type,
+                        ObjectType = interactables[entity].ObjectType,
+                        CollisionType = InteractableInfo.InteractableCollisionType.OnTriggerExit
+                    });
+                }
         }
 
         PreviousFrameCollisions = currentFrameCollisions;

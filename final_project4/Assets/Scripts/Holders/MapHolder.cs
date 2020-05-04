@@ -6,6 +6,8 @@ using UnityEngine.AddressableAssets;
 
 public class MapInfo
 {
+    public float3 SpawnPosition;
+    
     public Dictionary<ushort, Portal> Portals = new Dictionary<ushort, Portal>();
     
     public struct Portal
