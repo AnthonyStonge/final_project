@@ -1,4 +1,7 @@
-﻿using Enums;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Enums;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -11,18 +14,33 @@ public class TemporaryEnemySpawnerSystem : SystemBase
     private static EntityManager entityManager;
 
     private static ushort batchFilter = 0;
-
+    private static NativeList<EnemySpawnerInfo> copySpawner;
     protected override void OnCreate()
     {
+        copySpawner = new NativeList<EnemySpawnerInfo>(Allocator.Persistent);
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
     }
-    public static void initializeDefaultEnemySpawn(MapType type)
+    public static void InitializeDefaultEnemySpawn(MapType type)
     {
+        //enemySpawner.Clear();
+        
+        copySpawner.Clear();
+        for (int i = 0; i < GameVariables.Grids[type].enemySpawner.Count; i++)
+        {
+            copySpawner.Add(GameVariables.Grids[type].enemySpawner[i]);
+            
+            var spawnerTest = copySpawner[i];
+            spawnerTest.currentEnnemySpawn++;
+            spawnerTest.currentTime = Random.Range(copySpawner[i].TimeRangeBetweenSpawn.x,
+                copySpawner[i].TimeRangeBetweenSpawn.y);
+            copySpawner[i] = spawnerTest;
+        }
+
         foreach (var spawner in GameVariables.Grids[type].enemyPreSpawner)
         {
-            System.Array test = System.Enum.GetValues(typeof(Type));
-            Type plsWork = (Type) test.GetValue(Random.Range(0, test.Length));
-            switch (plsWork)
+            System.Array enemyType = System.Enum.GetValues(typeof(Type));
+            Type randomEnemyType = (Type) enemyType.GetValue(Random.Range(0, enemyType.Length));
+            switch (randomEnemyType)
             {
                 case Type.Chicken:
                     CreateEnemy(Type.Chicken, out Entity chicken, spawner.spawnerPos);
@@ -41,7 +59,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                     CreateWeapon(WeaponType.RatWeapon, rat);
                     break;
             }
-            
+            EventsHolder.LevelEvents.NbEnemy++;
         }
         
     }
@@ -49,42 +67,49 @@ public class TemporaryEnemySpawnerSystem : SystemBase
     {
         if (GameVariables.Grids.ContainsKey(EventsHolder.LevelEvents.CurrentLevel))
         {
-            var enemySpawner = GameVariables.Grids[EventsHolder.LevelEvents.CurrentLevel].enemySpawner;
-            for (int i = 0; i < enemySpawner.Count; i++)
+            
+            //var enemySpawner = GameVariables.Grids[EventsHolder.LevelEvents.CurrentLevel].enemySpawner;
+            for (int i = 0; i < copySpawner.Length; i++)
             {
-                if (enemySpawner[i].currentTime <= 0 && enemySpawner[i].NbEnnemyMax <= enemySpawner[i].currentEnnemySpawn)
+                if (copySpawner[i].NbEnnemyMax >= copySpawner[i].currentEnnemySpawn)
                 {
-                    switch (enemySpawner[i].EnemyType)
+                    if (copySpawner[i].currentTime <= 0)
                     {
-                        case Type.Chicken:
-                            CreateEnemy(Type.Chicken, out Entity chicken, enemySpawner[i].spawnerPos);
-                            CreateWeapon(WeaponType.RatWeapon, chicken);
-                            break;
-                        case Type.Gorilla:
-                            CreateEnemy(Type.Gorilla, out Entity gorilla, enemySpawner[i].spawnerPos);
-                            CreateWeapon(WeaponType.RatWeapon, gorilla);
-                            break;
-                        case Type.Pig:
-                            CreateEnemy(Type.Pig, out Entity pig, enemySpawner[i].spawnerPos);
-                            CreateWeapon(WeaponType.RatWeapon, pig);
-                            break;
-                        case Type.Rat:
-                            CreateEnemy(Type.Rat, out Entity rat, enemySpawner[i].spawnerPos);
-                            CreateWeapon(WeaponType.RatWeapon, rat);
-                            break;
+                        System.Array enemyType = System.Enum.GetValues(typeof(Type));
+                        Type randomEnemyType = (Type) enemyType.GetValue(Random.Range(0, enemyType.Length));
+                        switch (randomEnemyType)
+                        {
+                            case Type.Chicken:
+                                CreateEnemy(Type.Chicken, out Entity chicken, copySpawner[i].spawnerPos);
+                                CreateWeapon(WeaponType.RatWeapon, chicken);
+                                break;
+                            case Type.Gorilla:
+                                CreateEnemy(Type.Gorilla, out Entity gorilla, copySpawner[i].spawnerPos);
+                                CreateWeapon(WeaponType.RatWeapon, gorilla);
+                                break;
+                            case Type.Pig:
+                                CreateEnemy(Type.Pig, out Entity pig, copySpawner[i].spawnerPos);
+                                CreateWeapon(WeaponType.RatWeapon, pig);
+                                break;
+                            case Type.Rat:
+                                CreateEnemy(Type.Rat, out Entity rat, copySpawner[i].spawnerPos);
+                                CreateWeapon(WeaponType.RatWeapon, rat);
+                                break;
+                        }
+                        var spawnerTest = copySpawner[i];
+                        spawnerTest.currentEnnemySpawn++;
+                        spawnerTest.currentTime = Random.Range(copySpawner[i].TimeRangeBetweenSpawn.x,
+                            copySpawner[i].TimeRangeBetweenSpawn.y);
+                        copySpawner[i] = spawnerTest;
+                        EventsHolder.LevelEvents.NbEnemy++;
                     }
-                    var spawnerTest = enemySpawner[i];
-                    spawnerTest.currentEnnemySpawn++;
-                    spawnerTest.currentTime = Random.Range(enemySpawner[i].TimeRangeBetweenSpawn.x,
-                        enemySpawner[i].TimeRangeBetweenSpawn.y);
-                    enemySpawner[i] = spawnerTest;
-                }
-                else
-                {
-                    var spawnerTest = enemySpawner[i];
-                    spawnerTest.currentEnnemySpawn += 1;
-                    spawnerTest.currentTime -= Time.DeltaTime;
-                    enemySpawner[i] = spawnerTest;
+                    else
+                    {
+                        var spawnerTest = copySpawner[i];
+                        spawnerTest.currentTime -= Time.DeltaTime;
+                        copySpawner[i] = spawnerTest;
+                        //Debug.Log(copySpawner[i].currentTime);
+                    }
                 }
             }
         }
@@ -189,5 +214,9 @@ public class TemporaryEnemySpawnerSystem : SystemBase
         {
             Value = parent
         });
+    }
+    protected override void OnDestroy()
+    {
+        copySpawner.Dispose();
     }
 }
