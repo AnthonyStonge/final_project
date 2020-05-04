@@ -42,7 +42,7 @@ public class DashSystem : SystemBase
         if (TryDash(dash, inputs))
         {
             //Dash
-            Dash(ref dash, rotation);
+            Dash(ref dash, inputs, rotation);
         }
 
         EntityManager.SetComponentData(playerEntity, dash);
@@ -71,14 +71,13 @@ public class DashSystem : SystemBase
         return true;
     }
 
-    private static void Dash(ref DashComponent dash, in Rotation rotation)
+    private static void Dash(ref DashComponent dash, in InputComponent inputs, in Rotation rotation)
     {
         //Dash
         dash.OnDash();
         GlobalEvents.PlayerEvents.LockUserInputs();
 
-        //Dash toward Mouse
-        dash.Direction = math.forward(rotation.Value).xz;
-  
+        //Look if Player is moving
+        dash.Direction = inputs.Move.Equals(float2.zero) ? math.forward(rotation.Value).xz : inputs.Move;
     }
 }

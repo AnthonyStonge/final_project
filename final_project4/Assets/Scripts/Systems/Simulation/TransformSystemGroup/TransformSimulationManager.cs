@@ -31,6 +31,8 @@ public class TransformSimulationManager : ComponentSystemGroup
         transform.AddSystemToUpdateList(pathFollowSystem);
         //transform.AddSystemToUpdateList(testToRenameIfWork);
         transform.AddSystemToUpdateList(enemyFollowSystem);
+        
+        transform.SortSystemUpdateList();
     }
 
     protected override void OnUpdate()
@@ -39,8 +41,8 @@ public class TransformSimulationManager : ComponentSystemGroup
         //Dependency : None
         rotateSystem.Update();
         //Dependency : RotatePlayerEnemySystem
-        translateSystem.Update();
         projectileHitDetectionSystem.Update();
+        translateSystem.Update();
        // testToRenameIfWork.Update();
         //pathFinding.Update();
         pathFollowSystem.Update();

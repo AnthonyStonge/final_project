@@ -3,6 +3,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering;
 using AnimationInfo = EventStruct.AnimationInfo;
 
 [DisableAutoCreation]
@@ -67,11 +68,12 @@ public class AnimationSystem : SystemBase
                     {
                         mesh = AnimationHolder.Animations[type.Value][state.CurrentAnimationState]
                             .Frames[animation.MeshIndexAt],
-                        material = AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Material
+                        material = AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Material,
+                        castShadows = ShadowCastingMode.On
                     });
                 }).ScheduleParallel(Dependency).Complete();
 
-            entityCommandBuffer.AddJobHandleForProducer(Dependency);
+            // entityCommandBuffer.AddJobHandleForProducer(Dependency);
 
             //Reset Timer
             // isUpdateAnimationFrame = false;
