@@ -75,7 +75,9 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                 {
                     if (copySpawner[i].currentTime <= 0)
                     {
-                        switch (copySpawner[i].EnemyType)
+                        System.Array enemyType = System.Enum.GetValues(typeof(Type));
+                        Type randomEnemyType = (Type) enemyType.GetValue(Random.Range(0, enemyType.Length));
+                        switch (randomEnemyType)
                         {
                             case Type.Chicken:
                                 CreateEnemy(Type.Chicken, out Entity chicken, copySpawner[i].spawnerPos);
