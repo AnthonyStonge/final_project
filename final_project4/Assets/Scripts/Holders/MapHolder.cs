@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -37,7 +38,10 @@ public static class MapHolder
     public static void Initialize()
     {
         currentNumberOfLoadedAssets = 0;
-        numberOfAssetsToLoad = 1;
+        foreach (var i in Enum.GetNames(typeof(MapType)))
+        {
+            numberOfAssetsToLoad++;
+        }
     }
 
     public static void LoadAssets()
@@ -55,9 +59,8 @@ public static class MapHolder
                 }
                
                 MapPrefabDict.TryAdd(map.Type, mapEntity);
+                currentNumberOfLoadedAssets++;
             }
-
-            currentNumberOfLoadedAssets++;
         };
     }
 

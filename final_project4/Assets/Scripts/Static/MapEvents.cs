@@ -25,12 +25,14 @@ public static class MapEvents
         //Make sure Dictionary contains Type desired (before unloading current map)
         if (!MapHolder.MapPrefabDict.ContainsKey(type))
         {
+#if UNITY_EDITOR
             Debug.LogError($"Map {type} doesn't exist... Staying on current map...");
+#endif
             return;
         }
 
         //Complete all jobs
-        entityManager.CompleteAllJobs();
+       
 
         //Fade out
         GlobalEvents.CameraEvents.FadeOut();
@@ -44,15 +46,16 @@ public static class MapEvents
             entityManager.SetComponentData(weaponEntity, weapon);
             GlobalEvents.PlayerEvents.LockUserInputs();
         }
-        
+
         EventsHolder.LevelEvents.CurrentLevel = type;
+        entityManager.CompleteAllJobs();
         OnSwapLevel();
         TryUnloadMap();
-        
+        entityManager.CompleteAllJobs();
         //Load new map
         CurrentTypeLoaded = type;
         CurrentMapLoaded = entityManager.Instantiate(MapHolder.MapPrefabDict[type]);
-        
+
         //Set New Spawn Pos if Needed
         if (SetNewSpawnPos)
         {
@@ -101,7 +104,7 @@ public static class MapEvents
     public static void OnSwapLevel()
     {
         World world = World.DefaultGameObjectInjectionWorld;
-        
+
         GlobalEvents.GameEvents.OnSwapLevel();
 
         world.GetOrCreateSystem<InitializeManager>().OnSwapLevel();
