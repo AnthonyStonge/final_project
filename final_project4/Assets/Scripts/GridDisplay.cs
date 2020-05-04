@@ -1,9 +1,16 @@
-﻿using UnityEditor;
+﻿using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
-
+public enum GridChange
+{
+    Wall,
+    PreSpawn,
+    MobSpawn
+}
 public class GridDisplay : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GridChange gridChange; 
     public ScriptableGrid grid;
 
     public bool ShowGrid = false;
@@ -24,12 +31,53 @@ public class GridDisplay : MonoBehaviour
         {
             int indexGrid = (int)(hit.point.x + 0.5f) + (int)(hit.point.z + 0.5f) * grid.gridSize.x;
             //int bob = (int)hit.point.x + (int)hit.point.z * grid.gridSize.x;
-            if (e.shift)
-                if (!grid.indexNoWalkable.Contains(indexGrid))
-                    grid.indexNoWalkable.Add(indexGrid);
-            if (e.control)
-                if (grid.indexNoWalkable.Contains(indexGrid))
-                    grid.indexNoWalkable.Remove(indexGrid);
+            if(gridChange == GridChange.Wall)
+            {
+                if (e.shift)
+                    if (!grid.indexNoWalkable.Contains(indexGrid))
+                        grid.indexNoWalkable.Add(indexGrid);
+                if (e.control)
+                    if (grid.indexNoWalkable.Contains(indexGrid))
+                        grid.indexNoWalkable.Remove(indexGrid);
+            }
+            else if (gridChange == GridChange.PreSpawn)
+            {
+                if (e.shift)
+                    if (!grid.enemyPreSpawnerIndex.Contains(indexGrid))
+                    {
+                        grid.enemyPreSpawner.Add(new EnemyPreSpawnerInfo
+                        {
+                            spawnerPos = new int2((int) (hit.point.x + 0.5f), (int) (hit.point.z + 0.5f)),
+                        });
+                        grid.enemyPreSpawnerIndex.Add(indexGrid);
+                    }
+                if (e.control)
+                    if (grid.enemyPreSpawnerIndex.Contains(indexGrid))
+                    {
+                        grid.enemyPreSpawner.RemoveAt(grid.enemyPreSpawnerIndex.FindIndex(x => x == indexGrid));
+                        grid.enemyPreSpawnerIndex.Remove(indexGrid);
+
+                    }
+            }
+            else
+            {
+                if (e.shift)
+                    if (!grid.enemySpawnerIndex.Contains(indexGrid))
+                    {
+                        grid.enemySpawner.Add(new EnemySpawnerInfo
+                        {
+                            spawnerPos = new int2((int) (hit.point.x + 0.5f), (int) (hit.point.z + 0.5f))
+                        });
+                        grid.enemySpawnerIndex.Add(indexGrid);
+                    }
+                if (e.control)
+                    if (grid.enemySpawnerIndex.Contains(indexGrid))
+                    {
+                        grid.enemySpawner.RemoveAt(grid.enemySpawnerIndex.FindIndex(x => x == indexGrid));
+                        grid.enemySpawnerIndex.Remove(indexGrid);
+
+                    }
+            }
         }
 
         bool cycle = false;
@@ -40,6 +88,14 @@ public class GridDisplay : MonoBehaviour
                 if (grid.indexNoWalkable.Contains(i + j * grid.gridSize.x))
                 {
                     Gizmos.color = Color.red;
+                }
+                else if (grid.enemyPreSpawnerIndex.Contains(i + j * grid.gridSize.x))
+                {
+                    Gizmos.color = Color.blue;
+                }
+                else if (grid.enemySpawnerIndex.Contains(i + j * grid.gridSize.x))
+                {
+                    Gizmos.color = Color.yellow;
                 }
                 else
                 {
