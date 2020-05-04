@@ -50,6 +50,6 @@ public class TransformSimulationManager : ComponentSystemGroup
     public void OnSwapLevel()
     {
         pathFinding.InitializeGrid(EventsHolder.LevelEvents.CurrentLevel);
-        TemporaryEnemySpawnerSystem.initializeDefaultEnemySpawn(EventsHolder.LevelEvents.CurrentLevel);
+        TemporaryEnemySpawnerSystem.InitializeDefaultEnemySpawn(EventsHolder.LevelEvents.CurrentLevel);
     }
 }
