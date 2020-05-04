@@ -62,6 +62,12 @@ public class InputSystem : SystemBase
 
             inputs.Cancel = Input.GetKeyDown(KeyCode.Escape);
 
+            inputs.SwapWeapon1 = Input.GetKeyDown(KeyCode.Alpha1);
+            
+            inputs.SwapWeapon2 = Input.GetKeyDown(KeyCode.Alpha2);
+            
+            inputs.SwapWeapon3 = Input.GetKeyDown(KeyCode.Alpha3);
+
             //Weapon desired
             inputs.MouseWheel = Input.mouseScrollDelta;
 
