@@ -7,6 +7,7 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
+using UnityEngine;
 
 [DisableAutoCreation]
 [UpdateAfter(typeof(TranslateSystem))] // Important
@@ -109,7 +110,15 @@ public class ProjectileHitDetectionSystem : SystemBase
                             LifeComponent life = entitiesLife.Components[hitEntity];
                             
                             //Decrease life
-                            DoDamage(ref life);
+                            if (player == hitEntity)
+                            {
+                                DoDamage(ref life);
+                            }
+                            else
+                            {
+                                life.Life.Value--;
+                            }
+                            
 
                             //Set Back
                             entityCommandBuffer.SetComponent(entityInQueryIndex, hitEntity, life);
@@ -150,7 +159,8 @@ public class ProjectileHitDetectionSystem : SystemBase
     {
         if (component.DecrementLife())
         {
-            GlobalEvents.CameraEvents.ShakeCam(.5f, 3, 3);
+            Debug.Log("Player Hit");
+            GlobalEvents.CameraEvents.ShakeCam(.2f, 2, 3);
         }
     }
 }
