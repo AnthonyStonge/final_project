@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Enums;
 using EventStruct;
 using Unity.Entities;
 using UnityEngine;
@@ -43,6 +44,14 @@ public class GlobalEventListenerSystem : SystemBase
             if (EventsHolder.BulletsEvents[i].CollisionType == BulletInfo.BulletCollisionType.ON_PLAYER)
             {
                 GlobalEvents.CameraEvents.ShakeCam(.2f, 2, 3);
+            }
+        }
+
+        for (int i = 0; i < EventsHolder.StateEvents.Length - 1; i++)
+        {
+            if (EventsHolder.StateEvents[i].DesiredState == State.Dying)
+            {
+                EntityManager.DestroyEntity(EventsHolder.StateEvents[i].Entity);
             }
         }
         
