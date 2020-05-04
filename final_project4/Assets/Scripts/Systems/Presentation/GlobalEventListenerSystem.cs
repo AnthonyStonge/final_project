@@ -43,7 +43,7 @@ public class GlobalEventListenerSystem : SystemBase
       
         if (playerLifeComponent.Invincibility == InvincibilityType.Hit)
         {
-            GlobalEvents.CameraEvents.ShakeCam(.2f, 2, 3);
+            GlobalEvents.CameraEvents.ShakeCam(.2f, 1, 1.5f);
         }
         
         //Look for player hp
