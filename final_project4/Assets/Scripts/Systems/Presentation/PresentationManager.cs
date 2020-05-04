@@ -16,6 +16,7 @@ public class PresentationManager : ComponentSystemGroup
     
     private DropSystem dropSystem;
     private LootSystem lootSystem;
+    private InvincibleSystem invincibleSystem;
 
     private UISystem uiSystem;
 
@@ -40,6 +41,7 @@ public class PresentationManager : ComponentSystemGroup
         uiSystem = world.GetOrCreateSystem<UISystem>();
         globalEventListenerSystem = world.GetOrCreateSystem<GlobalEventListenerSystem>();
         playerCollisionSystem = world.GetOrCreateSystem<PlayerCollisionSystem>();
+        invincibleSystem = world.GetOrCreateSystem<InvincibleSystem>();
 
         var presentation = world.GetOrCreateSystem<PresentationManager>();
         
@@ -53,6 +55,7 @@ public class PresentationManager : ComponentSystemGroup
         presentation.AddSystemToUpdateList(dropSystem);
         presentation.AddSystemToUpdateList(uiSystem);
         presentation.AddSystemToUpdateList(globalEventListenerSystem);
+        presentation.AddSystemToUpdateList(invincibleSystem);
         // presentation.AddSystemToUpdateList(playerCollisionSystem);
         
         presentation.SortSystemUpdateList();
@@ -73,6 +76,7 @@ public class PresentationManager : ComponentSystemGroup
         
         globalEventListenerSystem.Update();
         cleanupSystem.Update();
+        invincibleSystem.Update();
         // playerCollisionSystem.Update();
     }
     

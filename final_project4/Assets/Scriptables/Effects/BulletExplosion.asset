@@ -26,3 +26,15 @@ MonoBehaviour:
     CollisionType: 0
   - BulletType: 1
     CollisionType: 1
+  - BulletType: 4
+    CollisionType: 0
+  - BulletType: 4
+    CollisionType: 1
+  - BulletType: 4
+    CollisionType: 2
+  - BulletType: 5
+    CollisionType: 0
+  - BulletType: 5
+    CollisionType: 1
+  - BulletType: 5
+    CollisionType: 2

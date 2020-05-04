@@ -5,11 +5,10 @@ using UnityEngine;
 [DisableAutoCreation]
 public class UpdatePlayerStateSystem : SystemBase
 {
-    protected override void OnCreate()
-    {
-    }
-
     protected override void OnUpdate()
     {
+        
+        
+        
     }
 }

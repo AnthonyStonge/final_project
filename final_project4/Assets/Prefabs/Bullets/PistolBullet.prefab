@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4814130295468034817}
   - component: {fileID: 4608159221114107102}
   - component: {fileID: 4164041567664846853}
-  - component: {fileID: 7045334463234939401}
+  - component: {fileID: -947948658309796887}
   - component: {fileID: -4146011551685310214}
+  - component: {fileID: 792519065161942095}
   m_Layer: 0
   m_Name: PistolBullet
   m_TagString: Untagged
@@ -81,7 +82,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &7045334463234939401
+--- !u!114 &-947948658309796887
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,7 +91,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8337288439267534834}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 463db2cced169754ca4e97789ce372f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b1d6c44cb25ff541aaaffc9f12e52f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &-4146011551685310214
@@ -111,4 +112,82 @@ MonoBehaviour:
     z: 0
   Type: 0
   Speed: 60
-  Radius: 0
+--- !u!114 &792519065161942095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8337288439267534834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0442eb5367700e43917a82cbdc5fae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BelongsTo:
+    Category00: 0
+    Category01: 1
+    Category02: 0
+    Category03: 0
+    Category04: 0
+    Category05: 0
+    Category06: 0
+    Category07: 0
+    Category08: 0
+    Category09: 0
+    Category10: 0
+    Category11: 0
+    Category12: 0
+    Category13: 0
+    Category14: 0
+    Category15: 0
+    Category16: 0
+    Category17: 0
+    Category18: 0
+    Category19: 0
+    Category20: 0
+    Category21: 0
+    Category22: 0
+    Category23: 0
+    Category24: 0
+    Category25: 0
+    Category26: 0
+    Category27: 0
+    Category28: 0
+    Category29: 0
+    Category30: 0
+    Category31: 0
+  CollidesWith:
+    Category00: 0
+    Category01: 0
+    Category02: 1
+    Category03: 0
+    Category04: 0
+    Category05: 0
+    Category06: 0
+    Category07: 0
+    Category08: 0
+    Category09: 0
+    Category10: 1
+    Category11: 0
+    Category12: 0
+    Category13: 0
+    Category14: 0
+    Category15: 0
+    Category16: 0
+    Category17: 0
+    Category18: 0
+    Category19: 0
+    Category20: 0
+    Category21: 0
+    Category22: 0
+    Category23: 0
+    Category24: 0
+    Category25: 0
+    Category26: 0
+    Category27: 0
+    Category28: 0
+    Category29: 0
+    Category30: 0
+    Category31: 0
+  GroupIndex: 0

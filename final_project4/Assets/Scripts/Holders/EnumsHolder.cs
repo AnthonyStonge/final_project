@@ -10,13 +10,19 @@ namespace Enums
         RatWeapon,
         ChickenWeapon,
         PigWeapon,
-        GorillaWeapon
+        GorillaWeapon,
+        Machinegun,
     }
 
     public enum ProjectileType
     {
         PistolBullet,
-        ShotgunBullet
+        ShotgunBullet,
+        MachinegunBullet,
+        RatBullet,
+        ChickenBullet,
+        PigBullet,
+        GorillaBullet
     }
 
     public enum Type
@@ -89,6 +95,11 @@ namespace Enums
         Attack,
         Chase
     }
-
-    
+    public enum InvincibilityType{
+        Hit,
+        Spawn,
+        Death,
+        Dash,
+        None
+    }
 }

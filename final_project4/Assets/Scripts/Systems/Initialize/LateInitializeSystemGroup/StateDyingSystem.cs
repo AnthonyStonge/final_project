@@ -33,7 +33,7 @@ public class StateDyingSystem : SystemBase
         JobHandle job = Entities.WithAll<StateComponent>().ForEach(delegate(Entity e, in LifeComponent health)
         {
             //If health <= 0 -> set state to dying
-            if (health.Life.Value <= 0)
+            if (health.IsDead())
                 events.Enqueue(new StateInfo
                 {
                     Entity = e,

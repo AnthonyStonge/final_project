@@ -175,83 +175,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2155649932496736248}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &560499554
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 560499556}
-  - component: {fileID: 560499555}
-  - component: {fileID: 560499558}
-  - component: {fileID: 560499557}
-  m_Layer: 0
-  m_Name: EnemySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &560499555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 560499554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 085e3fcf41ad546469bf2e1d7a3aa57b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyGO: {fileID: 8564223512416964792, guid: 62e974e6a9779c94ba5c4f141e26474a, type: 3}
-  mat: {fileID: 0}
-  mesh: {fileID: 0}
-  playerMat: {fileID: 0}
-  playerMesh: {fileID: 0}
-  batch: 0
---- !u!4 &560499556
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 560499554}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.431852, y: -2.0643477, z: 9.331848}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &560499557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 560499554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversionMode: 1
---- !u!114 &560499558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 560499554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afd1392eb90e0f24496ab3c216150450, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 11400000, guid: 61b0704d670c15c4ea52ec3c7bdf8163, type: 2}
 --- !u!1 &815391401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,7 +1351,7 @@ Camera:
     height: 1
   near clip plane: 1
   far clip plane: 300
-  field of view: 12
+  field of view: 60
   orthographic: 0
   orthographic size: 8.5
   m_Depth: -1

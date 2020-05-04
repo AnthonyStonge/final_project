@@ -8,25 +8,26 @@ public class InitializeManager : ComponentSystemGroup
     private InputSystem inputSystem;
     private SwapWeaponSystem swapWeaponSystem;
     private PlayerTargetSystem playerTargetSystem;
-    private GameLogicSystem gameLogicSystem; 
+    private GameLogicSystem gameLogicSystem;
 
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
-        
+
         inputSystem = world.GetOrCreateSystem<InputSystem>();
         swapWeaponSystem = world.GetOrCreateSystem<SwapWeaponSystem>();
         playerTargetSystem = world.GetOrCreateSystem<PlayerTargetSystem>();
         //pathFinding= world.GetOrCreateSystem<PathFinding>();
         gameLogicSystem = world.GetOrCreateSystem<GameLogicSystem>();
-        
+
         var initialize = world.GetOrCreateSystem<InitializeManager>();
-        
+
         initialize.AddSystemToUpdateList(inputSystem);
         initialize.AddSystemToUpdateList(swapWeaponSystem);
         initialize.AddSystemToUpdateList(playerTargetSystem);
         initialize.AddSystemToUpdateList(gameLogicSystem);
     }
+
     protected override void OnUpdate()
     {
         gameLogicSystem.Update();
@@ -35,13 +36,13 @@ public class InitializeManager : ComponentSystemGroup
         {
             //Dependency: None   
             inputSystem.Update();
-            
+
             swapWeaponSystem.Update();
-            
+
             //Dependency: InputSystem
             playerTargetSystem.Update();
         }
-        
+
         //TODO REMOVE
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
@@ -62,9 +63,11 @@ public class InitializeManager : ComponentSystemGroup
 
         if (Input.GetKeyDown(KeyCode.Keypad6))
         {
+#if UNITY_EDITOR
             Debug.Log("Oh no! You killed yourself lol");
+#endif
             LifeComponent life = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
-            life.Life.Value = 0;
+            life.Kill();
             EntityManager.SetComponentData(GameVariables.Player.Entity, life);
         }
     }
@@ -75,6 +78,5 @@ public class InitializeManager : ComponentSystemGroup
 
     public void OnSwapLevel()
     {
-        
     }
 }

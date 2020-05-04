@@ -64,7 +64,15 @@ namespace EventStruct
     public struct AnimationInfo
     {
         public Entity Entity;
+        public EventType Type;
         public State NewState;
+
+        public enum EventType
+        {
+            OnSwapAnimation,
+            OnAnimationStart,
+            OnAnimationEnd
+        }
     }
 
     public struct StateInfo
@@ -107,6 +115,7 @@ namespace EventStruct
         public int NbEnemy;
         public int NbEnemyMax;
         public int Difficulty;
+        public int DeathCount;
         
         public enum LevelEventType
         {

@@ -94,16 +94,16 @@ public class TemporaryEnemySpawnerSystem : SystemBase
             {
                 CreateEnemy(Type.Rat, out Entity rat);
                 if (rat != Entity.Null)
-                    CreateWeapon(WeaponType.Pistol, rat);
+                    CreateWeapon(WeaponType.RatWeapon, rat);
                 CreateEnemy(Type.Chicken, out Entity chicken);
                 if (chicken != Entity.Null)
-                    CreateWeapon(WeaponType.Pistol, chicken);
+                    CreateWeapon(WeaponType.ChickenWeapon, chicken);
                 CreateEnemy(Type.Pig, out Entity pig);
                 if (pig != Entity.Null)
-                    CreateWeapon(WeaponType.Shotgun, pig);
+                    CreateWeapon(WeaponType.PigWeapon, pig);
                 CreateEnemy(Type.Gorilla, out Entity gorilla);
                 if (gorilla != Entity.Null)
-                    CreateWeapon(WeaponType.Shotgun, gorilla);
+                    CreateWeapon(WeaponType.GorillaWeapon, gorilla);
             }
         }
         
@@ -112,7 +112,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
             {
                 CreateEnemy(Type.Pig, out Entity e);
                 if (e != Entity.Null)
-                    CreateWeapon(WeaponType.Shotgun, e);
+                    CreateWeapon(WeaponType.PigWeapon, e);
             }
 
         if (Input.GetKeyDown(KeyCode.O))
@@ -120,7 +120,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
             {
                 CreateEnemy(Type.Rat, out Entity e);
                 if (e != Entity.Null)
-                    CreateWeapon(WeaponType.Pistol, e);
+                    CreateWeapon(WeaponType.RatWeapon, e);
             }
 
         if (Input.GetKeyDown(KeyCode.I))
@@ -128,7 +128,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
             {
                 CreateEnemy(Type.Chicken, out Entity e);
                 if (e != Entity.Null)
-                    CreateWeapon(WeaponType.Pistol, e);
+                    CreateWeapon(WeaponType.ChickenWeapon, e);
             }
 
         if (Input.GetKeyDown(KeyCode.U))
@@ -138,6 +138,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                 if (e != Entity.Null)
                     CreateWeapon(WeaponType.Shotgun, e);
             }*/
+
     }
 
     private static void CreateEnemy(Type type, out Entity e, in int2 spawnPosition)

@@ -45,7 +45,7 @@ public class PlayerCollisionSystem : SystemBase
         if (isHit)
         {
             LifeComponent lifeComponent = EntityManager.GetComponentData<LifeComponent>(playerEntity);
-            lifeComponent.Life.Value -= 1;
+            lifeComponent.DecrementLife();
             EntityManager.SetComponentData(playerEntity, lifeComponent);
         }
     }

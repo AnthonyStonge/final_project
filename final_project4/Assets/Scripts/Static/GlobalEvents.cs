@@ -3,7 +3,6 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
-
 public static class GlobalEvents
 {
     public static class GameEvents
@@ -38,16 +37,29 @@ public static class GlobalEvents
         public static void Destroy<T>() where T : IComponentData
         {
             EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        
+
             //Create Query
             EntityQuery query = manager.CreateEntityQuery(typeof(T));
-        
+
             //Destroy entities with query
             manager.DestroyEntity(query);
         }
 
+        public static void StartHellLevel(int difficulty, int deathCount)
+        {
+            #if UNITY_EDITOR
+            Debug.Log("Current Difficulty : " + difficulty + ", Current Death Count : " + deathCount);
+            #endif
+
+            //TODO start Soundtrack for hell level
+            MapEvents.LoadMap(MapType.Level_Hell);
+        }
+
         public static void GameLost()
         {
+            //TODO Enable Game Over UI for short amount of time.
+            //Then show player in Menu Level.
+
             //Return player to Menu
             MapEvents.LoadMap(MapType.LevelMenu);
 
@@ -76,22 +88,23 @@ public static class GlobalEvents
 #if UNITY_EDITOR
             Debug.Log("On Player Death");
 #endif
-           /* GameVariables.Player.AmountLife--;
+            
+            /* GameVariables.Player.AmountLife--;
+ 
+             //Look if Player should respawn in current level
+             if (GameVariables.Player.AmountLife <= 0)
+                 GameEvents.GameLost();
+             else
+                 RespawnPlayerOnCheckPoint();*/
 
-            //Look if Player should respawn in current level
-            if (GameVariables.Player.AmountLife <= 0)
-                GameEvents.GameLost();
-            else
-                RespawnPlayerOnCheckPoint();*/
+            //Number of the time the player dies defines the difficulties of "Hell Level"
 
-           //Number of the time the player dies defines the difficulties of "Hell Level"
-           GameVariables.Player.PlayerDeathCount++;
-
+            //TODO Sound Event
+            //TODO VFX 
         }
 
         private static void SpawnPlayerOnHellLevel()
         {
-            
         }
 
         private static void RespawnPlayerOnCheckPoint()
