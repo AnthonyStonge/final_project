@@ -163,11 +163,7 @@ public class ProjectileHitDetectionSystem : SystemBase
 
     private static void DoDamage(ref LifeComponent component)
     {
-        if (component.DecrementLife())
-        {
-            Debug.Log("Player Hit");
-            GlobalEvents.CameraEvents.ShakeCam(.2f, 2, 3);
-        }
+        component.DecrementLife();
     }
 
 }

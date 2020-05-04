@@ -37,7 +37,15 @@ public class GlobalEventListenerSystem : SystemBase
         {
             //Default Level Logic
         }
-
+        //Player hit event
+        for (int i = 0; i < EventsHolder.BulletsEvents.Length - 1; i++)
+        {
+            if (EventsHolder.BulletsEvents[i].CollisionType == BulletInfo.BulletCollisionType.ON_PLAYER)
+            {
+                GlobalEvents.CameraEvents.ShakeCam(.2f, 2, 3);
+            }
+        }
+        
         //Look for player hp
         if (EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity).IsDead())
         {
