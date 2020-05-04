@@ -1,5 +1,6 @@
 ﻿using Enums;
 using Unity.Entities;
+using Unity.Rendering;
 using UnityEngine;
 
 [DisableAutoCreation]
@@ -21,7 +22,7 @@ public class InvincibleSystem : SystemBase
         var InvincibleDeathTime = GameVariables.InvincibleDeathTime;
         var InvincibleSpawnTime = GameVariables.InvincibleSpawnTime; 
         var InvicibleHitTime = GameVariables.InvicibleHitTime;
-        
+
         Entities.ForEach((ref InvincibleData invincible, ref LifeComponent life) =>
         {
             if (life.Invincibility != InvincibilityType.None)

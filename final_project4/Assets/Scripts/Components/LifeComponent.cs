@@ -18,7 +18,6 @@ public struct LifeComponent : IComponentData
         {
             return true;
         }
-
         return false;
     }
 

@@ -21,7 +21,7 @@ public static class GameVariables
     public static float InvincibleDashTime = 1.0f;
     public static float InvincibleDeathTime = 5.0f;
     public static float InvincibleSpawnTime = 5.0f;
-    public static float InvicibleHitTime = 3.0f;
+    public static float InvicibleHitTime = 1.5f;
 
     public static class Player
     {
@@ -31,8 +31,6 @@ public static class GameVariables
         public static Dictionary<WeaponType, Entity> PlayerWeaponEntities = new Dictionary<WeaponType, Entity>();
         public static List<WeaponType> PlayerWeaponTypes = new List<WeaponType>();
         public static WeaponType CurrentWeaponHeld;
-
-        public static ushort AmountLife = 3;    //TODO MOVE MAGIC NUMBER
 
         //Unity linker
         public static Transform Transform;
@@ -53,6 +51,13 @@ public static class GameVariables
 
     public static class Interactables
     {
-        public static InteractableInfo? Info;
+        public static Interactable? CurrentInteractableSelected;
+        public static Interactable? PreviousInteractableSelected;
+        
+        public struct Interactable
+        {
+            public Entity Entity;
+            public InteractableObjectType ObjectType;
+        }
     }
 }

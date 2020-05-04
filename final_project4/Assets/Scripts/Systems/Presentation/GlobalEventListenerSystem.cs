@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using Enums;
 using EventStruct;
 using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 
 [DisableAutoCreation]
 public class GlobalEventListenerSystem : SystemBase
 {
-    private float hellTimer = 20f;
+    private float hellTimer = 30f;
     private float currentHellTimer = 0f;
     private MapType LastMap;
 
     protected override void OnUpdate()
     {
+        var playerLifeComponent = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
         var levelEvents = EventsHolder.LevelEvents;
         if (levelEvents.CurrentLevel == MapType.Level_Hell)
         {
@@ -38,31 +40,20 @@ public class GlobalEventListenerSystem : SystemBase
         {
             //Default Level Logic
         }
-        //Player hit event
-        for (int i = 0; i < EventsHolder.BulletsEvents.Length - 1; i++)
+      
+        if (playerLifeComponent.Invincibility == InvincibilityType.Hit)
         {
-            if (EventsHolder.BulletsEvents[i].CollisionType == BulletInfo.BulletCollisionType.ON_PLAYER)
-            {
-                GlobalEvents.CameraEvents.ShakeCam(.2f, 1, 1.5f);
-            }
-        }
-
-        for (int i = 0; i < EventsHolder.StateEvents.Length - 1; i++)
-        {
-            if (EventsHolder.StateEvents[i].DesiredState == State.Dying)
-            {
-                EntityManager.DestroyEntity(EventsHolder.StateEvents[i].Entity);
-            }
+            GlobalEvents.CameraEvents.ShakeCam(.2f, 2, 3);
         }
         
         //Look for player hp
-        if (EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity).IsDead())
+        if (playerLifeComponent.IsDead())
         {
             if (levelEvents.CurrentLevel != MapType.Level_Hell)
             {
-                var lifeComponent = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
-                lifeComponent.Reset();
-                EntityManager.SetComponentData(GameVariables.Player.Entity, lifeComponent);
+                
+                playerLifeComponent.Reset();
+                EntityManager.SetComponentData(GameVariables.Player.Entity, playerLifeComponent);
                 
                 LastMap = EventsHolder.LevelEvents.CurrentLevel;
                 EventsHolder.LevelEvents.DeathCount++;

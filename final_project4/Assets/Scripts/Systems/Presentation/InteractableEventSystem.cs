@@ -30,7 +30,7 @@ public class InteractableEventSystem : SystemBase
                 OnEnterInputInteractable(info);
                 break;
             case InteractableInfo.InteractableCollisionType.OnTriggerExit:
-                OnExitInputInteractable();
+                OnExitInputInteractable(info);
                 break;
         }
     }
@@ -55,20 +55,46 @@ public class InteractableEventSystem : SystemBase
 
     private static void OnEnterInputInteractable(InteractableInfo info)
     {
+        Debug.Log($"Entered InputInteractable of type {info.ObjectType}");
         //Set Object in GameVariables
-        GameVariables.Interactables.Info = info;
-#if UNITY_EDITOR
-        Debug.Log("Adding info to GameVariables");
-#endif
+        GameVariables.Interactables.CurrentInteractableSelected = new GameVariables.Interactables.Interactable
+        {
+            Entity = info.Entity,
+            ObjectType = info.ObjectType
+        };
+        
+        //Toggle desired system on
+        switch (info.ObjectType)
+        {
+            case InteractableObjectType.Switch:
+                break;
+            case InteractableObjectType.Door:
+                ToggleSystem<InteractableDoorSystem>(true);
+                break;
+        }
     }
 
-    private static void OnExitInputInteractable()
+    private static void OnExitInputInteractable(InteractableInfo info)
     {
+        Debug.Log($"Exited InputInteractable of type {info.ObjectType}");
         //Remove Object in GameVariables
-        GameVariables.Interactables.Info = null;
-#if UNITY_EDITOR
-        Debug.Log("Removing info from GameVariables");
-#endif
+        GameVariables.Interactables.PreviousInteractableSelected = GameVariables.Interactables.CurrentInteractableSelected;
+        GameVariables.Interactables.CurrentInteractableSelected = null;
+        
+        //Toggle desired system off
+        switch (info.ObjectType)
+        {
+            case InteractableObjectType.Switch:
+                break;
+            case InteractableObjectType.Door:
+                ToggleSystem<InteractableDoorSystem>(false);
+                break;
+        }
+    }
+    
+    private static void ToggleSystem<T>(bool enable) where T : SystemBase
+    {
+        Unity.Entities.World.DefaultGameObjectInjectionWorld.GetExistingSystem<T>().Enabled = enable;
     }
 
     private static void OnEnterPortal(InteractableInfo info)
