@@ -43,7 +43,7 @@ public class GlobalEventListenerSystem : SystemBase
         {
             if (EventsHolder.BulletsEvents[i].CollisionType == BulletInfo.BulletCollisionType.ON_PLAYER)
             {
-                GlobalEvents.CameraEvents.ShakeCam(.2f, 2, 3);
+                GlobalEvents.CameraEvents.ShakeCam(.2f, 1, 1.5f);
             }
         }
 
