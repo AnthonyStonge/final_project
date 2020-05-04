@@ -209,6 +209,7 @@ public class RetrieveGunEventSystem : SystemBase
          
         switch (gun.WeaponType)
         {
+            case WeaponType.Machinegun:
             case WeaponType.Pistol:
                 ShootPistol(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);
                 break;

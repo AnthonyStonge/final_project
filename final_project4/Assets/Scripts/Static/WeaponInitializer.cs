@@ -30,6 +30,21 @@ public class WeaponInitializer
         });
         entityManager.SetEnabled(shotgun, false);
         Player.PlayerWeaponEntities.Add(WeaponType.Shotgun, shotgun);
+        
+        Entity machinegun = entityManager.Instantiate(WeaponHolder.WeaponPrefabDict[WeaponType.Machinegun]);
+        entityManager.SetComponentData(machinegun, new Parent
+        {
+            Value = Player.Entity
+        });
+        entityManager.SetEnabled(machinegun, false);
+        Player.PlayerWeaponEntities.Add(WeaponType.Machinegun, machinegun);
+        
+        Player.PlayerWeaponTypes.Add(WeaponType.Pistol);
+        Player.PlayerWeaponTypes.Add(WeaponType.Shotgun);
+        Player.PlayerWeaponTypes.Add(WeaponType.Machinegun);
+        
+        
+        
     }
 
     public static void Reset()

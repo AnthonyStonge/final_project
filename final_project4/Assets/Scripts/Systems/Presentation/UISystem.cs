@@ -31,8 +31,6 @@ public class UISystem : SystemBase
                 GameVariables.UI.ShotgunImage.enabled = true;
                 GameVariables.UI.PistolImage.enabled = false;
                 break;
-            default:
-                throw new ArgumentOutOfRangeException();
         }
         GameVariables.UI.NbBulletInMagazine.text = gunComponent.CurrentAmountBulletInMagazine.ToString();
         GameVariables.UI.NbBulletOnPlayer.text = gunComponent.CurrentAmountBulletOnPlayer.ToString();

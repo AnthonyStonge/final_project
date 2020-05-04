@@ -7,13 +7,14 @@ using UnityEngine;
 [DisableAutoCreation]
 public class SwapWeaponSystem : SystemBase
 {
-    private int gunEnumLength;
+    private int playerWeaponCount;
     private float swapWeaponTimer;
     private float delaySwapWeapon = 0.02f;    //TODO CHOOSE A GOOD TIMER DELAY
 
     protected override void OnCreate()
     {
-        gunEnumLength = Enum.GetNames(typeof(WeaponType)).Length;
+        playerWeaponCount = GameVariables.Player.PlayerWeaponEntities.Count;
+        // gunEnumLength = Enum.GetNames(typeof(WeaponType)).Length;
     }
 
     protected override void OnUpdate()
@@ -31,29 +32,26 @@ public class SwapWeaponSystem : SystemBase
             return;
         }
 
-        //Number > mouse wheel (override)
-        if (inputs.WeaponTypeDesired != GameVariables.Player.CurrentWeaponHeld)
-        {
-            SwapWeapon(inputs.WeaponTypeDesired);
-        }
-        else if (inputs.MouseWheel.y > 0)
-        {
-            //Get next weapon
-            WeaponType desired = (int) GameVariables.Player.CurrentWeaponHeld + 1 > gunEnumLength - 1
-                ? 0
-                : GameVariables.Player.CurrentWeaponHeld + 1;
-
-            SwapWeapon(desired);
-        }
+        //TODO Change order, should check first if player want to change gun, then query the array
+        var weapontypes = GameVariables.Player.PlayerWeaponTypes;
+        int index = weapontypes.IndexOf(GameVariables.Player.CurrentWeaponHeld);
+        
+        if (inputs.MouseWheel.y > 0)
+            index++;
         else if (inputs.MouseWheel.y < 0)
+            index--;
+        //If player doesn't want to change weapon
+        else return;
+        
+        if (index < 0)
         {
-            //Get previous weapon
-            WeaponType desired = (int) GameVariables.Player.CurrentWeaponHeld - 1 < 0
-                ? (WeaponType) gunEnumLength - 1
-                : GameVariables.Player.CurrentWeaponHeld - 1;
-
-            SwapWeapon(desired);
+            index = weapontypes.Count - 1;
         }
+        else if (index >= weapontypes.Count)
+        {
+            index = 0;
+        }
+        SwapWeapon(weapontypes[index]);
     }
 
     private void SwapWeapon(WeaponType type)

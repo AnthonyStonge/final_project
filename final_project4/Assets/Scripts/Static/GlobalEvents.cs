@@ -3,7 +3,6 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
-
 public static class GlobalEvents
 {
     public static class GameEvents
@@ -48,9 +47,9 @@ public static class GlobalEvents
 
         public static void StartHellLevel(int difficulty, int deathCount)
         {
-#if UNITY_EDITOR
+            #if UNITY_EDITOR
             Debug.Log("Current Difficulty : " + difficulty + ", Current Death Count : " + deathCount);
-#endif
+            #endif
 
             //TODO start Soundtrack for hell level
             MapEvents.LoadMap(MapType.Level_Hell);
