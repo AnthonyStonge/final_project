@@ -114,15 +114,8 @@ public class ProjectileHitDetectionSystem : SystemBase
                             LifeComponent life = entitiesLife.Components[hitEntity];
                             
                             //Decrease life
-                            if (player == hitEntity)
-                            {
-                                DoDamage(ref life);
-                            }
-                            else
-                            {
-                                life.Life.Value--;
-                            }
-                            
+                            if (player == hitEntity) life.DecrementLifeWithInvincibility();
+                            else                     life.DecrementLife();
 
                             //Set Back
                             entityCommandBuffer.SetComponent(entityInQueryIndex, hitEntity, life);
@@ -157,10 +150,4 @@ public class ProjectileHitDetectionSystem : SystemBase
             while (BulletInfos.TryDequeue(out BulletInfo info)) EventsHolder.BulletsEvents.Add(info);
          }
      }
-
-    private static void DoDamage(ref LifeComponent component)
-    {
-        component.DecrementLife();
-    }
-
 }
