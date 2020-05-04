@@ -272,6 +272,10 @@ MonoBehaviour:
   PositionToGo:
     x: 0
     y: 0
+  player:
+    x: 0
+    y: 0
+    z: 0
   pathIndex: 0
   EnemyState: 0
   timeWonderingCounter: 0
@@ -300,5 +304,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b77c5f35789e848a5bbc103f422bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Distance: 2
+  Distance: 4
   IsInRange: 0

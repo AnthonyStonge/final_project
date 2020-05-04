@@ -37,7 +37,7 @@ public struct LifeComponent : IComponentData
         IsInvincible = false;
     }
     
-    public bool DecrementLife()
+    public bool DecrementLifeWithInvincibility()
     {
         if (!IsInvincible)
         {
@@ -47,6 +47,11 @@ public struct LifeComponent : IComponentData
         }
 
         return false;
+    }
+
+    public void DecrementLife()
+    {
+        Life.Value--;
     }
     
     public void Reset()

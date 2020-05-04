@@ -63,7 +63,7 @@ MonoBehaviour:
   MaxBulletOnPlayer: 9999
   ResetBetweenShotTime: 0.3
   ResetReloadTime: 0
-  BulletPrefab: {fileID: 8337288439267534834, guid: 950f480c66d432542924efec9f68e4f1,
+  BulletPrefab: {fileID: 8337288439267534834, guid: e31ca9bd6a6f24640bd8d88824751e6c,
     type: 3}
   CurrentAmountBulletInMagazine: 9999
   CurrentAmountBulletOnPlayer: 9999

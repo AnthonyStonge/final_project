@@ -41,11 +41,9 @@ public class PathFollowSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<PlayerTag>()
         };
-        
         var physicsWorld = buildPhysicsWorld.PhysicsWorld;
         double time = Time.ElapsedTime;
         float deltaTime = Time.DeltaTime;
-        
         float3 posPlayer = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
         
         Entities.ForEach((int nativeThreadIndex, DynamicBuffer<PathPosition> pathPos, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, ref Translation translation) =>
@@ -65,21 +63,21 @@ public class PathFollowSystem : SystemBase
             }
 
             //State changer 
-            if (math.distancesq(translation.Value, posPlayer) <= 40 * 40)
+            if (math.distancesq(translation.Value, posPlayer) <= 20 * 20)
             {
-                RaycastInput raycastInput2 = new RaycastInput
+                RaycastInput raycastInput = new RaycastInput
                 {
                     Start = translation.Value,
                     End = posPlayer,
                     Filter = Filter
                 };
-                if (physicsWorld.CollisionWorld.CastRay(raycastInput2, out var hit))
+                if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
                 {
                     if (player.Components.HasComponent(hit.Entity))
                     {
                         if (math.distance(translation.Value, posPlayer) > 20)
                         {
-                            pathFollow.EnemyState = EnemyState.Chase;
+                            //pathFollow.EnemyState = EnemyState.Chase;
                         }
                         else
                         {
@@ -192,12 +190,10 @@ public class PathFollowSystem : SystemBase
     private static void AttackFollow(float3 pos, ref PathFollowComponent pathFollow,
         ref AttackRangeComponent range, in Translation translation)
     {
-        if (math.distance(pos, translation.Value) >= range.Distance)
-            pathFollow.PositionToGo = (int2) pos.xz;
-        else
-        {
+        pathFollow.PositionToGo = (int2) pos.xz;
+        pathFollow.player = pos;
+        if (math.distance(pos, translation.Value) < range.Distance)
             range.IsInRange = true;
-        }
     }
     protected override void OnDestroy()
     {

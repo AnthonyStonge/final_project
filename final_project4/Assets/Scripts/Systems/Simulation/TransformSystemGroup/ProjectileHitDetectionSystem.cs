@@ -66,7 +66,7 @@ public class ProjectileHitDetectionSystem : SystemBase
         
         JobHandle job = Entities.ForEach((Entity entity, int entityInQueryIndex, ref DamageProjectile projectile, ref Translation translation, in Rotation rotation, in BulletCollider bulletCollider) =>
         {
-            CollisionFilter Filter = new CollisionFilter
+            CollisionFilter filter = new CollisionFilter
             {
                 BelongsTo = bulletCollider.BelongsTo.Value,
                 CollidesWith = bulletCollider.CollidesWith.Value,
@@ -76,7 +76,7 @@ public class ProjectileHitDetectionSystem : SystemBase
             {
                 Start = projectile.PreviousPosition,
                 End = translation.Value,
-                Filter = Filter
+                Filter = filter
             };
             
             //Cast ray
@@ -114,15 +114,8 @@ public class ProjectileHitDetectionSystem : SystemBase
                             LifeComponent life = entitiesLife.Components[hitEntity];
                             
                             //Decrease life
-                            if (player == hitEntity)
-                            {
-                                DoDamage(ref life);
-                            }
-                            else
-                            {
-                                life.Life.Value--;
-                            }
-                            
+                            if (player == hitEntity) life.DecrementLifeWithInvincibility();
+                            else                     life.DecrementLife();
 
                             //Set Back
                             entityCommandBuffer.SetComponent(entityInQueryIndex, hitEntity, life);
@@ -142,7 +135,7 @@ public class ProjectileHitDetectionSystem : SystemBase
             }
         }).ScheduleParallel(Dependency);
         
-        Dependency = JobHandle.CombineDependencies(job, new EventQueueJob{ weaponInfos = bulletEvents}.Schedule(job));
+        Dependency = JobHandle.CombineDependencies(job, new EventQueueJob{ BulletInfos = bulletEvents}.Schedule(job));
 
         endSimulationEntityCommandBufferSystem.AddJobHandleForProducer(Dependency);
         
@@ -150,20 +143,11 @@ public class ProjectileHitDetectionSystem : SystemBase
 
     struct EventQueueJob : IJob
      {
-         public NativeQueue<BulletInfo> weaponInfos;
+         public NativeQueue<BulletInfo> BulletInfos;
 
          public void Execute()
          {
-            while (weaponInfos.TryDequeue(out BulletInfo info))
-             {
-                 EventsHolder.BulletsEvents.Add(info);
-             }
+            while (BulletInfos.TryDequeue(out BulletInfo info)) EventsHolder.BulletsEvents.Add(info);
          }
      }
-
-    private static void DoDamage(ref LifeComponent component)
-    {
-        component.DecrementLife();
-    }
-
 }
