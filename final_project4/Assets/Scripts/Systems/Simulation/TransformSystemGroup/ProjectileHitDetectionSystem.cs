@@ -111,7 +111,7 @@ public class ProjectileHitDetectionSystem : SystemBase
                         
                         //Decrease life
                         DoDamage(ref life);
-                        
+
                         //Set Back
                         entityCommandBuffer.SetComponent(entityInQueryIndex, hitEntity, life);
                     }
@@ -129,7 +129,7 @@ public class ProjectileHitDetectionSystem : SystemBase
             }
         }).ScheduleParallel(Dependency);
         
-        Dependency = JobHandle.CombineDependencies(job, new EventQueueJob{ weaponInfos = bulletEvents}.Schedule(job));
+        Dependency = JobHandle.CombineDependencies(job, new EventQueueJob{ BulletInfos = bulletEvents}.Schedule(job));
 
         endSimulationEntityCommandBufferSystem.AddJobHandleForProducer(Dependency);
         
@@ -137,14 +137,11 @@ public class ProjectileHitDetectionSystem : SystemBase
 
     struct EventQueueJob : IJob
      {
-         public NativeQueue<BulletInfo> weaponInfos;
+         public NativeQueue<BulletInfo> BulletInfos;
 
          public void Execute()
          {
-            while (weaponInfos.TryDequeue(out BulletInfo info))
-             {
-                 EventsHolder.BulletsEvents.Add(info);
-             }
+            while (BulletInfos.TryDequeue(out BulletInfo info)) EventsHolder.BulletsEvents.Add(info);
          }
      }
 
