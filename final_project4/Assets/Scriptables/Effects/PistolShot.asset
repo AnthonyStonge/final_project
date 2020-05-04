@@ -27,4 +27,6 @@ MonoBehaviour:
     EventType: 1
   - WeaponType: 1
     EventType: 2
+  - WeaponType: 6
+    EventType: 0
   Bullets: []

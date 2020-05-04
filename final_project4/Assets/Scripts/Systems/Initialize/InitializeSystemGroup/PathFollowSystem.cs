@@ -79,7 +79,7 @@ public class PathFollowSystem : SystemBase
                     {
                         if (math.distance(translation.Value, posPlayer) > 20)
                         {
-                            pathFollow.EnemyState = EnemyState.Chase;
+                            // pathFollow.EnemyState = EnemyState.Chase;
                         }
                         else
                         {

@@ -20,8 +20,6 @@ MonoBehaviour:
     CollisionType: 0
   - BulletType: 0
     CollisionType: 1
-  - BulletType: 0
-    CollisionType: 2
   - BulletType: 1
     CollisionType: 0
   - BulletType: 1
