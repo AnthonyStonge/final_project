@@ -51,7 +51,6 @@ public static class MapEvents
         entityManager.CompleteAllJobs();
         OnSwapLevel();
         TryUnloadMap();
-        entityManager.CompleteAllJobs();
         //Load new map
         CurrentTypeLoaded = type;
         CurrentMapLoaded = entityManager.Instantiate(MapHolder.MapPrefabDict[type]);

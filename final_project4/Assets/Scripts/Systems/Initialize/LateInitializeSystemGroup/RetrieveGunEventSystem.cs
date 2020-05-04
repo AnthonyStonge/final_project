@@ -30,7 +30,12 @@ public class RetrieveGunEventSystem : SystemBase
     {
         entityCommandBuffer = World.GetExistingSystem<EndInitializationEntityCommandBufferSystem>();
         if (entityCommandBuffer == null)
+        {
+#if UNITY_EDITOR
             Debug.Log("GET DOWN! Problem incoming...");
+#endif
+        }
+
         weaponFired = new NativeQueue<WeaponInfo>(Allocator.Persistent);
     }
 
@@ -52,9 +57,9 @@ public class RetrieveGunEventSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<StateComponent>()
         };
-        
+
         float deltaTime = Time.DeltaTime;
-        
+
         JobHandle gunJob = Entities.ForEach(
             (Entity e, int entityInQueryIndex, ref GunComponent gun, in LocalToWorld transform, in Parent parent) =>
             {
@@ -64,7 +69,7 @@ public class RetrieveGunEventSystem : SystemBase
                     gun.SwapTimer -= deltaTime;
                     return;
                 }
-                
+
                 //Make sure gun has a parent
                 if (!states.Components.HasComponent(parent.Value))
                     return;
@@ -97,11 +102,10 @@ public class RetrieveGunEventSystem : SystemBase
                 //Should weapon be reloading?    //Deactivate this line to block auto reload
                 if (TryStartReload(ref gun))
                     weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
-                
+
                 if (state.CurrentState == State.Attacking)
                     if (TryShoot(ref gun))
                     {
-                        
                         weaponEventType = WeaponInfo.WeaponEventType.ON_SHOOT;
                         Shoot(entityInQueryIndex, ecb, ref gun, transform);
                     }
@@ -203,10 +207,10 @@ public class RetrieveGunEventSystem : SystemBase
     {
         //Decrease bullets
         gun.CurrentAmountBulletInMagazine--;
-        
+
         //Reset between shot timer
         gun.BetweenShotTime = gun.ResetBetweenShotTime - gun.BetweenShotTime;
-         
+
         switch (gun.WeaponType)
         {
             case WeaponType.Machinegun:
@@ -301,8 +305,6 @@ public class RetrieveGunEventSystem : SystemBase
     {
         int nbBullet = 15;
         float angle = 360f / nbBullet;
-        
-        
 
         for (int i = 0; i < nbBullet; i++)
         {
