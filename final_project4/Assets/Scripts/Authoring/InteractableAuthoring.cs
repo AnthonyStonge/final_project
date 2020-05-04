@@ -1,6 +1,7 @@
 ﻿using Enums;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 [DisallowMultipleComponent]
 [RequiresEntityConversion]
@@ -15,9 +16,10 @@ public class InteractableAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     public ushort PortalId;
     public Transform PlayerTeleportPosition;
 
-    [Space(5)]
-    public MapType MapTypeLeadingTo;
+    [Space(5)] public MapType MapTypeLeadingTo;
     public ushort PortalIdLeadingTo;
+
+    [Header("Door")] public GameObject DoorToOpen;
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
@@ -28,7 +30,7 @@ public class InteractableAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponentData(entity, new InteractableComponent
         {
             Type = Type,
-            ObjectType = ObjectType
+            ObjectType = ObjectType,
         });
 
         //Add to Map portals
@@ -42,7 +44,7 @@ public class InteractableAuthoring : MonoBehaviour, IConvertGameObjectToEntity
             {
                 PlayerTeleportPosition = transform;
             }
-            
+
             //Add info
             MapHolder.MapsInfo[CurrentMapType].Portals.Add(PortalId, new MapInfo.Portal
             {
@@ -52,12 +54,30 @@ public class InteractableAuthoring : MonoBehaviour, IConvertGameObjectToEntity
                 MapTypeLeadingTo = MapTypeLeadingTo,
                 PortalIdLeadingTo = PortalIdLeadingTo
             });
-            
+
             //Add Component to Entity
             dstManager.AddComponentData(entity, new PortalData
             {
                 Value = PortalId
             });
+        }
+
+        if (ObjectType == InteractableObjectType.Door)
+        {
+            //If Type Door -> Make sure theres a door linked to it lol
+            Assert.IsNotNull(DoorToOpen);
+
+            dstManager.AddComponentData(entity, new InteractableComponent
+            {
+                Type = Type,
+                ObjectType = ObjectType,
+                DoorToOpen = conversionSystem.GetPrimaryEntity(DoorToOpen)
+            });
+            dstManager.AddSharedComponentData(entity, new AnimationBatch
+            {
+                BatchId = AnimationHolder.AddAnimatedObject()
+            });
+            dstManager.AddComponent<AnimationData>(entity);
         }
     }
 }

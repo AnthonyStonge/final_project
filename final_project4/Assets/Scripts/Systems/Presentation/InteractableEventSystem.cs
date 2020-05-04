@@ -1,11 +1,20 @@
 ﻿using Enums;
 using EventStruct;
 using Unity.Entities;
+using Unity.Physics;
+using Unity.Rendering;
 using UnityEngine;
 
 [DisableAutoCreation]
 public class InteractableEventSystem : SystemBase
 {
+    private static EntityManager manager;
+
+    protected override void OnCreate()
+    {
+        manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+    }
+
     protected override void OnUpdate()
     {
         foreach (InteractableInfo info in EventsHolder.InteractableEvents)
@@ -49,6 +58,9 @@ public class InteractableEventSystem : SystemBase
                 break;
             case InteractableObjectType.Ammo:
                 OnWalkOverAmmo(info);
+                break;
+            case InteractableObjectType.Door:
+                OnEnterDoorTrigger(info);
                 break;
         }
     }
@@ -157,5 +169,22 @@ public class InteractableEventSystem : SystemBase
 #if UNITY_EDITOR
         Debug.Log("Walked Over Ammo");
 #endif
+    }
+
+    private static void OnEnterDoorTrigger(InteractableInfo info)
+    {
+        //Get Door Entity
+        Entity door = manager.GetComponentData<InteractableComponent>(info.Entity).DoorToOpen;
+        
+        //Remove Door collider
+        manager.RemoveComponent<PhysicsCollider>(door);
+        
+        //TODO Start animation
+        
+        //TODO REMOVE UNDER
+        manager.RemoveComponent<RenderMesh>(door);
+        
+        //Remove Trigger (because its been use so...)
+        manager.DestroyEntity(info.Entity);
     }
 }
