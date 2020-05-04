@@ -59,7 +59,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                     CreateWeapon(WeaponType.RatWeapon, rat);
                     break;
             }
-            
+            EventsHolder.LevelEvents.NbEnemy++;
         }
         
     }
@@ -99,6 +99,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                         spawnerTest.currentTime = Random.Range(copySpawner[i].TimeRangeBetweenSpawn.x,
                             copySpawner[i].TimeRangeBetweenSpawn.y);
                         copySpawner[i] = spawnerTest;
+                        EventsHolder.LevelEvents.NbEnemy++;
                     }
                     else
                     {

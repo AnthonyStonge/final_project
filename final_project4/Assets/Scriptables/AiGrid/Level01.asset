@@ -233,7 +233,7 @@ MonoBehaviour:
       y: 99
     NbEnnemyMax: 50
     EnemyType: 1
-    currentEnnemySpawn: 16853
+    currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
       x: 5
       y: 20
@@ -244,7 +244,7 @@ MonoBehaviour:
       y: 85
     NbEnnemyMax: 30
     EnemyType: 2
-    currentEnnemySpawn: 18049
+    currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
       x: 2
       y: 5
