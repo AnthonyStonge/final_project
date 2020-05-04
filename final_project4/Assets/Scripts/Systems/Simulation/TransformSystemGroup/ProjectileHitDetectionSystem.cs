@@ -29,20 +29,21 @@ public class ProjectileHitDetectionSystem : SystemBase
         buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
         bulletEvents = new NativeQueue<BulletInfo>(Allocator.Persistent);
     }
-
+    
     protected override void OnDestroy()
     {
         bulletEvents.Dispose();
     }
-
+    
     protected override void OnUpdate()
     {
+        
         var physicsWorld = buildPhysicsWorld.PhysicsWorld;
         var entityCommandBuffer = endSimulationEntityCommandBufferSystem.CreateCommandBuffer().ToConcurrent();
-
+        
         //Create parallel writer
         NativeQueue<BulletInfo>.ParallelWriter events = bulletEvents.AsParallelWriter();
-
+        
         //Get all enemy existing
         ComponentDataContainer<EnemyTag> enemies = new ComponentDataContainer<EnemyTag>
         {
@@ -80,91 +81,76 @@ public class ProjectileHitDetectionSystem : SystemBase
             //Cast ray
             if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
             {
-                //Make sure Filter exists for ProjectileType
-                if (!ProjectileHolder.ProjectileFilters.ContainsKey(projectile.Type))
-                    return;
+                //**If it gets to this point, it mean u should delete bullet and if HitEntity is not a wall -> Decrease life**
+                
+                Entity hitEntity = physicsWorld.Bodies[hit.RigidBodyIndex].Entity;
 
-                RaycastInput raycastInput = new RaycastInput
+                //Collision = Wall until proven opposite
+                BulletInfo.BulletCollisionType collisionType = BulletInfo.BulletCollisionType.ON_WALL;
+
+                //Look if HitEntity is Player's
+                if (hitEntity == player)
                 {
-                    Start = projectile.PreviousPosition,
-                    End = translation.Value,
-                    Filter = ProjectileHolder.ProjectileFilters[projectile.Type]
-                };
-
-                //Cast ray
-                if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
-                {
-                    //**If it gets to this point, it mean u should delete bullet and if HitEntity is not a wall -> Decrease life**
-
-                    Entity hitEntity = physicsWorld.Bodies[hit.RigidBodyIndex].Entity;
-
-                    //Collision = Wall until proven opposite
-                    BulletInfo.BulletCollisionType collisionType = BulletInfo.BulletCollisionType.ON_WALL;
-
-                    //Look if HitEntity is Player's
-                    if (hitEntity == player)
-                    {
-                        collisionType = BulletInfo.BulletCollisionType.ON_PLAYER;
-                    }
-                    //Look if HitEntity is an enemy
-                    else if (enemies.Components.HasComponent(hitEntity))
-                    {
-                        collisionType = BulletInfo.BulletCollisionType.ON_ENEMY;
-                    }
-
-
-                    //Damage entity
-                    if (collisionType != BulletInfo.BulletCollisionType.ON_WALL)
-                    {
-                        //Make sure HitEntity has LifeComponent
-                        if (entitiesLife.Components.HasComponent(hitEntity))
-                        {
-                            //Get LifeComponent of this entity
-                            LifeComponent life = entitiesLife.Components[hitEntity];
-                            
-                            //Decrease life
-                            DoDamage(ref life);
-
-                            //Set Back
-                            entityCommandBuffer.SetComponent(entityInQueryIndex, hitEntity, life);
-                        }
-                    }
-
-                    //Destroy bullet
-                    entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
-                    events.Enqueue(new BulletInfo
-                    {
-                        ProjectileType = projectile.Type,
-                        CollisionType = collisionType,
-                        HitPosition = hit.Position,
-                        HitRotation = rotation.Value
-                    });
+                    collisionType = BulletInfo.BulletCollisionType.ON_PLAYER;
                 }
-            }).ScheduleParallel(Dependency);
+                //Look if HitEntity is an enemy
+                else if (enemies.Components.HasComponent(hitEntity))
+                {
+                    collisionType = BulletInfo.BulletCollisionType.ON_ENEMY;
+                }
 
-        Dependency = JobHandle.CombineDependencies(job, new EventQueueJob {weaponInfos = bulletEvents}.Schedule(job));
+                
+                //Damage entity
+                if (collisionType != BulletInfo.BulletCollisionType.ON_WALL)
+                {
+                    //Make sure HitEntity has LifeComponent
+                    if (entitiesLife.Components.HasComponent(hitEntity))
+                    {
+                        //Get LifeComponent of this entity
+                        LifeComponent life = entitiesLife.Components[hitEntity];
+                        
+                        //Decrease life
+                        DoDamage(ref life);
+                        
+                        //Set Back
+                        entityCommandBuffer.SetComponent(entityInQueryIndex, hitEntity, life);
+                    }
+                }
+
+                //Destroy bullet
+                entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
+                events.Enqueue(new BulletInfo
+                {
+                    ProjectileType = projectile.Type,
+                    CollisionType = collisionType,
+                    HitPosition = hit.Position,
+                    HitRotation = rotation.Value
+                });
+            }
+        }).ScheduleParallel(Dependency);
+        
+        Dependency = JobHandle.CombineDependencies(job, new EventQueueJob{ weaponInfos = bulletEvents}.Schedule(job));
 
         endSimulationEntityCommandBufferSystem.AddJobHandleForProducer(Dependency);
+        
     }
 
     struct EventQueueJob : IJob
-    {
-        public NativeQueue<BulletInfo> weaponInfos;
+     {
+         public NativeQueue<BulletInfo> weaponInfos;
 
-        public void Execute()
-        {
+         public void Execute()
+         {
             while (weaponInfos.TryDequeue(out BulletInfo info))
-            {
-                EventsHolder.BulletsEvents.Add(info);
-            }
-        }
-    }
+             {
+                 EventsHolder.BulletsEvents.Add(info);
+             }
+         }
+     }
 
     private static void DoDamage(ref LifeComponent component)
     {
-        if (component.DecrementLife())
-        {
-            GlobalEvents.CameraEvents.ShakeCam(.5f, 3, 3);
-        }
+        component.Life.Value--;
     }
+
 }
