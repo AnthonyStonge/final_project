@@ -43,7 +43,7 @@ Transform:
   - {fileID: 3743658022103472500}
   - {fileID: 6600369185259317574}
   m_Father: {fileID: 9044775325000084866}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4874007851270785481
 GameObject:
@@ -221,7 +221,7 @@ Transform:
   - {fileID: 7215038563126020397}
   - {fileID: 5166820455848286276}
   m_Father: {fileID: 9044775325000084866}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7207370913967727693
 GameObject:
@@ -253,7 +253,7 @@ Transform:
   m_LocalScale: {x: 3.0772, y: 3.7227, z: 2.6033645}
   m_Children: []
   m_Father: {fileID: 9044775325000084866}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7145700076232995309
 MonoBehaviour:
@@ -271,7 +271,7 @@ MonoBehaviour:
   ObjectType: 1
   CurrentMapType: 1
   PortalId: 1001
-  PlayerSpawnPosition: {fileID: 9171267757375848574}
+  PlayerTeleportPosition: {fileID: 9171267757375848574}
   MapTypeLeadingTo: 2
   PortalIdLeadingTo: 102
   DoorToOpen: {fileID: 0}
@@ -348,6 +348,36 @@ MonoBehaviour:
       m_Override: 0
       m_Value: 0000000000000000
   m_ConvexRadius_Deprecated: -1
+--- !u!1 &7365597876523895812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2155764304264006761}
+  m_Layer: 0
+  m_Name: SpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2155764304264006761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7365597876523895812}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -46.3, y: 0, z: 44.84}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9044775325000084866}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7893173791657091121
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,7 +407,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9044775325000084866}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6489903662936259818
 MonoBehaviour:
@@ -395,7 +425,7 @@ MonoBehaviour:
   ObjectType: 1
   CurrentMapType: 1
   PortalId: 101
-  PlayerSpawnPosition: {fileID: 5177420585205290951}
+  PlayerTeleportPosition: {fileID: 5177420585205290951}
   MapTypeLeadingTo: 1
   PortalIdLeadingTo: 999
   DoorToOpen: {fileID: 0}
@@ -408,6 +438,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9044775325000084866}
+  - component: {fileID: 2375698197565517890}
   m_Layer: 0
   m_Name: level_01_tutorial
   m_TagString: Untagged
@@ -426,6 +457,7 @@ Transform:
   m_LocalPosition: {x: 51.05, y: 0, z: 49.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2155764304264006761}
   - {fileID: 9044775325257914239}
   - {fileID: 4602419397412970434}
   - {fileID: 421758646802733207}
@@ -436,6 +468,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2375698197565517890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9044775325000084865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d4de9690c30db145b63b93facdd1047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentLevel: 1
+  SpawnPos: {fileID: 2155764304264006761}
 --- !u!114 &3717432978392192747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9281,7 +9327,7 @@ PrefabInstance:
     - target: {fileID: 2262145449272113576, guid: 3b37758a740f92e448ca59752ffac622,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2262145449272113576, guid: 3b37758a740f92e448ca59752ffac622,
         type: 3}

@@ -91,7 +91,7 @@ public class AnimationEventSystem : SystemBase
         if (rnd.Next(20) == 10)
         {
             var trans = entityManager.GetComponentData<Translation>(info.Entity);
-
+            
             DropSystem.DropAmmunition(entityManager, trans.Value);
         }
         
