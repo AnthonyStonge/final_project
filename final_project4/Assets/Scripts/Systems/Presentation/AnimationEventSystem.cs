@@ -90,11 +90,11 @@ public class AnimationEventSystem : SystemBase
 
         if (rnd.Next(20) == 10)
         {
-            var trans = entityManager.GetComponentData<Translation>(info.Entity);
+            //TODO GAB
+            /*var trans = entityManager.GetComponentData<Translation>(info.Entity);
             
-            DropSystem.DropAmmunition(entityManager, trans.Value);
+            DropSystem.DropAmmunition(entityManager, trans.Value);*/
         }
-            
         
         //Destroy entity
         entityManager.DestroyEntity(info.Entity);
