@@ -460,7 +460,7 @@ MonoBehaviour:
   PortalId: 101
   PlayerTeleportPosition: {fileID: 5177420585205290951}
   MapTypeLeadingTo: 1
-  PortalIdLeadingTo: 999
+  PortalIdLeadingTo: 888
   DoorToOpen: {fileID: 0}
 --- !u!1 &9044775325000084865
 GameObject:
@@ -8552,6 +8552,21 @@ PrefabInstance:
       propertyPath: DoorToOpen
       value: 
       objectReference: {fileID: 6971403822717440355}
+    - target: {fileID: 1882308032587733324, guid: 59e7e473dcd7dca44ae8444fd8954454,
+        type: 3}
+      propertyPath: PortalId
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882308032587733324, guid: 59e7e473dcd7dca44ae8444fd8954454,
+        type: 3}
+      propertyPath: PortalIdLeadingTo
+      value: 65534
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882308032587733324, guid: 59e7e473dcd7dca44ae8444fd8954454,
+        type: 3}
+      propertyPath: MapTypeLeadingTo
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3392218963368981808, guid: 59e7e473dcd7dca44ae8444fd8954454,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10668,6 +10683,21 @@ PrefabInstance:
       propertyPath: DoorToOpen
       value: 
       objectReference: {fileID: 376494859451933716}
+    - target: {fileID: 1882308032587733324, guid: 59e7e473dcd7dca44ae8444fd8954454,
+        type: 3}
+      propertyPath: PortalId
+      value: 2001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882308032587733324, guid: 59e7e473dcd7dca44ae8444fd8954454,
+        type: 3}
+      propertyPath: MapTypeLeadingTo
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882308032587733324, guid: 59e7e473dcd7dca44ae8444fd8954454,
+        type: 3}
+      propertyPath: PortalIdLeadingTo
+      value: 65535
+      objectReference: {fileID: 0}
     - target: {fileID: 3392218963368981808, guid: 59e7e473dcd7dca44ae8444fd8954454,
         type: 3}
       propertyPath: m_LocalPosition.x

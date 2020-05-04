@@ -6,10 +6,10 @@ public class TransformSimulationManager : ComponentSystemGroup
     private TranslateSystem translateSystem;
     private RotateSystem rotateSystem;
     private ProjectileHitDetectionSystem projectileHitDetectionSystem;
-    private PathFinding pathFinding;
+    //private PathFinding pathFinding;
     private PathFollowSystem pathFollowSystem;
     private EnemyFollowSystem enemyFollowSystem;
-    private TestToRenameIfWork testToRenameIfWork;
+   // private TestToRenameIfWork testToRenameIfWork;
     protected override void OnCreate()
     {
         var world = World.DefaultGameObjectInjectionWorld;
@@ -17,9 +17,9 @@ public class TransformSimulationManager : ComponentSystemGroup
         translateSystem = world.GetOrCreateSystem<TranslateSystem>();
         rotateSystem = world.GetOrCreateSystem<RotateSystem>();
         projectileHitDetectionSystem = world.GetOrCreateSystem<ProjectileHitDetectionSystem>();
-        pathFinding = world.GetOrCreateSystem<PathFinding>();
+        //pathFinding = world.GetOrCreateSystem<PathFinding>();
         pathFollowSystem = world.GetOrCreateSystem<PathFollowSystem>();
-        testToRenameIfWork = world.GetOrCreateSystem<TestToRenameIfWork>();
+       // testToRenameIfWork = world.GetOrCreateSystem<TestToRenameIfWork>();
         enemyFollowSystem = world.GetOrCreateSystem<EnemyFollowSystem>();
         
         var transform = world.GetOrCreateSystem<TransformSimulationManager>();
@@ -27,9 +27,9 @@ public class TransformSimulationManager : ComponentSystemGroup
         transform.AddSystemToUpdateList(translateSystem);
         transform.AddSystemToUpdateList(rotateSystem);
         transform.AddSystemToUpdateList(projectileHitDetectionSystem);
-        transform.AddSystemToUpdateList(pathFinding);
+        //transform.AddSystemToUpdateList(pathFinding);
         transform.AddSystemToUpdateList(pathFollowSystem);
-        transform.AddSystemToUpdateList(testToRenameIfWork);
+        //transform.AddSystemToUpdateList(testToRenameIfWork);
         transform.AddSystemToUpdateList(enemyFollowSystem);
     }
 
@@ -41,15 +41,15 @@ public class TransformSimulationManager : ComponentSystemGroup
         //Dependency : RotatePlayerEnemySystem
         translateSystem.Update();
         projectileHitDetectionSystem.Update();
-        testToRenameIfWork.Update();
-        pathFinding.Update();
+       // testToRenameIfWork.Update();
+        //pathFinding.Update();
         pathFollowSystem.Update();
         enemyFollowSystem.Update();
     }
     
     public void OnSwapLevel()
     {
-        pathFinding.InitializeGrid(EventsHolder.LevelEvents.CurrentLevel);
+       // pathFinding.InitializeGrid(EventsHolder.LevelEvents.CurrentLevel);
         TemporaryEnemySpawnerSystem.InitializeDefaultEnemySpawn(EventsHolder.LevelEvents.CurrentLevel);
     }
 }

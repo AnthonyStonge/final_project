@@ -11,6 +11,8 @@ public class LateSimulationManager : ComponentSystemGroup
     private RetrieveInteractableCollisionsSystem retrieveInteractableCollisionsSystem;
     private PlayerCollisionSystem playerCollisionSystem;
 
+    private TemporaryEnemySpawnerSystem temporaryEnemySpawnerSystem;
+
     protected override void OnCreate()
     {        
         var world = World.DefaultGameObjectInjectionWorld;
@@ -20,6 +22,7 @@ public class LateSimulationManager : ComponentSystemGroup
 
         retrieveInteractableCollisionsSystem = world.GetOrCreateSystem<RetrieveInteractableCollisionsSystem>();
         playerCollisionSystem = world.GetOrCreateSystem<PlayerCollisionSystem>();
+        temporaryEnemySpawnerSystem = world.GetOrCreateSystem<TemporaryEnemySpawnerSystem>();
 
         var lateSimulation = world.GetOrCreateSystem<LateSimulationManager>();
     
@@ -27,6 +30,7 @@ public class LateSimulationManager : ComponentSystemGroup
         lateSimulation.AddSystemToUpdateList(cameraFollowSystem);
         lateSimulation.AddSystemToUpdateList(retrieveInteractableCollisionsSystem);
         lateSimulation.AddSystemToUpdateList(playerCollisionSystem);
+        lateSimulation.AddSystemToUpdateList(temporaryEnemySpawnerSystem);
         
         lateSimulation.SortSystemUpdateList();
     }
@@ -38,6 +42,7 @@ public class LateSimulationManager : ComponentSystemGroup
         
         retrieveInteractableCollisionsSystem.Update();
         playerCollisionSystem.Update();
+        temporaryEnemySpawnerSystem.Update();
     }
     
     public void OnSwapLevel()

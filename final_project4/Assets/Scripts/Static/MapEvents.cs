@@ -32,7 +32,7 @@ public static class MapEvents
         }
 
         //Complete all jobs
-       
+        //entityManager.CompleteAllJobs();
 
         //Fade out
         GlobalEvents.CameraEvents.FadeOut();
@@ -48,7 +48,7 @@ public static class MapEvents
         }
 
         EventsHolder.LevelEvents.CurrentLevel = type;
-        entityManager.CompleteAllJobs();
+     
         OnSwapLevel();
         TryUnloadMap();
         //Load new map
