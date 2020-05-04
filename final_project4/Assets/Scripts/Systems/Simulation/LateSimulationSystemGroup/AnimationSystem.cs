@@ -53,10 +53,10 @@ public class AnimationSystem : SystemBase
                         {
                             Entity = e,
                             Type = AnimationInfo.EventType.OnAnimationEnd,
-                            NewState = state.CurrentState
+                            NewState = state.CurrentAnimationState
                         });
 
-                        if (state.CurrentState == State.Dying)
+                        if (state.CurrentAnimationState == State.Dying)
                             animation.MeshIndexAt--;
                     }
                     
