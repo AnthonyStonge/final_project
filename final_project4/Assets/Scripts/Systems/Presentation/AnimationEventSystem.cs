@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Enums;
 using Unity.Entities;
 using Unity.Rendering;
+using Unity.Transforms;
 using UnityEngine;
 using AnimationInfo = EventStruct.AnimationInfo;
+using Random = System.Random;
 using Type = Enums.Type;
 
 [DisableAutoCreation]
@@ -15,9 +16,13 @@ public class AnimationEventSystem : SystemBase
 
     public Dictionary<Type, HashSet<State>> UnHandledStates = new Dictionary<Type, HashSet<State>>();
 
+    private Random rnd; 
+    
     protected override void OnCreate()
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        rnd = new Random(1234);
+        
     }
 
 
@@ -76,11 +81,19 @@ public class AnimationEventSystem : SystemBase
         //Look if end of state Dying
         if (info.NewState != State.Dying)
             return;
-
+        
         if (info.Entity == GameVariables.Player.Entity)
         {
-            GlobalEvents.PlayerEvents.OnPlayerDie();
+            //GlobalEvents.PlayerEvents.OnPlayerDie();
             return;
+        }
+
+        if (rnd.Next(20) == 10)
+        {
+            //TODO GAB
+            /*var trans = entityManager.GetComponentData<Translation>(info.Entity);
+            
+            DropSystem.DropAmmunition(entityManager, trans.Value);*/
         }
         
         //Destroy entity

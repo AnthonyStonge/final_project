@@ -10,13 +10,15 @@ namespace Enums
         RatWeapon,
         ChickenWeapon,
         PigWeapon,
-        GorillaWeapon
+        GorillaWeapon,
+        Machinegun,
     }
 
     public enum ProjectileType
     {
         PistolBullet,
         ShotgunBullet,
+        MachinegunBullet,
         RatBullet,
         ChickenBullet,
         PigBullet,

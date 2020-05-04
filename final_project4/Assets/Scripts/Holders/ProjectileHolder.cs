@@ -30,7 +30,7 @@ public static class ProjectileHolder
     {
         Addressables.LoadAssetAsync<BulletPrefabsContainer>("BulletPrefabsContainer").Completed += handle =>
         {
-            ExtractPrefabs(handle.Result);
+            // ExtractPrefabs(handle.Result);
             currentNumberOfLoadedAssets++;
         };
     }

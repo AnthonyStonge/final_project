@@ -1,43 +1,52 @@
 ﻿using System;
+using System.ComponentModel;
 using Enums;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
+using UnityEngine;
 using Random = Unity.Mathematics.Random;
 [DisableAutoCreation]
 [UpdateBefore(typeof(EnemyFollowSystem))]
 public class PathFollowSystem : SystemBase
 {
+    
     private static readonly CollisionFilter Filter = new CollisionFilter
     {
         BelongsTo = 1 << 2,
         CollidesWith = 1 << 10 | 1 << 1,
         GroupIndex = 0
     };
-
+    public NativeArray<Unity.Mathematics.Random> RandomArray { get; private set; }
     private BuildPhysicsWorld buildPhysicsWorld;
-
     protected override void OnCreate()
     {
         buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
+        var randomArray = new Random[1000];
+        var seed = new System.Random();
+
+        for (int i = 0; i < 1000; ++i)
+            randomArray[i] = new Random((uint)seed.Next());
+
+        RandomArray = new NativeArray<Random>(randomArray, Allocator.Persistent);
     }
 
     protected override void OnUpdate()
     {
+        var randomArray = World.GetExistingSystem<PathFollowSystem>().RandomArray;
         ComponentDataContainer<PlayerTag> player = new ComponentDataContainer<PlayerTag>
         {
             Components = GetComponentDataFromEntity<PlayerTag>()
         };
-        
         var physicsWorld = buildPhysicsWorld.PhysicsWorld;
         double time = Time.ElapsedTime;
         float deltaTime = Time.DeltaTime;
-        
         float3 posPlayer = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
         
-        Entities.ForEach((int entityInQueryIndex, DynamicBuffer<PathPosition> pathPos, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, ref Translation translation) =>
+        Entities.ForEach((int nativeThreadIndex, DynamicBuffer<PathPosition> pathPos, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, ref Translation translation) =>
         {
             range.IsInRange = false;
             switch (pathFollow.EnemyState)
@@ -49,26 +58,26 @@ public class PathFollowSystem : SystemBase
                     ChaseFollow(ref pathFollow, ref physicsWorld, ref player, pathPos);
                     break;
                 case EnemyState.Wondering:
-                    WonderingFollow(ref pathFollow, ref physicsWorld, translation, time, entityInQueryIndex, deltaTime);
+                    WonderingFollow(ref pathFollow, ref physicsWorld, ref randomArray, translation, time, deltaTime, nativeThreadIndex);
                     break;
             }
 
             //State changer 
-            if (math.distancesq(translation.Value, posPlayer) <= 40 * 40)
+            if (math.distancesq(translation.Value, posPlayer) <= 20 * 20)
             {
-                RaycastInput raycastInput2 = new RaycastInput
+                RaycastInput raycastInput = new RaycastInput
                 {
                     Start = translation.Value,
                     End = posPlayer,
                     Filter = Filter
                 };
-                if (physicsWorld.CollisionWorld.CastRay(raycastInput2, out var hit))
+                if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
                 {
                     if (player.Components.HasComponent(hit.Entity))
                     {
                         if (math.distance(translation.Value, posPlayer) > 20)
                         {
-                            pathFollow.EnemyState = EnemyState.Chase;
+                            //pathFollow.EnemyState = EnemyState.Chase;
                         }
                         else
                         {
@@ -140,21 +149,22 @@ public class PathFollowSystem : SystemBase
             }
         }
     }
-    private static void WonderingFollow(ref PathFollowComponent pathFollow,ref PhysicsWorld physicsWorld, in Translation translation, in double time, in int entityInQueryIndex,in float deltaTime)
+    private static void WonderingFollow(ref PathFollowComponent pathFollow,ref PhysicsWorld physicsWorld, ref NativeArray<Unity.Mathematics.Random> RandomArray, in Translation translation, in double time, in float deltaTime, in int naticeThreadIndex)
     {
         if (pathFollow.timeWonderingCounter < 0)
         {
             //Get next seed
-            var rSeed = new Random((uint)( time + entityInQueryIndex + 1 ));
+            var rSeed = RandomArray[naticeThreadIndex];
             
             //Get random Angle, distance and time to wonder
             int randomAngle = rSeed.NextInt(0, 360);
             int rayDistance = rSeed.NextInt(3, 7);
             pathFollow.timeWonderingCounter = rSeed.NextInt(1, 6);
-            
+            RandomArray[naticeThreadIndex] = rSeed;
             //Set the angle of wondering
-            float angle = randomAngle * 0.0174532925f;
+            float angle = math.radians(randomAngle);
             float2 pos = new float2(math.cos(angle), math.sin(angle) * rayDistance);
+            
             pathFollow.PositionToGo = (int2)(translation.Value.xz + pos);
             
             //Check if it collides with anything
@@ -180,11 +190,13 @@ public class PathFollowSystem : SystemBase
     private static void AttackFollow(float3 pos, ref PathFollowComponent pathFollow,
         ref AttackRangeComponent range, in Translation translation)
     {
-        if (math.distance(pos, translation.Value) >= range.Distance)
-            pathFollow.PositionToGo = (int2) pos.xz;
-        else
-        {
+        pathFollow.PositionToGo = (int2) pos.xz;
+        pathFollow.player = pos;
+        if (math.distance(pos, translation.Value) < range.Distance)
             range.IsInRange = true;
-        }
+    }
+    protected override void OnDestroy()
+    {
+        RandomArray.Dispose();
     }
 }

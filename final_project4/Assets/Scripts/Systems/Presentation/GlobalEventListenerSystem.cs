@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Enums;
 using EventStruct;
 using Unity.Entities;
+using Unity.Transforms;
 using UnityEngine;
 
 [DisableAutoCreation]
@@ -37,7 +39,23 @@ public class GlobalEventListenerSystem : SystemBase
         {
             //Default Level Logic
         }
+        //Player hit event
+        for (int i = 0; i < EventsHolder.BulletsEvents.Length - 1; i++)
+        {
+            if (EventsHolder.BulletsEvents[i].CollisionType == BulletInfo.BulletCollisionType.ON_PLAYER)
+            {
+                GlobalEvents.CameraEvents.ShakeCam(.2f, 2, 3);
+            }
+        }
 
+       /* for (int i = 0; i < EventsHolder.StateEvents.Length - 1; i++)
+        {
+            if (EventsHolder.StateEvents[i].DesiredState == State.Dying)
+            {
+                EntityManager.DestroyEntity(EventsHolder.StateEvents[i].Entity);
+            }
+        }*/
+        
         //Look for player hp
         if (EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity).IsDead())
         {
