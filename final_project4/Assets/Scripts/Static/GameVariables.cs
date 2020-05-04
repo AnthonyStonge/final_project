@@ -32,7 +32,7 @@ public static class GameVariables
         public static List<WeaponType> PlayerWeaponTypes = new List<WeaponType>();
         public static WeaponType CurrentWeaponHeld;
 
-        public static ushort AmountLife = 3;    //TODO MOVE MAGIC NUMEBR
+        public static ushort AmountLife = 3;    //TODO MOVE MAGIC NUMBER
 
         //Unity linker
         public static Transform Transform;

@@ -7,6 +7,7 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
+using UnityEngine;
 
 [DisableAutoCreation]
 [UpdateAfter(typeof(TranslateSystem))] // Important
@@ -106,14 +107,26 @@ public class ProjectileHitDetectionSystem : SystemBase
                     //Make sure HitEntity has LifeComponent
                     if (entitiesLife.Components.HasComponent(hitEntity))
                     {
-                        //Get LifeComponent of this entity
-                        LifeComponent life = entitiesLife.Components[hitEntity];
-                        
-                        //Decrease life
-                        DoDamage(ref life);
+                        //Make sure HitEntity has LifeComponent
+                        if (entitiesLife.Components.HasComponent(hitEntity))
+                        {
+                            //Get LifeComponent of this entity
+                            LifeComponent life = entitiesLife.Components[hitEntity];
+                            
+                            //Decrease life
+                            if (player == hitEntity)
+                            {
+                                DoDamage(ref life);
+                            }
+                            else
+                            {
+                                life.Life.Value--;
+                            }
+                            
 
-                        //Set Back
-                        entityCommandBuffer.SetComponent(entityInQueryIndex, hitEntity, life);
+                            //Set Back
+                            entityCommandBuffer.SetComponent(entityInQueryIndex, hitEntity, life);
+                        }
                     }
                 }
 
@@ -147,7 +160,7 @@ public class ProjectileHitDetectionSystem : SystemBase
 
     private static void DoDamage(ref LifeComponent component)
     {
-        component.Life.Value--;
+        component.DecrementLife();
     }
 
 }
