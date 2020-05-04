@@ -192,12 +192,10 @@ public class PathFollowSystem : SystemBase
     private static void AttackFollow(float3 pos, ref PathFollowComponent pathFollow,
         ref AttackRangeComponent range, in Translation translation)
     {
-        if (math.distance(pos, translation.Value) >= range.Distance)
-            pathFollow.PositionToGo = (int2) pos.xz;
-        else
-        {
+        pathFollow.PositionToGo = (int2) pos.xz;
+        pathFollow.player = pos;
+        if (math.distance(pos, translation.Value) < range.Distance)
             range.IsInRange = true;
-        }
     }
     protected override void OnDestroy()
     {
