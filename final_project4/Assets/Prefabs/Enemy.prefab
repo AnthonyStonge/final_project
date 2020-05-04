@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: -536652855229859866}
   - component: {fileID: -2759392152706667580}
   - component: {fileID: 2385975517665732080}
+  - component: {fileID: -417934586718516550}
+  - component: {fileID: 2008736905417719893}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -127,18 +129,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MotionType: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDamping: 0.01
   m_AngularDamping: 0.05
   m_InitialLinearVelocity:
     x: 0
-    y: 0
+    y: 2
     z: 0
   m_InitialAngularVelocity:
     x: 0
     y: 0
     z: 0
-  m_GravityFactor: 0
+  m_GravityFactor: 10
   m_OverrideDefaultMassDistribution: 0
   m_CenterOfMass:
     x: 0
@@ -175,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 1
+  m_ShapeType: 3
   m_PrimitiveCenter:
     x: 0
     y: 0
@@ -273,3 +275,30 @@ MonoBehaviour:
   pathIndex: 0
   EnemyState: 0
   timeWonderingCounter: 0
+--- !u!114 &-417934586718516550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4386793886523506817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e76239738c458f49a49b579a61928ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Values: []
+--- !u!114 &2008736905417719893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4386793886523506817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4b77c5f35789e848a5bbc103f422bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Distance: 2
+  IsInRange: 0
