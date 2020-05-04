@@ -31,7 +31,8 @@ namespace Enums
         Pig,
         Rat,
         Chicken,
-        Gorilla
+        Gorilla,
+        Door
     }
 
     public enum PlayerType
@@ -74,7 +75,9 @@ namespace Enums
         Reloading,
         Dashing,
         Dying,
-        Respawning
+        Respawning,
+        DoorOpening,
+        DoorClosing
     }
 
     public enum InteractableType

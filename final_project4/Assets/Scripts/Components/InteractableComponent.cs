@@ -8,4 +8,6 @@ public struct InteractableComponent : IComponentData
 {
     public InteractableType Type;
     public InteractableObjectType ObjectType;
+
+    public Entity DoorToOpen;
 }

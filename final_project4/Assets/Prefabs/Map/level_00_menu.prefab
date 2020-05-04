@@ -1770,6 +1770,7 @@ MonoBehaviour:
   PlayerSpawnPosition: {fileID: 7586208073992811112}
   MapTypeLeadingTo: 1
   PortalIdLeadingTo: 101
+  DoorToOpen: {fileID: 0}
 --- !u!1 &9044775325000084865
 GameObject:
   m_ObjectHideFlags: 0
