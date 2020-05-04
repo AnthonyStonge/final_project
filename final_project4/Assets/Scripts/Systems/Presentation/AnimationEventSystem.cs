@@ -35,18 +35,18 @@ public class AnimationEventSystem : SystemBase
             switch (info.Type)
             {
                 case AnimationInfo.EventType.OnSwapAnimation:
-                    SwapAnimation(info);
+                    SwapAnimation(ref info);
                     break;
                 case AnimationInfo.EventType.OnAnimationStart:
                     break;
                 case AnimationInfo.EventType.OnAnimationEnd:
-                    OnAnimationEnd(info);
+                    OnAnimationEnd(ref info);
                     break;
             }
         }
     }
 
-    private void SwapAnimation(AnimationInfo info)
+    private void SwapAnimation(ref AnimationInfo info)
     {
         //Get Type of Entity
         TypeData type = entityManager.GetComponentData<TypeData>(info.Entity);
@@ -76,7 +76,7 @@ public class AnimationEventSystem : SystemBase
         });
     }
 
-    private void OnAnimationEnd(AnimationInfo info)
+    private void OnAnimationEnd(ref AnimationInfo info)
     {
         //Look if end of state Dying
         if (info.NewState != State.Dying)
