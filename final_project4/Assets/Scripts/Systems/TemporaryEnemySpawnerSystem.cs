@@ -26,19 +26,19 @@ public class TemporaryEnemySpawnerSystem : SystemBase
             {
                 case Type.Chicken:
                     CreateEnemy(Type.Chicken, out Entity chicken, spawner.spawnerPos);
-                    CreateWeapon(WeaponType.Pistol, chicken);
+                    CreateWeapon(WeaponType.ChickenWeapon, chicken);
                     break;
                 case Type.Gorilla:
                     CreateEnemy(Type.Gorilla, out Entity gorilla, spawner.spawnerPos);
-                    CreateWeapon(WeaponType.Pistol, gorilla);
+                    CreateWeapon(WeaponType.GorillaWeapon, gorilla);
                     break;
                 case Type.Pig:
                     CreateEnemy(Type.Pig, out Entity pig, spawner.spawnerPos);
-                    CreateWeapon(WeaponType.Pistol, pig);
+                    CreateWeapon(WeaponType.PigWeapon, pig);
                     break;
                 case Type.Rat:
                     CreateEnemy(Type.Rat, out Entity rat, spawner.spawnerPos);
-                    CreateWeapon(WeaponType.Pistol, rat);
+                    CreateWeapon(WeaponType.RatWeapon, rat);
                     break;
             }
             
@@ -58,19 +58,19 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                     {
                         case Type.Chicken:
                             CreateEnemy(Type.Chicken, out Entity chicken, enemySpawner[i].spawnerPos);
-                            CreateWeapon(WeaponType.Pistol, chicken);
+                            CreateWeapon(WeaponType.RatWeapon, chicken);
                             break;
                         case Type.Gorilla:
                             CreateEnemy(Type.Gorilla, out Entity gorilla, enemySpawner[i].spawnerPos);
-                            CreateWeapon(WeaponType.Pistol, gorilla);
+                            CreateWeapon(WeaponType.RatWeapon, gorilla);
                             break;
                         case Type.Pig:
                             CreateEnemy(Type.Pig, out Entity pig, enemySpawner[i].spawnerPos);
-                            CreateWeapon(WeaponType.Pistol, pig);
+                            CreateWeapon(WeaponType.RatWeapon, pig);
                             break;
                         case Type.Rat:
                             CreateEnemy(Type.Rat, out Entity rat, enemySpawner[i].spawnerPos);
-                            CreateWeapon(WeaponType.Pistol, rat);
+                            CreateWeapon(WeaponType.RatWeapon, rat);
                             break;
                     }
                     var spawnerTest = enemySpawner[i];

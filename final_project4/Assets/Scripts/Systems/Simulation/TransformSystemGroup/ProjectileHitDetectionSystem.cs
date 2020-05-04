@@ -66,7 +66,7 @@ public class ProjectileHitDetectionSystem : SystemBase
         
         JobHandle job = Entities.ForEach((Entity entity, int entityInQueryIndex, ref DamageProjectile projectile, ref Translation translation, in Rotation rotation, in BulletCollider bulletCollider) =>
         {
-            CollisionFilter Filter = new CollisionFilter
+            CollisionFilter filter = new CollisionFilter
             {
                 BelongsTo = bulletCollider.BelongsTo.Value,
                 CollidesWith = bulletCollider.CollidesWith.Value,
@@ -76,7 +76,7 @@ public class ProjectileHitDetectionSystem : SystemBase
             {
                 Start = projectile.PreviousPosition,
                 End = translation.Value,
-                Filter = Filter
+                Filter = filter
             };
             
             //Cast ray
