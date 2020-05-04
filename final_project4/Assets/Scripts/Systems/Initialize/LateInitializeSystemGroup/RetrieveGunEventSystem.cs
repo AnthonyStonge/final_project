@@ -23,7 +23,7 @@ struct EmptyEventQueueJob : IJob
 [DisableAutoCreation]
 public class RetrieveGunEventSystem : SystemBase
 {
-    private EntityCommandBufferSystem entityCommandBuffer;
+    private EndInitializationEntityCommandBufferSystem entityCommandBuffer;
     private NativeQueue<WeaponInfo> weaponFired;
 
     protected override void OnCreate()

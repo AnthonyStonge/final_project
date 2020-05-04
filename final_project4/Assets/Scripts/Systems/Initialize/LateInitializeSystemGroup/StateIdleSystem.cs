@@ -8,7 +8,7 @@ using Unity.Jobs;
 public class StateIdleSystem : SystemBase
 {
     private NativeQueue<StateInfo> stateEvents;
-    private EntityCommandBufferSystem entityCommandBuffer;
+    private EndInitializationEntityCommandBufferSystem entityCommandBuffer;
     
     protected override void OnCreate()
     {
@@ -37,17 +37,12 @@ public class StateIdleSystem : SystemBase
                 Action = StateInfo.ActionType.TryChange
             });
         }).ScheduleParallel(Dependency);
-        
-        //Create job
-        JobHandle emptyEventQueueJob = new EmptyEventQueueJob
-        {
-            EventsQueue = stateEvents
-        }.Schedule(job);
+        job.Complete();
 
-        //Link all jobs
-        Dependency = JobHandle.CombineDependencies(job, emptyEventQueueJob);
-        entityCommandBuffer.AddJobHandleForProducer(Dependency);
-        
+        while (stateEvents.TryDequeue(out StateInfo info))
+        {
+            EventsHolder.StateEvents.Add(info);
+        }
     }
     
     struct EmptyEventQueueJob : IJob
