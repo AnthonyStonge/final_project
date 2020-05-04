@@ -26,6 +26,7 @@ public class GlobalEventListenerSystem : SystemBase
                 Debug.Log("Player Survived loading last level");
 #endif
                 MapEvents.LoadMap(LastMap, true);
+                currentHellTimer = 0;
             }
             else
             {
@@ -58,7 +59,7 @@ public class GlobalEventListenerSystem : SystemBase
                 LastMap = EventsHolder.LevelEvents.CurrentLevel;
                 EventsHolder.LevelEvents.DeathCount++;
 
-                GlobalEvents.PlayerEvents.OnPlayerDie();
+               // GlobalEvents.PlayerEvents.OnPlayerDie();
                 GlobalEvents.GameEvents.StartHellLevel(EventsHolder.LevelEvents.Difficulty,
                     EventsHolder.LevelEvents.DeathCount);
 
