@@ -64,8 +64,7 @@ public static class GlobalEvents
 
             //Return player to Menu
             MapEvents.LoadMap(MapType.LevelMenu, true);
-
-            //Set Player position to Menu CheckPoint
+            PlayerEvents.ResetPlayerHp();
 
             //TODO Reset GameValue???
         }
@@ -104,24 +103,8 @@ public static class GlobalEvents
             //TODO Sound Event
             //TODO VFX 
         }
-
-        private static void SpawnPlayerOnHellLevel()
-        {
-        }
-
-        private static void RespawnPlayerOnCheckPoint()
-        {
-            //Reset Life of Player
-            ResetPlayerHp();
-
-            //Get last saved spawn position
-        }
-
-        private static void SpawnOnCheckPoint(MapType mapType, ushort checkPointId)
-        {
-        }
-
-        private static void ResetPlayerHp()
+ 
+        public static void ResetPlayerHp()
         {
             Entity player = GameVariables.Player.Entity;
             EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;

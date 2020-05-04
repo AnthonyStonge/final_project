@@ -163,8 +163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Life:
     Min: 0
-    Max: 10
-    hiddenValue: 10
+    Max: 3
+    hiddenValue: 3
 --- !u!114 &5691379923823341952
 MonoBehaviour:
   m_ObjectHideFlags: 0

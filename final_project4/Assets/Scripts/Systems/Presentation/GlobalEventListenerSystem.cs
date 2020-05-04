@@ -58,7 +58,7 @@ public class GlobalEventListenerSystem : SystemBase
                 
                 LastMap = EventsHolder.LevelEvents.CurrentLevel;
                 EventsHolder.LevelEvents.DeathCount++;
-
+                levelEvents.CurrentLevel = MapType.Level_Hell;
                // GlobalEvents.PlayerEvents.OnPlayerDie();
                 GlobalEvents.GameEvents.StartHellLevel(EventsHolder.LevelEvents.Difficulty,
                     EventsHolder.LevelEvents.DeathCount);
@@ -68,6 +68,7 @@ public class GlobalEventListenerSystem : SystemBase
             }
             else
             {
+                currentHellTimer = 0;
                 GlobalEvents.GameEvents.GameLost();
             }
         }
