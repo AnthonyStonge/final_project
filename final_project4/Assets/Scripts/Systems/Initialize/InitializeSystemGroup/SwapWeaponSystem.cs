@@ -40,8 +40,15 @@ public class SwapWeaponSystem : SystemBase
             index++;
         else if (inputs.MouseWheel.y < 0)
             index--;
+        else if (inputs.SwapWeapon1)
+            index = 0;
+        else if (inputs.SwapWeapon2)
+            index = 1;
+        else if (inputs.SwapWeapon3)
+            index = 2;
         //If player doesn't want to change weapon
-        else return;
+        else 
+            return;
         
         if (index < 0)
         {
@@ -51,6 +58,8 @@ public class SwapWeaponSystem : SystemBase
         {
             index = 0;
         }
+        
+            
         SwapWeapon(weapontypes[index]);
     }
 

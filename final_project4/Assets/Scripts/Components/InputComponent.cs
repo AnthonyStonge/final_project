@@ -18,7 +18,11 @@ public struct InputComponent : IComponentData
     public bool Dash;
     public bool Interact;
     public bool Cancel;
-    
+    public bool SwapWeapon1;
+    public bool SwapWeapon2;
+    public bool SwapWeapon3;
+
+
     /// <summary>
     /// Enabled returns if input should be refresh
     /// </summary>
