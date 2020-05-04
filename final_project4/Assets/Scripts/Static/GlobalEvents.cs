@@ -47,12 +47,13 @@ public static class GlobalEvents
 
         public static void StartHellLevel(int difficulty, int deathCount)
         {
+            //TODO explain to player he needs to survive X amount of time to respawn
             #if UNITY_EDITOR
             Debug.Log("Current Difficulty : " + difficulty + ", Current Death Count : " + deathCount);
             #endif
 
             //TODO start Soundtrack for hell level
-            MapEvents.LoadMap(MapType.Level_Hell);
+            MapEvents.LoadMap(MapType.Level_Hell, true);
         }
 
         public static void GameLost()
@@ -61,7 +62,7 @@ public static class GlobalEvents
             //Then show player in Menu Level.
 
             //Return player to Menu
-            MapEvents.LoadMap(MapType.LevelMenu);
+            MapEvents.LoadMap(MapType.LevelMenu, true);
 
             //Set Player position to Menu CheckPoint
 

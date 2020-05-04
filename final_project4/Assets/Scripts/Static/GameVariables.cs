@@ -15,6 +15,7 @@ public static class GameVariables
     public static Transform MouseToTransform;
     public static GameState StartingState = GameState.GAME;
     public static Dictionary<MapType, ScriptableGrid> Grids = new Dictionary<MapType, ScriptableGrid>();
+    public static Dictionary<MapType, LevelInfo> MapLevelInfo = new Dictionary<MapType, LevelInfo>();
     public static CinemachineBasicMultiChannelPerlin CamNoiseProfile;
     public static ShakeCamComponent ShakeComponent;
     

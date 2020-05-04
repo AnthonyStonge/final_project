@@ -21,11 +21,11 @@ public class GlobalEventListenerSystem : SystemBase
         {
             if (currentHellTimer >= hellTimer)
             {
-                //TODO Hell level Succesful
+                //TODO Hell level Succesful UI
 #if UNITY_EDITOR
                 Debug.Log("Player Survived loading last level");
 #endif
-                MapEvents.LoadMap(LastMap);
+                MapEvents.LoadMap(LastMap, true);
             }
             else
             {
