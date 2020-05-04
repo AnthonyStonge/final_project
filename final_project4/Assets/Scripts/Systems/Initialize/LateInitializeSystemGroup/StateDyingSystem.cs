@@ -11,7 +11,7 @@ using Unity.Transforms;
 public class StateDyingSystem : SystemBase
 {
     private NativeQueue<StateInfo> stateEvents;
-    private EntityCommandBufferSystem entityCommandBuffer;
+    private EndInitializationEntityCommandBufferSystem entityCommandBuffer;
     
     protected override void OnCreate()
     {

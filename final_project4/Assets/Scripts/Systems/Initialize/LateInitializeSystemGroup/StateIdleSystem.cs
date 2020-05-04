@@ -43,7 +43,6 @@ public class StateIdleSystem : SystemBase
         {
             EventsHolder.StateEvents.Add(info);
         }
-        
     }
     
     struct EmptyEventQueueJob : IJob

@@ -8,7 +8,7 @@ using AnimationInfo = EventStruct.AnimationInfo;
 [DisableAutoCreation]
 public class AnimationSystem : SystemBase
 {
-    private EntityCommandBufferSystem entityCommandBuffer;
+    private EndSimulationEntityCommandBufferSystem entityCommandBuffer;
     public static int BatchIdToUpdate;
 
     // private bool isUpdateAnimationFrame;

@@ -13,7 +13,7 @@ using Type = Enums.Type;
 [UpdateAfter(typeof(StateMovingSystem))]
 public class StateAttackingSystem : SystemBase
 {
-    private EntityCommandBufferSystem entityCommandBuffer;
+    private EndInitializationEntityCommandBufferSystem entityCommandBuffer;
     private NativeQueue<StateInfo> stateEvents = new NativeQueue<StateInfo>(Allocator.Persistent);
 
     protected override void OnCreate()
