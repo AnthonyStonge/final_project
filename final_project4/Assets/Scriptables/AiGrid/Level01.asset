@@ -231,18 +231,18 @@ MonoBehaviour:
   - spawnerPos:
       x: 43
       y: 99
-    NbEnnemyMax: 50
+    NbEnnemyMax: 15
     EnemyType: 1
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 5
-      y: 20
+      x: 1
+      y: 5
     currentTime: 4.430904
     time: 0
   - spawnerPos:
       x: 80
       y: 85
-    NbEnnemyMax: 30
+    NbEnnemyMax: 10
     EnemyType: 2
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
