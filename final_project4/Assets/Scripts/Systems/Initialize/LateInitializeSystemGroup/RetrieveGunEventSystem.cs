@@ -57,6 +57,10 @@ public class RetrieveGunEventSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<StateComponent>()
         };
+        ComponentDataContainer<Translation> parentTranslations = new ComponentDataContainer<Translation>
+        {
+            Components = GetComponentDataFromEntity<Translation>()
+        };
 
         float deltaTime = Time.DeltaTime;
 
@@ -73,9 +77,13 @@ public class RetrieveGunEventSystem : SystemBase
                 //Make sure gun has a parent
                 if (!states.Components.HasComponent(parent.Value))
                     return;
+                //Make sure parent has a Translation
+                if (!parentTranslations.Components.HasComponent(parent.Value))
+                    return;
 
                 //Variables local to job
                 StateComponent state = states.Components[parent.Value];
+                Translation position = parentTranslations.Components[parent.Value];
                 WeaponInfo.WeaponEventType? weaponEventType = null;
 
                 if (gun.IsReloading)
@@ -107,7 +115,7 @@ public class RetrieveGunEventSystem : SystemBase
                     if (TryShoot(ref gun))
                     {
                         weaponEventType = WeaponInfo.WeaponEventType.ON_SHOOT;
-                        Shoot(entityInQueryIndex, ecb, ref gun, transform);
+                        Shoot(entityInQueryIndex, ecb, ref gun, transform, position.Value);
                     }
 
                 //Add event to NativeQueue
@@ -203,7 +211,7 @@ public class RetrieveGunEventSystem : SystemBase
     }
 
     private static void Shoot(int jobIndex, EntityCommandBuffer.Concurrent ecb, ref GunComponent gun,
-        in LocalToWorld transform)
+        in LocalToWorld transform, float3 parentEntityPosition)
     {
         //Decrease bullets
         gun.CurrentAmountBulletInMagazine--;
@@ -215,22 +223,22 @@ public class RetrieveGunEventSystem : SystemBase
         {
             case WeaponType.Machinegun:
             case WeaponType.Pistol:
-                ShootPistol(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);
+                ShootPistol(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
                 break;
             case WeaponType.Shotgun:
-                ShootShotgun(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);
+                ShootShotgun(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
                 break;
             case WeaponType.PigWeapon:
-                ShootPigWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);
+                ShootPigWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
                 break;
             case WeaponType.GorillaWeapon:
-                ShootGorillaWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation);
+                ShootGorillaWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
                 break;
         }
     }
 
     private static void ShootPistol(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
-        float3 position, quaternion rotation)
+        float3 position, quaternion rotation, float3 parentEntityPosition)
     {
         //Create entity with prefab
         Entity bullet = ecb.Instantiate(jobIndex, bulletPrefab);
@@ -244,10 +252,14 @@ public class RetrieveGunEventSystem : SystemBase
         {
             Value = rotation
         });
+        ecb.AddComponent(jobIndex, bullet, new BulletPreviousPositionData
+        {
+            Value = parentEntityPosition
+        });
     }
 
     private static void ShootShotgun(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
-        float3 position, quaternion rotation)
+        float3 position, quaternion rotation, float3 parentEntityPosition)
     {
         int nbBullet = 100;
         float degreeFarShot = math.radians(nbBullet * 2);
@@ -270,11 +282,15 @@ public class RetrieveGunEventSystem : SystemBase
             {
                 Value = bulletRotation
             });
+            ecb.AddComponent(jobIndex, bullet, new BulletPreviousPositionData
+            {
+                Value = parentEntityPosition
+            });
         }
     }
 
     private static void ShootPigWeapon(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
-        float3 position, quaternion rotation)
+        float3 position, quaternion rotation, float3 parentEntityPosition)
     {
         int nbBullet = 3;
         float degreeFarShot = math.radians(nbBullet * 2);
@@ -297,11 +313,15 @@ public class RetrieveGunEventSystem : SystemBase
             {
                 Value = bulletRotation
             });
+            ecb.AddComponent(jobIndex, bullet, new BulletPreviousPositionData
+            {
+                Value = parentEntityPosition
+            });
         }
     }
 
     private static void ShootGorillaWeapon(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
-        float3 position, quaternion rotation)
+        float3 position, quaternion rotation, float3 parentEntityPosition)
     {
         int nbBullet = 15;
         float angle = 360f / nbBullet;

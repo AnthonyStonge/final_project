@@ -12,7 +12,6 @@ using UnityEngine;
 [GenerateAuthoringComponent]
 public struct DamageProjectile : IComponentData
 {
-    [HideInInspector] public float3 PreviousPosition;
     public ProjectileType Type;
     public float Speed;
 }

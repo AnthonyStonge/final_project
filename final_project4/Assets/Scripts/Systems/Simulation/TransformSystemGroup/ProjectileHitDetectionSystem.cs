@@ -10,7 +10,7 @@ using Unity.Transforms;
 using UnityEngine;
 
 [DisableAutoCreation]
-[UpdateAfter(typeof(TranslateSystem))] // Important
+[UpdateBefore(typeof(TranslateSystem))] // Important
 public class ProjectileHitDetectionSystem : SystemBase
 {
     // private static readonly CollisionFilter Filter = new CollisionFilter
@@ -64,7 +64,7 @@ public class ProjectileHitDetectionSystem : SystemBase
         Entity player = GameVariables.Player.Entity;
 
         
-        JobHandle job = Entities.ForEach((Entity entity, int entityInQueryIndex, ref DamageProjectile projectile, ref Translation translation, in Rotation rotation, in BulletCollider bulletCollider) =>
+        JobHandle job = Entities.ForEach((Entity entity, int entityInQueryIndex, ref DamageProjectile projectile, ref Translation translation, in Rotation rotation, in BulletCollider bulletCollider, in BulletPreviousPositionData previousPosition) =>
         {
             CollisionFilter filter = new CollisionFilter
             {
@@ -74,7 +74,7 @@ public class ProjectileHitDetectionSystem : SystemBase
             };
             RaycastInput raycastInput = new RaycastInput
             {
-                Start = projectile.PreviousPosition,
+                Start = previousPosition.Value,
                 End = translation.Value,
                 Filter = filter
             };
