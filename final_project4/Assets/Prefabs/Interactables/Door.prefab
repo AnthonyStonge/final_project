@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
-  ObjectType: 1
+  ObjectType: 3
   CurrentMapType: 0
   PortalId: 100
   PlayerSpawnPosition: {fileID: 1577814459029613637}

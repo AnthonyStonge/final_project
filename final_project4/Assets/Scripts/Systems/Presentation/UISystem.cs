@@ -25,7 +25,6 @@ public class UISystem : SystemBase
             case WeaponType.Pistol:
                 GameVariables.UI.ShotgunImage.enabled = false;
                 GameVariables.UI.PistolImage.enabled = true;
-                
                 break;
             case WeaponType.Shotgun:
                 GameVariables.UI.ShotgunImage.enabled = true;

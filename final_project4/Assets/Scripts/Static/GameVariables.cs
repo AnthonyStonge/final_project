@@ -15,13 +15,14 @@ public static class GameVariables
     public static Transform MouseToTransform;
     public static GameState StartingState = GameState.GAME;
     public static Dictionary<MapType, ScriptableGrid> Grids = new Dictionary<MapType, ScriptableGrid>();
+    public static Dictionary<MapType, LevelInfo> MapLevelInfo = new Dictionary<MapType, LevelInfo>();
     public static CinemachineBasicMultiChannelPerlin CamNoiseProfile;
     public static ShakeCamComponent ShakeComponent;
     
     public static float InvincibleDashTime = 1.0f;
     public static float InvincibleDeathTime = 5.0f;
     public static float InvincibleSpawnTime = 5.0f;
-    public static float InvicibleHitTime = 3.0f;
+    public static float InvicibleHitTime = 1.5f;
 
     public static class Player
     {
@@ -31,8 +32,6 @@ public static class GameVariables
         public static Dictionary<WeaponType, Entity> PlayerWeaponEntities = new Dictionary<WeaponType, Entity>();
         public static List<WeaponType> PlayerWeaponTypes = new List<WeaponType>();
         public static WeaponType CurrentWeaponHeld;
-
-        public static ushort AmountLife = 3;    //TODO MOVE MAGIC NUMBER
 
         //Unity linker
         public static Transform Transform;
