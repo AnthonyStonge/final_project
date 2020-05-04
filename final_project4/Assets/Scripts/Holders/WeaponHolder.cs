@@ -9,7 +9,8 @@ using static ECSUtility;
 
 public static class WeaponHolder
 {
-    public static ConcurrentDictionary<WeaponType, Entity> WeaponPrefabDict = new ConcurrentDictionary<WeaponType, Entity>();
+    public static ConcurrentDictionary<WeaponType, Entity> WeaponPrefabDict =
+        new ConcurrentDictionary<WeaponType, Entity>();
 
     private static List<BlobAssetStore> blobAssetStores = new List<BlobAssetStore>();
     private static int currentNumberOfLoadedAssets = 0;
@@ -35,21 +36,25 @@ public static class WeaponHolder
             //Convert
             Entity weaponEntity = ConvertGameObjectPrefab(gun.Prefab, out BlobAssetStore blob);
 
-            if(!WeaponPrefabDict.TryAdd(gun.Type, weaponEntity))
+            if (!WeaponPrefabDict.TryAdd(gun.Type, weaponEntity))
+            {
+#if UNITY_EDITOR
                 Debug.Log($"Couldnt add weapon prefab of type {gun.Type}");
-            
-            if(blob != null)
+#endif
+            }
+
+            if (blob != null)
                 blobAssetStores.Add(blob);
         }
     }
-    
+
     public static float CurrentLoadingPercentage()
     {
-        return  currentNumberOfLoadedAssets / (float)numberOfAssetsToLoad;
+        return currentNumberOfLoadedAssets / (float) numberOfAssetsToLoad;
     }
 
     public static void OnDestroy()
     {
-        blobAssetStores.ForEach(i=>{ i.Dispose(); });
+        blobAssetStores.ForEach(i => { i.Dispose(); });
     }
 }

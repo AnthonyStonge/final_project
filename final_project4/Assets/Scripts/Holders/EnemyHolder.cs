@@ -44,7 +44,11 @@ public static class EnemyHolder
 
             //Add to dictionary
             if (!EnemyPrefabDict.TryAdd(enemy.Type, prefabEntity))
+            {
+#if UNITY_EDITOR
                 Debug.Log($"Couldnt add enemy of type {enemy.Type} to the prefab dictionary...");
+#endif
+            }
 
             //Add blob asset if needed
             if (blob != null)

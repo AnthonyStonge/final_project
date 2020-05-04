@@ -44,7 +44,9 @@ public static class ObjectPoolManager
     {
         if (dict.ContainsKey(typeof(T)))
         {
+#if UNITY_EDITOR
             Debug.LogError("Can't create Object Pool for this type. Already exist");
+#endif
             return;
         }
 
@@ -71,7 +73,7 @@ public static class ObjectPoolManager
     {
         if (dict.ContainsKey(typeof(T)))
         {
-             ((ObjectPool<T>) dict[typeof(T)]).AddBackToPool(value);
+            ((ObjectPool<T>) dict[typeof(T)]).AddBackToPool(value);
         }
     }
 }

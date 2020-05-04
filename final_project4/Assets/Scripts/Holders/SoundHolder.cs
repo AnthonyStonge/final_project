@@ -6,6 +6,7 @@ using Unity.Assertions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Object = UnityEngine.Object;
+
 public class Clip
 {
     public AudioClip AudioClip;
@@ -33,20 +34,20 @@ public static class SoundHolder
 
     private static int currentNumberOfLoadedAssets = 0;
     private static int numberOfAssetsToLoad = 1;
-    
+
     public static void Initialize()
     {
         Sounds = new Dictionary<int, Clip>();
         SoundsToAudioSource = new Dictionary<int, AudioSourceType>();
         AudioSources = new Dictionary<AudioSourceType, Source>();
-        
+
         //GenericSounds
         GenericSounds = new Dictionary<SoundType, List<int>>();
         for (int i = 0; i < Enum.GetNames(typeof(SoundType)).Length; i++)
         {
             GenericSounds.Add((SoundType) i, new List<int>());
         }
-        
+
         //Pickup Sounds
         PickupSounds = new Dictionary<DropType, List<int>>();
         for (int i = 0; i < Enum.GetNames(typeof(DropType)).Length; i++)
@@ -105,12 +106,15 @@ public static class SoundHolder
                     WeaponSounds[weapon.WeaponType].Add(weapon.EventType, nextClipID);
                 else
                 {
+#if UNITY_EDITOR
                     //Duplicates -> LogError
                     Debug.LogError("You tried to add multiple sound effects for " + weapon.WeaponType + " " +
                                    weapon.EventType + " action. \n" +
-                                   "Current Sound: " + Sounds[WeaponSounds[weapon.WeaponType][weapon.EventType]].AudioClip.name +
+                                   "Current Sound: " +
+                                   Sounds[WeaponSounds[weapon.WeaponType][weapon.EventType]].AudioClip.name +
                                    "\n" +
                                    "Desired Sound: " + links.Clip.name + "\n");
+#endif
                 }
             }
 
@@ -121,7 +125,7 @@ public static class SoundHolder
                 //Add to bullet dictionary
                 BulletSounds[bullet.BulletType].Add(bullet.CollisionType, nextClipID);
             }
-            
+
             //Pickup Sounds
             foreach (var i in links.Drops)
             {
@@ -156,7 +160,7 @@ public static class SoundHolder
             });
         }
     }
-    
+
     public static float CurrentLoadingPercentage()
     {
         return (float) currentNumberOfLoadedAssets / numberOfAssetsToLoad;
