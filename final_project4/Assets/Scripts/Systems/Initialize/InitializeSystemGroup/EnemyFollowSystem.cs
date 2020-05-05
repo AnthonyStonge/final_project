@@ -34,6 +34,8 @@ public class EnemyFollowSystem : SystemBase
             //Make sure enemy has reached 
             if (math.distancesq(pathFollow.PositionToGo, translation.Value.xz) <= 1)
             {
+                if (pathFollow.BeginWalk)
+                    pathFollow.BeginWalk = false;
                 pathFollow.EnemyState = EnemyState.Wondering;
                 return;
             }

@@ -48,49 +48,53 @@ public class PathFollowSystem : SystemBase
         
         Entities.ForEach((int nativeThreadIndex, DynamicBuffer<PathPosition> pathPos, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, ref Translation translation) =>
         {
-            range.IsInRange = false;
-            switch (pathFollow.EnemyState)
+            if (!pathFollow.BeginWalk)
             {
-                case EnemyState.Attack:
-                    AttackFollow(posPlayer, ref pathFollow, ref range, translation);
-                    break;
-                case EnemyState.Chase:
-                    ChaseFollow(ref pathFollow, ref physicsWorld, ref player, pathPos);
-                    break;
-                case EnemyState.Wondering:
-                    WonderingFollow(ref pathFollow, ref physicsWorld, ref randomArray, translation, time, deltaTime, nativeThreadIndex);
-                    break;
-            }
-            
-            //State changer 
-            if (math.distancesq(translation.Value, posPlayer) <= range.AgroDistance * range.AgroDistance)
-            {
-                RaycastInput raycastInput = new RaycastInput
+                range.IsInRange = false;
+                switch (pathFollow.EnemyState)
                 {
-                    Start = translation.Value,
-                    End = posPlayer,
-                    Filter = Filter
-                };
-                if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
+                    case EnemyState.Attack:
+                        AttackFollow(posPlayer, ref pathFollow, ref range, translation);
+                        break;
+                    case EnemyState.Chase:
+                        ChaseFollow(ref pathFollow, ref physicsWorld, ref player, pathPos);
+                        break;
+                    case EnemyState.Wondering:
+                        WonderingFollow(ref pathFollow, ref physicsWorld, ref randomArray, translation, time, deltaTime,
+                            nativeThreadIndex);
+                        break;
+                }
+
+                //State changer 
+                if (math.distancesq(translation.Value, posPlayer) <= range.AgroDistance * range.AgroDistance)
                 {
-                    if (player.Components.HasComponent(hit.Entity))
+                    RaycastInput raycastInput = new RaycastInput
                     {
-                        pathFollow.EnemyState = EnemyState.Attack;
-                    }
-                    else
+                        Start = translation.Value,
+                        End = posPlayer,
+                        Filter = Filter
+                    };
+                    if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
                     {
-                        if (pathFollow.EnemyState == EnemyState.Attack)
+                        if (player.Components.HasComponent(hit.Entity))
                         {
-                            pathFollow.EnemyState = EnemyState.Chase;
+                            pathFollow.EnemyState = EnemyState.Attack;
                         }
-                        if(pathFollow.EnemyState != EnemyState.Chase)
-                            pathFollow.EnemyState = EnemyState.Wondering;
+                        else
+                        {
+                            if (pathFollow.EnemyState == EnemyState.Attack)
+                            {
+                                pathFollow.EnemyState = EnemyState.Chase;
+                            }
+                            if (pathFollow.EnemyState != EnemyState.Chase)
+                                pathFollow.EnemyState = EnemyState.Wondering;
+                        }
                     }
                 }
-            }
-            else
-            {
-                pathFollow.EnemyState = EnemyState.Wondering;
+                else
+                {
+                    pathFollow.EnemyState = EnemyState.Wondering;
+                }
             }
         }).ScheduleParallel();
     }

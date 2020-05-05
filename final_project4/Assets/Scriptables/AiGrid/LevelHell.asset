@@ -20,319 +20,111 @@ MonoBehaviour:
     y: 0
     z: 1
   indexNoWalkable: 
-  enemyPreSpawnerIndex: 771b0000ae1a00004a1a00001e1900002a17000037150000d41400003a1500007d120000881000005c0f0000fc0e00002d1000008d100000f1100000371000000b0f0000a20e0000480e0000780f0000d21100007c0f00000811000096120000f01400001f160000af1700003f1900001a1600002c14000090140000101800009f190000631a0000211b00007e1b0000b41a00005a1a0000281b0000951b0000fc1b0000bc1c0000151d0000ac1c00000b1d00007a1b0000861900005a18000091170000b11100004f0e0000d5110000a6130000bd0f0000940e00002d0e0000cc0d0000d00d00009c0e0000e20f0000ee0d0000431900006e1a00006c1a0000cc1a0000b71a000026190000
-  enemySpawnerIndex: a11c00002b1d0000530e0000c80d0000
+  enemyPreSpawnerIndex: 691a0000581a0000c41a00001b160000c7130000d40f0000f9100000ff150000741400005e0f00007b0f00007a1b0000
+  enemySpawnerIndex: e80b0000611500002d150000701f0000
   enemyPreSpawner:
   - spawnerPos:
-      x: 31
-      y: 70
-    EnemyType: 0
-  - spawnerPos:
-      x: 30
-      y: 68
-    EnemyType: 0
-  - spawnerPos:
-      x: 30
+      x: 61
       y: 67
     EnemyType: 0
   - spawnerPos:
-      x: 30
-      y: 64
-    EnemyType: 0
-  - spawnerPos:
-      x: 30
-      y: 59
-    EnemyType: 0
-  - spawnerPos:
-      x: 31
-      y: 54
-    EnemyType: 0
-  - spawnerPos:
-      x: 32
-      y: 53
-    EnemyType: 0
-  - spawnerPos:
-      x: 34
-      y: 54
-    EnemyType: 0
-  - spawnerPos:
-      x: 33
-      y: 47
-    EnemyType: 0
-  - spawnerPos:
-      x: 32
-      y: 42
-    EnemyType: 0
-  - spawnerPos:
-      x: 32
-      y: 39
-    EnemyType: 0
-  - spawnerPos:
-      x: 36
-      y: 38
-    EnemyType: 0
-  - spawnerPos:
-      x: 41
-      y: 41
-    EnemyType: 0
-  - spawnerPos:
-      x: 37
-      y: 42
-    EnemyType: 0
-  - spawnerPos:
-      x: 37
-      y: 43
-    EnemyType: 0
-  - spawnerPos:
-      x: 51
-      y: 41
-    EnemyType: 0
-  - spawnerPos:
-      x: 51
-      y: 38
-    EnemyType: 0
-  - spawnerPos:
-      x: 46
-      y: 37
-    EnemyType: 0
-  - spawnerPos:
-      x: 56
-      y: 36
-    EnemyType: 0
-  - spawnerPos:
-      x: 60
-      y: 39
-    EnemyType: 0
-  - spawnerPos:
-      x: 62
-      y: 45
-    EnemyType: 0
-  - spawnerPos:
-      x: 64
-      y: 39
-    EnemyType: 0
-  - spawnerPos:
-      x: 60
-      y: 43
-    EnemyType: 0
-  - spawnerPos:
-      x: 58
-      y: 47
-    EnemyType: 0
-  - spawnerPos:
-      x: 60
-      y: 53
-    EnemyType: 0
-  - spawnerPos:
-      x: 63
-      y: 56
-    EnemyType: 0
-  - spawnerPos:
-      x: 63
-      y: 60
-    EnemyType: 0
-  - spawnerPos:
-      x: 63
-      y: 64
-    EnemyType: 0
-  - spawnerPos:
-      x: 58
-      y: 56
-    EnemyType: 0
-  - spawnerPos:
-      x: 64
-      y: 51
-    EnemyType: 0
-  - spawnerPos:
-      x: 64
-      y: 52
-    EnemyType: 0
-  - spawnerPos:
-      x: 60
-      y: 61
-    EnemyType: 0
-  - spawnerPos:
-      x: 59
-      y: 65
-    EnemyType: 0
-  - spawnerPos:
-      x: 55
-      y: 67
-    EnemyType: 0
-  - spawnerPos:
-      x: 45
-      y: 69
-    EnemyType: 0
-  - spawnerPos:
-      x: 38
-      y: 70
-    EnemyType: 0
-  - spawnerPos:
-      x: 36
-      y: 68
-    EnemyType: 0
-  - spawnerPos:
-      x: 46
+      x: 44
       y: 67
     EnemyType: 0
   - spawnerPos:
       x: 52
-      y: 69
+      y: 68
     EnemyType: 0
   - spawnerPos:
-      x: 61
-      y: 70
-    EnemyType: 0
-  - spawnerPos:
-      x: 64
-      y: 71
-    EnemyType: 0
-  - spawnerPos:
-      x: 56
-      y: 73
-    EnemyType: 0
-  - spawnerPos:
-      x: 45
-      y: 74
-    EnemyType: 0
-  - spawnerPos:
-      x: 40
-      y: 73
-    EnemyType: 0
-  - spawnerPos:
-      x: 35
-      y: 74
-    EnemyType: 0
-  - spawnerPos:
-      x: 34
-      y: 70
-    EnemyType: 0
-  - spawnerPos:
-      x: 34
-      y: 65
-    EnemyType: 0
-  - spawnerPos:
-      x: 34
-      y: 62
-    EnemyType: 0
-  - spawnerPos:
-      x: 33
-      y: 60
-    EnemyType: 0
-  - spawnerPos:
-      x: 29
-      y: 45
+      x: 59
+      y: 56
     EnemyType: 0
   - spawnerPos:
       x: 63
-      y: 36
-    EnemyType: 0
-  - spawnerPos:
-      x: 65
-      y: 45
-    EnemyType: 0
-  - spawnerPos:
-      x: 30
       y: 50
     EnemyType: 0
   - spawnerPos:
-      x: 29
+      x: 52
       y: 40
     EnemyType: 0
   - spawnerPos:
-      x: 32
-      y: 37
+      x: 45
+      y: 43
     EnemyType: 0
   - spawnerPos:
-      x: 29
-      y: 36
-    EnemyType: 0
-  - spawnerPos:
-      x: 32
-      y: 35
+      x: 31
+      y: 56
     EnemyType: 0
   - spawnerPos:
       x: 36
-      y: 35
+      y: 52
     EnemyType: 0
   - spawnerPos:
-      x: 40
-      y: 37
+      x: 34
+      y: 39
     EnemyType: 0
   - spawnerPos:
-      x: 66
-      y: 40
+      x: 63
+      y: 39
     EnemyType: 0
   - spawnerPos:
-      x: 66
-      y: 35
-    EnemyType: 0
-  - spawnerPos:
-      x: 67
-      y: 64
-    EnemyType: 0
-  - spawnerPos:
-      x: 66
-      y: 67
-    EnemyType: 0
-  - spawnerPos:
-      x: 64
-      y: 67
-    EnemyType: 0
-  - spawnerPos:
-      x: 60
-      y: 68
-    EnemyType: 0
-  - spawnerPos:
-      x: 39
-      y: 68
-    EnemyType: 0
-  - spawnerPos:
-      x: 38
-      y: 64
+      x: 34
+      y: 70
     EnemyType: 0
   enemySpawner:
   - spawnerPos:
-      x: 29
-      y: 73
-    NbEnnemyMax: 30
+      x: 48
+      y: 30
+    NbEnnemyMax: 100
     EnemyType: 0
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
       x: 0
-      y: 2
+      y: 3
+    EnemySpawnDirection:
+      x: 0
+      y: 1
+    Distance: 5
     currentTime: 0
-    time: 0
   - spawnerPos:
-      x: 67
-      y: 74
-    NbEnnemyMax: 30
+      x: 73
+      y: 54
+    NbEnnemyMax: 100
     EnemyType: 0
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
       x: 0
-      y: 2
+      y: 3
+    EnemySpawnDirection:
+      x: -1
+      y: 0
+    Distance: 5
     currentTime: 0
-    time: 0
   - spawnerPos:
-      x: 67
-      y: 36
-    NbEnnemyMax: 30
+      x: 21
+      y: 54
+    NbEnnemyMax: 100
     EnemyType: 0
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
       x: 0
-      y: 2
+      y: 3
+    EnemySpawnDirection:
+      x: 1
+      y: 0
+    Distance: 7
     currentTime: 0
-    time: 0
   - spawnerPos:
-      x: 28
-      y: 35
-    NbEnnemyMax: 30
+      x: 48
+      y: 80
+    NbEnnemyMax: 100
     EnemyType: 0
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
       x: 0
-      y: 2
+      y: 3
+    EnemySpawnDirection:
+      x: 0
+      y: -1
+    Distance: 6
     currentTime: 0
-    time: 0
