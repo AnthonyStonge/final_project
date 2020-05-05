@@ -73,7 +73,6 @@ public class TemporaryEnemySpawnerSystem : SystemBase
     {
         if (GameVariables.Grids.ContainsKey(EventsHolder.LevelEvents.CurrentLevel))
         {
-            
             //var enemySpawner = GameVariables.Grids[EventsHolder.LevelEvents.CurrentLevel].enemySpawner;
             for (int i = 0; i < copySpawner.Length; i++)
             {
@@ -119,57 +118,6 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                 }
             }
         }
-        /*if (Input.GetMouseButtonDown(1))
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                CreateEnemy(Type.Rat, out Entity rat);
-                if (rat != Entity.Null)
-                    CreateWeapon(WeaponType.RatWeapon, rat);
-                CreateEnemy(Type.Chicken, out Entity chicken);
-                if (chicken != Entity.Null)
-                    CreateWeapon(WeaponType.ChickenWeapon, chicken);
-                CreateEnemy(Type.Pig, out Entity pig);
-                if (pig != Entity.Null)
-                    CreateWeapon(WeaponType.PigWeapon, pig);
-                CreateEnemy(Type.Gorilla, out Entity gorilla);
-                if (gorilla != Entity.Null)
-                    CreateWeapon(WeaponType.GorillaWeapon, gorilla);
-            }
-        }
-        
-        if (Input.GetKeyDown(KeyCode.P))
-            for (int i = 0; i < 10; i++)
-            {
-                CreateEnemy(Type.Pig, out Entity e);
-                if (e != Entity.Null)
-                    CreateWeapon(WeaponType.PigWeapon, e);
-            }
-
-        if (Input.GetKeyDown(KeyCode.O))
-            for (int i = 0; i < 10; i++)
-            {
-                CreateEnemy(Type.Rat, out Entity e);
-                if (e != Entity.Null)
-                    CreateWeapon(WeaponType.RatWeapon, e);
-            }
-
-        if (Input.GetKeyDown(KeyCode.I))
-            for (int i = 0; i < 10; i++)
-            {
-                CreateEnemy(Type.Chicken, out Entity e);
-                if (e != Entity.Null)
-                    CreateWeapon(WeaponType.ChickenWeapon, e);
-            }
-
-        if (Input.GetKeyDown(KeyCode.U))
-            for (int i = 0; i < 10; i++)
-            {
-                CreateEnemy(Type.Gorilla, out Entity e);
-                if (e != Entity.Null)
-                    CreateWeapon(WeaponType.Shotgun, e);
-            }*/
-
     }
 
     private static void CreateEnemy(Type type, out Entity e, in int2 spawnPosition)
