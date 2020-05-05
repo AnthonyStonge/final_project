@@ -39,9 +39,9 @@ public class CameraFollowSystem : SystemBase
         var e = GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
         var localToWorld = EntityManager.GetComponentData<LocalToWorld>(e);
         #if UNITY_EDITOR
-        Debug.DrawRay(playerLocalToWorld.Position, playerLocalToWorld.Forward * 5, Color.blue);
+        /*Debug.DrawRay(playerLocalToWorld.Position, playerLocalToWorld.Forward * 5, Color.blue);
         Debug.DrawRay(localToWorld.Position, localToWorld.Forward * 5, Color.yellow);
-        Debug.DrawRay(currentPosition,newDir  * 5, Color.red);
+        Debug.DrawRay(currentPosition,newDir  * 5, Color.red);*/
         #endif 
     }
 }
