@@ -228,7 +228,7 @@ public class RetrieveGunEventSystem : SystemBase
         {
             case WeaponType.Machinegun:
             case WeaponType.Pistol:
-                ShootPistol(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
+                ShootPistol(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition, transform);
                 break;
             case WeaponType.Shotgun:
                 ShootShotgun(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
@@ -243,7 +243,7 @@ public class RetrieveGunEventSystem : SystemBase
     }
 
     private static void ShootPistol(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
-        float3 position, quaternion rotation, float3 parentEntityPosition)
+        float3 position, quaternion rotation, float3 parentEntityPosition, LocalToWorld localToWorld)
     {
         //Create entity with prefab
         Entity bullet = ecb.Instantiate(jobIndex, bulletPrefab);
@@ -256,6 +256,10 @@ public class RetrieveGunEventSystem : SystemBase
         ecb.SetComponent(jobIndex, bullet, new Rotation
         {
             Value = rotation
+        });
+        ecb.SetComponent(jobIndex, bullet ,new LocalToWorld
+        {
+            Value = localToWorld.Value
         });
         ecb.AddComponent(jobIndex, bullet, new BulletPreviousPositionData
         {
