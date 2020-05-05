@@ -14,4 +14,6 @@ public struct DamageProjectile : IComponentData
 {
     public ProjectileType Type;
     public float Speed;
+    [Tooltip("Should be half of the scale?")]
+    public float Radius;
 }
