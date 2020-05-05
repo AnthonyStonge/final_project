@@ -25,6 +25,8 @@ public class PlayerTargetSystem : SystemBase
         //Get Player InputsComponents
         InputComponent input = entityManager.GetComponentData<InputComponent>(GameVariables.Player.Entity);
         
+        
+        
         //Create ray cast
         UnityEngine.Ray camRay = GameVariables.MainCamera.ScreenPointToRay(input.Mouse);
         RaycastInput rayInfo = new RaycastInput

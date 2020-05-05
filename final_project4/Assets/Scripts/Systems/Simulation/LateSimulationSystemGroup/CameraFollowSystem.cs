@@ -11,10 +11,6 @@ public class CameraFollowSystem : SystemBase
     private float length = 8;
     private float offsetRad = math.radians(-45f);
 
-    protected override void OnCreate()
-    {
-    }
-
     protected override void OnUpdate()
     {
         //Get Player Translation, which was set by the physic system
@@ -31,10 +27,18 @@ public class CameraFollowSystem : SystemBase
         var newDir = float3.zero;
         newDir.x = oldPos.x * math.cos(offsetRad) - oldPos.y * math.sin(offsetRad);
         newDir.z = oldPos.x * math.sin(offsetRad) + oldPos.y * math.cos(offsetRad);
-
+        newDir.y = 0;
         newDir *= distance;
 
         GameVariables.MouseToTransform.position = currentPosition + newDir;
         GameVariables.Player.Transform.position = currentPosition;
+        
+        //Debug Ray
+        var e = GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
+        var localToWorld = EntityManager.GetComponentData<LocalToWorld>(e);
+        #if UNITY_EDITOR
+        Debug.DrawRay(localToWorld.Position, localToWorld.Forward * 5, Color.yellow);
+        Debug.DrawRay(t.Value,newDir , Color.red);
+        #endif 
     }
 }
