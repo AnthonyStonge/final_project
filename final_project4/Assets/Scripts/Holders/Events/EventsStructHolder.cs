@@ -92,7 +92,8 @@ namespace EventStruct
 
     public struct InteractableInfo
     {
-        public Entity Entity;
+        public Entity TriggerEntity;
+        public Entity CollidedEntity;
         public InteractableType InteractableType;
         public InteractableObjectType ObjectType;
         public InteractableCollisionType CollisionType;
