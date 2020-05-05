@@ -40,8 +40,6 @@ public class WeaponInitializer
         Player.PlayerWeaponEntities.Add(WeaponType.Machinegun, machinegun);
         
         Player.PlayerCurrentWeapons.Add(WeaponType.Pistol);
-        Player.PlayerCurrentWeapons.Add(WeaponType.Shotgun);
-        Player.PlayerCurrentWeapons.Add(WeaponType.Machinegun);
     }
 
     public static void Reset()
