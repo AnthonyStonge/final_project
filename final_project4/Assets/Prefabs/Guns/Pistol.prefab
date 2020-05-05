@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8068390896768803375}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0.5, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3496596438086507337}
@@ -65,8 +65,8 @@ MonoBehaviour:
   ResetReloadTime: 1
   BulletPrefab: {fileID: 8337288439267534834, guid: 950f480c66d432542924efec9f68e4f1,
     type: 3}
-  CurrentAmountBulletInMagazine: 20
-  CurrentAmountBulletOnPlayer: 999
+  CurrentAmountBulletInMagazine: 99999999
+  CurrentAmountBulletOnPlayer: 9999999
   BetweenShotTime: 0
   ReloadTime: 0
   SwapTimer: 0
@@ -96,7 +96,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8085121456273243606}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.449, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 1074409045778871052}
