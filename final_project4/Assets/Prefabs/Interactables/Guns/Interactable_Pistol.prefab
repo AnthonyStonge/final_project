@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1966160749951773283}
   - component: {fileID: 997196739727438542}
   m_Layer: 0
-  m_Name: Interactable_Shotgun
+  m_Name: Interactable_Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105541218138870417}
-  m_Mesh: {fileID: 4300000, guid: 0a139ed954ef18240a1f8afcab4ed2bb, type: 3}
+  m_Mesh: {fileID: 4300000, guid: f90b45390e466324982942c5c1497142, type: 3}
 --- !u!23 &2747594959384152136
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fa954803074591b4f964f423d93ec91f, type: 2}
+  - {fileID: 2100000, guid: 15f36639d9ae74c4f8bec76b9766dd3e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,11 +97,11 @@ MonoBehaviour:
   m_PrimitiveCenter:
     x: 0
     y: 0.2
-    z: 0.25
+    z: 0
   m_PrimitiveSize:
-    x: 0.3
+    x: 0.4
     y: 1
-    z: 1
+    z: 0.4
   m_PrimitiveOrientation:
     Value:
       x: -0
@@ -110,12 +110,12 @@ MonoBehaviour:
     RotationOrder: 4
   m_Capsule:
     Height: 1
-    Radius: 0.5
-    Axis: 2
+    Radius: 0.2
+    Axis: 1
   m_Cylinder:
-    Height: 0.3
-    Radius: 0.5
-    Axis: 0
+    Height: 1
+    Radius: 0.2
+    Axis: 1
   m_CylinderSideCount: 20
   m_SphereRadius: 0.5
   m_MinimumSkinnedVertexWeight: 0.1
@@ -174,4 +174,4 @@ MonoBehaviour:
   MapTypeLeadingTo: 0
   PortalIdLeadingTo: 0
   DoorToOpen: {fileID: 0}
-  WeaponType: 1
+  WeaponType: 0
