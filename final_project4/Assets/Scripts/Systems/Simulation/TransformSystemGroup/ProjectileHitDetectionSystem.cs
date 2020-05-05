@@ -70,23 +70,49 @@ public class ProjectileHitDetectionSystem : SystemBase
                 CollidesWith = bulletCollider.CollidesWith.Value,
                 GroupIndex = bulletCollider.GroupIndex
             };
+            
+            //Find direction
+            float3 direction = translation.Value - previousPosition.Value;
+            direction = math.normalizesafe(direction);
+            
+            //Find Vector to add
+            float3 offset = default;
+            float offsetRad = math.radians(90f);
+            float cos = math.cos(offsetRad);
+            float sin = math.sin(offsetRad);
+            offset.x = direction.x * cos - direction.z * sin;
+            offset.z = direction.x * sin + direction.z * cos;
+            offset *= projectile.Radius;
 
             //Create Ray Inputs
+            RaycastInput middleRayCast =
+                GetRayCastInput(filter, translation.Value, previousPosition.Value, float3.zero);
             RaycastInput rightRayCast =
-                GetRayCastInput(filter, translation.Value, previousPosition.Value, projectile.Radius);
+                GetRayCastInput(filter, translation.Value, previousPosition.Value, offset);
             RaycastInput leftRayCast =
                 GetRayCastInput(filter, translation.Value, previousPosition.Value,
-                    -projectile.Radius); //Adding a negative radius
+                    -offset); //Adding a negative radius
 
             bool hitDetected = false;
             Entity hitEntity = Entity.Null;
             RaycastHit hit = default;
+            float3 hitPosition = default;
 
             //Try first RayCast
-            if (physicsWorld.CollisionWorld.CastRay(rightRayCast, out RaycastHit rightRayCastHit))
+            if (physicsWorld.CollisionWorld.CastRay(middleRayCast, out RaycastHit middleRayCastHit))
+            {
+                hitDetected = true;
+                hit = middleRayCastHit;
+                hitPosition = float3.zero;
+
+                //Get Hit Entity
+                hitEntity = physicsWorld.Bodies[middleRayCastHit.RigidBodyIndex].Entity;
+            }
+            else if (physicsWorld.CollisionWorld.CastRay(rightRayCast, out RaycastHit rightRayCastHit))
             {
                 hitDetected = true;
                 hit = rightRayCastHit;
+                hitPosition = -offset;
 
                 //Get Hit Entity
                 hitEntity = physicsWorld.Bodies[rightRayCastHit.RigidBodyIndex].Entity;
@@ -96,6 +122,7 @@ public class ProjectileHitDetectionSystem : SystemBase
             {
                 hitDetected = true;
                 hit = leftRayCastHit;
+                hitPosition = offset;
 
                 //Get Hit Entity
                 hitEntity = physicsWorld.Bodies[leftRayCastHit.RigidBodyIndex].Entity;
@@ -155,7 +182,7 @@ public class ProjectileHitDetectionSystem : SystemBase
             {
                 ProjectileType = projectile.Type,
                 CollisionType = collisionType,
-                HitPosition = hit.Position,
+                HitPosition = hit.Position + hitPosition,
                 HitRotation = rotation.Value
             });
         }).ScheduleParallel(Dependency);
@@ -166,14 +193,12 @@ public class ProjectileHitDetectionSystem : SystemBase
     }
 
     private static RaycastInput GetRayCastInput(CollisionFilter filter, float3 bulletPosition,
-        float3 previousBulletPosition, float radius)
+        float3 previousBulletPosition, float3 offset)
     {
-        
-        
         return new RaycastInput
         {
-            Start = previousBulletPosition,
-            End = bulletPosition,
+            Start = previousBulletPosition + offset,
+            End = bulletPosition + offset,
             Filter = filter
         };
     }
