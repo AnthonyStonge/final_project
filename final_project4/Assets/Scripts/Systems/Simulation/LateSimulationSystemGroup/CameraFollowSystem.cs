@@ -34,11 +34,13 @@ public class CameraFollowSystem : SystemBase
         GameVariables.Player.Transform.position = currentPosition;
         
         //Debug Ray
+        var playerLocalToWorld = EntityManager.GetComponentData<LocalToWorld>(GameVariables.Player.Entity);
         var e = GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
         var localToWorld = EntityManager.GetComponentData<LocalToWorld>(e);
         #if UNITY_EDITOR
+        Debug.DrawRay(playerLocalToWorld.Position, playerLocalToWorld.Forward * 5, Color.blue);
         Debug.DrawRay(localToWorld.Position, localToWorld.Forward * 5, Color.yellow);
-        Debug.DrawRay(t.Value,newDir , Color.red);
+        Debug.DrawRay(currentPosition,newDir  * 5, Color.red);
         #endif 
     }
 }
