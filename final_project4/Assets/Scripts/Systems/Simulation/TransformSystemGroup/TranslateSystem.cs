@@ -1,9 +1,6 @@
-﻿using System.Diagnostics;
-using Unity.Entities;
- using Unity.Mathematics;
-using Unity.Physics;
+﻿using Unity.Entities;
 using Unity.Transforms;
-using Debug = UnityEngine.Debug;
+
 [DisableAutoCreation]
 [UpdateAfter(typeof(ProjectileHitDetectionSystem))]
  public class TranslateSystem : SystemBase

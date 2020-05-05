@@ -4,9 +4,14 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
-
+using BoxCollider = Unity.Physics.BoxCollider;
+using CapsuleCollider = Unity.Physics.CapsuleCollider;
+using Collider = Unity.Physics.Collider;
+using MeshCollider = Unity.Physics.MeshCollider;
+using SphereCollider = Unity.Physics.SphereCollider;
 struct EmptyEventQueueJob : IJob
 {
     public NativeQueue<WeaponInfo> EventsQueue;
@@ -317,6 +322,9 @@ public class RetrieveGunEventSystem : SystemBase
             {
                 Value = parentEntityPosition
             });
+            PhysicsCollider a = new PhysicsCollider();
+            // a.Value.Value.Type == ColliderType.Box;
+            
         }
     }
 
@@ -341,6 +349,10 @@ public class RetrieveGunEventSystem : SystemBase
             ecb.SetComponent(jobIndex, bullet, new Rotation
             {
                 Value = bulletRotation
+            });
+            ecb.AddComponent(jobIndex, bullet, new BulletPreviousPositionData
+            {
+                Value = parentEntityPosition
             });
         }
     }

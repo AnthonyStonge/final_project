@@ -20,15 +20,7 @@ public class PlayerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponent<AnimationData>(entity);
         dstManager.AddComponent<DirectionData>(entity);
         dstManager.AddComponent<InvincibleData>(entity);    
-        dstManager.AddComponentData(entity, new InputComponent
-        {
-            Enabled = true
-        });
+        dstManager.AddComponentData(entity, new InputComponent { Enabled = true });
 
-        //TODO REMOVE SPEED AND REPLACE BY AFFECTING VELOCITY
-        dstManager.AddComponentData(entity, new SpeedData
-        {
-            Value = 333
-        });
     }
 }
