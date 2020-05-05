@@ -29,7 +29,8 @@ public class CameraFollowSystem : SystemBase
         var sin = math.sin(offsetRad);
         newDir.x = oldPos.x * cos - oldPos.y * sin;
         newDir.z = oldPos.x * sin + oldPos.y * cos;
-
+        newDir.y = 0;
+        
         GameVariables.MouseToTransform.position = currentPosition + newDir * distance;
         GameVariables.Player.Transform.position = currentPosition;
         
