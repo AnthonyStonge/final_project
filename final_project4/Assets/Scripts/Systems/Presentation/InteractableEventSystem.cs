@@ -62,6 +62,9 @@ public class InteractableEventSystem : SystemBase
             case InteractableObjectType.Door:
                 OnEnterDoorTrigger(info);
                 break;
+            case InteractableObjectType.Weapon:
+                OnWalkOverWeapon(info);
+                break;
         }
     }
 
@@ -189,6 +192,26 @@ public class InteractableEventSystem : SystemBase
         manager.RemoveComponent<RenderMesh>(door);
 
         //Remove Trigger (because its been use so...)
+        manager.DestroyEntity(info.Entity);
+    }
+
+    private static void OnWalkOverWeapon(InteractableInfo info)
+    {
+        //Get WeaponType
+        WeaponType type = manager.GetComponentData<InteractableComponent>(info.Entity).WeaponType;
+
+        //Make sure Player doesnt already have this weapon
+        if (GameVariables.Player.PlayerCurrentWeapons.Contains(type))
+        {
+#if UNITY_EDITOR
+            Debug.Log($"Player already has weapon {type}, not adding new one...");
+#endif
+        }
+        else
+            //Add to player inventory
+            GameVariables.Player.PlayerCurrentWeapons.Add(type);
+        
+        //Destroy Interactable
         manager.DestroyEntity(info.Entity);
     }
 }
