@@ -46,7 +46,7 @@ public class PathFollowSystem : SystemBase
         float deltaTime = Time.DeltaTime;
         float3 posPlayer = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
         
-        Entities.ForEach((int nativeThreadIndex, DynamicBuffer<PathPosition> pathPos, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, ref Translation translation) =>
+        Entities.ForEach((int nativeThreadIndex, DynamicBuffer<PathPosition> pathPos, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, ref Translation translation, ref BulletCollider filter) =>
         {
             if (!pathFollow.BeginWalk)
             {
@@ -72,7 +72,12 @@ public class PathFollowSystem : SystemBase
                     {
                         Start = translation.Value,
                         End = posPlayer,
-                        Filter = Filter
+                        Filter = new CollisionFilter()
+                        {
+                            BelongsTo = filter.BelongsTo.Value,
+                            CollidesWith = filter.CollidesWith.Value,
+                            GroupIndex = filter.GroupIndex
+                        }
                     };
                     if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
                     {

@@ -138,8 +138,6 @@ public class TemporaryEnemySpawnerSystem : SystemBase
         float2 translation = entityManager.GetComponentData<Translation>(e).Value.xz;
         if (i != -1)
         {
-            Debug.Log((int2)(translation));
-            Debug.Log((int2)(translation + (copySpawner[i].EnemySpawnDirection * new int2(copySpawner[i].Distance, copySpawner[i].Distance))));
             entityManager.AddComponentData(e, new PathFollowComponent
             {
                 BeginWalk = true,
