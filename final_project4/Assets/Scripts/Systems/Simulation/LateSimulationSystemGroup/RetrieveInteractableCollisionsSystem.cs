@@ -13,14 +13,13 @@ using UnityEngine;
 public class RetrieveInteractableCollisionsSystem : SystemBase
 {
     private StepPhysicsWorld stepPhysicsWorld;
-    public HashSet<Entity> PreviousFrameCollisions = new HashSet<Entity>();
+    public HashSet<CollisionLink> PreviousFrameCollisions = new HashSet<CollisionLink>();
 
     protected override void OnCreate()
     {
         stepPhysicsWorld = World.GetOrCreateSystem<StepPhysicsWorld>();
     }
-
-    //TODO FIGURE OUT WHY ON EXIT IS CALLED EVEN WHEN NOT EXITED...
+    
     //Will be slow if lots of TriggerEvent (Change to parallel)
     protected override void OnUpdate()
     {
@@ -37,58 +36,74 @@ public class RetrieveInteractableCollisionsSystem : SystemBase
         ComponentDataFromEntity<Rotation> interactableRotations =
             GetComponentDataFromEntity<Rotation>(true);
 
-        HashSet<Entity> currentFrameCollisions = new HashSet<Entity>();
+        HashSet<CollisionLink> currentFrameCollisions = new HashSet<CollisionLink>();
 
         //Retrieve all interactables collision with PlayerEntity
         foreach (TriggerEvent triggerEvent in triggerEvents)
         {
             if (interactables.Exists(triggerEvent.Entities.EntityA))
             {
-                currentFrameCollisions.Add(triggerEvent.Entities.EntityA);
+                currentFrameCollisions.Add(new CollisionLink
+                {
+                    TriggerEntity = triggerEvent.Entities.EntityA,
+                    NotTriggerEntity = triggerEvent.Entities.EntityB
+                });
             }
             else if (interactables.Exists(triggerEvent.Entities.EntityB))
             {
-                currentFrameCollisions.Add(triggerEvent.Entities.EntityB);
+                currentFrameCollisions.Add(new CollisionLink
+                {
+                    TriggerEntity = triggerEvent.Entities.EntityB,
+                    NotTriggerEntity = triggerEvent.Entities.EntityA
+                });
             }
         }
 
-        foreach (Entity entity in currentFrameCollisions)
+        foreach (CollisionLink link in currentFrameCollisions)
         {
             //if interactable was not already colliding previous frame -> OnTriggerEnter
-            if (!PreviousFrameCollisions.Contains(entity))
+            if (!PreviousFrameCollisions.Contains(link))
             {
                 //Create Event
                 EventsHolder.InteractableEvents.Add(new InteractableInfo
                 {
-                    Entity = entity,
-                    Position = interactablePositions[entity].Value,
-                    Rotation = interactableRotations[entity].Value,
-                    InteractableType = interactables[entity].Type,
-                    ObjectType = interactables[entity].ObjectType,
+                    TriggerEntity = link.TriggerEntity,
+                    CollidedEntity = link.NotTriggerEntity,
+                    Position = interactablePositions[link.TriggerEntity].Value,
+                    Rotation = interactableRotations[link.TriggerEntity].Value,
+                    InteractableType = interactables[link.TriggerEntity].Type,
+                    ObjectType = interactables[link.TriggerEntity].ObjectType,
                     CollisionType = InteractableInfo.InteractableCollisionType.OnTriggerEnter
                 });
             }
         }
 
-        foreach (Entity entity in PreviousFrameCollisions)
+        foreach (CollisionLink link in PreviousFrameCollisions)
         {
-            if (EntityManager.Exists(entity))
+            if (EntityManager.Exists(link.TriggerEntity))
                 //if previous collision not detected this frame -> OnTriggerExit
-                if (!currentFrameCollisions.Contains(entity))
+                if (!currentFrameCollisions.Contains(link))
                 {
                     //Create Event
                     EventsHolder.InteractableEvents.Add(new InteractableInfo
                     {
-                        Entity = entity,
-                        Position = interactablePositions[entity].Value,
-                        Rotation = interactableRotations[entity].Value,
-                        InteractableType = interactables[entity].Type,
-                        ObjectType = interactables[entity].ObjectType,
+                        TriggerEntity = link.TriggerEntity,
+                        CollidedEntity = link.NotTriggerEntity,
+                        Position = interactablePositions[link.TriggerEntity].Value,
+                        Rotation = interactableRotations[link.TriggerEntity].Value,
+                        InteractableType = interactables[link.TriggerEntity].Type,
+                        ObjectType = interactables[link.TriggerEntity].ObjectType,
                         CollisionType = InteractableInfo.InteractableCollisionType.OnTriggerExit
                     });
                 }
         }
 
         PreviousFrameCollisions = currentFrameCollisions;
+    }
+
+    public struct CollisionLink
+    {
+        public Entity TriggerEntity;
+        public Entity NotTriggerEntity;
     }
 }

@@ -62,6 +62,12 @@ public class InteractableEventSystem : SystemBase
             case InteractableObjectType.Door:
                 OnEnterDoorTrigger(info);
                 break;
+            case InteractableObjectType.Weapon:
+                OnWalkOverWeapon(info);
+                break;
+            case InteractableObjectType.DeepHole:
+                OnWalkOverDeepHole(info);
+                break;
         }
     }
 
@@ -73,7 +79,7 @@ public class InteractableEventSystem : SystemBase
         //Set Object in GameVariables
         GameVariables.Interactables.CurrentInteractableSelected = new GameVariables.Interactables.Interactable
         {
-            Entity = info.Entity,
+            Entity = info.TriggerEntity,
             ObjectType = info.ObjectType
         };
 
@@ -122,7 +128,7 @@ public class InteractableEventSystem : SystemBase
         //Get PortalComponent
         PortalData data =
             Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager
-                .GetComponentData<PortalData>(info.Entity);
+                .GetComponentData<PortalData>(info.TriggerEntity);
 
         //Get PortalInfo
         MapInfo.Portal portal = MapHolder.MapsInfo[MapEvents.CurrentTypeLoaded].Portals[data.Value];
@@ -178,7 +184,7 @@ public class InteractableEventSystem : SystemBase
     private static void OnEnterDoorTrigger(InteractableInfo info)
     {
         //Get Door Entity
-        Entity door = manager.GetComponentData<InteractableComponent>(info.Entity).DoorToOpen;
+        Entity door = manager.GetComponentData<InteractableComponent>(info.TriggerEntity).DoorToOpen;
 
         //Remove Door collider
         manager.RemoveComponent<PhysicsCollider>(door);
@@ -189,6 +195,40 @@ public class InteractableEventSystem : SystemBase
         manager.RemoveComponent<RenderMesh>(door);
 
         //Remove Trigger (because its been use so...)
-        manager.DestroyEntity(info.Entity);
+        manager.DestroyEntity(info.TriggerEntity);
+    }
+
+    private static void OnWalkOverWeapon(InteractableInfo info)
+    {
+        //Get WeaponType
+        WeaponType type = manager.GetComponentData<InteractableComponent>(info.TriggerEntity).WeaponType;
+
+        //Make sure Player doesnt already have this weapon
+        if (GameVariables.Player.PlayerCurrentWeapons.Contains(type))
+        {
+#if UNITY_EDITOR
+            Debug.Log($"Player already has weapon {type}, not adding new one...");
+#endif
+        }
+        else
+            //Add to player inventory
+            GameVariables.Player.PlayerCurrentWeapons.Add(type);
+
+        //Destroy Interactable
+        manager.DestroyEntity(info.TriggerEntity);
+    }
+
+    private static void OnWalkOverDeepHole(InteractableInfo info)
+    {
+        //Make sure entity has a LifeComponent
+        if (!manager.HasComponent<LifeComponent>(info.CollidedEntity))
+            return;
+
+        //Get LifeComponent of Entity
+        LifeComponent life = manager.GetComponentData<LifeComponent>(info.CollidedEntity);
+
+        //Kill and set back
+        life.Life.Value = 0;
+        manager.SetComponentData(info.CollidedEntity, life);
     }
 }

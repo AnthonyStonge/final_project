@@ -21,6 +21,8 @@ public class InteractableAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 
     [Header("Door")] public GameObject DoorToOpen;
 
+    [Header("Weapon")] public WeaponType WeaponType;
+
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
 #if UNITY_EDITOR
@@ -30,7 +32,7 @@ public class InteractableAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddComponentData(entity, new InteractableComponent
         {
             Type = Type,
-            ObjectType = ObjectType,
+            ObjectType = ObjectType
         });
 
         //Add to Map portals
@@ -78,6 +80,16 @@ public class InteractableAuthoring : MonoBehaviour, IConvertGameObjectToEntity
                 BatchId = AnimationHolder.AddAnimatedObject()
             });
             dstManager.AddComponent<AnimationData>(entity);
+        }
+
+        if (ObjectType == InteractableObjectType.Weapon)
+        {
+            dstManager.AddComponentData(entity, new InteractableComponent
+            {
+                Type = Type,
+                ObjectType = ObjectType,
+                WeaponType = WeaponType
+            });
         }
     }
 }

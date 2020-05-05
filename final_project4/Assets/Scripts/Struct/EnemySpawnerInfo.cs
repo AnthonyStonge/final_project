@@ -13,8 +13,8 @@ public struct EnemySpawnerInfo
     public Type EnemyType;
     public int currentEnnemySpawn;
     public int2 TimeRangeBetweenSpawn;
+    public int2 EnemySpawnDirection;
+    public int Distance;
     [HideInInspector]
     public float currentTime;
-    [HideInInspector]
-    public float time;
 }

@@ -46,46 +46,60 @@ public class PathFollowSystem : SystemBase
         float deltaTime = Time.DeltaTime;
         float3 posPlayer = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
         
-        Entities.ForEach((int nativeThreadIndex, DynamicBuffer<PathPosition> pathPos, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, ref Translation translation) =>
+        Entities.ForEach((int nativeThreadIndex, DynamicBuffer<PathPosition> pathPos, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, ref Translation translation, ref BulletCollider filter) =>
         {
-            range.IsInRange = false;
-            switch (pathFollow.EnemyState)
+            if (!pathFollow.BeginWalk)
             {
-                case EnemyState.Attack:
-                    AttackFollow(posPlayer, ref pathFollow, ref range, translation);
-                    break;
-                case EnemyState.Chase:
-                    ChaseFollow(ref pathFollow, ref physicsWorld, ref player, pathPos);
-                    break;
-                case EnemyState.Wondering:
-                    WonderingFollow(ref pathFollow, ref physicsWorld, ref randomArray, translation, time, deltaTime, nativeThreadIndex);
-                    break;
-            }
+                range.IsInRange = false;
+                switch (pathFollow.EnemyState)
+                {
+                    case EnemyState.Attack:
+                        AttackFollow(posPlayer, ref pathFollow, ref range, translation);
+                        break;
+                    case EnemyState.Chase:
+                        ChaseFollow(ref pathFollow, ref physicsWorld, ref player, pathPos);
+                        break;
+                    case EnemyState.Wondering:
+                        WonderingFollow(ref pathFollow, ref physicsWorld, ref randomArray, translation, time, deltaTime,
+                            nativeThreadIndex);
+                        break;
+                }
 
-            //State changer 
-            if (math.distancesq(translation.Value, posPlayer) <= range.AgroDistance * range.AgroDistance)
-            {
-                RaycastInput raycastInput = new RaycastInput
+                //State changer 
+                if (math.distancesq(translation.Value, posPlayer) <= range.AgroDistance * range.AgroDistance)
                 {
-                    Start = translation.Value,
-                    End = posPlayer,
-                    Filter = Filter
-                };
-                if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
-                {
-                    if (player.Components.HasComponent(hit.Entity))
+                    RaycastInput raycastInput = new RaycastInput
                     {
-                        pathFollow.EnemyState = EnemyState.Attack;
-                    }
-                    else
+                        Start = translation.Value,
+                        End = posPlayer,
+                        Filter = new CollisionFilter()
+                        {
+                            BelongsTo = filter.BelongsTo.Value,
+                            CollidesWith = filter.CollidesWith.Value,
+                            GroupIndex = filter.GroupIndex
+                        }
+                    };
+                    if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
                     {
-                        pathFollow.EnemyState = EnemyState.Wondering;
+                        if (player.Components.HasComponent(hit.Entity))
+                        {
+                            pathFollow.EnemyState = EnemyState.Attack;
+                        }
+                        else
+                        {
+                            if (pathFollow.EnemyState == EnemyState.Attack)
+                            {
+                                pathFollow.EnemyState = EnemyState.Chase;
+                            }
+                            if (pathFollow.EnemyState != EnemyState.Chase)
+                                pathFollow.EnemyState = EnemyState.Wondering;
+                        }
                     }
                 }
-            }
-            else
-            {
-                pathFollow.EnemyState = EnemyState.Wondering;
+                else
+                {
+                    pathFollow.EnemyState = EnemyState.Wondering;
+                }
             }
         }).ScheduleParallel();
     }
@@ -93,7 +107,7 @@ public class PathFollowSystem : SystemBase
     private static void ChaseFollow(ref PathFollowComponent pathFollow, ref PhysicsWorld physicsWorld,
         ref ComponentDataContainer<PlayerTag> player, in DynamicBuffer<PathPosition> pathPos)
     {
-        pathFollow.PositionToGo = new int2(-1);
+        /*pathFollow.PositionToGo = new int2(-1);
         int compteur = 0;
         bool loopBreak = false;
         while ((compteur != pathPos.Length && compteur != 4) && pathPos.Length > 0)
@@ -140,7 +154,7 @@ public class PathFollowSystem : SystemBase
 
                 pathFollow.PositionToGo = pathPos[(pathFollow.pathIndex - compteur) + 1].position;
             }
-        }
+        }*/
     }
     private static void WonderingFollow(ref PathFollowComponent pathFollow,ref PhysicsWorld physicsWorld, ref NativeArray<Unity.Mathematics.Random> RandomArray, in Translation translation, in double time, in float deltaTime, in int naticeThreadIndex)
     {
@@ -170,6 +184,7 @@ public class PathFollowSystem : SystemBase
             //If collides, do not move
             if (physicsWorld.CollisionWorld.CastRay(raycastInput))
             {
+                
                 pathFollow.PositionToGo = new int2(-1);
                 pathFollow.timeWonderingCounter = 0;
             }

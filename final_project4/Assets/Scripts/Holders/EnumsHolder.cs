@@ -91,7 +91,9 @@ namespace Enums
         Switch,
         Portal,
         Ammo,
-        Door
+        Door,
+        Weapon,
+        DeepHole
     }
     public enum EnemyState
     {

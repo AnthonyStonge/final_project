@@ -70,11 +70,11 @@ public class ProjectileHitDetectionSystem : SystemBase
                 CollidesWith = bulletCollider.CollidesWith.Value,
                 GroupIndex = bulletCollider.GroupIndex
             };
-            
+
             //Find direction
             float3 direction = translation.Value - previousPosition.Value;
             direction = math.normalizesafe(direction);
-            
+
             //Find Vector to add
             float3 offset = default;
             float offsetRad = math.radians(90f);
@@ -127,17 +127,17 @@ public class ProjectileHitDetectionSystem : SystemBase
                 //Get Hit Entity
                 hitEntity = physicsWorld.Bodies[leftRayCastHit.RigidBodyIndex].Entity;
             }
-            
+
             //Make sure theres a collision
-            if(!hitDetected)
+            if (!hitDetected)
                 return;
             //Make sure an Entity was found
             if (hitEntity == Entity.Null)
                 return;
-            
+
             //Make sure collision hasn't been found before
             //TODO
-            
+
             //Treat Collision
 
             //Collision = Wall until proven opposite
@@ -154,6 +154,8 @@ public class ProjectileHitDetectionSystem : SystemBase
                 collisionType = BulletInfo.BulletCollisionType.ON_ENEMY;
             }
 
+            bool shouldBulletBeDestroyed = true;
+
             //Damage entity
             if (collisionType != BulletInfo.BulletCollisionType.ON_WALL)
             {
@@ -167,8 +169,10 @@ public class ProjectileHitDetectionSystem : SystemBase
                         LifeComponent life = entitiesLife.Components[hitEntity];
 
                         //Decrease life
-                        if (player == hitEntity) life.DecrementLifeWithInvincibility();
-                        else life.DecrementLife();
+                        if (player == hitEntity)
+                            shouldBulletBeDestroyed = life.DecrementLifeWithInvincibility();
+                        else
+                            life.DecrementLife();
 
                         //Set Back
                         entityCommandBuffer.SetComponent(entityInQueryIndex, hitEntity, life);
@@ -177,14 +181,17 @@ public class ProjectileHitDetectionSystem : SystemBase
             }
 
             //Destroy bullet
-            entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
-            events.Enqueue(new BulletInfo
+            if (shouldBulletBeDestroyed)
             {
-                ProjectileType = projectile.Type,
-                CollisionType = collisionType,
-                HitPosition = hit.Position + hitPosition,
-                HitRotation = rotation.Value
-            });
+                entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
+                events.Enqueue(new BulletInfo
+                {
+                    ProjectileType = projectile.Type,
+                    CollisionType = collisionType,
+                    HitPosition = hit.Position + hitPosition,
+                    HitRotation = rotation.Value
+                });
+            }
         }).ScheduleParallel(Dependency);
 
         Dependency = JobHandle.CombineDependencies(job, new EventQueueJob {BulletInfos = bulletEvents}.Schedule(job));

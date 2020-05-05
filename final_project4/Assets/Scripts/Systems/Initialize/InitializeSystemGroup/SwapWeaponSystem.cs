@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Enums;
 using EventStruct;
 using Unity.Entities;
@@ -32,35 +34,25 @@ public class SwapWeaponSystem : SystemBase
             return;
         }
 
-        //TODO Change order, should check first if player want to change gun, then query the array
-        var weapontypes = GameVariables.Player.PlayerWeaponTypes;
-        int index = weapontypes.IndexOf(GameVariables.Player.CurrentWeaponHeld);
-        
-        if (inputs.MouseWheel.y > 0)
-            index++;
-        else if (inputs.MouseWheel.y < 0)
-            index--;
-        else if (inputs.SwapWeapon1)
-            index = 0;
+        WeaponType weaponDesired = GameVariables.Player.CurrentWeaponHeld;
+
+        //Check for inputs to swap weapon
+        if (inputs.SwapWeapon1)
+            TryGetWeaponType(out weaponDesired, WeaponType.Pistol);
         else if (inputs.SwapWeapon2)
-            index = 1;
+            TryGetWeaponType(out weaponDesired, WeaponType.Shotgun);
         else if (inputs.SwapWeapon3)
-            index = 2;
-        //If player doesn't want to change weapon
-        else 
+            TryGetWeaponType(out weaponDesired, WeaponType.Machinegun);
+        else if (inputs.MouseWheel.y > 0)
+            GetPreviousWeapon(out weaponDesired);
+        else if (inputs.MouseWheel.y < 0)
+            GetNextWeapon(out weaponDesired);
+
+        //Make sure weapon actually swapped
+        if(weaponDesired == GameVariables.Player.CurrentWeaponHeld)
             return;
-        
-        if (index < 0)
-        {
-            index = weapontypes.Count - 1;
-        }
-        else if (index >= weapontypes.Count)
-        {
-            index = 0;
-        }
-        
-            
-        SwapWeapon(weapontypes[index]);
+
+        SwapWeapon(weaponDesired);
     }
 
     private void SwapWeapon(WeaponType type)
@@ -88,5 +80,69 @@ public class SwapWeaponSystem : SystemBase
 
         //Set CurrentGunType
         GameVariables.Player.CurrentWeaponHeld = type;
+    }
+
+    private bool TryGetWeaponType(out WeaponType type, WeaponType typeDesired)
+    {
+        type = GameVariables.Player.CurrentWeaponHeld;
+        
+        //Get Weapon on Player
+        List<WeaponType> playerCurrentWeapons = GameVariables.Player.PlayerCurrentWeapons;
+        
+        //Make sure Player has TypeDesired
+        if (!playerCurrentWeapons.Contains(typeDesired))
+            return false;
+
+        type = typeDesired;
+        return true;
+    }
+    
+    private bool GetNextWeapon(out WeaponType type)
+    {
+        type = GameVariables.Player.CurrentWeaponHeld;
+        
+        //Get Weapon on Player
+        List<WeaponType> playerCurrentWeapons = GameVariables.Player.PlayerCurrentWeapons;
+        
+        //Make sure theres more than one weapon
+        if (playerCurrentWeapons.Count <= 1)
+            return false;
+        
+        //Get current index
+        int currentIndex = playerCurrentWeapons.IndexOf(type);
+        
+        //Increase / Clamp
+        currentIndex++;
+        currentIndex %= playerCurrentWeapons.Count;
+        
+        //Get type with new index
+        type = playerCurrentWeapons[currentIndex];
+        
+        return true;
+    }
+    
+    private bool GetPreviousWeapon(out WeaponType type)
+    {
+        type = GameVariables.Player.CurrentWeaponHeld;
+        
+        //Get Weapon on Player
+        List<WeaponType> playerCurrentWeapons = GameVariables.Player.PlayerCurrentWeapons;
+        
+        //Make sure theres more than one weapon
+        if (playerCurrentWeapons.Count <= 1)
+            return false;
+        
+        //Get current index
+        int currentIndex = playerCurrentWeapons.IndexOf(type);
+        
+        //Decrease / Clamp
+        currentIndex--;
+        if (currentIndex < 0)
+            currentIndex = playerCurrentWeapons.Count - 1;
+        
+        //Get type with new index
+        type = playerCurrentWeapons[currentIndex];
+        
+        return true;
     }
 }

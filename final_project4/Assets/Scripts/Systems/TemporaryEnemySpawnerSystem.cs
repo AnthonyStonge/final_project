@@ -47,19 +47,19 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                 switch (randomEnemyType)
                 {
                     case Type.Chicken:
-                        CreateEnemy(Type.Chicken, out Entity chicken, spawner.spawnerPos);
+                        CreateEnemy(Type.Chicken, out Entity chicken, spawner.spawnerPos, -1);
                         CreateWeapon(WeaponType.ChickenWeapon, chicken);
                         break;
                     case Type.Gorilla:
-                        CreateEnemy(Type.Gorilla, out Entity gorilla, spawner.spawnerPos);
+                        CreateEnemy(Type.Gorilla, out Entity gorilla, spawner.spawnerPos, -1);
                         CreateWeapon(WeaponType.GorillaWeapon, gorilla);
                         break;
                     case Type.Pig:
-                        CreateEnemy(Type.Pig, out Entity pig, spawner.spawnerPos);
+                        CreateEnemy(Type.Pig, out Entity pig, spawner.spawnerPos, -1);
                         CreateWeapon(WeaponType.PigWeapon, pig);
                         break;
                     case Type.Rat:
-                        CreateEnemy(Type.Rat, out Entity rat, spawner.spawnerPos);
+                        CreateEnemy(Type.Rat, out Entity rat, spawner.spawnerPos,-1);
                         CreateWeapon(WeaponType.RatWeapon, rat);
                         break;
                 }
@@ -73,7 +73,6 @@ public class TemporaryEnemySpawnerSystem : SystemBase
     {
         if (GameVariables.Grids.ContainsKey(EventsHolder.LevelEvents.CurrentLevel))
         {
-            
             //var enemySpawner = GameVariables.Grids[EventsHolder.LevelEvents.CurrentLevel].enemySpawner;
             for (int i = 0; i < copySpawner.Length; i++)
             {
@@ -86,19 +85,19 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                         switch (randomEnemyType)
                         {
                             case Type.Chicken:
-                                CreateEnemy(Type.Chicken, out Entity chicken, copySpawner[i].spawnerPos);
+                                CreateEnemy(Type.Chicken, out Entity chicken, copySpawner[i].spawnerPos, i);
                                 CreateWeapon(WeaponType.ChickenWeapon, chicken);
                                 break;
                             case Type.Gorilla:
-                                CreateEnemy(Type.Gorilla, out Entity gorilla, copySpawner[i].spawnerPos);
+                                CreateEnemy(Type.Gorilla, out Entity gorilla, copySpawner[i].spawnerPos, i);
                                 CreateWeapon(WeaponType.ChickenWeapon, gorilla);
                                 break;
                             case Type.Pig:
-                                CreateEnemy(Type.Pig, out Entity pig, copySpawner[i].spawnerPos);
+                                CreateEnemy(Type.Pig, out Entity pig, copySpawner[i].spawnerPos, i);
                                 CreateWeapon(WeaponType.PigWeapon, pig);
                                 break;
                             case Type.Rat:
-                                CreateEnemy(Type.Rat, out Entity rat, copySpawner[i].spawnerPos);
+                                CreateEnemy(Type.Rat, out Entity rat, copySpawner[i].spawnerPos, i);
                                 CreateWeapon(WeaponType.RatWeapon, rat);
                                 break;
                         }
@@ -119,60 +118,9 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                 }
             }
         }
-        /*if (Input.GetMouseButtonDown(1))
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                CreateEnemy(Type.Rat, out Entity rat);
-                if (rat != Entity.Null)
-                    CreateWeapon(WeaponType.RatWeapon, rat);
-                CreateEnemy(Type.Chicken, out Entity chicken);
-                if (chicken != Entity.Null)
-                    CreateWeapon(WeaponType.ChickenWeapon, chicken);
-                CreateEnemy(Type.Pig, out Entity pig);
-                if (pig != Entity.Null)
-                    CreateWeapon(WeaponType.PigWeapon, pig);
-                CreateEnemy(Type.Gorilla, out Entity gorilla);
-                if (gorilla != Entity.Null)
-                    CreateWeapon(WeaponType.GorillaWeapon, gorilla);
-            }
-        }
-        
-        if (Input.GetKeyDown(KeyCode.P))
-            for (int i = 0; i < 10; i++)
-            {
-                CreateEnemy(Type.Pig, out Entity e);
-                if (e != Entity.Null)
-                    CreateWeapon(WeaponType.PigWeapon, e);
-            }
-
-        if (Input.GetKeyDown(KeyCode.O))
-            for (int i = 0; i < 10; i++)
-            {
-                CreateEnemy(Type.Rat, out Entity e);
-                if (e != Entity.Null)
-                    CreateWeapon(WeaponType.RatWeapon, e);
-            }
-
-        if (Input.GetKeyDown(KeyCode.I))
-            for (int i = 0; i < 10; i++)
-            {
-                CreateEnemy(Type.Chicken, out Entity e);
-                if (e != Entity.Null)
-                    CreateWeapon(WeaponType.ChickenWeapon, e);
-            }
-
-        if (Input.GetKeyDown(KeyCode.U))
-            for (int i = 0; i < 10; i++)
-            {
-                CreateEnemy(Type.Gorilla, out Entity e);
-                if (e != Entity.Null)
-                    CreateWeapon(WeaponType.Shotgun, e);
-            }*/
-
     }
 
-    private static void CreateEnemy(Type type, out Entity e, in int2 spawnPosition)
+    private static void CreateEnemy(Type type, out Entity e, in int2 spawnPosition, int i)
     {
         e = Entity.Null;
 
@@ -187,7 +135,24 @@ public class TemporaryEnemySpawnerSystem : SystemBase
         {
             Value = new float3(spawnPosition.x, 0, spawnPosition.y)
         });
-
+        float2 translation = entityManager.GetComponentData<Translation>(e).Value.xz;
+        if (i != -1)
+        {
+            entityManager.AddComponentData(e, new PathFollowComponent
+            {
+                BeginWalk = true,
+                EnemyState = EnemyState.Chase,
+                PositionToGo = (int2)(translation + (copySpawner[i].EnemySpawnDirection * new int2(copySpawner[i].Distance, copySpawner[i].Distance)))
+            });
+        }
+        else
+        {
+            entityManager.AddComponentData(e, new PathFollowComponent
+            {
+                pathIndex = -1,
+                EnemyState = EnemyState.Wondering
+            });
+        }
        /* //Set BatchFilter
         entityManager.AddSharedComponentData(e, new BatchFilter
         {
@@ -199,14 +164,6 @@ public class TemporaryEnemySpawnerSystem : SystemBase
         {
             BatchId = AnimationHolder.AddAnimatedObject()
         });
-
-        //Set PathFollowComponent
-        entityManager.AddComponentData(e, new PathFollowComponent
-        {
-            pathIndex = -1,
-            EnemyState = EnemyState.Wondering
-        });
-
         //Clamp batch filter
        /* batchFilter++;
         batchFilter %= 8; //TODO REMOVE MAGIC NUMBER*/
