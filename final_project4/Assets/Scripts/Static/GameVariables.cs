@@ -30,7 +30,7 @@ public static class GameVariables
         public static Entity Entity;
 
         public static Dictionary<WeaponType, Entity> PlayerWeaponEntities = new Dictionary<WeaponType, Entity>();
-        public static List<WeaponType> PlayerWeaponTypes = new List<WeaponType>();
+        public static List<WeaponType> PlayerCurrentWeapons = new List<WeaponType>();
         public static WeaponType CurrentWeaponHeld;
 
         //Unity linker

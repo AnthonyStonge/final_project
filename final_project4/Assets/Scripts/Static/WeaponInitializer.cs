@@ -39,12 +39,9 @@ public class WeaponInitializer
         entityManager.SetEnabled(machinegun, false);
         Player.PlayerWeaponEntities.Add(WeaponType.Machinegun, machinegun);
         
-        Player.PlayerWeaponTypes.Add(WeaponType.Pistol);
-        Player.PlayerWeaponTypes.Add(WeaponType.Shotgun);
-        Player.PlayerWeaponTypes.Add(WeaponType.Machinegun);
-        
-        
-        
+        Player.PlayerCurrentWeapons.Add(WeaponType.Pistol);
+        Player.PlayerCurrentWeapons.Add(WeaponType.Shotgun);
+        Player.PlayerCurrentWeapons.Add(WeaponType.Machinegun);
     }
 
     public static void Reset()
