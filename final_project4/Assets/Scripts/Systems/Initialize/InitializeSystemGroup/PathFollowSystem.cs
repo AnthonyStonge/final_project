@@ -63,7 +63,7 @@ public class PathFollowSystem : SystemBase
             }
 
             //State changer 
-            if (math.distancesq(translation.Value, posPlayer) <= 20 * 20)
+            if (math.distancesq(translation.Value, posPlayer) <= range.AgroDistance * range.AgroDistance)
             {
                 RaycastInput raycastInput = new RaycastInput
                 {
@@ -75,14 +75,7 @@ public class PathFollowSystem : SystemBase
                 {
                     if (player.Components.HasComponent(hit.Entity))
                     {
-                        if (math.distance(translation.Value, posPlayer) > 20)
-                        {
-                            //pathFollow.EnemyState = EnemyState.Chase;
-                        }
-                        else
-                        {
-                            pathFollow.EnemyState = EnemyState.Attack;
-                        }
+                        pathFollow.EnemyState = EnemyState.Attack;
                     }
                     else
                     {
@@ -192,7 +185,7 @@ public class PathFollowSystem : SystemBase
     {
         pathFollow.PositionToGo = (int2) pos.xz;
         pathFollow.player = pos;
-        if (math.distance(pos, translation.Value) < range.Distance)
+        if (math.distance(pos, translation.Value) < range.AttackDDistance)
             range.IsInRange = true;
     }
     protected override void OnDestroy()

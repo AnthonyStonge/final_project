@@ -171,7 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b77c5f35789e848a5bbc103f422bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Distance: 1000
+  AttackDDistance: 10
+  AgroDistance: 25
   IsInRange: 0
 --- !u!114 &3366007197555392048
 MonoBehaviour:
@@ -247,7 +248,7 @@ MonoBehaviour:
     Value:
       x: -90
       y: 0
-      z: -90
+      z: 90
     RotationOrder: 4
   m_Capsule:
     Height: 2
