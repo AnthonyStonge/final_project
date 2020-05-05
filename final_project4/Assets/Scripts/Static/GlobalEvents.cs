@@ -1,4 +1,5 @@
 ﻿using System;
+using Enums;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -153,6 +154,17 @@ public static class GlobalEvents
             InputComponent inputs = e.GetComponentData<InputComponent>(entity);
             inputs.Enabled = true;
             e.SetComponentData(entity, inputs);
+        }
+
+        public static void SetInvincibility(InvincibilityType type)
+        {
+            EntityManager e = World.DefaultGameObjectInjectionWorld.EntityManager;
+            Entity entity = GameVariables.Player.Entity;
+            
+            //Get Player LifeComponent
+            LifeComponent life = e.GetComponentData<LifeComponent>(entity);
+            life.SetInvincibility(type);
+            e.SetComponentData(entity, life);
         }
     }
 

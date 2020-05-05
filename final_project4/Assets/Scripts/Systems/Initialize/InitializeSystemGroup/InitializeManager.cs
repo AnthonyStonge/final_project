@@ -1,4 +1,6 @@
-﻿using Unity.Entities;
+﻿using System.Linq;
+using Enums;
+using Unity.Entities;
 using UnityEngine;
 
 [DisableAutoCreation]
@@ -69,6 +71,19 @@ public class InitializeManager : ComponentSystemGroup
             LifeComponent life = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
             life.Kill();
             EntityManager.SetComponentData(GameVariables.Player.Entity, life);
+        }
+
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+#if UNITY_EDITOR
+            Debug.Log($"Giving Player all Weapons");
+#endif
+            if(!GameVariables.Player.PlayerCurrentWeapons.Contains(WeaponType.Pistol))
+                GameVariables.Player.PlayerCurrentWeapons.Add(WeaponType.Pistol);
+            if(!GameVariables.Player.PlayerCurrentWeapons.Contains(WeaponType.Shotgun))
+                GameVariables.Player.PlayerCurrentWeapons.Add(WeaponType.Shotgun);
+            if(!GameVariables.Player.PlayerCurrentWeapons.Contains(WeaponType.Machinegun))
+                GameVariables.Player.PlayerCurrentWeapons.Add(WeaponType.Machinegun);
         }
     }
 

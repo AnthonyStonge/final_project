@@ -19,7 +19,7 @@ public static class GameVariables
     public static CinemachineBasicMultiChannelPerlin CamNoiseProfile;
     public static ShakeCamComponent ShakeComponent;
     
-    public static float InvincibleDashTime = 1.0f;
+    public static float InvincibleDashTime = 0.3f;
     public static float InvincibleDeathTime = 5.0f;
     public static float InvincibleSpawnTime = 5.0f;
     public static float InvicibleHitTime = 1.5f;
@@ -30,7 +30,7 @@ public static class GameVariables
         public static Entity Entity;
 
         public static Dictionary<WeaponType, Entity> PlayerWeaponEntities = new Dictionary<WeaponType, Entity>();
-        public static List<WeaponType> PlayerWeaponTypes = new List<WeaponType>();
+        public static List<WeaponType> PlayerCurrentWeapons = new List<WeaponType>();
         public static WeaponType CurrentWeaponHeld;
 
         //Unity linker
