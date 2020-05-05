@@ -69,7 +69,6 @@ public class AnimationSystem : SystemBase
                         mesh = AnimationHolder.Animations[type.Value][state.CurrentAnimationState]
                             .Frames[animation.MeshIndexAt],
                         material = AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Material,
-                        castShadows = ShadowCastingMode.On
                     });
                 }).ScheduleParallel(Dependency).Complete();
 

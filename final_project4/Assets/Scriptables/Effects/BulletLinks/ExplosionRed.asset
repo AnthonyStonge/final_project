@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029a159d55d9ed147ade30aaedd9804e, type: 3}
+  m_Name: ExplosionRed
+  m_EditorClassIdentifier: 
+  Effect: {fileID: 5718530364699831296, guid: 16801f7e9da5c004d9117f225c0929a4, type: 3}
+  MaxAmount: 300
+  Weapons: []
+  Bullets:
+  - BulletType: 3
+    CollisionType: 0
+  - BulletType: 4
+    CollisionType: 0
+  - BulletType: 5
+    CollisionType: 0
+  - BulletType: 6
+    CollisionType: 0

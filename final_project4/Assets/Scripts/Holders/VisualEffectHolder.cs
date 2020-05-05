@@ -89,17 +89,28 @@ public static class VisualEffectHolder
             foreach (EffectLinks.WeaponLinks weapon in links.Weapons)
             {
                 //Add to weapon dictionary
-                WeaponEffects[weapon.WeaponType].Add(weapon.EventType, nextEffectID);
-                   
+                if (!WeaponEffects[weapon.WeaponType].ContainsKey(weapon.EventType))
+                    WeaponEffects[weapon.WeaponType].Add(weapon.EventType, nextEffectID);
+                
+#if UNITY_EDITOR
+                else Debug.LogWarning($"You tried to add multiple Visual effects for {weapon.WeaponType} {weapon.EventType} action. \n" +
+                                   $" Current Effect: {Effects[WeaponEffects[weapon.WeaponType][weapon.EventType]].VisualEffect.name} \n" +
+                                   $"Desired Effect: {links.Effect.name} \n");
+#endif
             }
 
             //Bullets
             foreach (EffectLinks.BulletLinks bullet in links.Bullets)
             {
                 //Add to bullet dictionary
-                BulletEffects[bullet.BulletType].Add(bullet.CollisionType, nextEffectID);
+                if (!BulletEffects[bullet.BulletType].ContainsKey(bullet.CollisionType))
+                    BulletEffects[bullet.BulletType].Add(bullet.CollisionType, nextEffectID);
+#if UNITY_EDITOR
+                else Debug.LogWarning($"You tried to add multiple Visual effects for {bullet.BulletType} {bullet.CollisionType} action. \n" +
+                                    $" Current Effect: {Effects[BulletEffects[bullet.BulletType][bullet.CollisionType]].VisualEffect.name} \n" +
+                                    $"Desired Effect: {links.Effect.name} \n");
+#endif
             }
-
             //Increment ID
             nextEffectID++;
         }

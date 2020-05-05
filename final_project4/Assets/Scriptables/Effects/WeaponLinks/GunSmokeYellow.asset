@@ -10,23 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 029a159d55d9ed147ade30aaedd9804e, type: 3}
-  m_Name: PistolShot
+  m_Name: GunSmokeYellow
   m_EditorClassIdentifier: 
   Effect: {fileID: 800871890946317216, guid: c20756789bb7c5e4793457e4a5b8b3c6, type: 3}
-  MaxAmount: 4000
+  MaxAmount: 20
   Weapons:
   - WeaponType: 0
     EventType: 0
-  - WeaponType: 0
-    EventType: 1
-  - WeaponType: 0
-    EventType: 2
   - WeaponType: 1
     EventType: 0
-  - WeaponType: 1
-    EventType: 1
-  - WeaponType: 1
-    EventType: 2
   - WeaponType: 6
     EventType: 0
   Bullets: []
