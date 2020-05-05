@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Enums;
+using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
@@ -43,6 +44,8 @@ public class DashSystem : SystemBase
         {
             //Dash
             Dash(ref dash, inputs, rotation);
+            //Set Player invincibility
+            GlobalEvents.PlayerEvents.SetInvincibility(InvincibilityType.Dash);
         }
 
         EntityManager.SetComponentData(playerEntity, dash);
