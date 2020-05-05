@@ -32,10 +32,12 @@ public class EnemyFollowSystem : SystemBase
             if (pathFollow.PositionToGo.Equals(new int2(-1)))
                 return;
             //Make sure enemy has reached 
-            if (math.distancesq(pathFollow.PositionToGo,
-                    translation.Value.xz) <= 1)
+            if (math.distancesq(pathFollow.PositionToGo, translation.Value.xz) <= 1)
+            {
+                pathFollow.EnemyState = EnemyState.Wondering;
                 return;
-            
+            }
+
             float2 targetPos;
             if(pathFollow.EnemyState == EnemyState.Attack)
                 targetPos = new float2(pathFollow.player.x, pathFollow.player.z);

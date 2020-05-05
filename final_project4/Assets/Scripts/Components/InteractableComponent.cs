@@ -10,4 +10,6 @@ public struct InteractableComponent : IComponentData
     public InteractableObjectType ObjectType;
 
     public Entity DoorToOpen;
+
+    public WeaponType WeaponType;
 }
