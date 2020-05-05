@@ -73,7 +73,7 @@ public class AnimationSystem : SystemBase
                     });
                 }).ScheduleParallel(Dependency).Complete();
 
-            // entityCommandBuffer.AddJobHandleForProducer(Dependency);
+            entityCommandBuffer.AddJobHandleForProducer(Dependency);
 
             //Reset Timer
             // isUpdateAnimationFrame = false;
