@@ -87,15 +87,15 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                         {
                             case Type.Chicken:
                                 CreateEnemy(Type.Chicken, out Entity chicken, copySpawner[i].spawnerPos);
-                                CreateWeapon(WeaponType.RatWeapon, chicken);
+                                CreateWeapon(WeaponType.ChickenWeapon, chicken);
                                 break;
                             case Type.Gorilla:
                                 CreateEnemy(Type.Gorilla, out Entity gorilla, copySpawner[i].spawnerPos);
-                                CreateWeapon(WeaponType.RatWeapon, gorilla);
+                                CreateWeapon(WeaponType.ChickenWeapon, gorilla);
                                 break;
                             case Type.Pig:
                                 CreateEnemy(Type.Pig, out Entity pig, copySpawner[i].spawnerPos);
-                                CreateWeapon(WeaponType.RatWeapon, pig);
+                                CreateWeapon(WeaponType.PigWeapon, pig);
                                 break;
                             case Type.Rat:
                                 CreateEnemy(Type.Rat, out Entity rat, copySpawner[i].spawnerPos);
