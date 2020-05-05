@@ -46,8 +46,9 @@ public class PlayerTargetSystem : SystemBase
         if (pw.CastRay(rayInfo, out rayCastInfos))
         {
              var newPos = rayCastInfos.Position;
-             newPos.x += 0.5f;
+             newPos.x += 0.3f;
              newPos.y = 0f;
+             newPos.z -= 1;
              target.Value = newPos;
         }
         
