@@ -46,7 +46,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5935477466790467464}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -2432090755550338912, guid: 2aa5fb7176a03a349a62a047c445c5b4, type: 3}
 --- !u!23 &4454347862852821755
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -180,26 +180,26 @@ MonoBehaviour:
   m_ShapeType: 0
   m_PrimitiveCenter:
     x: 0
-    y: 0
+    y: 0.5
     z: 0
   m_PrimitiveSize:
     x: 1
-    y: 1
-    z: 2
+    y: 2
+    z: 1
   m_PrimitiveOrientation:
     Value:
-      x: -90
+      x: -0
       y: 0
-      z: 90
+      z: 0
     RotationOrder: 4
   m_Capsule:
     Height: 2
     Radius: 0.5
-    Axis: 2
+    Axis: 1
   m_Cylinder:
     Height: 2
     Radius: 0.5
-    Axis: 2
+    Axis: 1
   m_CylinderSideCount: 20
   m_SphereRadius: 1
   m_MinimumSkinnedVertexWeight: 0.1
@@ -263,7 +263,7 @@ MonoBehaviour:
     y: 0
     z: 0
   m_GravityFactor: 1
-  m_OverrideDefaultMassDistribution: 1
+  m_OverrideDefaultMassDistribution: 0
   m_CenterOfMass:
     x: 0
     y: 0
