@@ -8,26 +8,33 @@ using UnityEngine;
 [DisableAutoCreation]
 public class CameraFollowSystem : SystemBase
 {
-    private float3 min, max;
+    private float length = 8;
+    private float offsetRad = math.radians(-45f);
 
     protected override void OnCreate()
     {
-        min = new float3(-8, 0, -8);
-        max = new float3(8, 0, 8);
     }
 
     protected override void OnUpdate()
     {
         //Get Player Translation, which was set by the physic system
-        Translation t = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity);
-        var currentPosition = t.Value;
-        
+         var currentPosition = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
+         
+
         //Calculate Input
         InputComponent input = EntityManager.GetComponentData<InputComponent>(GameVariables.Player.Entity);
-        float3 pos = new float3(input.Mouse.x - Screen.width * 0.5f, 0, input.Mouse.y - Screen.height * 0.5f) / 20;
-        float3 actualpos = math.clamp(pos, min, max);
         
-        GameVariables.MouseToTransform.position = currentPosition + actualpos;
+        var screenPos = new float2(input.Mouse.x - Screen.width * 0.5f, input.Mouse.y - Screen.height * 0.5f) / 20;
+        var distance = math.clamp(math.distance(0, screenPos), 0.1f, length);
+        var oldPos = math.normalizesafe(screenPos);
+
+        var newDir = float3.zero;
+        var cos = math.cos(offsetRad);
+        var sin = math.sin(offsetRad);
+        newDir.x = oldPos.x * cos - oldPos.y * sin;
+        newDir.z = oldPos.x * sin + oldPos.y * cos;
+
+        GameVariables.MouseToTransform.position = currentPosition + newDir * distance;
         GameVariables.Player.Transform.position = currentPosition;
     }
 }

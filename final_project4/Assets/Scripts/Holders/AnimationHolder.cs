@@ -23,11 +23,9 @@ public static class AnimationHolder
     private static int currentNumberOfLoadedAssets = 0;
     private static int numberOfAssetsToLoad = 1;
 
-
     public static void Initialize()
     {
         AnimatedGroupsLength = new List<int>();
-
         //Init all groups for 0
         for (int i = 0; i < 1; i++)
         {
