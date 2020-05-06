@@ -4,8 +4,9 @@ using Unity.Mathematics;
 [GenerateAuthoringComponent]
 public struct PathFollowComponent : IComponentData
 {
-    public int2 PositionToGo;
-    public float3 player;
+    public float2 WonderingPosition;
+    public float3 PlayerPosition;
+    public float2 BackPosition;
     public int pathIndex;
     public EnemyState EnemyState;
     public float timeWonderingCounter;
