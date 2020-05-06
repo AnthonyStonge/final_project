@@ -1,5 +1,6 @@
 ﻿using System;
 using Enums;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -42,9 +43,12 @@ public static class GlobalEvents
 
             //Create Query
             EntityQuery query = manager.CreateEntityQuery(typeof(T));
-
-            //Destroy entities with query
-            manager.DestroyEntity(query);
+            using (var entities = query.ToEntityArray(Allocator.TempJob))
+            {
+                //Destroy entities with query
+                manager.DestroyEntity(entities);
+            }
+            
         }
 
         public static void StartHellLevel(int difficulty, int deathCount)
