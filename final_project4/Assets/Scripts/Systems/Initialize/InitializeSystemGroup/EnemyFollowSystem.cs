@@ -20,14 +20,15 @@ public class EnemyFollowSystem : SystemBase
 
     protected override void OnUpdate()
     {
-        Entities.ForEach((ref PathFollowComponent pathFollow, ref DirectionData direction, ref TargetData targetData,ref Translation translation, ref TypeData typeData,
-            ref AttackRangeComponent range, ref StateComponent state) =>
+        Entities.ForEach((ref PathFollowComponent pathFollow, ref DirectionData direction, ref TargetData targetData,ref Translation translation,
+            in AttackRangeComponent range, in StateComponent state) =>
         {
+            
             if (state.CurrentState == State.Dying)
                 return;
             direction.Value = new float2(0);
-            //Make sure enemy has no position to go to
-            if (pathFollow.WonderingPosition.Equals(new int2(-1)))
+        //Make sure enemy has no position to go to
+        if (pathFollow.WonderingPosition.Equals(new int2(-1)))
                 return;
             //Make sure enemy has reached 
             
