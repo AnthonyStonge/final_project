@@ -153,6 +153,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                 EnemyState = EnemyState.Wondering
             });
         }
+
        /* //Set BatchFilter
         entityManager.AddSharedComponentData(e, new BatchFilter
         {
@@ -172,12 +173,9 @@ public class TemporaryEnemySpawnerSystem : SystemBase
     private static void CreateWeapon(WeaponType type, Entity parent)
     {
         Entity e = entityManager.Instantiate(WeaponHolder.WeaponPrefabDict[type]);
-
-        entityManager.SetComponentData(e, new Parent
-        {
-            Value = parent
-        });
+        ECSUtility.MergeEntitiesTogether(entityManager, parent, e);
     }
+    
     protected override void OnDestroy()
     {
         copySpawner.Dispose();
