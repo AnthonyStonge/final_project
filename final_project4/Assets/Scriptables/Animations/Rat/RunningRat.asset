@@ -10,9 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d90ca9d975c25e44d948f92cc927284d, type: 3}
-  m_Name: new Animation
+  m_Name: RunningRat
   m_EditorClassIdentifier: 
-  Type: 0
-  State: 0
-  Material: {fileID: 0}
-  Frames: []
+  Type: 2
+  State: 1
+  Material: {fileID: 2100000, guid: a37e90a722ff13b4281acd1103c69154, type: 2}
+  Frames:
+  - {fileID: -927199367670048503, guid: 7db27a39bf5594246b3577f6195fd74d, type: 3}
+  - {fileID: -927199367670048503, guid: 02e38e3a425de2c4b80330e2d80bf79d, type: 3}
+  - {fileID: -927199367670048503, guid: 240f94de2c5494847ac9f316ac35615d, type: 3}
+  - {fileID: -927199367670048503, guid: 98b8398cc5df28148a344a0f66171304, type: 3}
+  - {fileID: -927199367670048503, guid: 8970a81c45150a3429f8fa448e5422df, type: 3}
+  - {fileID: -927199367670048503, guid: 64df5f6fb3a76de45a66f24a79e5115b, type: 3}
+  - {fileID: -927199367670048503, guid: 9c036e7e1747a624f939d5b03f8eac59, type: 3}
+  - {fileID: -927199367670048503, guid: 585c61e4e96e28e4aad4b07d8cbebbb6, type: 3}
+  - {fileID: -927199367670048503, guid: b218e60a06980a24daa596029fea290a, type: 3}
+  - {fileID: -927199367670048503, guid: 82d9feaf3e4d49042a71fedc97d7cf98, type: 3}
+  - {fileID: -927199367670048503, guid: 28ea7ae2a79b4174dbd4c5d382738dc6, type: 3}
+  - {fileID: -927199367670048503, guid: 609b1e8576faf2542bb12c01e7903181, type: 3}
+  - {fileID: -927199367670048503, guid: 4c8eb68b0818af54ab90f5f2eace9eb0, type: 3}
+  - {fileID: -927199367670048503, guid: 1a770995dad588a4aa93959d9a2244a7, type: 3}
+  - {fileID: -927199367670048503, guid: 21bbea6c53f6984468c4b5f39737cc3b, type: 3}
+  - {fileID: -927199367670048503, guid: 32c10706b3644fc47a3a49240a20494d, type: 3}
+  - {fileID: -927199367670048503, guid: 2d7b8360ca7c7fe4aa034767564693e8, type: 3}
+  - {fileID: -927199367670048503, guid: f8516c610ae02734981f6d83b195d874, type: 3}
+  - {fileID: -927199367670048503, guid: 60f55e27e07749647b0793765f6ad3e9, type: 3}
+  - {fileID: -927199367670048503, guid: 2ed88ba4035b4f0409a7d9aa9aeadae2, type: 3}
+  - {fileID: -927199367670048503, guid: 67b156b0bc1853447afdf5a978e0a534, type: 3}
+  - {fileID: -927199367670048503, guid: 1ce5a284420244747a1b329be9bbb6e4, type: 3}
+  - {fileID: -927199367670048503, guid: e6a9fa10bda0933439b186ffb09a31fd, type: 3}
+  - {fileID: -927199367670048503, guid: c18768df51401c643af8a10360c58ef2, type: 3}
