@@ -60,7 +60,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                         break;
                     case Type.Rat:
                         CreateEnemy(Type.Rat, out Entity rat, spawner.spawnerPos,-1);
-                        CreateWeapon(WeaponType.RatWeapon, rat);
+                        // CreateWeapon(WeaponType.RatWeapon, rat);
                         break;
                 }
 
@@ -98,7 +98,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                                 break;
                             case Type.Rat:
                                 CreateEnemy(Type.Rat, out Entity rat, copySpawner[i].spawnerPos, i);
-                                CreateWeapon(WeaponType.RatWeapon, rat);
+                                // CreateWeapon(WeaponType.RatWeapon, rat);
                                 break;
                         }
                         var spawnerTest = copySpawner[i];
@@ -133,7 +133,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
         //Set position
         entityManager.SetComponentData(e, new Translation
         {
-            Value = new float3(spawnPosition.x, 0, spawnPosition.y)
+            Value = new float3(spawnPosition.x, -1, spawnPosition.y)
         });
         float2 translation = entityManager.GetComponentData<Translation>(e).Value.xz;
         if (i != -1)

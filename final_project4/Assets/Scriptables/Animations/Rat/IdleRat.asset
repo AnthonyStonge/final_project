@@ -12,7 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90ca9d975c25e44d948f92cc927284d, type: 3}
   m_Name: IdleRat
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 2
   State: 0
-  Material: {fileID: 0}
-  Frames: []
+  Material: {fileID: 2100000, guid: a37e90a722ff13b4281acd1103c69154, type: 2}
+  Frames:
+  - {fileID: -927199367670048503, guid: 6ba204fc9dd8bb64ba6845ea4d419dff, type: 3}
+  - {fileID: -927199367670048503, guid: 7ebcc81186356e047a89d9e871d8d864, type: 3}
+  - {fileID: -927199367670048503, guid: e1429f518c043e74b90f45cb7b9787c2, type: 3}
+  - {fileID: -927199367670048503, guid: c8b59670df96bf84c9711cf22983ac14, type: 3}
+  - {fileID: -927199367670048503, guid: 468819e7d64ecdb4e91cdb692b16477b, type: 3}
+  - {fileID: -927199367670048503, guid: 414a432598a0edb46b943dbe219506f0, type: 3}
+  - {fileID: -927199367670048503, guid: fd0cd70ed7700ee45be1f19ed901c271, type: 3}
+  - {fileID: -927199367670048503, guid: 3c4ef20da18997849b3c749973041879, type: 3}
+  - {fileID: -927199367670048503, guid: a893aa57cadfe674ca291153e0beaa3c, type: 3}
+  - {fileID: -927199367670048503, guid: 2000d7502979a9442b4aba258406dfcf, type: 3}
+  - {fileID: -927199367670048503, guid: 276fa99a25517ef4a9fe299ec920239c, type: 3}
+  - {fileID: -927199367670048503, guid: 14e6090d1fe5af548a0f70788379eb10, type: 3}
+  - {fileID: -927199367670048503, guid: 35611c67c464bba45874687258407390, type: 3}
+  - {fileID: -927199367670048503, guid: c5ba5ff251c6ce04d82accc2a86b554b, type: 3}
+  - {fileID: -927199367670048503, guid: 4e9a8f3d2abc8dd4b955d579a911096c, type: 3}
+  - {fileID: -927199367670048503, guid: f81434e5297740e48a497c003a1c3556, type: 3}
+  - {fileID: -927199367670048503, guid: 769e544be0121244faf46a74264bfa3e, type: 3}
+  - {fileID: -927199367670048503, guid: 21af8fe971e0be445b5ba3494c8157e5, type: 3}
+  - {fileID: -927199367670048503, guid: 00cb65a08e6c7f44683522296569f428, type: 3}
+  - {fileID: -927199367670048503, guid: aa7daa9dae652a04a9e9521de367d7c8, type: 3}
+  - {fileID: -927199367670048503, guid: 81fa5fc0d50a3a5489b955e9827f9f60, type: 3}
+  - {fileID: -927199367670048503, guid: 0724866b83b91394ba09f9fcd0274780, type: 3}
+  - {fileID: -927199367670048503, guid: d31c241635f49034bb37d1e99a339b93, type: 3}
+  - {fileID: -927199367670048503, guid: ca47755113e48b841b165eafbcba14c4, type: 3}

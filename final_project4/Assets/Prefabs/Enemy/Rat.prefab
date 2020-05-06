@@ -49,7 +49,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468872737916222920}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -2432090755550338912, guid: 7ebcc81186356e047a89d9e871d8d864, type: 3}
 --- !u!23 &3398938708619869064
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -236,31 +236,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 1
+  m_ShapeType: 0
   m_PrimitiveCenter:
     x: 0
-    y: 0
-    z: 0
+    y: 0.5
+    z: 0.37
   m_PrimitiveSize:
-    x: 1
+    x: 2.6655896
     y: 1
-    z: 2
+    z: 1.409097
   m_PrimitiveOrientation:
     Value:
       x: -90
       y: 0
-      z: 90
+      z: -90
     RotationOrder: 4
   m_Capsule:
-    Height: 2
-    Radius: 0.5
-    Axis: 2
+    Height: 2.6655896
+    Radius: 0.7045485
+    Axis: 0
   m_Cylinder:
-    Height: 2
-    Radius: 0.5
-    Axis: 2
+    Height: 2.6655896
+    Radius: 0.7045485
+    Axis: 0
   m_CylinderSideCount: 20
-  m_SphereRadius: 1
+  m_SphereRadius: 1.3327948
   m_MinimumSkinnedVertexWeight: 0.1
   m_ConvexHullGenerationParameters:
     m_SimplificationTolerance: 0.015
