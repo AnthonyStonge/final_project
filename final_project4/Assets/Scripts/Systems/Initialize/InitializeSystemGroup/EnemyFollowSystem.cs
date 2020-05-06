@@ -21,12 +21,11 @@ public class EnemyFollowSystem : SystemBase
     protected override void OnUpdate()
     {
         Entities.ForEach((ref PathFollowComponent pathFollow, ref DirectionData direction, ref TargetData targetData,ref Translation translation, ref TypeData typeData,
-            ref AttackRangeComponent range) =>
+            ref AttackRangeComponent range, ref StateComponent state) =>
         {
+            if (state.CurrentState == State.Dying)
+                return;
             direction.Value = new float2(0);
-            //Make sure enemy is out of range
-           // if (range.IsInRange)
-             //   return;
             //Make sure enemy has no position to go to
             if (pathFollow.WonderingPosition.Equals(new int2(-1)))
                 return;
@@ -58,7 +57,6 @@ public class EnemyFollowSystem : SystemBase
                 if (range.FleeDistance > math.distance(pathFollow.PlayerPosition, translation.Value))
                 {
                     float2 directionPig = math.normalizesafe(pathFollow.BackPosition - translation.Value.xz);
-                    //range.IsInRange = true;
                     direction.Value = directionPig;
                 }
             }

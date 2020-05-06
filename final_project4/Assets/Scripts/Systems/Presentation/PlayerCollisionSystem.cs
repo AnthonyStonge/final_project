@@ -24,12 +24,14 @@ public class PlayerCollisionSystem : SystemBase
         bool isHit = false;
         Job.WithCode(() =>
         {
+            Entity entity;
             foreach (var collisionEvent in collisionEvents)
             {
                 if (player.HasComponent(collisionEvent.Entities.EntityA))
                 {
                     if (enemy.HasComponent(collisionEvent.Entities.EntityB))
                     {
+                        entity = collisionEvent.Entities.EntityB;
                         isHit = true;
                     }
                 }
@@ -37,6 +39,7 @@ public class PlayerCollisionSystem : SystemBase
                 {
                     if (enemy.HasComponent(collisionEvent.Entities.EntityA))
                     {
+                        entity = collisionEvent.Entities.EntityA;
                         isHit = true;
                     }
                 }
