@@ -21,7 +21,7 @@ public class EnemyFollowSystem : SystemBase
     protected override void OnUpdate()
     {
         Entities.ForEach((ref PathFollowComponent pathFollow, ref DirectionData direction, ref TargetData targetData,ref Translation translation,
-            in AttackRangeComponent range, in StateComponent state) =>
+            in AttackRangeComponent range, in TypeData typeData, in StateComponent state) =>
         {
             
             if (state.CurrentState == State.Dying)
