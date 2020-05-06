@@ -36,7 +36,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468872737916222920}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Life:
     Min: 0
-    Max: 100
+    Max: 3
     hiddenValue: 3
 --- !u!114 &5366042892375690422
 MonoBehaviour:
@@ -174,6 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackDDistance: 0
   AgroDistance: 50
+  FleeDistance: 0
   IsInRange: 0
 --- !u!114 &3247000289918827036
 MonoBehaviour:
@@ -239,12 +240,12 @@ MonoBehaviour:
   m_ShapeType: 0
   m_PrimitiveCenter:
     x: 0
-    y: 0.76
+    y: 1
     z: -0.12
   m_PrimitiveSize:
     x: 1.3124831
     y: 1
-    z: 1.5015466
+    z: 2.2020717
   m_PrimitiveOrientation:
     Value:
       x: -90
@@ -252,15 +253,15 @@ MonoBehaviour:
       z: -90
     RotationOrder: 4
   m_Capsule:
-    Height: 1.5015466
+    Height: 2.2020717
     Radius: 0.65624154
     Axis: 2
   m_Cylinder:
-    Height: 1
-    Radius: 0.7507733
-    Axis: 1
+    Height: 2.2020717
+    Radius: 0.65624154
+    Axis: 2
   m_CylinderSideCount: 20
-  m_SphereRadius: 0.7507733
+  m_SphereRadius: 1.1010358
   m_MinimumSkinnedVertexWeight: 0.1
   m_ConvexHullGenerationParameters:
     m_SimplificationTolerance: 0.015
