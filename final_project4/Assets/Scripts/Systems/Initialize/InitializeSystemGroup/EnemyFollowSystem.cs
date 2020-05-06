@@ -37,7 +37,6 @@ public class EnemyFollowSystem : SystemBase
                 if (pathFollow.BeginWalk)
                     pathFollow.BeginWalk = false;
                 pathFollow.EnemyState = EnemyState.Wondering;
-                Debug.Log("bob");
                 return;
             }
             float2 targetPos;
