@@ -3,12 +3,14 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 public class MapInfo
 {
     public float3 SpawnPosition;
-    
+    public Material NeonMat;
+
     public Dictionary<ushort, Portal> Portals = new Dictionary<ushort, Portal>();
     
     public struct Portal
