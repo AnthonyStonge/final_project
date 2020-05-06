@@ -44,7 +44,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
             {
                 System.Array enemyType = System.Enum.GetValues(typeof(Type));
                 Type randomEnemyType = (Type) enemyType.GetValue(Random.Range(0, enemyType.Length));
-                switch (randomEnemyType)
+                switch (spawner.EnemyType)
                 {
                     case Type.Chicken:
                         CreateEnemy(Type.Chicken, out Entity chicken, spawner.spawnerPos, -1);
@@ -142,7 +142,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
             {
                 BeginWalk = true,
                 EnemyState = EnemyState.Chase,
-                PositionToGo = (int2)(translation + (copySpawner[i].EnemySpawnDirection * new int2(copySpawner[i].Distance, copySpawner[i].Distance)))
+                WonderingPosition = (int2)(translation + (copySpawner[i].EnemySpawnDirection * new int2(copySpawner[i].Distance, copySpawner[i].Distance)))
             });
         }
         else

@@ -159,7 +159,7 @@ MonoBehaviour:
   Life:
     Min: 0
     Max: 100
-    hiddenValue: 1
+    hiddenValue: 3
 --- !u!114 &-6857367465188656113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackDDistance: 7
-  AgroDistance: 35
+  AgroDistance: 20
   IsInRange: 0
 --- !u!114 &7226212320472182388
 MonoBehaviour:

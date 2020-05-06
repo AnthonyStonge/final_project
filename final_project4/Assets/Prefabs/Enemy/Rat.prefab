@@ -159,7 +159,7 @@ MonoBehaviour:
   Life:
     Min: 0
     Max: 100
-    hiddenValue: 1
+    hiddenValue: 3
 --- !u!114 &5366042892375690422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b77c5f35789e848a5bbc103f422bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackDDistance: 2
+  AttackDDistance: 0
   AgroDistance: 50
   IsInRange: 0
 --- !u!114 &3247000289918827036
@@ -383,7 +383,7 @@ MonoBehaviour:
     Category18: 0
     Category19: 0
     Category20: 0
-    Category21: 0
+    Category21: 1
     Category22: 0
     Category23: 0
     Category24: 0
