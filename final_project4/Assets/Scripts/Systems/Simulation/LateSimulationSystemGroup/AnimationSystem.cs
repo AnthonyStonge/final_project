@@ -64,12 +64,7 @@ public class AnimationSystem : SystemBase
                     //Clamp frame at
                     animation.MeshIndexAt %= animationLength;
 
-                    ecb.SetSharedComponent(entityInQueryIndex, e, new RenderMesh
-                    {
-                        mesh = AnimationHolder.Animations[type.Value][state.CurrentAnimationState]
-                            .Frames[animation.MeshIndexAt],
-                        material = AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Material,
-                    });
+                    ecb.SetSharedComponent(entityInQueryIndex, e, AnimationHolder.Animations[type.Value][state.CurrentAnimationState].Frames[animation.MeshIndexAt]);
                 }).ScheduleParallel(Dependency).Complete();
 
             entityCommandBuffer.AddJobHandleForProducer(Dependency);

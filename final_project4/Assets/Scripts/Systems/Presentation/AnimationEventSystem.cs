@@ -62,11 +62,7 @@ public class AnimationEventSystem : SystemBase
 
         //Set new frame
         animation.MeshIndexAt = 0;
-        entityManager.SetSharedComponentData(info.Entity, new RenderMesh
-        {
-            mesh = AnimationHolder.Animations[type.Value][info.NewState].Frames[animation.MeshIndexAt],
-            material = AnimationHolder.Animations[type.Value][info.NewState].Material
-        });
+        entityManager.SetSharedComponentData(info.Entity, AnimationHolder.Animations[type.Value][info.NewState].Frames[animation.MeshIndexAt]);
 
         //Set new Refresh Group
         entityManager.SetComponentData(info.Entity, animation);
