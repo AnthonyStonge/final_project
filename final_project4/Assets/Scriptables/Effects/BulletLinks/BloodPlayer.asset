@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 029a159d55d9ed147ade30aaedd9804e, type: 3}
-  m_Name: GunSmokeYellow
+  m_Name: BloodPlayer
   m_EditorClassIdentifier: 
-  Effect: {fileID: 800871890946317216, guid: c20756789bb7c5e4793457e4a5b8b3c6, type: 3}
-  MaxAmount: 50
-  Weapons:
-  - WeaponType: 1
-    EventType: 0
-  - WeaponType: 0
-    EventType: 0
-  Bullets: []
+  Effect: {fileID: 7098781704334006162, guid: 76851535548664f41b6d6098a3d6c133, type: 3}
+  MaxAmount: 300
+  Weapons: []
+  Bullets:
+  - BulletType: 3
+    CollisionType: 1
+  - BulletType: 4
+    CollisionType: 1
+  - BulletType: 5
+    CollisionType: 1
+  - BulletType: 6
+    CollisionType: 1

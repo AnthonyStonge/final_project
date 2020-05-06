@@ -1801,6 +1801,7 @@ MonoBehaviour:
   MapTypeLeadingTo: 1
   PortalIdLeadingTo: 101
   DoorToOpen: {fileID: 0}
+  WeaponType: 0
 --- !u!1 &9044775325000084865
 GameObject:
   m_ObjectHideFlags: 0
