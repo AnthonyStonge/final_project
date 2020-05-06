@@ -95,7 +95,7 @@ public class GridDisplay : MonoBehaviour
                 }
                 else if (grid.enemySpawnerIndex.Contains(i + j * grid.gridSize.x))
                 {
-                    Gizmos.color = Color.yellow;
+                    Gizmos.color = Color.green;
                 }
                 else
                 {

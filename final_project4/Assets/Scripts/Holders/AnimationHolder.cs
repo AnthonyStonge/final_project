@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Enums;
 using Unity.Entities;
+using Unity.Rendering;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Type = Enums.Type;
@@ -10,8 +11,7 @@ public static class AnimationHolder
 {
     public struct Animation
     {
-        public Mesh[] Frames;
-        public Material Material;
+        public RenderMesh[] Frames;
     }
 
     public static ConcurrentDictionary<Type, Dictionary<State, Animation>> Animations =
@@ -57,16 +57,16 @@ public static class AnimationHolder
             }
 
             //Extract meshes from gameobjects
-            Mesh[] frames = new Mesh[animation.Frames.Count];
+            RenderMesh[] frames = new RenderMesh[animation.Frames.Count];
             for (int i = 0; i < animation.Frames.Count; i++)
             {
-                frames[i] = animation.Frames[i].GetComponentInChildren<MeshFilter>().sharedMesh;
+                frames[i].mesh = animation.Frames[i].GetComponentInChildren<MeshFilter>().sharedMesh;
+                frames[i].material = animation.Material;
             }
 
             Animations[animation.Type].Add(animation.State, new Animation
             {
-                Frames = frames,
-                Material = animation.Material
+                Frames = frames
             });
         }
     }

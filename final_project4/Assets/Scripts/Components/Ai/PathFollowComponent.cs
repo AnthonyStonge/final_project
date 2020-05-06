@@ -8,5 +8,6 @@ public struct PathFollowComponent : IComponentData
     public float3 player;
     public int pathIndex;
     public EnemyState EnemyState;
-    public float timeWonderingCounter;      
+    public float timeWonderingCounter;
+    public bool BeginWalk;
 }

@@ -117,7 +117,7 @@ public class InteractableEventSystem : SystemBase
 
     private static void ToggleSystem<T>(bool enable) where T : SystemBase
     {
-        Unity.Entities.World.DefaultGameObjectInjectionWorld.GetExistingSystem<T>().Enabled = enable;
+        World.DefaultGameObjectInjectionWorld.GetExistingSystem<T>().Enabled = enable;
     }
 
     private static void OnEnterPortal(InteractableInfo info)
@@ -127,7 +127,7 @@ public class InteractableEventSystem : SystemBase
 #endif
         //Get PortalComponent
         PortalData data =
-            Unity.Entities.World.DefaultGameObjectInjectionWorld.EntityManager
+            World.DefaultGameObjectInjectionWorld.EntityManager
                 .GetComponentData<PortalData>(info.TriggerEntity);
 
         //Get PortalInfo

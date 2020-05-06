@@ -10,15 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 029a159d55d9ed147ade30aaedd9804e, type: 3}
-  m_Name: BulletSmoke
+  m_Name: GunSmokePurple
   m_EditorClassIdentifier: 
-  Effect: {fileID: 1399656114194108967, guid: 002e1e10e7b7ee941902cfc8a6b9c731, type: 3}
-  MaxAmount: 200
-  Weapons: []
-  Bullets:
-  - BulletType: 1
-    CollisionType: 2
-  - BulletType: 2
-    CollisionType: 2
-  - BulletType: 0
-    CollisionType: 2
+  Effect: {fileID: 6624753479269843173, guid: b8a65bc9f57d33044af04cac64e75a87, type: 3}
+  MaxAmount: 50
+  Weapons:
+  - WeaponType: 6
+    EventType: 0
+  Bullets: []
