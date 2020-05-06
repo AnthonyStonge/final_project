@@ -30,11 +30,16 @@ public class MoveVelocitySystem : SystemBase
 
         float dt = Time.DeltaTime;
 
-        JobHandle job = Entities.ForEach((Entity e, ref PhysicsVelocity velocity, in DirectionData direction, in SpeedData speed) =>
+        JobHandle job = Entities.ForEach((Entity e, ref PhysicsVelocity velocity, in DirectionData direction, in SpeedData speed, in StateComponent state) =>
         {
-            velocity.Linear.xz = direction.Value * speed.Value * dt;
-            velocity.Linear.y = 0;
-            velocity.Angular.xz = 0;
+            velocity.Linear.xz = 0;
+
+            if (state.CurrentState != State.Dying)
+            {
+                velocity.Linear.xz = direction.Value * speed.Value * dt;
+                velocity.Linear.y = 0;
+                velocity.Angular.xz = 0;
+            }
             
             //If inputs to move, change state
             

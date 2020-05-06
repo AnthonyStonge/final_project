@@ -21,9 +21,10 @@ public class EnemyFollowSystem : SystemBase
     protected override void OnUpdate()
     {
         Entities.ForEach((ref PathFollowComponent pathFollow, ref DirectionData direction, ref TargetData targetData,ref Translation translation,
-            in AttackRangeComponent range) =>
+            in AttackRangeComponent range, in StateComponent state) =>
         {
-            direction.Value = new float2(0);
+            
+            direction.Value = float2.zero;
 
             //Make sure enemy is out of range
            // if (range.IsInRange)
