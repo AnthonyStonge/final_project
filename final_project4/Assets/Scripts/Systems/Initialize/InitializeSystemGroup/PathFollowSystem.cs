@@ -14,11 +14,10 @@ using Type = Enums.Type;
 [UpdateBefore(typeof(EnemyFollowSystem))]
 public class PathFollowSystem : SystemBase
 {
-    
     private static readonly CollisionFilter Filter = new CollisionFilter
     {
         BelongsTo = 1 << 2,
-        CollidesWith = 1 << 10 | 1 << 1,
+        CollidesWith = 1 << 10 | 1 << 1 | 1 << 21,
         GroupIndex = 0
     };
     public NativeArray<Unity.Mathematics.Random> RandomArray { get; private set; }
@@ -86,77 +85,22 @@ public class PathFollowSystem : SystemBase
             }
             else
             {
-                //pathFollow.EnemyState = EnemyState.Wondering;
+                pathFollow.EnemyState = EnemyState.Wondering;
             }
             switch (pathFollow.EnemyState)
             {
                 case EnemyState.Attack:
                     AttackFollow(posPlayer, ref pathFollow, ref range, ref typeData, ref filter, ref physicsWorld, translation);
                     break;
-                case EnemyState.Chase:
-                    ChaseFollow(ref pathFollow, ref physicsWorld, ref player, pathPos);
-                    break;
                 case EnemyState.Wondering:
-                    WonderingFollow(ref pathFollow, ref physicsWorld, ref randomArray, translation, time, deltaTime,
+                    WonderingFollow(ref pathFollow, ref physicsWorld, ref randomArray, translation, deltaTime,
                         nativeThreadIndex);
                     break;
             }
         }).ScheduleParallel();
     }
-
-    private static void ChaseFollow(ref PathFollowComponent pathFollow, ref PhysicsWorld physicsWorld,
-        ref ComponentDataContainer<PlayerTag> player, in DynamicBuffer<PathPosition> pathPos)
-    {
-        /*pathFollow.PositionToGo = new int2(-1);
-        int compteur = 0;
-        bool loopBreak = false;
-        while ((compteur != pathPos.Length && compteur != 4) && pathPos.Length > 0)
-        {
-            int2 basePos = pathPos[pathFollow.pathIndex].position;
-            int2 pathPosition;
-            if (pathFollow.pathIndex - compteur > 0)
-                pathPosition = pathPos[pathFollow.pathIndex - compteur].position;
-            else
-                pathPosition = pathPos[0].position;
-
-            float3 pathPositionConvert = new float3(pathPosition.x, 0.2f, pathPosition.y);
-            float3 basePosConvert = new float3(basePos.x, 0.2f, basePos.y);
-            RaycastInput raycastInput = new RaycastInput
-            {
-                Start = basePosConvert,
-                End = pathPositionConvert,
-                Filter = Filter
-            };
-            if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
-            {
-                if (!player.Components.HasComponent(hit.Entity))
-                {
-                    if ((pathFollow.pathIndex - compteur + 1) != pathPos.Length)
-                        pathFollow.PositionToGo = pathPos[(pathFollow.pathIndex - compteur) + 1].position;
-                    else
-                        pathFollow.PositionToGo = pathPos[(pathFollow.pathIndex - compteur)].position;
-                    loopBreak = true;
-                    break;
-                }
-            }
-
-            compteur++;
-        }
-
-        if (!loopBreak)
-        {
-            if (pathPos.Length != 0)
-            {
-                if (pathFollow.pathIndex - compteur < 0)
-                {
-                    pathFollow.PositionToGo = pathPos[0].position;
-                }
-
-                pathFollow.PositionToGo = pathPos[(pathFollow.pathIndex - compteur) + 1].position;
-            }
-        }*/
-    }
-    private static void WonderingFollow(ref PathFollowComponent pathFollow,ref PhysicsWorld physicsWorld, ref NativeArray<Unity.Mathematics.Random> RandomArray, in Translation translation, in double time, in float deltaTime, in int naticeThreadIndex)
+    
+    private static void WonderingFollow(ref PathFollowComponent pathFollow,ref PhysicsWorld physicsWorld, ref NativeArray<Random> RandomArray, in Translation translation, in float deltaTime, in int naticeThreadIndex)
     {
         if (pathFollow.timeWonderingCounter <= 0)
         {
@@ -184,7 +128,6 @@ public class PathFollowSystem : SystemBase
             //If collides, do not move
             if (physicsWorld.CollisionWorld.CastRay(raycastInput))
             {
-                
                 pathFollow.WonderingPosition = new int2(-1);
                 pathFollow.timeWonderingCounter = 0;
             }
@@ -210,8 +153,8 @@ public class PathFollowSystem : SystemBase
                 float3 direction = translation.Value + (-targetData * 2);
                 RaycastInput raycastInput = new RaycastInput
                 {
-                    Start = translation.Value,
-                    End = direction,
+                    Start = new float3(translation.Value.x, 0, translation.Value.z),
+                    End = new float3(direction.x, 0, direction.z),
                     Filter = new CollisionFilter()
                     {
                         BelongsTo = bulletCollider.BelongsTo.Value,
@@ -219,15 +162,10 @@ public class PathFollowSystem : SystemBase
                         GroupIndex = bulletCollider.GroupIndex
                     }
                 };
-                if (physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
-                {
-                    //pathFollow.PositionToGo = new float2(-1);
-                }
-                else
+                if (!physicsWorld.CollisionWorld.CastRay(raycastInput, out var hit))
                 {
                     pathFollow.BackPosition = direction.xz;
                 }
-                
             }
         }
     }
