@@ -70,7 +70,7 @@ public class GlobalEventListenerSystem : SystemBase
         //Toggle PlayerWeapons
         WeaponTypeToGoBackTo = GameVariables.Player.CurrentWeaponHeld;
         SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponType.HellShotgun, EventsHolder.LevelEvents.CurrentLevel, MapType.Level_Hell);
-        
+
         //Reset Player Life
         playerLife.Reset();
         EntityManager.SetComponentData(GameVariables.Player.Entity, playerLife);
@@ -84,6 +84,7 @@ public class GlobalEventListenerSystem : SystemBase
         //Set UI info
         UIManager.ResetPlayerHealth();
         UIManager.ToggleHellTimers(true);
+        UIManager.SetWeaponType(WeaponType.HellShotgun);
         
         //??
         EventsHolder.LevelEvents.LevelEvent = LevelInfo.LevelEventType.OnStart;
@@ -94,12 +95,15 @@ public class GlobalEventListenerSystem : SystemBase
         //Set UI info
         UIManager.ResetPlayerHealth();
         UIManager.ToggleHellTimers(false);
-        
+
         //Toggle PlayerWeapons
         SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponTypeToGoBackTo, MapType.Level_Hell, LastMap);
         
         //Set new MapType
         EventsHolder.LevelEvents.CurrentLevel = LastMap;
         MapEvents.LoadMap(LastMap, true);
+        
+        //Set more UI info
+        UIManager.SetWeaponType(WeaponTypeToGoBackTo);
     }
 }
