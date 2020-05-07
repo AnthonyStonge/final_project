@@ -62,6 +62,7 @@ public class SwapWeaponSystem : SystemBase
         //Add event to NativeList
         EventsHolder.WeaponEvents.Add(new WeaponInfo
         {
+            Parent = GameVariables.Player.Entity,
             WeaponType = type,
             EventType = WeaponInfo.WeaponEventType.ON_SWAP
         });
