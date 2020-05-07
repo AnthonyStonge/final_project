@@ -1,4 +1,5 @@
-﻿using Havok.Physics;
+﻿using Enums;
+using Havok.Physics;
 using Unity.Entities;
 using Unity.Physics;
 using Unity.Physics.Systems;
@@ -22,10 +23,11 @@ public class PlayerCollisionSystem : SystemBase
         var enemy = GetComponentDataFromEntity<EnemyTag>(true);
 
         var playerEntity = GameVariables.Player.Entity;
+        Entity entity = Entity.Null;
         bool isHit = false;
         Job.WithCode(() =>
         {
-            Entity entity;
+            
             foreach (var collisionEvent in collisionEvents)
             {
                 if (player.HasComponent(collisionEvent.Entities.EntityA))
@@ -51,6 +53,14 @@ public class PlayerCollisionSystem : SystemBase
         {
             LifeComponent lifeComponent = EntityManager.GetComponentData<LifeComponent>(playerEntity);
             bool lifeDecremented = lifeComponent.DecrementLifeWithInvincibility();
+            LifeComponent lifeComponentRat = EntityManager.GetComponentData<LifeComponent>(entity);
+            if (EntityManager.GetComponentData<TypeData>(entity).Value == Type.Rat)
+            {
+                lifeComponentRat.DecrementLife();
+                EntityManager.SetComponentData(entity, lifeComponentRat);
+            }
+            if (lifeComponent.DecrementLifeWithInvincibility())
+                UIManager.OnPlayerHit();
             EntityManager.SetComponentData(playerEntity, lifeComponent);
             if(lifeDecremented)
                 UIManager.OnPlayerHit();
