@@ -44,7 +44,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
             {
                 System.Array enemyType = System.Enum.GetValues(typeof(Type));
                 Type randomEnemyType = (Type) enemyType.GetValue(Random.Range(0, enemyType.Length));
-                switch (randomEnemyType)
+                switch (spawner.EnemyType)
                 {
                     case Type.Chicken:
                         CreateEnemy(Type.Chicken, out Entity chicken, spawner.spawnerPos, -1);
@@ -60,7 +60,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                         break;
                     case Type.Rat:
                         CreateEnemy(Type.Rat, out Entity rat, spawner.spawnerPos,-1);
-                        CreateWeapon(WeaponType.RatWeapon, rat);
+                        // CreateWeapon(WeaponType.RatWeapon, rat);
                         break;
                 }
 
@@ -98,7 +98,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                                 break;
                             case Type.Rat:
                                 CreateEnemy(Type.Rat, out Entity rat, copySpawner[i].spawnerPos, i);
-                                CreateWeapon(WeaponType.RatWeapon, rat);
+                                // CreateWeapon(WeaponType.RatWeapon, rat);
                                 break;
                         }
                         var spawnerTest = copySpawner[i];
@@ -133,7 +133,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
         //Set position
         entityManager.SetComponentData(e, new Translation
         {
-            Value = new float3(spawnPosition.x, 0, spawnPosition.y)
+            Value = new float3(spawnPosition.x, -1, spawnPosition.y)
         });
         float2 translation = entityManager.GetComponentData<Translation>(e).Value.xz;
         if (i != -1)
@@ -142,7 +142,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
             {
                 BeginWalk = true,
                 EnemyState = EnemyState.Chase,
-                PositionToGo = (int2)(translation + (copySpawner[i].EnemySpawnDirection * new int2(copySpawner[i].Distance, copySpawner[i].Distance)))
+                WonderingPosition = (int2)(translation + (copySpawner[i].EnemySpawnDirection * new int2(copySpawner[i].Distance, copySpawner[i].Distance)))
             });
         }
         else
@@ -153,6 +153,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                 EnemyState = EnemyState.Wondering
             });
         }
+
        /* //Set BatchFilter
         entityManager.AddSharedComponentData(e, new BatchFilter
         {
@@ -172,12 +173,9 @@ public class TemporaryEnemySpawnerSystem : SystemBase
     private static void CreateWeapon(WeaponType type, Entity parent)
     {
         Entity e = entityManager.Instantiate(WeaponHolder.WeaponPrefabDict[type]);
-
-        entityManager.SetComponentData(e, new Parent
-        {
-            Value = parent
-        });
+        ECSUtility.MergeEntitiesTogether(entityManager, parent, e);
     }
+    
     protected override void OnDestroy()
     {
         copySpawner.Dispose();

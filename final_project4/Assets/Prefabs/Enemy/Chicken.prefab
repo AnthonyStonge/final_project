@@ -49,7 +49,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2723859189446193766}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -2432090755550338912, guid: c2ee3117e80ac8940b98290fa8472755, type: 3}
 --- !u!23 &737714200793782006
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   Life:
     Min: 0
     Max: 100
-    hiddenValue: 1
+    hiddenValue: 3
 --- !u!114 &-6857367465188656113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackDDistance: 7
-  AgroDistance: 35
+  AgroDistance: 20
   IsInRange: 0
 --- !u!114 &7226212320472182388
 MonoBehaviour:
@@ -236,28 +236,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 1
+  m_ShapeType: 0
   m_PrimitiveCenter:
     x: 0
-    y: 0
-    z: 0
+    y: 0.98
+    z: -0.12
   m_PrimitiveSize:
-    x: 1
+    x: 1.4285152
     y: 1
     z: 2
   m_PrimitiveOrientation:
     Value:
       x: -90
       y: 0
-      z: 90
+      z: -90
     RotationOrder: 4
   m_Capsule:
     Height: 2
-    Radius: 0.5
+    Radius: 0.7142576
     Axis: 2
   m_Cylinder:
     Height: 2
-    Radius: 0.5
+    Radius: 0.7142576
     Axis: 2
   m_CylinderSideCount: 20
   m_SphereRadius: 1
