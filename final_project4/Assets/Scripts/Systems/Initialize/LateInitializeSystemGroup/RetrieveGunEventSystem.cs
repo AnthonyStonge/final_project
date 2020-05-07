@@ -235,6 +235,9 @@ public class RetrieveGunEventSystem : SystemBase
             case WeaponType.Shotgun:
                 ShootShotgun(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
                 break;
+            case WeaponType.ChickenWeapon:
+                ShootChickenWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
+                break;
             case WeaponType.PigWeapon:
                 ShootPigWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
                 break;
@@ -333,7 +336,39 @@ public class RetrieveGunEventSystem : SystemBase
             
         }
     }
+    private static void ShootChickenWeapon(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
+        float3 position, quaternion rotation, float3 parentEntityPosition)
+    {
+        int nbBullet = 1;
+        float degreeFarShot = math.radians(nbBullet * 2);
+        float angle = degreeFarShot / nbBullet;
+        quaternion startRotation = math.mul(rotation, quaternion.RotateY(-(degreeFarShot / 2)));
 
+        for (int i = 0; i < nbBullet; i++)
+        {
+            Entity bullet = ecb.Instantiate(jobIndex, bulletPrefab);
+
+            //Find rotation
+            quaternion bulletRotation = math.mul(startRotation, quaternion.RotateY(angle * i));
+
+            //Set position/rotation
+            ecb.SetComponent(jobIndex, bullet, new Translation
+            {
+                Value = position
+            });
+            ecb.SetComponent(jobIndex, bullet, new Rotation
+            {
+                Value = bulletRotation
+            });
+            ecb.AddComponent(jobIndex, bullet, new BulletPreviousPositionData
+            {
+                Value = parentEntityPosition
+            });
+            PhysicsCollider a = new PhysicsCollider();
+            // a.Value.Value.Type == ColliderType.Box;
+            
+        }
+    }
     private static void ShootGorillaWeapon(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
         float3 position, quaternion rotation, float3 parentEntityPosition)
     {

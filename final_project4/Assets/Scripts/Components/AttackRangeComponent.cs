@@ -9,6 +9,6 @@ public struct AttackRangeComponent : IComponentData
     public float AttackDDistance;
     public float AgroDistance;
     public float FleeDistance;
-
+    public bool CanAttack;
     public bool IsInRange;
 }
