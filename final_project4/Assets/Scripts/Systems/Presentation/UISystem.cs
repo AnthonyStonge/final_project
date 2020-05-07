@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Enums;
+using EventStruct;
 using Unity.Entities;
 using UnityEngine;
 [DisableAutoCreation]
@@ -12,6 +13,25 @@ public class UISystem : SystemBase
 
     protected override void OnUpdate()
     {
+        foreach (WeaponInfo info in EventsHolder.WeaponEvents)
+        {
+            if(info.Parent != GameVariables.Player.Entity)
+                continue;
+
+            switch (info.EventType)
+            {
+                case WeaponInfo.WeaponEventType.ON_SHOOT:
+                    UIManager.OnShoot();
+                    break;
+                case WeaponInfo.WeaponEventType.ON_RELOAD:
+                    UIManager.OnReload();
+                    break;
+                case WeaponInfo.WeaponEventType.ON_SWAP:
+                    UIManager.SetWeaponType(info.WeaponType);
+                    break;
+            }
+        }
+        
         
         if (!GameVariables.UI.GunName) return;
         
