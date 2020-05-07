@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6348952759386089336}
   - component: {fileID: 3664617315735268668}
   m_Layer: 0
-  m_Name: Pistol
+  m_Name: Hell_Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -61,8 +61,8 @@ MonoBehaviour:
   OnSwapDelayToShoot: 0.02
   MaxBulletInMagazine: 20
   MaxBulletOnPlayer: 0
-  ResetBetweenShotTime: 0.3
-  ResetReloadTime: 1
+  ResetBetweenShotTime: 0.1
+  ResetReloadTime: 0.1
   BulletPrefab: {fileID: 8337288439267534834, guid: 950f480c66d432542924efec9f68e4f1,
     type: 3}
   CurrentAmountBulletInMagazine: 20

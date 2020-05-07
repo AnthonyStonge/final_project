@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 5748547231513294602}
   - component: {fileID: -662405620774749044}
   m_Layer: 0
-  m_Name: MachineGun
+  m_Name: Hell_MachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,13 +127,13 @@ MonoBehaviour:
   WeaponType: 6
   OnSwapDelayToShoot: 0.02
   MaxBulletInMagazine: 20
-  MaxBulletOnPlayer: 0
+  MaxBulletOnPlayer: 500
   ResetBetweenShotTime: 0.01
-  ResetReloadTime: 0.3
+  ResetReloadTime: 2
   BulletPrefab: {fileID: 1184732517643075236, guid: 4fa5767ea3208384ca97feff7608f101,
     type: 3}
   CurrentAmountBulletInMagazine: 20
-  CurrentAmountBulletOnPlayer: 0
+  CurrentAmountBulletOnPlayer: 350
   BetweenShotTime: 0
   ReloadTime: 0
   SwapTimer: 0
