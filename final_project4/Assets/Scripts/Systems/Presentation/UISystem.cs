@@ -31,6 +31,14 @@ public class UISystem : SystemBase
                     break;
             }
         }
+
+        foreach (BulletInfo info in EventsHolder.BulletsEvents)
+        {
+            if (info.HitEntity != GameVariables.Player.Entity)
+                return;
+            
+            UIManager.OnPlayerHit();
+        }
         
         
         if (!GameVariables.UI.GunName) return;

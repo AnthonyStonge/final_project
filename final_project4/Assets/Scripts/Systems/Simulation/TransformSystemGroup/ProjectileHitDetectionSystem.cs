@@ -186,6 +186,7 @@ public class ProjectileHitDetectionSystem : SystemBase
                 entityCommandBuffer.DestroyEntity(entityInQueryIndex, entity);
                 events.Enqueue(new BulletInfo
                 {
+                    HitEntity = hitEntity,
                     ProjectileType = projectile.Type,
                     CollisionType = collisionType,
                     HitPosition = hit.Position + hitPosition,
