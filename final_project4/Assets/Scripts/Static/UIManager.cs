@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Enums;
 using Unity.Collections;
@@ -41,6 +42,10 @@ public static class UIManager
         //Set Hearth Index at number of hearth
         MonoGameVariables.Instance.Hearths.HearthIndexAt =
             (ushort) (MonoGameVariables.Instance.Hearths.HearthImages.Count - 1);
+        
+        //Make sure Hell timers are off
+        MonoGameVariables.Instance.Hell_Timer01.gameObject.SetActive(false);
+        MonoGameVariables.Instance.Hell_Timer02.gameObject.SetActive(false);
     }
 
     public static void OnDestroy()
@@ -164,12 +169,16 @@ public static class UIManager
         MonoGameVariables.Instance.BulletsNormalText.gameObject.SetActive(!isWeaponInfiniteAmmo);
     }
 
-    public static void OnPlayerHit()
+    public static void RefreshPlayerHp(bool hasLifeDecreased)
     {
-        //Get Hearth IndexAt
-        ushort index = MonoGameVariables.Instance.Hearths.HearthIndexAt;
+        //Get player LifeComponent
+        LifeComponent life =
+            World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<LifeComponent>(GameVariables.Player
+                .Entity);
 
-        //Make sure index exists
+        ushort index = (ushort) life.Life.Value;
+
+        //Make sure life at exists in images
         if (index >= MonoGameVariables.Instance.Hearths.HearthImages.Count)
         {
 #if UNITY_EDITOR
@@ -182,34 +191,49 @@ public static class UIManager
         Color c = MonoGameVariables.Instance.Hearths.HearthImages[index].color;
 
         //Set new color
-        c.a = 0.15f;
+        if (hasLifeDecreased)
+            c.a = 0.15f;
+        else
+            c.a = 1;
         MonoGameVariables.Instance.Hearths.HearthImages[index].color = c;
+    }
 
-        MonoGameVariables.Instance.Hearths.HearthIndexAt--;
+    public static void OnPlayerHit()
+    {
+        RefreshPlayerHp(true);
     }
 
     public static void OnPlayerPickupHealth()
     {
-        //Increment index to get previous hearth removed
-        ushort index = ++MonoGameVariables.Instance.Hearths.HearthIndexAt;
-
-        //Get color
-        Color c = MonoGameVariables.Instance.Hearths.HearthImages[index].color;
-
-        //Set new color
-        c.a = 1;
-        MonoGameVariables.Instance.Hearths.HearthImages[index].color = c;
+        RefreshPlayerHp(false);
     }
 
-    public static void OnLoadHellLevel()
+    public static void ResetPlayerHealth()
     {
-        //Toggle timer on
+        for (int i = 0; i < MonoGameVariables.Instance.Hearths.HearthImages.Count; i++)
+        {
+            Color c = MonoGameVariables.Instance.Hearths.HearthImages[i].color;
+            c.a = 1;
+            MonoGameVariables.Instance.Hearths.HearthImages[i].color = c;
+        }
 
-        //Toggle infinite ammo
+        MonoGameVariables.Instance.Hearths.HearthIndexAt =
+            (ushort) (MonoGameVariables.Instance.Hearths.HearthImages.Count - 1);
     }
 
-    public static void OnUnloadHellLevel()
+    public static void ToggleHellTimers(bool activate)
     {
-        //Toggle off hell UI
+        MonoGameVariables.Instance.Hell_Timer01.gameObject.SetActive(activate);
+        MonoGameVariables.Instance.Hell_Timer02.gameObject.SetActive(activate);
+    }
+
+    public static void SetTimeOnHellTimers(float time)
+    {
+        TimeSpan timeFormat = TimeSpan.FromSeconds(time);
+        string s = timeFormat.ToString("ss'.'ff");
+        
+        //Set timers text
+        MonoGameVariables.Instance.Hell_Timer01.text = s;
+        MonoGameVariables.Instance.Hell_Timer02.text = s;
     }
 }

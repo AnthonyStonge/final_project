@@ -19,18 +19,21 @@ public class GlobalEventListenerSystem : SystemBase
         var levelEvents = EventsHolder.LevelEvents;
         if (levelEvents.CurrentLevel == MapType.Level_Hell)
         {
-            if (currentHellTimer >= hellTimer)
+            if (currentHellTimer <= 0)
             {
                 //TODO Hell level Succesful UI
 #if UNITY_EDITOR
                 Debug.Log("Player Survived loading last level");
 #endif
                 MapEvents.LoadMap(LastMap, true);
-                currentHellTimer = 0;
+                UIManager.ResetPlayerHealth();
+                UIManager.ToggleHellTimers(false);
+                currentHellTimer = hellTimer;
             }
             else
             {
-                currentHellTimer += Time.DeltaTime;
+                currentHellTimer -= Time.DeltaTime;
+                UIManager.SetTimeOnHellTimers(currentHellTimer);
             }
         }
         else if (levelEvents.CurrentLevel == MapType.LevelMenu)
@@ -65,10 +68,14 @@ public class GlobalEventListenerSystem : SystemBase
 
                // EventsHolder.LevelEvents.CurrentLevel = MapType.Level_Hell;
                 EventsHolder.LevelEvents.LevelEvent = LevelInfo.LevelEventType.OnStart;
+                UIManager.ResetPlayerHealth();
+                UIManager.ToggleHellTimers(true);
+
+                currentHellTimer = hellTimer;
             }
             else
             {
-                currentHellTimer = 0;
+                currentHellTimer = hellTimer;    //??
                 GlobalEvents.GameEvents.GameLost();
             }
         }

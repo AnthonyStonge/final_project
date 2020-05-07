@@ -50,9 +50,10 @@ public class PlayerCollisionSystem : SystemBase
         if (isHit)
         {
             LifeComponent lifeComponent = EntityManager.GetComponentData<LifeComponent>(playerEntity);
-            if (lifeComponent.DecrementLifeWithInvincibility())
-                UIManager.OnPlayerHit();
+            bool lifeDecremented = lifeComponent.DecrementLifeWithInvincibility();
             EntityManager.SetComponentData(playerEntity, lifeComponent);
+            if(lifeDecremented)
+                UIManager.OnPlayerHit();
         }
     }
 }

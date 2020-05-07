@@ -60,6 +60,7 @@ public static class GlobalEvents
 
             //TODO start Soundtrack for hell level
             MapEvents.LoadMap(MapType.Level_Hell, true);
+            UIManager.ResetPlayerHealth();
         }
 
         public static void GameLost()
@@ -69,7 +70,6 @@ public static class GlobalEvents
 
             //Return player to Menu
             MapEvents.LoadMap(MapType.LevelMenu, true);
-            PlayerEvents.ResetPlayerHp();
 
             //TODO Reset GameValue???
         }

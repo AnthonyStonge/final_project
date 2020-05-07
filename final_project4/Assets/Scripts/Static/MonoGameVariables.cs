@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using Enums;
 using TMPro;
-using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,6 +33,9 @@ public class MonoGameVariables : MonoBehaviour
     public UI_Health Hearths;
     public TextMeshProUGUI BulletsNormalText;
     public TextMeshProUGUI BulletsInfiniteText;
+
+    public TextMeshPro Hell_Timer01;
+    public TextMeshPro Hell_Timer02;
 
 }
 
