@@ -39,6 +39,8 @@ namespace EventStruct
         public float3 HitPosition;
         public quaternion HitRotation;
 
+        public Entity HitEntity;
+
         public enum BulletCollisionType
         {
             ON_WALL,

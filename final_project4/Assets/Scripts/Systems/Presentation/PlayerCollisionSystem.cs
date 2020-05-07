@@ -2,12 +2,13 @@
 using Unity.Entities;
 using Unity.Physics;
 using Unity.Physics.Systems;
+
 [DisableAutoCreation]
 public class PlayerCollisionSystem : SystemBase
 {
     private StepPhysicsWorld stepPhysicsWorld;
     private EntityQuery entityQuery;
-    
+
     protected override void OnCreate()
     {
         stepPhysicsWorld = World.GetOrCreateSystem<StepPhysicsWorld>();
@@ -35,6 +36,7 @@ public class PlayerCollisionSystem : SystemBase
                         isHit = true;
                     }
                 }
+
                 if (player.HasComponent(collisionEvent.Entities.EntityB))
                 {
                     if (enemy.HasComponent(collisionEvent.Entities.EntityA))
@@ -48,9 +50,9 @@ public class PlayerCollisionSystem : SystemBase
         if (isHit)
         {
             LifeComponent lifeComponent = EntityManager.GetComponentData<LifeComponent>(playerEntity);
-            lifeComponent.DecrementLifeWithInvincibility();
+            if (lifeComponent.DecrementLifeWithInvincibility())
+                UIManager.OnPlayerHit();
             EntityManager.SetComponentData(playerEntity, lifeComponent);
         }
     }
-
 }

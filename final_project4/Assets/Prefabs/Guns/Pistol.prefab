@@ -70,6 +70,7 @@ MonoBehaviour:
   BetweenShotTime: 0
   ReloadTime: 0
   SwapTimer: 0
+  HasInfiniteAmmo: 1
 --- !u!1 &8085121456273243606
 GameObject:
   m_ObjectHideFlags: 0
