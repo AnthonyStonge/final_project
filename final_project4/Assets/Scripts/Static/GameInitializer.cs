@@ -47,6 +47,7 @@ public static class GameInitializer
         //GameVariables.PlayerVars.Default.PlayerAudioSource = MonoGameVariables.instance.playerAudioSource;
         //Game Initializer?
         
+        UIManager.Initialize();
         MapEvents.Initialize();
         PlayerInitializer.Initialize();
         WeaponInitializer.Initialize();
@@ -118,5 +119,6 @@ public static class GameInitializer
         WeaponHolder.OnDestroy();
         ProjectileHolder.OnDestroy();
         MapHolder.OnDestroy();
+        UIManager.OnDestroy();
     }
 }

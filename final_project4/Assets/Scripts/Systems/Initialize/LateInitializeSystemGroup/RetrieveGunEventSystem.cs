@@ -66,6 +66,7 @@ public class RetrieveGunEventSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<Translation>()
         };
+        Entity player = GameVariables.Player.Entity;
 
         float deltaTime = Time.DeltaTime;
 
@@ -128,6 +129,7 @@ public class RetrieveGunEventSystem : SystemBase
                 {
                     weaponFiredEvents.Enqueue(new WeaponInfo
                     {
+                        Parent = parent.Value,
                         WeaponType = gun.WeaponType,
                         EventType = (WeaponInfo.WeaponEventType) weaponEventType,
                         Position = transform.Position,

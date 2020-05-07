@@ -17,6 +17,8 @@ namespace EventStruct
         public float3 Position;
         public quaternion Rotation;
 
+        public Entity Parent;
+
         //TODO CREATE FIELD FOR WEAPON SWAPPED TO???
         
         public enum WeaponEventType
