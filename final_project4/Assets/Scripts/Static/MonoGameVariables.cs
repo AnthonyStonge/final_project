@@ -43,9 +43,11 @@ public class MonoGameVariables : MonoBehaviour
 public class UI_WeaponLink
 {
     public WeaponType Type;
-    public GameObject WeaponImg;
 
     public GameObject BulletsConainter;
+
+    public Material Lit;
+    public Material UnLit;
     public List<Image> BulletsImages;
 
     [HideInInspector] public ushort BulletIndexAt;
