@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4854786065733778212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0.777, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7270701655455468391}
@@ -70,6 +70,7 @@ MonoBehaviour:
   BetweenShotTime: 0
   ReloadTime: 0
   SwapTimer: 0
+  HasInfiniteAmmo: 0
 --- !u!1 &6223916789657969166
 GameObject:
   m_ObjectHideFlags: 0
