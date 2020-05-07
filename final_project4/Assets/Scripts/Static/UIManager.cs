@@ -108,22 +108,15 @@ public static class UIManager
         UI_Weapons[CurrentWeaponTypeHeld].BulletIndexAt++;
     }
 
-    public static void OnReload()
+    public static void OnReload(int amountBulletsToReload)
     {
         if (DontUpdateUI)
             return;
 
-        //Get IndexAt
-        ushort index = UI_Weapons[CurrentWeaponTypeHeld].BulletIndexAt;
+        //Get amount of images
+        int amountImages = UI_Weapons[CurrentWeaponTypeHeld].BulletsImages.Count;
 
-        //Make sure there are still bullets to reload
-        if (index == 0)
-            return;
-
-        if (index >= UI_Weapons[CurrentWeaponTypeHeld].BulletsImages.Count)
-            index = (ushort) (UI_Weapons[CurrentWeaponTypeHeld].BulletsImages.Count - 1);
-
-        for (int i = index; i >= 0; i--)
+        for (int i = amountImages - 1; i >= amountImages - amountBulletsToReload; i--)
         {
             //Get Preset Material
             Material mat = UI_Bullet_Emit[CurrentWeaponTypeHeld];
@@ -131,7 +124,7 @@ public static class UIManager
             UI_Weapons[CurrentWeaponTypeHeld].BulletsImages[i].material = mat;
         }
 
-        UI_Weapons[CurrentWeaponTypeHeld].BulletIndexAt = 0;
+        UI_Weapons[CurrentWeaponTypeHeld].BulletIndexAt = (ushort)(amountImages - amountBulletsToReload);
 
         //Change text
         RefreshBulletsText();
