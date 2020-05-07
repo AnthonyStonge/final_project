@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   State: 5
-  Material: {fileID: 2100000, guid: bf6b5488f058e124380579a33325c0b8, type: 2}
+  Material: {fileID: 2100000, guid: d24aa3b21fc82da488d8fdd847e52b1b, type: 2}
   Frames:
   - {fileID: 365689344059954390, guid: 461cbe9926b6495448b1a0678fe63aae, type: 3}
   - {fileID: 806286163169674374, guid: 3c02d0d295347c743b4fc535b0401cd2, type: 3}

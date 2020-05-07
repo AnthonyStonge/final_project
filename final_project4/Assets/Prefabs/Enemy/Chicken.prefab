@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 02a8fb06cc0408844ac22debd75a3883, type: 2}
+  - {fileID: 2100000, guid: d0fda975f2ecd624283f8c77add7d178, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -174,6 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackDDistance: 7
   AgroDistance: 20
+  FleeDistance: 0
   IsInRange: 0
 --- !u!114 &7226212320472182388
 MonoBehaviour:

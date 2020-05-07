@@ -1,4 +1,5 @@
 ﻿using Enums;
+using EventStruct;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
@@ -27,9 +28,16 @@ public class DashSystem : SystemBase
         if (dash.IsDashing)
         {
             dash.CurrentDashTime -= dt;
-
+            
             direction.Value = GetVelocity(dash);
             EntityManager.SetComponentData(playerEntity, direction);
+            
+            EventsHolder.StateEvents.Add(new StateInfo
+            {
+                Entity = GameVariables.Player.Entity,
+                DesiredState = State.Dashing,
+                Action = StateInfo.ActionType.TryChange
+            });
         }
         //Is dash finished? -> Unlock inputs...
         else if (dash.WasDashingPreviousFrame)
@@ -79,7 +87,12 @@ public class DashSystem : SystemBase
         //Dash
         dash.OnDash();
         GlobalEvents.PlayerEvents.LockUserInputs();
-
+        EventsHolder.StateEvents.Add(new StateInfo
+        {
+            Entity = GameVariables.Player.Entity,
+            DesiredState = State.Dashing,
+            Action = StateInfo.ActionType.TryChange
+        });
         //Look if Player is moving
         dash.Direction = inputs.Move.Equals(float2.zero) ? math.forward(rotation.Value).xz : inputs.Move;
     }

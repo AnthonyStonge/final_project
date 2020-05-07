@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d90ca9d975c25e44d948f92cc927284d, type: 3}
+  m_Name: PlayerDash
+  m_EditorClassIdentifier: 
+  Type: 0
+  State: 4
+  Material: {fileID: 2100000, guid: d24aa3b21fc82da488d8fdd847e52b1b, type: 2}
+  Frames:
+  - {fileID: -927199367670048503, guid: 040dd1c410fe5b342ab71f5831b4b455, type: 3}
+  - {fileID: -927199367670048503, guid: 29a0efddb8042874bbf4bc0317dfa1ea, type: 3}
+  - {fileID: -927199367670048503, guid: 4bd72cb188ac9094584402062da4281e, type: 3}
+  - {fileID: -927199367670048503, guid: 98d064ae20d725f49bf9901aee23fb1b, type: 3}
+  - {fileID: -927199367670048503, guid: a0da6e37b7b6aa24ba589eed2a6b1541, type: 3}
+  - {fileID: -927199367670048503, guid: ee9a9d8287e34b744ad666e3726dacde, type: 3}
+  - {fileID: -927199367670048503, guid: 7c51e64dc82038c448c917b198124972, type: 3}
+  - {fileID: -927199367670048503, guid: 66b248de9b6b1ec44b8a196431fef36d, type: 3}
+  - {fileID: -927199367670048503, guid: e33e78029099e314c86d29b2164fc1c5, type: 3}
+  - {fileID: -927199367670048503, guid: 8dc2a4379a1e94944a954f3fc6e8128f, type: 3}
+  - {fileID: -927199367670048503, guid: 639acc035d67e4440b7226c06a43e894, type: 3}
+  - {fileID: -927199367670048503, guid: 35d3ffc789b1f294ba17dbc36c47a753, type: 3}
+  - {fileID: -927199367670048503, guid: 87e3ffdd5621c934bbf5014f5af2823a, type: 3}
