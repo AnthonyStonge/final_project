@@ -111,7 +111,10 @@ public class RetrieveGunEventSystem : SystemBase
 
                 if (state.CurrentState == State.Reloading)
                     if (TryReload(ref gun))
+                    {
+                        StartReload(ref gun);
                         weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
+                    }
 
                 //Should weapon be reloading?    //Deactivate this line to block auto reload
                 if (TryStartReload(ref gun))
@@ -186,8 +189,7 @@ public class RetrieveGunEventSystem : SystemBase
         //Make sure there is ammo to reload
         if (gun.CurrentAmountBulletOnPlayer <= 0)
             return false;
-
-        StartReload(ref gun);
+        
         return true;
     }
 
