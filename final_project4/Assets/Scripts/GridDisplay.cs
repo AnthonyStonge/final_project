@@ -1,4 +1,5 @@
-﻿using Unity.Mathematics;
+﻿using Enums;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 public enum GridChange
@@ -10,6 +11,7 @@ public enum GridChange
 public class GridDisplay : MonoBehaviour
 {
     // Start is called before the first frame update
+    public Type type;
     public GridChange gridChange; 
     public ScriptableGrid grid;
 
@@ -48,6 +50,7 @@ public class GridDisplay : MonoBehaviour
                         grid.enemyPreSpawner.Add(new EnemyPreSpawnerInfo
                         {
                             spawnerPos = new int2((int) (hit.point.x + 0.5f), (int) (hit.point.z + 0.5f)),
+                            EnemyType = type
                         });
                         grid.enemyPreSpawnerIndex.Add(indexGrid);
                     }
@@ -87,11 +90,20 @@ public class GridDisplay : MonoBehaviour
             {
                 if (grid.indexNoWalkable.Contains(i + j * grid.gridSize.x))
                 {
+                    
                     Gizmos.color = Color.red;
                 }
                 else if (grid.enemyPreSpawnerIndex.Contains(i + j * grid.gridSize.x))
                 {
-                    Gizmos.color = Color.blue;
+                    int index = grid.enemyPreSpawnerIndex.FindIndex(x => x == (i + j * grid.gridSize.x));
+                    if(grid.enemyPreSpawner[index].EnemyType == Type.Rat)
+                        Gizmos.color = Color.blue;
+                    else if(grid.enemyPreSpawner[index].EnemyType == Type.Gorilla)
+                        Gizmos.color = Color.yellow;
+                    else if(grid.enemyPreSpawner[index].EnemyType == Type.Pig)
+                        Gizmos.color = Color.magenta;
+                    else
+                        Gizmos.color = Color.clear;
                 }
                 else if (grid.enemySpawnerIndex.Contains(i + j * grid.gridSize.x))
                 {

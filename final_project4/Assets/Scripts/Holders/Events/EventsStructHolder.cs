@@ -18,6 +18,7 @@ namespace EventStruct
         public quaternion Rotation;
 
         public Entity Parent;
+        public int AmountBulletsInMagazine;
 
         //TODO CREATE FIELD FOR WEAPON SWAPPED TO???
         

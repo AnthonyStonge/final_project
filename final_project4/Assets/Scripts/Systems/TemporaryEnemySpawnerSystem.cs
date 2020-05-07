@@ -80,9 +80,9 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                 {
                     if (copySpawner[i].currentTime <= 0)
                     {
-                        System.Array enemyType = System.Enum.GetValues(typeof(Type));
-                        Type randomEnemyType = (Type) enemyType.GetValue(Random.Range(0, enemyType.Length));
-                        switch (randomEnemyType)
+                        //System.Array enemyType = System.Enum.GetValues(typeof(Type));
+                        //Type randomEnemyType = (Type) enemyType.GetValue(Random.Range(0, enemyType.Length));
+                        switch (copySpawner[i].EnemyType)
                         {
                             case Type.Chicken:
                                 CreateEnemy(Type.Chicken, out Entity chicken, copySpawner[i].spawnerPos, i);
@@ -90,7 +90,7 @@ public class TemporaryEnemySpawnerSystem : SystemBase
                                 break;
                             case Type.Gorilla:
                                 CreateEnemy(Type.Gorilla, out Entity gorilla, copySpawner[i].spawnerPos, i);
-                                CreateWeapon(WeaponType.ChickenWeapon, gorilla);
+                                CreateWeapon(WeaponType.GorillaWeapon, gorilla);
                                 break;
                             case Type.Pig:
                                 CreateEnemy(Type.Pig, out Entity pig, copySpawner[i].spawnerPos, i);

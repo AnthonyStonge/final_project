@@ -51,7 +51,7 @@ public class PathFollowSystem : SystemBase
             if (pathFollow.BeginWalk)
                 return;
             range.IsInRange = false;
-            
+            range.CanAttack = false;
             
             //State changer 
             if (math.distancesq(translation.Value, posPlayer) <= range.AgroDistance * range.AgroDistance)
@@ -71,6 +71,7 @@ public class PathFollowSystem : SystemBase
                 {
                     if (player.Components.HasComponent(hit.Entity))
                     {
+                        range.CanAttack = true;
                         pathFollow.EnemyState = EnemyState.Attack;
                     }
                     else
@@ -91,6 +92,8 @@ public class PathFollowSystem : SystemBase
             {
                 case EnemyState.Attack:
                     AttackFollow(posPlayer, ref pathFollow, ref range, ref typeData, ref filter, ref physicsWorld, translation);
+                    break;
+                case EnemyState.Chase:
                     break;
                 case EnemyState.Wondering:
                     WonderingFollow(ref pathFollow, ref physicsWorld, ref randomArray, translation, deltaTime,
@@ -137,7 +140,13 @@ public class PathFollowSystem : SystemBase
             pathFollow.timeWonderingCounter -= deltaTime;
         }
     }
-
+    private static void ChaseFollow(ref PathFollowComponent pathFollow, in Translation translation)
+    {
+        /*if (math.distancesq(pathFollow.WonderingPosition, translation.Value.xz) <= 1)
+        {
+            pathFollow.EnemyState = EnemyState.Wondering;
+        }*/
+    }
     private static void AttackFollow(float3 pos, ref PathFollowComponent pathFollow,
         ref AttackRangeComponent range, ref TypeData typeData, ref BulletCollider bulletCollider, ref PhysicsWorld physicsWorld, in Translation translation)
     {
