@@ -85,7 +85,7 @@ public class PathFollowSystem : SystemBase
             }
             else
             {
-                //pathFollow.EnemyState = EnemyState.Wondering;
+                pathFollow.EnemyState = EnemyState.Wondering;
             }
             switch (pathFollow.EnemyState)
             {
@@ -128,7 +128,6 @@ public class PathFollowSystem : SystemBase
             //If collides, do not move
             if (physicsWorld.CollisionWorld.CastRay(raycastInput))
             {
-                
                 pathFollow.WonderingPosition = new int2(-1);
                 pathFollow.timeWonderingCounter = 0;
             }
