@@ -12,7 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90ca9d975c25e44d948f92cc927284d, type: 3}
   m_Name: AttackingGorilla
   m_EditorClassIdentifier: 
-  Type: 0
-  State: 0
-  Material: {fileID: 0}
-  Frames: []
+  Type: 4
+  State: 2
+  Material: {fileID: 2100000, guid: a37e90a722ff13b4281acd1103c69154, type: 2}
+  Frames:
+  - {fileID: -927199367670048503, guid: 4161d2654d3553642b4b45d02aec4eec, type: 3}
+  - {fileID: -927199367670048503, guid: 180a645c8e89a394c836a8bc2d007f34, type: 3}
+  - {fileID: -927199367670048503, guid: 2e9cd71e637d6e04b8e5cf7e2068b10f, type: 3}
+  - {fileID: -927199367670048503, guid: ff5d01119e872264da91363a6b2d70aa, type: 3}
+  - {fileID: -927199367670048503, guid: 32490d81addf43a4a835c6391a02fdb0, type: 3}
+  - {fileID: -927199367670048503, guid: 63478eda1353675449db6287114a7b62, type: 3}
+  - {fileID: -927199367670048503, guid: 7e0a15dc48b68cc4399622d0c9fbce6a, type: 3}
+  - {fileID: -927199367670048503, guid: e61e32d479e1dd94a84b8c185b10909b, type: 3}
+  - {fileID: -927199367670048503, guid: 42757697883110a4992f8160628d7df8, type: 3}
+  - {fileID: -927199367670048503, guid: b8566f28c494ac94bbedd0462006add0, type: 3}
+  - {fileID: -927199367670048503, guid: e9751570d8880da4eae2c272f0dc063a, type: 3}
+  - {fileID: -927199367670048503, guid: 9c4ecc53fe6a5e84f99da748dcf9ff23, type: 3}
+  - {fileID: -927199367670048503, guid: eb198d4be5d70f04ea53d80b6bf7ebfa, type: 3}
+  - {fileID: -927199367670048503, guid: 296654195b6958d41959b7dfce5670c1, type: 3}
+  - {fileID: -927199367670048503, guid: d4936978be566604c88b0790fc7d8ff6, type: 3}
+  - {fileID: -927199367670048503, guid: a1f9c2abbfa17c044ae935c9b32bc62d, type: 3}
+  - {fileID: -927199367670048503, guid: 29f4d3eee5aa9cb438f40133913a86fd, type: 3}
+  - {fileID: -927199367670048503, guid: bb328f807a133064c91f65352638ba56, type: 3}
+  - {fileID: -927199367670048503, guid: 4f2962e206ebe9b4db20bc39bae5b767, type: 3}
+  - {fileID: -927199367670048503, guid: 1f528ce07708ce046a6ffc5e1f0c6037, type: 3}
+  - {fileID: -927199367670048503, guid: 23f0402c547486045b0a0d70a48993b3, type: 3}
+  - {fileID: -927199367670048503, guid: 0f44bff39fb6a6d42ad78fa2a1b60995, type: 3}
+  - {fileID: -927199367670048503, guid: 7a8eb468047db5547b058e16012da644, type: 3}
+  - {fileID: -927199367670048503, guid: bb22a65be7b837b43884ef7506ab7b45, type: 3}

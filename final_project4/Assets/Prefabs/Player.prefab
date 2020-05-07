@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c412270cb899a42897a996e4cf6483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 333
+  Value: 600
 --- !u!114 &1470288226251408204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,9 +157,9 @@ MonoBehaviour:
   Direction:
     x: 0
     y: 0
-  Speed: 6
+  Speed: 3
   DashTime: 0.2
-  CooldownTime: 1
+  CooldownTime: 0.5
   CurrentCooldownTime: 0
   CurrentDashTime: 0
   WasDashingPreviousFrame: 0
