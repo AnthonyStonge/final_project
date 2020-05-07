@@ -2119,6 +2119,10 @@ PrefabInstance:
       propertyPath: PausedMenu
       value: 
       objectReference: {fileID: 815391401}
+    - target: {fileID: 1931021723, guid: 8db7e48852df40a4e952a447b53aad2e, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 518319123873077932, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_ScreenMatchMode
