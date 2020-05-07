@@ -159,7 +159,7 @@ MonoBehaviour:
   Life:
     Min: 0
     Max: 3
-    hiddenValue: 3
+    hiddenValue: 1
 --- !u!114 &5366042892375690422
 MonoBehaviour:
   m_ObjectHideFlags: 0
