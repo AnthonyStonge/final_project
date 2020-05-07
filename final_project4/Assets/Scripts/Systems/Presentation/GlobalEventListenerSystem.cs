@@ -12,6 +12,7 @@ public class GlobalEventListenerSystem : SystemBase
     private float hellTimer = 30f;
     private float currentHellTimer = 0f;
     private MapType LastMap;
+    private WeaponType WeaponTypeToGoBackTo;
 
     protected override void OnUpdate()
     {
@@ -21,14 +22,7 @@ public class GlobalEventListenerSystem : SystemBase
         {
             if (currentHellTimer <= 0)
             {
-                //TODO Hell level Succesful UI
-#if UNITY_EDITOR
-                Debug.Log("Player Survived loading last level");
-#endif
-                MapEvents.LoadMap(LastMap, true);
-                UIManager.ResetPlayerHealth();
-                UIManager.ToggleHellTimers(false);
-                currentHellTimer = hellTimer;
+                OnExitHellLevel();
             }
             else
             {
@@ -55,23 +49,7 @@ public class GlobalEventListenerSystem : SystemBase
         {
             if (levelEvents.CurrentLevel != MapType.Level_Hell)
             {
-                
-                playerLifeComponent.Reset();
-                EntityManager.SetComponentData(GameVariables.Player.Entity, playerLifeComponent);
-                
-                LastMap = EventsHolder.LevelEvents.CurrentLevel;
-                EventsHolder.LevelEvents.DeathCount++;
-                levelEvents.CurrentLevel = MapType.Level_Hell;
-               // GlobalEvents.PlayerEvents.OnPlayerDie();
-                GlobalEvents.GameEvents.StartHellLevel(EventsHolder.LevelEvents.Difficulty,
-                    EventsHolder.LevelEvents.DeathCount);
-
-               // EventsHolder.LevelEvents.CurrentLevel = MapType.Level_Hell;
-                EventsHolder.LevelEvents.LevelEvent = LevelInfo.LevelEventType.OnStart;
-                UIManager.ResetPlayerHealth();
-                UIManager.ToggleHellTimers(true);
-
-                currentHellTimer = hellTimer;
+                OnLoadHellLevel(ref playerLifeComponent, ref levelEvents);
             }
             else
             {
@@ -79,5 +57,49 @@ public class GlobalEventListenerSystem : SystemBase
                 GlobalEvents.GameEvents.GameLost();
             }
         }
+    }
+
+    private void OnLoadHellLevel(ref LifeComponent playerLife, ref LevelInfo levelInfo)
+    {
+        //Reset Timer
+        currentHellTimer = hellTimer;
+        
+        //Increase Death
+        EventsHolder.LevelEvents.DeathCount++;
+        
+        //Toggle PlayerWeapons
+        WeaponTypeToGoBackTo = GameVariables.Player.CurrentWeaponHeld;
+        SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponType.HellShotgun, EventsHolder.LevelEvents.CurrentLevel, MapType.Level_Hell);
+        
+        //Reset Player Life
+        playerLife.Reset();
+        EntityManager.SetComponentData(GameVariables.Player.Entity, playerLife);
+        
+        //Set new MapType
+        LastMap = EventsHolder.LevelEvents.CurrentLevel;
+        levelInfo.CurrentLevel = MapType.Level_Hell;
+        EventsHolder.LevelEvents.CurrentLevel = MapType.Level_Hell;
+        MapEvents.LoadMap(MapType.Level_Hell, true);
+
+        //Set UI info
+        UIManager.ResetPlayerHealth();
+        UIManager.ToggleHellTimers(true);
+        
+        //??
+        EventsHolder.LevelEvents.LevelEvent = LevelInfo.LevelEventType.OnStart;
+    }
+
+    private void OnExitHellLevel()
+    {
+        //Set UI info
+        UIManager.ResetPlayerHealth();
+        UIManager.ToggleHellTimers(false);
+        
+        //Toggle PlayerWeapons
+        SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponTypeToGoBackTo, MapType.Level_Hell, LastMap);
+        
+        //Set new MapType
+        EventsHolder.LevelEvents.CurrentLevel = LastMap;
+        MapEvents.LoadMap(LastMap, true);
     }
 }

@@ -143,8 +143,13 @@ public static class UIManager
     //TODO REDUCE COST OF FUNCTION LOL
     private static void RefreshBulletsText()
     {
+        if (DontUpdateUI)
+            return;
+        
         //Get Player Current GunComponent
-        Entity currentWeaponEntity = GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
+        Entity currentWeaponEntity = EventsHolder.LevelEvents.CurrentLevel != MapType.Level_Hell
+            ? GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]
+            : GameVariables.Player.PlayerHellWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
         GunComponent gun =
             World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<GunComponent>(currentWeaponEntity);
 

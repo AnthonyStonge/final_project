@@ -40,7 +40,9 @@ public static class MapEvents
         if (GameVariables.Player.Entity != Entity.Null)
         {
             //Set delay on Player Weapon (Quick fix for bullets spawning at wrong spot)
-            Entity weaponEntity = GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
+            Entity weaponEntity = EventsHolder.LevelEvents.CurrentLevel != MapType.Level_Hell
+                ? GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]
+                : GameVariables.Player.PlayerHellWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
             GunComponent weapon = entityManager.GetComponentData<GunComponent>(weaponEntity);
             weapon.SwapTimer = 0.02f;
             entityManager.SetComponentData(weaponEntity, weapon);
