@@ -12,6 +12,9 @@ namespace Enums
         PigWeapon,
         GorillaWeapon,
         Machinegun,
+        HellPistol,
+        HellShotgun,
+        HellMachinegun
     }
 
     public enum ProjectileType

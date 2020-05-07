@@ -31,8 +31,10 @@ public class StateAttackingSystem : SystemBase
         //Player state
         Entity player = GameVariables.Player.Entity;
         InputComponent playerInputs = GetComponent<InputComponent>(player);
-        GunComponent gun = GetComponent<GunComponent>(
-            GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]);
+        Entity gunEntity = EventsHolder.LevelEvents.CurrentLevel != MapType.Level_Hell
+            ? GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]
+            : GameVariables.Player.PlayerHellWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
+        GunComponent gun = GetComponent<GunComponent>(gunEntity);
 
         //Make sure player can attack (Weapon not on cooldown)
         if (gun.SwapTimer <= 0 && playerInputs.Shoot)

@@ -12,6 +12,7 @@ using CapsuleCollider = Unity.Physics.CapsuleCollider;
 using Collider = Unity.Physics.Collider;
 using MeshCollider = Unity.Physics.MeshCollider;
 using SphereCollider = Unity.Physics.SphereCollider;
+
 struct EmptyEventQueueJob : IJob
 {
     public NativeQueue<WeaponInfo> EventsQueue;
@@ -100,6 +101,7 @@ public class RetrieveGunEventSystem : SystemBase
                     if (!gun.IsReloading)
                     {
                         Reload(ref gun);
+                        weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
                     }
                 }
                 //Only if not reloading
@@ -111,11 +113,13 @@ public class RetrieveGunEventSystem : SystemBase
 
                 if (state.CurrentState == State.Reloading)
                     if (TryReload(ref gun))
-                        weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
+                        StartReload(ref gun);
 
                 //Should weapon be reloading?    //Deactivate this line to block auto reload
                 if (TryStartReload(ref gun))
-                    weaponEventType = WeaponInfo.WeaponEventType.ON_RELOAD;
+                {
+                    StartReload(ref gun);
+                }
 
                 if (state.CurrentState == State.Attacking)
                     if (TryShoot(ref gun))
@@ -133,7 +137,8 @@ public class RetrieveGunEventSystem : SystemBase
                         WeaponType = gun.WeaponType,
                         EventType = (WeaponInfo.WeaponEventType) weaponEventType,
                         Position = transform.Position,
-                        Rotation = transform.Rotation
+                        Rotation = transform.Rotation,
+                        AmountBulletsInMagazine = gun.CurrentAmountBulletInMagazine
                     });
                 }
             }).ScheduleParallel(Dependency);
@@ -158,12 +163,13 @@ public class RetrieveGunEventSystem : SystemBase
         //Make sure gun isnt reloading already
         if (gun.IsReloading)
             return false;
+        //Make sure gun doesnt have infinite ammo
+        if (gun.HasInfiniteAmmo)
+            return true;
         //Make sure there is ammo to reload
         if (gun.CurrentAmountBulletOnPlayer <= 0)
             return false;
 
-        //
-        StartReload(ref gun);
         return true;
     }
 
@@ -176,11 +182,13 @@ public class RetrieveGunEventSystem : SystemBase
         //Make sure gun isnt reloading already
         if (gun.IsReloading)
             return false;
+        //Make sure gun doesnt have infinite ammo
+        if (gun.HasInfiniteAmmo)
+            return true;
         //Make sure there is ammo to reload
         if (gun.CurrentAmountBulletOnPlayer <= 0)
             return false;
 
-        StartReload(ref gun);
         return true;
     }
 
@@ -193,15 +201,25 @@ public class RetrieveGunEventSystem : SystemBase
     {
         int amountAmmoToPutInMagazine = gun.MaxBulletInMagazine;
 
+        if (gun.HasInfiniteAmmo)
+        {
+            gun.CurrentAmountBulletInMagazine = amountAmmoToPutInMagazine;
+            return;
+        }
+
         //Make sure enough ammo on player to refill entire magazine
         if (gun.CurrentAmountBulletOnPlayer < gun.MaxBulletInMagazine)
         {
             amountAmmoToPutInMagazine = gun.CurrentAmountBulletOnPlayer;
         }
-
+    
+        //Look if there are already bullets in magazine
+        if (gun.CurrentAmountBulletInMagazine > 0 && amountAmmoToPutInMagazine > gun.MaxBulletInMagazine - gun.CurrentAmountBulletInMagazine)
+            amountAmmoToPutInMagazine -= gun.CurrentAmountBulletInMagazine;
+        
         //
         gun.CurrentAmountBulletOnPlayer -= amountAmmoToPutInMagazine;
-        gun.CurrentAmountBulletInMagazine = amountAmmoToPutInMagazine;
+        gun.CurrentAmountBulletInMagazine += amountAmmoToPutInMagazine;
     }
 
     //Returns true if weapons shoot
@@ -230,19 +248,23 @@ public class RetrieveGunEventSystem : SystemBase
         {
             case WeaponType.Machinegun:
             case WeaponType.Pistol:
-                ShootPistol(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition, transform);
+                ShootPistol(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation,
+                    parentEntityPosition, transform);
                 break;
             case WeaponType.Shotgun:
-                ShootShotgun(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
+                ShootShotgun(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation,
+                    parentEntityPosition);
                 break;
             case WeaponType.ChickenWeapon:
                 ShootChickenWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
                 break;
             case WeaponType.PigWeapon:
-                ShootPigWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
+                ShootPigWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation,
+                    parentEntityPosition);
                 break;
             case WeaponType.GorillaWeapon:
-                ShootGorillaWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
+                ShootGorillaWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation,
+                    parentEntityPosition);
                 break;
         }
     }
@@ -262,7 +284,7 @@ public class RetrieveGunEventSystem : SystemBase
         {
             Value = rotation
         });
-        ecb.SetComponent(jobIndex, bullet ,new LocalToWorld
+        ecb.SetComponent(jobIndex, bullet, new LocalToWorld
         {
             Value = localToWorld.Value
         });
@@ -333,7 +355,6 @@ public class RetrieveGunEventSystem : SystemBase
             });
             PhysicsCollider a = new PhysicsCollider();
             // a.Value.Value.Type == ColliderType.Box;
-            
         }
     }
     private static void ShootChickenWeapon(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,

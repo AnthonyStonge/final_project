@@ -10,6 +10,7 @@ public class LateInitializeManager : ComponentSystemGroup
     private StateIdleSystem stateIdleSystem;
     private StateMovingSystem stateMovingSystem;
     private StateAttackingSystem stateAttackingSystem;
+    private StateReloadingSystem stateReloadingSystem;
     private EnemyTargetSystem enemyTargetSystem;
     private StateDyingSystem stateDyingSystem;
     private StateDashingSystem stateDashingSystem;
@@ -30,6 +31,7 @@ public class LateInitializeManager : ComponentSystemGroup
         stateDashingSystem = world.GetOrCreateSystem<StateDashingSystem>();
         dashSystem = world.GetOrCreateSystem<DashSystem>();
         moveVelocitySystem = world.GetOrCreateSystem<MoveVelocitySystem>();
+        stateReloadingSystem = world.GetOrCreateSystem<StateReloadingSystem>();
 
         retrieveGunEventSystem = world.GetOrCreateSystem<RetrieveGunEventSystem>();
 
@@ -41,10 +43,13 @@ public class LateInitializeManager : ComponentSystemGroup
         initialize.AddSystemToUpdateList(stateAttackingSystem);
         initialize.AddSystemToUpdateList(enemyTargetSystem);
         initialize.AddSystemToUpdateList(stateDyingSystem);
+        initialize.AddSystemToUpdateList(stateReloadingSystem);
         initialize.AddSystemToUpdateList(stateDashingSystem);
         initialize.AddSystemToUpdateList(retrieveGunEventSystem);
         initialize.AddSystemToUpdateList(dashSystem);
         initialize.AddSystemToUpdateList(moveVelocitySystem);
+        
+        initialize.SortSystemUpdateList();
     }
 
     protected override void OnStartRunning()
@@ -71,6 +76,7 @@ public class LateInitializeManager : ComponentSystemGroup
         #endregion
         //Dependency : StateDyingSystem
         stateDashingSystem.Update(); // Nothing in there, like the inside of Gab's brain - Marcuslelus
+        stateReloadingSystem.Update();
 
         //Dependency : StateDyingSystem
         dashSystem.Update();

@@ -11,6 +11,11 @@ public static class UIManager
 {
     private static Dictionary<WeaponType, UI_WeaponLink> UI_Weapons =
         new Dictionary<WeaponType, UI_WeaponLink>();
+    
+    private static Dictionary<WeaponType, Material> UI_Bullet_Emit =
+        new Dictionary<WeaponType, Material>();
+    private static Dictionary<WeaponType, Material> UI_Bullet_NotEmit =
+        new Dictionary<WeaponType, Material>();
 
     private static WeaponType CurrentWeaponTypeHeld = WeaponType.Pistol;
 
@@ -27,12 +32,14 @@ public static class UIManager
         //Make sure every weapon are off
         foreach (UI_WeaponLink link in UI_Weapons.Values)
         {
-            link.WeaponImg.SetActive(false);
             link.BulletsConainter.SetActive(false);
             foreach (Image image in link.BulletsImages)
             {
                 image.gameObject.SetActive(true);
             }
+            
+            UI_Bullet_Emit.Add(link.Type, link.Lit);
+            UI_Bullet_NotEmit.Add(link.Type, link.UnLit);
         }
 
         //Make sure texts are off
@@ -68,15 +75,9 @@ public static class UIManager
 
         if (UI_Weapons.ContainsKey(CurrentWeaponTypeHeld))
         {
-            //Toggle off Weapon image
-            UI_Weapons[CurrentWeaponTypeHeld].WeaponImg.SetActive(false);
-
             //Toggle off BulletsContainer
             UI_Weapons[CurrentWeaponTypeHeld].BulletsConainter.SetActive(false);
         }
-
-        //Toggle on new Weapon image
-        UI_Weapons[type].WeaponImg.SetActive(true);
 
         //Toggle on new BulletsContainer
         UI_Weapons[type].BulletsConainter.SetActive(true);
@@ -99,42 +100,31 @@ public static class UIManager
         if (index >= UI_Weapons[CurrentWeaponTypeHeld].BulletsImages.Count)
             return;
 
-        //Get Bullet Image color
-        Color c = UI_Weapons[CurrentWeaponTypeHeld].BulletsImages[index].color;
+        //Get Preset Material
+        Material mat = UI_Bullet_NotEmit[CurrentWeaponTypeHeld];
 
-        //Set new color
-        c.a = 0.4f;
-        UI_Weapons[CurrentWeaponTypeHeld].BulletsImages[index].color = c;
+        UI_Weapons[CurrentWeaponTypeHeld].BulletsImages[index].material = mat;
 
         UI_Weapons[CurrentWeaponTypeHeld].BulletIndexAt++;
     }
 
-    public static void OnReload()
+    public static void OnReload(int amountBulletsToReload)
     {
         if (DontUpdateUI)
             return;
 
-        //Get IndexAt
-        ushort index = UI_Weapons[CurrentWeaponTypeHeld].BulletIndexAt;
+        //Get amount of images
+        int amountImages = UI_Weapons[CurrentWeaponTypeHeld].BulletsImages.Count;
 
-        //Make sure there are still bullets to reload
-        if (index == 0)
-            return;
-
-        if (index >= UI_Weapons[CurrentWeaponTypeHeld].BulletsImages.Count)
-            index = (ushort) (UI_Weapons[CurrentWeaponTypeHeld].BulletsImages.Count - 1);
-
-        for (int i = index; i >= 0; i--)
+        for (int i = amountImages - 1; i >= amountImages - amountBulletsToReload; i--)
         {
-            //Get Bullet Image color
-            Color c = UI_Weapons[CurrentWeaponTypeHeld].BulletsImages[i].color;
+            //Get Preset Material
+            Material mat = UI_Bullet_Emit[CurrentWeaponTypeHeld];
 
-            //Set new color
-            c.a = 1;
-            UI_Weapons[CurrentWeaponTypeHeld].BulletsImages[i].color = c;
+            UI_Weapons[CurrentWeaponTypeHeld].BulletsImages[i].material = mat;
         }
 
-        UI_Weapons[CurrentWeaponTypeHeld].BulletIndexAt = 0;
+        UI_Weapons[CurrentWeaponTypeHeld].BulletIndexAt = (ushort)(amountImages - amountBulletsToReload);
 
         //Change text
         RefreshBulletsText();
@@ -143,8 +133,13 @@ public static class UIManager
     //TODO REDUCE COST OF FUNCTION LOL
     private static void RefreshBulletsText()
     {
+        if (DontUpdateUI)
+            return;
+        
         //Get Player Current GunComponent
-        Entity currentWeaponEntity = GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
+        Entity currentWeaponEntity = EventsHolder.LevelEvents.CurrentLevel != MapType.Level_Hell
+            ? GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]
+            : GameVariables.Player.PlayerHellWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
         GunComponent gun =
             World.DefaultGameObjectInjectionWorld.EntityManager.GetComponentData<GunComponent>(currentWeaponEntity);
 
