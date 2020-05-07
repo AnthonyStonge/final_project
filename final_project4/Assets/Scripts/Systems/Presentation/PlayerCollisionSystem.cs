@@ -52,6 +52,7 @@ public class PlayerCollisionSystem : SystemBase
         if (isHit)
         {
             LifeComponent lifeComponent = EntityManager.GetComponentData<LifeComponent>(playerEntity);
+            bool lifeDecremented = lifeComponent.DecrementLifeWithInvincibility();
             LifeComponent lifeComponentRat = EntityManager.GetComponentData<LifeComponent>(entity);
             if (EntityManager.GetComponentData<TypeData>(entity).Value == Type.Rat)
             {
@@ -61,6 +62,8 @@ public class PlayerCollisionSystem : SystemBase
             if (lifeComponent.DecrementLifeWithInvincibility())
                 UIManager.OnPlayerHit();
             EntityManager.SetComponentData(playerEntity, lifeComponent);
+            if(lifeDecremented)
+                UIManager.OnPlayerHit();
         }
     }
 }
