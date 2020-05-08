@@ -66,15 +66,10 @@ public static class GlobalEvents
         public static void RestartGame()
         {
             EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-            
-            //Toggle UI YOU LOST
-            //TODO
 
             //Toggle PlayerWeapons
             ChangeWorldDelaySystem.OnChangeWorld += () =>
             {
-                SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponType.Pistol, MapType.Level_Hell, MapType.LevelMenu);
-                
                 //Reset UI
                 UIManager.ResetPlayerHealth();
                 UIManager.ToggleHellTimers(false);

@@ -40,6 +40,8 @@ public class MonoGameVariables : MonoBehaviour
     public TextMeshPro Hell_WaitingTimer;
     public TextMeshPro Hell_WinText;
 
+    public TextMeshProUGUI WinningText;
+
 }
 
 [Serializable]
