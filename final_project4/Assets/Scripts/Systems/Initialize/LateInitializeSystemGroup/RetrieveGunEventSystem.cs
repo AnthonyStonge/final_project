@@ -329,7 +329,7 @@ public class RetrieveGunEventSystem : SystemBase
         float3 position, quaternion rotation, float3 parentEntityPosition)
     {
         int nbBullet = 3;
-        float degreeFarShot = math.radians(nbBullet * 2);
+        float degreeFarShot = math.radians(nbBullet * 10);
         float angle = degreeFarShot / nbBullet;
         quaternion startRotation = math.mul(rotation, quaternion.RotateY(-(degreeFarShot / 2)));
 
@@ -353,8 +353,6 @@ public class RetrieveGunEventSystem : SystemBase
             {
                 Value = parentEntityPosition
             });
-            PhysicsCollider a = new PhysicsCollider();
-            // a.Value.Value.Type == ColliderType.Box;
         }
     }
     private static void ShootChickenWeapon(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,

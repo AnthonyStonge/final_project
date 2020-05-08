@@ -51,7 +51,7 @@ public class LootSystem : SystemBase
                 EntityManager.SetComponentData(GameVariables.Player.PlayerWeaponEntities[ac.TypeAmmunition],
                     gunComponent);
                 
-                SoundEventSystem.PlayPickupSound(DropType.Ammunition);
+                SoundEventSystem.PlayPickupSound(DropType.AmmunitionShotgun);
                 //TODO Play VFX
             }
         }

@@ -24,10 +24,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 4386793886523506817, guid: 0d586cd5c66d5414fb82a92aa57251a5,
-      type: 3}
-    m_TargetAsset: {fileID: 4386793886523506817, guid: 0d586cd5c66d5414fb82a92aa57251a5,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 2c1c7c62cc387814ca8b8cbf7ebea684
     m_Address: EffectsContainer
     m_ReadOnly: 0
@@ -35,8 +33,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: EffectsContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 2c1c7c62cc387814ca8b8cbf7ebea684, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 2c1c7c62cc387814ca8b8cbf7ebea684, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 4017a4eaf1c33c646b0f01465a2712fe
     m_Address: EnemyPrefabContainer
     m_ReadOnly: 0
@@ -44,8 +42,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: EnemyPrefabContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 4017a4eaf1c33c646b0f01465a2712fe, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 4017a4eaf1c33c646b0f01465a2712fe, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 4415b89aced59ff41819888c782445dc
     m_Address: AudioSourceContainer
     m_ReadOnly: 0
@@ -62,10 +60,10 @@ MonoBehaviour:
     - default
     m_mainAssetType: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 2100000, guid: 5711f946471167948ad81b654dc60c3c, type: 2}
-    m_TargetAsset: {fileID: 2100000, guid: 5711f946471167948ad81b654dc60c3c, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 60f0d0549d8db2d42851dab63cd22a39
-    m_Address: Ammunition
+    m_Address: AmmunitionShotgun
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
@@ -91,8 +89,19 @@ MonoBehaviour:
     - default
     m_mainAssetType: MapContainerScriptable, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: 67ea742ccaa8c354b80aa42c3cb57e1c, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: 67ea742ccaa8c354b80aa42c3cb57e1c, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8188ed217ab8bd74e9120460b769ab66
+    m_Address: AmmunitionMachinegun
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_MainAsset: {fileID: 8899465809852885384, guid: 8188ed217ab8bd74e9120460b769ab66,
+      type: 3}
+    m_TargetAsset: {fileID: 8899465809852885384, guid: 8188ed217ab8bd74e9120460b769ab66,
+      type: 3}
   - m_GUID: 8608ea675a3da4146bdd02b2d363944c
     m_Address: SoundsContainer
     m_ReadOnly: 0
@@ -118,10 +127,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    m_MainAsset: {fileID: 5935477466790467464, guid: e0ae6182e1a6b11438ffe0678d68e1df,
-      type: 3}
-    m_TargetAsset: {fileID: 5935477466790467464, guid: e0ae6182e1a6b11438ffe0678d68e1df,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: fb754b1338196a442b09bf879b333b11
     m_Address: AnimationsContainer
     m_ReadOnly: 0
@@ -129,8 +136,8 @@ MonoBehaviour:
     - default
     m_mainAssetType: AnimationsContainer, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    m_MainAsset: {fileID: 11400000, guid: fb754b1338196a442b09bf879b333b11, type: 2}
-    m_TargetAsset: {fileID: 11400000, guid: fb754b1338196a442b09bf879b333b11, type: 2}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3c5e8f3b98606ca43b2a070e5fd7e106, type: 2}
   m_SchemaSet:

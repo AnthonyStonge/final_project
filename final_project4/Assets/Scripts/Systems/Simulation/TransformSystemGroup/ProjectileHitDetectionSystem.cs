@@ -171,6 +171,8 @@ public class ProjectileHitDetectionSystem : SystemBase
                         //Decrease life
                         if (player == hitEntity)
                             shouldBulletBeDestroyed = life.DecrementLifeWithInvincibility();
+                        else if (entitiesLife.Components[hitEntity].Life.Value <= 0)
+                            shouldBulletBeDestroyed = false;
                         else
                             life.DecrementLife();
 

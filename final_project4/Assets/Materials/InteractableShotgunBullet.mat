@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: InteractableBullet
+  m_Name: InteractableShotgunBullet
   m_Shader: {fileID: -6465566751694194690, guid: 2fa3dac38e621b947b6a4789ac3c9097,
     type: 3}
   m_ShaderKeywords: _EMISSION
