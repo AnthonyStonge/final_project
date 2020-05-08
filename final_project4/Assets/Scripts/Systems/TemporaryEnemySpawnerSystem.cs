@@ -140,8 +140,8 @@ public class TemporaryEnemySpawnerSystem : SystemBase
         {
             entityManager.AddComponentData(e, new PathFollowComponent
             {
-                BeginWalk = true,
-                EnemyState = EnemyState.Chase,
+                //BeginWalk = true,
+                EnemyState = EnemyState.Attack,
                 WonderingPosition = (int2)(translation + (copySpawner[i].EnemySpawnDirection * new int2(copySpawner[i].Distance, copySpawner[i].Distance)))
             });
         }
