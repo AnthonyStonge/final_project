@@ -24,7 +24,6 @@ public class UISystem : SystemBase
                     UIManager.OnShoot();
                     break;
                 case WeaponInfo.WeaponEventType.ON_RELOAD:
-                    Debug.Log($"Reload with {info.AmountBulletsInMagazine}");
                     UIManager.OnReload(info.AmountBulletsInMagazine);
                     break;
                 case WeaponInfo.WeaponEventType.ON_SWAP:

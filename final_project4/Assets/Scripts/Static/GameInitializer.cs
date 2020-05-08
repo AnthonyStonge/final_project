@@ -48,9 +48,9 @@ public static class GameInitializer
         //Game Initializer?
         
         UIManager.Initialize();
-        MapEvents.Initialize();
         PlayerInitializer.Initialize();
         WeaponInitializer.Initialize();
+        MapEvents.Initialize();
 
         InitializeSystems();
     }
