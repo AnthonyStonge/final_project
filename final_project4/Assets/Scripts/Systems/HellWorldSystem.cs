@@ -24,17 +24,18 @@ public class HellWorldSystem : SystemBase
     {
         //Decrease Timer
         HellTimer -= Time.DeltaTime;
-        
+
         //Set UI timers
         UIManager.SetTimeOnHellTimers(HellTimer);
-        
+
         //Look if end timer reached
         if (HellTimer > 0)
             return;
-
+#if UNITY_EDITOR
         Debug.Log("Player survived Hell World... Returning to previous map");
+#endif
         OnHellWorldEnd();
-        
+
         Enabled = false;
     }
 
@@ -43,13 +44,13 @@ public class HellWorldSystem : SystemBase
         //Set UI timers
         UIManager.SetTimeOnHellTimers(0);
         //TODO DISPLAY END HELL LEVEL UI
-        
+
         //Stop Spawner
         //TODO
 
         //Kill all enemies
         //TODO
-        
+
         //Instantiate Teleport + vfx?
         //TODO
 

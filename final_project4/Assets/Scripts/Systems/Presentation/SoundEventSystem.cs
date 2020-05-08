@@ -90,7 +90,8 @@ public class SoundEventSystem : SystemBase
     public static void PlayPickupSound(DropType t)
     {
         List<int> DropSounds = SoundHolder.PickupSounds[DropType.AmmunitionShotgun];
-        PlaySound(DropSounds[seed.NextInt(0, DropSounds.Count - 1)]);
+        if(DropSounds.Count != 0)
+            PlaySound(DropSounds[seed.NextInt(0, DropSounds.Count)]);
     }
     
     private static void PlayGenericSoundtrack()
