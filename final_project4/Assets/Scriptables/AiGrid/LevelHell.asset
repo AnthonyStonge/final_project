@@ -27,7 +27,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 44
       y: 78
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 1
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -41,7 +41,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 47
       y: 78
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 2
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -55,7 +55,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 52
       y: 78
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 3
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -69,7 +69,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 49
       y: 78
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 4
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -83,7 +83,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 71
       y: 58
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 3
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -97,12 +97,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 71
       y: 55
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 2
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
       x: 0
-      y: 2
+      y: 1
     EnemySpawnDirection:
       x: -1
       y: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 71
       y: 53
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 4
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -125,7 +125,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 71
       y: 50
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 1
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -139,7 +139,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 44
       y: 31
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 3
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -153,7 +153,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 47
       y: 31
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 4
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -167,12 +167,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 49
       y: 31
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 2
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
       x: 0
-      y: 2
+      y: 1
     EnemySpawnDirection:
       x: 0
       y: 1
@@ -181,7 +181,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 52
       y: 31
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 1
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -195,7 +195,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 25
       y: 58
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 1
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -209,12 +209,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 25
       y: 55
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 2
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
       x: 0
-      y: 2
+      y: 1
     EnemySpawnDirection:
       x: 1
       y: 0
@@ -223,7 +223,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 25
       y: 53
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 4
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
@@ -237,7 +237,7 @@ MonoBehaviour:
   - spawnerPos:
       x: 25
       y: 50
-    NbEnnemyMax: 100
+    NbEnnemyMax: 10000
     EnemyType: 3
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
