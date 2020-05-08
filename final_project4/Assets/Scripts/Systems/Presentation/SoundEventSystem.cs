@@ -3,13 +3,14 @@ using Enums;
 using EventStruct;
 using Unity.Entities;
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
 
 [DisableAutoCreation]
 public class SoundEventSystem : SystemBase
 {
-    private static int currentSoundPlaying;
+    private static int currentSoundPlaying = 1;
     private static int frameCounter;
 
     private static Random seed;
@@ -26,9 +27,10 @@ public class SoundEventSystem : SystemBase
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            PlayGenericSoundtrack();
+            ForceChangeGenericSoundtrack();
         }
 
+        PlayGenericSoundtrack();
         PlayRandomlyAmbienceSFX();
 
         //Weapons
@@ -113,6 +115,20 @@ public class SoundEventSystem : SystemBase
     }
     
     private static void PlayGenericSoundtrack()
+    {
+        if (!SoundHolder.AudioSources[AudioSourceType.Soundtrack].AudioSource.isPlaying)
+        {
+            List<int> genericSoundId = SoundHolder.GenericSounds[SoundType.Soundtracks];
+            PlaySound(genericSoundId[currentSoundPlaying]);
+            currentSoundPlaying++;
+            if (currentSoundPlaying == genericSoundId.Count)
+            {
+                currentSoundPlaying = 0;
+            }
+        }
+    }
+
+    private static void ForceChangeGenericSoundtrack()
     {
         List<int> genericSoundId = SoundHolder.GenericSounds[SoundType.Soundtracks];
         PlaySound(genericSoundId[currentSoundPlaying]);

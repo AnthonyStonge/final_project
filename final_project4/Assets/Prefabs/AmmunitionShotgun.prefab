@@ -230,5 +230,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db15eb75b225b449f6f04593a60642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TypeAmmunition: 0
-  AmmunitionQuantity: 0
+  TypeAmmunition: 1
+  AmmunitionQuantity: 8

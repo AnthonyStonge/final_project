@@ -27,12 +27,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 44
       y: 78
-    NbEnnemyMax: 7
+    NbEnnemyMax: 10000
     EnemyType: 1
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 3
-      y: 5
+      x: 0
+      y: 2
     EnemySpawnDirection:
       x: 0
       y: -1
@@ -41,12 +41,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 47
       y: 78
-    NbEnnemyMax: 20
+    NbEnnemyMax: 10000
     EnemyType: 2
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 1
-      y: 3
+      x: 0
+      y: 1
     EnemySpawnDirection:
       x: 0
       y: -1
@@ -55,12 +55,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 52
       y: 78
-    NbEnnemyMax: 7
+    NbEnnemyMax: 10000
     EnemyType: 3
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 3
-      y: 5
+      x: 0
+      y: 2
     EnemySpawnDirection:
       x: 0
       y: -1
@@ -69,12 +69,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 49
       y: 78
-    NbEnnemyMax: 2
+    NbEnnemyMax: 10000
     EnemyType: 4
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 10
-      y: 11
+      x: 0
+      y: 5
     EnemySpawnDirection:
       x: 0
       y: -1
@@ -83,25 +83,11 @@ MonoBehaviour:
   - spawnerPos:
       x: 71
       y: 58
-    NbEnnemyMax: 7
+    NbEnnemyMax: 10000
     EnemyType: 3
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 3
-      y: 5
-    EnemySpawnDirection:
-      x: -1
-      y: 0
-    Distance: 6
-    currentTime: 0
-  - spawnerPos:
-      x: 71
-      y: 55
-    NbEnnemyMax: 20
-    EnemyType: 2
-    currentEnnemySpawn: 0
-    TimeRangeBetweenSpawn:
-      x: 1
+      x: 0
       y: 3
     EnemySpawnDirection:
       x: -1
@@ -110,13 +96,27 @@ MonoBehaviour:
     currentTime: 0
   - spawnerPos:
       x: 71
+      y: 55
+    NbEnnemyMax: 10000
+    EnemyType: 2
+    currentEnnemySpawn: 0
+    TimeRangeBetweenSpawn:
+      x: 0
+      y: 1
+    EnemySpawnDirection:
+      x: -1
+      y: 0
+    Distance: 6
+    currentTime: 0
+  - spawnerPos:
+      x: 71
       y: 53
-    NbEnnemyMax: 2
+    NbEnnemyMax: 10000
     EnemyType: 4
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 10
-      y: 11
+      x: 0
+      y: 5
     EnemySpawnDirection:
       x: -1
       y: 0
@@ -125,12 +125,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 71
       y: 50
-    NbEnnemyMax: 7
+    NbEnnemyMax: 10000
     EnemyType: 1
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 3
-      y: 5
+      x: 0
+      y: 3
     EnemySpawnDirection:
       x: -1
       y: 0
@@ -139,12 +139,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 44
       y: 31
-    NbEnnemyMax: 7
+    NbEnnemyMax: 10000
     EnemyType: 3
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 3
-      y: 5
+      x: 0
+      y: 3
     EnemySpawnDirection:
       x: 0
       y: 1
@@ -153,12 +153,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 47
       y: 31
-    NbEnnemyMax: 2
+    NbEnnemyMax: 10000
     EnemyType: 4
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 10
-      y: 11
+      x: 0
+      y: 5
     EnemySpawnDirection:
       x: 0
       y: 1
@@ -167,12 +167,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 49
       y: 31
-    NbEnnemyMax: 20
+    NbEnnemyMax: 10000
     EnemyType: 2
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 1
-      y: 3
+      x: 0
+      y: 1
     EnemySpawnDirection:
       x: 0
       y: 1
@@ -181,12 +181,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 52
       y: 31
-    NbEnnemyMax: 7
+    NbEnnemyMax: 10000
     EnemyType: 1
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 3
-      y: 5
+      x: 0
+      y: 3
     EnemySpawnDirection:
       x: 0
       y: 1
@@ -195,25 +195,11 @@ MonoBehaviour:
   - spawnerPos:
       x: 25
       y: 58
-    NbEnnemyMax: 7
+    NbEnnemyMax: 10000
     EnemyType: 1
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 3
-      y: 5
-    EnemySpawnDirection:
-      x: 1
-      y: 0
-    Distance: 6
-    currentTime: 0
-  - spawnerPos:
-      x: 25
-      y: 55
-    NbEnnemyMax: 20
-    EnemyType: 2
-    currentEnnemySpawn: 0
-    TimeRangeBetweenSpawn:
-      x: 1
+      x: 0
       y: 3
     EnemySpawnDirection:
       x: 1
@@ -222,13 +208,27 @@ MonoBehaviour:
     currentTime: 0
   - spawnerPos:
       x: 25
+      y: 55
+    NbEnnemyMax: 10000
+    EnemyType: 2
+    currentEnnemySpawn: 0
+    TimeRangeBetweenSpawn:
+      x: 0
+      y: 1
+    EnemySpawnDirection:
+      x: 1
+      y: 0
+    Distance: 6
+    currentTime: 0
+  - spawnerPos:
+      x: 25
       y: 53
-    NbEnnemyMax: 2
+    NbEnnemyMax: 10000
     EnemyType: 4
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 10
-      y: 11
+      x: 0
+      y: 5
     EnemySpawnDirection:
       x: 1
       y: 0
@@ -237,12 +237,12 @@ MonoBehaviour:
   - spawnerPos:
       x: 25
       y: 50
-    NbEnnemyMax: 7
+    NbEnnemyMax: 10000
     EnemyType: 3
     currentEnnemySpawn: 0
     TimeRangeBetweenSpawn:
-      x: 3
-      y: 5
+      x: 0
+      y: 3
     EnemySpawnDirection:
       x: 1
       y: 0

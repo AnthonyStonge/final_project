@@ -139,12 +139,12 @@ MonoBehaviour:
   WeaponType: 1
   OnSwapDelayToShoot: 0.02
   MaxBulletInMagazine: 8
-  MaxBulletOnPlayer: 0
+  MaxBulletOnPlayer: 8
   ResetBetweenShotTime: 0.05
   ResetReloadTime: 0.2
   BulletPrefab: {fileID: 1184732517643075236, guid: 194ddd44f3e6cf540b9988abc79ef65a,
     type: 3}
-  CurrentAmountBulletInMagazine: 8
+  CurrentAmountBulletInMagazine: 10
   CurrentAmountBulletOnPlayer: 0
   BetweenShotTime: 0
   ReloadTime: 0

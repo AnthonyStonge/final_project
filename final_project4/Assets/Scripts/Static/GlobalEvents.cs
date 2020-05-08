@@ -6,7 +6,7 @@ using Unity.Transforms;
 using UnityEngine;
 
 public static class GlobalEvents
-{
+{ 
     public static class GameEvents
     {
         public static bool TogglePauseGame = false;
