@@ -105,7 +105,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9023570209922046620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.974, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 1.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3738258179796291786}
@@ -142,7 +142,7 @@ MonoBehaviour:
   MaxBulletOnPlayer: 9999
   ResetBetweenShotTime: 3
   ResetReloadTime: 0
-  BulletPrefab: {fileID: 1184732517643075236, guid: 95836ed9ce036bf4e8f2107f6f043db4,
+  BulletPrefab: {fileID: 1184732517643075236, guid: ba2a068df049d5347adbc5c20769ac8c,
     type: 3}
   CurrentAmountBulletInMagazine: 9999
   CurrentAmountBulletOnPlayer: 0
