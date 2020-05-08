@@ -36,7 +36,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 0
       y: -1
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 47
@@ -50,7 +50,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 0
       y: -1
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 52
@@ -64,7 +64,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 0
       y: -1
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 49
@@ -78,7 +78,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 0
       y: -1
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 71
@@ -92,7 +92,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: -1
       y: 0
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 71
@@ -106,7 +106,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: -1
       y: 0
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 71
@@ -134,7 +134,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: -1
       y: 0
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 44
@@ -148,7 +148,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 0
       y: 1
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 47
@@ -162,7 +162,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 0
       y: 1
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 49
@@ -176,7 +176,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 0
       y: 1
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 52
@@ -190,7 +190,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 0
       y: 1
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 25
@@ -204,7 +204,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 1
       y: 0
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 25
@@ -218,7 +218,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 1
       y: 0
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 25
@@ -232,7 +232,7 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 1
       y: 0
-    Distance: 15
+    Distance: 6
     currentTime: 0
   - spawnerPos:
       x: 25
@@ -246,5 +246,5 @@ MonoBehaviour:
     EnemySpawnDirection:
       x: 1
       y: 0
-    Distance: 15
+    Distance: 6
     currentTime: 0

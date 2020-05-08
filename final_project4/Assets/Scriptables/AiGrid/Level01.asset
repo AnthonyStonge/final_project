@@ -20,7 +20,7 @@ MonoBehaviour:
     y: 0
     z: 1
   indexNoWalkable: 
-  enemyPreSpawnerIndex: b1270000ad270000a7270000a0270000b325000081240000a2250000792400008b2000008d1e0000c4210000c61f0000621d0000fc200000331e00007413000076130000781300007a1300007c1300007e1300008013000082130000511200004f1200004d1200004b12000049120000471200004512000043120000130f0000e10d0000af0c00007d0b0000150f0000490e0000b10c00007f0b0000
+  enemyPreSpawnerIndex: b1270000ad270000a7270000a0270000b325000081240000a225000079240000fc200000331e00007413000076130000781300007a1300007c1300007e1300008013000082130000511200004f1200004d1200004b12000049120000471200004512000043120000130f0000e10d0000af0c00007d0b0000150f0000490e0000b10c00007f0b00008e1e000058210000c51f00002b220000641d0000
   enemySpawnerIndex: 
   enemyPreSpawner:
   - spawnerPos:
@@ -54,26 +54,6 @@ MonoBehaviour:
   - spawnerPos:
       x: 55
       y: 91
-    EnemyType: 3
-  - spawnerPos:
-      x: 69
-      y: 81
-    EnemyType: 1
-  - spawnerPos:
-      x: 69
-      y: 76
-    EnemyType: 1
-  - spawnerPos:
-      x: 76
-      y: 84
-    EnemyType: 3
-  - spawnerPos:
-      x: 76
-      y: 79
-    EnemyType: 1
-  - spawnerPos:
-      x: 76
-      y: 73
     EnemyType: 3
   - spawnerPos:
       x: 80
@@ -178,5 +158,25 @@ MonoBehaviour:
   - spawnerPos:
       x: 87
       y: 28
+    EnemyType: 2
+  - spawnerPos:
+      x: 70
+      y: 76
+    EnemyType: 3
+  - spawnerPos:
+      x: 70
+      y: 83
+    EnemyType: 3
+  - spawnerPos:
+      x: 75
+      y: 79
+    EnemyType: 1
+  - spawnerPos:
+      x: 77
+      y: 85
+    EnemyType: 2
+  - spawnerPos:
+      x: 78
+      y: 73
     EnemyType: 2
   enemySpawner: []
