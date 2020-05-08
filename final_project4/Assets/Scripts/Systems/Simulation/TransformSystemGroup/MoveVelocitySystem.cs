@@ -37,7 +37,7 @@ public class MoveVelocitySystem : SystemBase
             if (state.CurrentState != State.Dying)
             {
                 velocity.Linear.xz = direction.Value * speed.Value * dt;
-                velocity.Linear.y = 0;
+                velocity.Linear.y = -9.18f;
                 velocity.Angular.xz = 0;
             }
             
