@@ -8,7 +8,7 @@ using UnityEngine;
 public class HellWorldSystem : SystemBase
 {
     public static float HellTimer;
-    private static float ResetHellTimer = 10;
+    private static float ResetHellTimer = 30;
 
     private static float BeforeLevelStartTimer;
     private static float ResetBeforeLevelStart = 5;
