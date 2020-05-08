@@ -68,6 +68,9 @@ public class InteractableEventSystem : SystemBase
             case InteractableObjectType.DeepHole:
                 OnWalkOverDeepHole(info);
                 break;
+            case InteractableObjectType.WinningPortal:
+                OnWinningPortal(info);
+                break;
         }
     }
 
@@ -230,5 +233,11 @@ public class InteractableEventSystem : SystemBase
         //Kill and set back
         life.Life.Value = 0;
         manager.SetComponentData(info.CollidedEntity, life);
+    }
+
+    private static void OnWinningPortal(InteractableInfo info)
+    {
+        //Start winning system
+        Unity.Entities.World.DefaultGameObjectInjectionWorld.GetExistingSystem<WinningSystem>().Enabled = true;
     }
 }
