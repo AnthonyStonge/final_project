@@ -16,13 +16,12 @@ public class AnimationEventSystem : SystemBase
 
     public Dictionary<Type, HashSet<State>> UnHandledStates = new Dictionary<Type, HashSet<State>>();
 
-    private Random rnd; 
-    
+    private Random rnd;
+
     protected override void OnCreate()
     {
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         rnd = new Random(1234);
-        
     }
 
 
@@ -62,7 +61,8 @@ public class AnimationEventSystem : SystemBase
 
         //Set new frame
         animation.MeshIndexAt = 0;
-        entityManager.SetSharedComponentData(info.Entity, AnimationHolder.Animations[type.Value][info.NewState].Frames[animation.MeshIndexAt]);
+        entityManager.SetSharedComponentData(info.Entity,
+            AnimationHolder.Animations[type.Value][info.NewState].Frames[animation.MeshIndexAt]);
 
         //Set new Refresh Group
         entityManager.SetComponentData(info.Entity, animation);
@@ -77,7 +77,7 @@ public class AnimationEventSystem : SystemBase
         //Look if end of state Dying
         if (info.NewState != State.Dying)
             return;
-        
+
         if (info.Entity == GameVariables.Player.Entity)
         {
             //GlobalEvents.PlayerEvents.OnPlayerDie();
@@ -86,17 +86,19 @@ public class AnimationEventSystem : SystemBase
 
         if (rnd.Next(20) == 10)
         {
-            var trans = entityManager.GetComponentData<Translation>(info.Entity);
-            
-            //Player only has a pistol
-            if (GameVariables.Player.PlayerCurrentWeapons.Count <= 1) return;
-            
-            //Get random weapon ammunition 
-            int index = rnd.Next(1, GameVariables.Player.PlayerCurrentWeapons.Count);
-            WeaponType weaponType = GameVariables.Player.PlayerCurrentWeapons[index];
-            DropSystem.DropAmmunition(entityManager, trans.Value, weaponType);
+            if (entityManager.HasComponent<Translation>(info.Entity))
+            {
+                var trans = entityManager.GetComponentData<Translation>(info.Entity);
+
+                //Player only has a pistol
+                if (GameVariables.Player.PlayerCurrentWeapons.Count <= 1) return;
+
+                int index = rnd.Next(1, GameVariables.Player.PlayerCurrentWeapons.Count);
+                WeaponType weaponType = GameVariables.Player.PlayerCurrentWeapons[index];
+                DropSystem.DropAmmunition(entityManager, trans.Value, weaponType);
+            }
         }
-        
+
         //Destroy entity
         entityManager.DestroyEntity(info.Entity);
     }

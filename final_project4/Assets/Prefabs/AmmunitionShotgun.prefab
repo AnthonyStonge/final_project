@@ -144,15 +144,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 3
+  m_ShapeType: 0
   m_PrimitiveCenter:
-    x: 0
+    x: 0.3
     y: 0
     z: 0
   m_PrimitiveSize:
-    x: 1
-    y: 1
-    z: 1.9999999
+    x: 0.90751207
+    y: 1.3880379
+    z: 3.0892396
   m_PrimitiveOrientation:
     Value:
       x: -90
@@ -160,15 +160,15 @@ MonoBehaviour:
       z: 90
     RotationOrder: 4
   m_Capsule:
-    Height: 1.9999999
-    Radius: 0.5
+    Height: 3.0892396
+    Radius: 0.69401896
     Axis: 2
   m_Cylinder:
-    Height: 1.9999999
-    Radius: 0.5
+    Height: 3.0892396
+    Radius: 0.69401896
     Axis: 2
   m_CylinderSideCount: 20
-  m_SphereRadius: 0.99999994
+  m_SphereRadius: 1.5446198
   m_MinimumSkinnedVertexWeight: 0.1
   m_ConvexHullGenerationParameters:
     m_SimplificationTolerance: 0.029999997
