@@ -68,6 +68,8 @@ public static class GlobalEvents
 
         public static void RestartGame()
         {
+            EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            
             //Toggle UI YOU LOST
             //TODO
 
@@ -81,8 +83,16 @@ public static class GlobalEvents
                 UIManager.ToggleHellTimers(false);
             };
 
-            //Reset Game Values
-
+            //Reset Life
+            LifeComponent playerLife = manager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
+            playerLife.Reset();
+            manager.SetComponentData(GameVariables.Player.Entity, playerLife);
+            //Reset Weapons ammo
+            WeaponInitializer.Initialize();
+            UIManager.ReloadAllWeapons();
+            UIManager.SetWeaponType(WeaponType.Pistol);
+            //Reset Death count
+            //TODO
             //Load Menu MapType
             MapEvents.LoadMap(MapType.LevelMenu, true);
         }

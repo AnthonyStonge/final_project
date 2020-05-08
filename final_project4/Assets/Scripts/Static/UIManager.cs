@@ -108,6 +108,19 @@ public static class UIManager
         UI_Weapons[CurrentWeaponTypeHeld].BulletIndexAt++;
     }
 
+    public static void ReloadAllWeapons()
+    {
+        foreach (UI_WeaponLink link in UI_Weapons.Values)
+        {
+            for (int i = 0; i < link.BulletsImages.Count; i++)
+            {
+                link.BulletsImages[i].material = link.Lit;
+            }
+
+            link.BulletIndexAt = (ushort)(link.BulletsImages.Count - 1);
+        }
+    }
+
     public static void OnReload(int amountBulletsToReload)
     {
         if (DontUpdateUI)
