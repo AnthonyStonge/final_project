@@ -3,6 +3,7 @@ using UnityEngine;
 using static FadeObject.FadeType;
 using static GameVariables;
 
+[UpdateInGroup(typeof(InitializationSystemGroup))]
 public class FadeSystem : SystemBase
 {
     public delegate void FadeEvent();
@@ -15,17 +16,7 @@ public class FadeSystem : SystemBase
     {
         Enabled = false;
 
-        OnFadeEnd = () =>
-        {
-            //Debug.Log("OnFadeEnd");
-            this.Enabled = false;
-            hasFadeStarted = false;
-        };
-        OnFadeStart = () =>
-        {
-            //Debug.Log("OnFadeStart");
-            hasFadeStarted = true;
-        };
+        ResetEvents();
     }
 
     //Only update if trying to fade
@@ -56,6 +47,21 @@ public class FadeSystem : SystemBase
                 fadeObject.FadeValue += fadeObject.Speed * deltaTime;
                 break;
         }
+
         UI.FadeObject = fadeObject;
+    }
+
+    private void ResetEvents()
+    {
+        OnFadeEnd = () =>
+        {
+            this.Enabled = false;
+            hasFadeStarted = false;
+            ResetEvents();
+        };
+        OnFadeStart = () =>
+        {
+            hasFadeStarted = true;
+        };
     }
 }
