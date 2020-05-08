@@ -27,6 +27,11 @@ public static class PlayerInitializer
         {
             Value = new float3(3, -1f, 20)
         });
+        
+        entityManager.AddBuffer<DynamicAnimator>(player);
+        var buff = entityManager.GetBuffer<DynamicAnimator>(player);
+        buff.Add(new DynamicAnimator() {State = State.Running});
+        buff.Add(new DynamicAnimator() {State = State.Idle});
         /*
         entityManager.SetComponentData(player, new Rotation
         {

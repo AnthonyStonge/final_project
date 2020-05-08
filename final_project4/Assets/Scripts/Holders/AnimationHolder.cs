@@ -14,11 +14,11 @@ public static class AnimationHolder
         public RenderMesh[] Frames;
     }
 
-    public static ConcurrentDictionary<Type, Dictionary<State, Animation>> Animations =
-        new ConcurrentDictionary<Type, Dictionary<State, Animation>>();
+    public static ConcurrentDictionary<Type, ConcurrentDictionary<State, Animation>> Animations =
+        new ConcurrentDictionary<Type, ConcurrentDictionary<State, Animation>>();
 
     //Animation Batch Dictionary
-    public static List<int> AnimatedGroupsLength;
+    public static List<int> AnimatedGroupsLength;        
 
     private static int currentNumberOfLoadedAssets = 0;
     private static int numberOfAssetsToLoad = 1;
@@ -47,7 +47,7 @@ public static class AnimationHolder
         //TODO MAKE SURE THERES NO DUPLICATES
         foreach (AnimationScriptableObject animation in container.Animations)
         {
-            Animations.TryAdd(animation.Type, new Dictionary<State, Animation>());
+            Animations.TryAdd(animation.Type, new ConcurrentDictionary<State, Animation>());
             if (Animations[animation.Type].ContainsKey(animation.State))
             {
 #if UNITY_EDITOR
@@ -64,7 +64,7 @@ public static class AnimationHolder
                 frames[i].material = animation.Material;
             }
 
-            Animations[animation.Type].Add(animation.State, new Animation
+            Animations[animation.Type].TryAdd(animation.State, new Animation
             {
                 Frames = frames
             });

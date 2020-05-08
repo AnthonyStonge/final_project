@@ -4,6 +4,11 @@ using Unity.Collections;
 using Unity.Entities;
 using AnimationInfo = EventStruct.AnimationInfo;
 
+public struct DynamicAnimator : IBufferElementData
+{
+    public State State;
+}
+
 [DisableAutoCreation]
 [UpdateBefore(typeof(AnimationEventSystem))]
 public class StateEventSystem : SystemBase
@@ -31,17 +36,20 @@ public class StateEventSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<AnimationData>()
         };
-
-        //Should work, but might be slow because lots of foreach lolololololololol
-        Entities.WithoutBurst().ForEach((Entity e, ref StateComponent component, in TypeData type) =>
+        
+        ReadOnlyList<StateInfo> stateEvents = new ReadOnlyList<StateInfo>()
         {
-            var animations = AnimationHolder.Animations;
+            List = EventsHolder.StateEvents
+        };
+        //Should work, but might be slow because lots of foreach lolololololololol
+        Entities.ForEach((Entity e, DynamicBuffer<DynamicAnimator> dynamicAnimator, ref StateComponent component, in TypeData type) =>
+        {
             NativeList<StateInfo> events = new NativeList<StateInfo>(Allocator.Temp);
 
             //Retrieve all event corresponding to this entity
-            for (var index = 0; index < EventsHolder.StateEvents.Length; index++)
+            for (var index = 0; index < stateEvents.List.Length; index++)
             {
-                var info = EventsHolder.StateEvents[index];
+                var info = stateEvents.List[index];
                 if (info.Entity == e)
                     events.Add(info);
             }
@@ -79,8 +87,7 @@ public class StateEventSystem : SystemBase
                         shouldStateMachineLock = false;
                     }
                     if (info.DesiredState > animationStateToChangeTo)
-                        if (animations.ContainsKey(type.Value))
-                            if (animations[type.Value].ContainsKey(info.DesiredState))
+                       if (Contains(ref dynamicAnimator, info.DesiredState))
                                 animationStateToChangeTo = info.DesiredState;
                 }
                 else if (info.Action == StateInfo.ActionType.TryChangeAndLock)
@@ -92,8 +99,7 @@ public class StateEventSystem : SystemBase
                         shouldStateMachineLock = true;
                     }
                     if (info.DesiredState > animationStateToChangeTo)
-                        if (animations.ContainsKey(type.Value))
-                            if (animations[type.Value].ContainsKey(info.DesiredState))
+                        if (Contains(ref dynamicAnimator, info.DesiredState))
                                 animationStateToChangeTo = info.DesiredState;
                 }
             }
@@ -126,6 +132,14 @@ public class StateEventSystem : SystemBase
 
     }
 
+    private static bool Contains(ref DynamicBuffer<DynamicAnimator> dynamicAnimators, State state)
+    {
+        for (int i = 0; i < dynamicAnimators.Length; i++)
+        {
+            if (dynamicAnimators[i].State == state) return true;
+        }
+        return false;
+    }
     private static void TryChangeState(ref StateComponent component, State desiredState, bool shouldLock)
     {
         // bool stateChanged = false;
