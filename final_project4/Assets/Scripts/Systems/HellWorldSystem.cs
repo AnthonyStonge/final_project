@@ -8,10 +8,13 @@ using UnityEngine;
 public class HellWorldSystem : SystemBase
 {
     public static float HellTimer;
-    private static float ResetHellTimer = 30;
+    private static float ResetHellTimer = 10;
 
     private static float BeforeLevelStartTimer;
     private static float ResetBeforeLevelStart = 5;
+
+    private static float AfterLevelTimer;
+    private static float ResetAfterLevel = 3;
 
     private static ushort PreviousDisplayedNumber;
 
@@ -37,7 +40,7 @@ public class HellWorldSystem : SystemBase
         
         Type = HellWorldStateType.OnPreLevel;
         MonoGameVariables.Instance.Hell_ExplainText.gameObject.SetActive(true);
-        MonoGameVariables.Instance.Hell_FirstTimer.gameObject.SetActive(true);
+        MonoGameVariables.Instance.Hell_WaitingTimer.gameObject.SetActive(true);
 
         World.GetExistingSystem<TemporaryEnemySpawnerSystem>().Enabled = false;
     }
@@ -50,40 +53,42 @@ public class HellWorldSystem : SystemBase
             return;
         }
 
-        //Decrease Timer
-        HellTimer -= Time.DeltaTime;
+        if (Type == HellWorldStateType.OnLevel)
+        {
+            //Decrease Timer
+            HellTimer -= Time.DeltaTime;
+            
+            //Set UI timers
+            UIManager.SetTimeOnHellTimers(HellTimer);
+            
+            //Look if end timer reached
+            if (HellTimer > 0)
+                return;
 
-        //Set UI timers
-        UIManager.SetTimeOnHellTimers(HellTimer);
+            Type = HellWorldStateType.OnEndLevel;
 
-        //Look if end timer reached
-        if (HellTimer > 0)
-            return;
-#if UNITY_EDITOR
-        Debug.Log("Player survived Hell World... Returning to previous map");
-#endif
-        OnHellWorldEnd();
+            //Deactivate spawners
+            World.GetExistingSystem<TemporaryEnemySpawnerSystem>().Enabled = false;
+            
+            //Destroy all enemies
+            GlobalEvents.GameEvents.Destroy<EnemyTag>();
+            
+            //Make sure Timers are set o 0.00
+            UIManager.SetTimeOnHellTimers(0);
+            
+            //Toggle Win Text
+            MonoGameVariables.Instance.Hell_WinText.gameObject.SetActive(true);
+            MonoGameVariables.Instance.Hell_WaitingTimer.gameObject.SetActive(true);
+            
+            //Init Delay
+            AfterLevelTimer = ResetAfterLevel;
+            PreviousDisplayedNumber = (ushort)(AfterLevelTimer + 1);
+        }
 
-        Enabled = false;
-    }
-
-    private static void OnHellWorldEnd()
-    {
-        //Set UI timers
-        UIManager.SetTimeOnHellTimers(0);
-        //TODO DISPLAY END HELL LEVEL UI
-
-        //Stop Spawner
-        //TODO
-
-        //Kill all enemies
-        //TODO
-
-        //Instantiate Teleport + vfx?
-        //TODO
-
-        //End level / Go back to previous world
-        GlobalEventListenerSystem.OnExitHellLevel();
+        if (Type == HellWorldStateType.OnEndLevel)
+        {
+            OnEndLevel();
+        }
     }
 
     //Used to display First timer
@@ -96,7 +101,7 @@ public class HellWorldSystem : SystemBase
             Type = HellWorldStateType.OnLevel;
             //Toggle off first timer
             MonoGameVariables.Instance.Hell_ExplainText.gameObject.SetActive(false);
-            MonoGameVariables.Instance.Hell_FirstTimer.gameObject.SetActive(false);
+            MonoGameVariables.Instance.Hell_WaitingTimer.gameObject.SetActive(false);
             
             World.GetExistingSystem<TemporaryEnemySpawnerSystem>().Enabled = true;
             return;
@@ -108,9 +113,40 @@ public class HellWorldSystem : SystemBase
             PreviousDisplayedNumber--;
 
             //Reset text scale
-            MonoGameVariables.Instance.Hell_FirstTimer.transform.localScale = new Vector3(1, 1, 1);
-            MonoGameVariables.Instance.Hell_FirstTimer.text = PreviousDisplayedNumber.ToString();
-            MonoGameVariables.Instance.Hell_FirstTimer.StartCoroutine(DecreaseTextSize(MonoGameVariables.Instance.Hell_FirstTimer));
+            MonoGameVariables.Instance.Hell_WaitingTimer.transform.localScale = new Vector3(1, 1, 1);
+            MonoGameVariables.Instance.Hell_WaitingTimer.text = PreviousDisplayedNumber.ToString();
+            MonoGameVariables.Instance.Hell_WaitingTimer.StartCoroutine(DecreaseTextSize(MonoGameVariables.Instance.Hell_WaitingTimer));
+        }
+    }
+
+    private void OnEndLevel()
+    {
+        AfterLevelTimer -= Time.DeltaTime;
+
+        if (AfterLevelTimer <= 0)
+        {
+            //Toggle off UI
+            MonoGameVariables.Instance.Hell_WinText.gameObject.SetActive(false);
+            MonoGameVariables.Instance.Hell_WaitingTimer.gameObject.SetActive(false);
+            
+            //Return to previous map
+            GlobalEventListenerSystem.OnExitHellLevel();
+            
+            //Disable self
+            Enabled = false;
+            
+            return;
+        }
+        
+        //Look if should create number
+        if (AfterLevelTimer <= PreviousDisplayedNumber - 1)
+        {
+            PreviousDisplayedNumber--;
+
+            //Reset text scale
+            MonoGameVariables.Instance.Hell_WaitingTimer.transform.localScale = new Vector3(1, 1, 1);
+            MonoGameVariables.Instance.Hell_WaitingTimer.text = PreviousDisplayedNumber.ToString();
+            MonoGameVariables.Instance.Hell_WaitingTimer.StartCoroutine(DecreaseTextSize(MonoGameVariables.Instance.Hell_WaitingTimer));
         }
     }
 
