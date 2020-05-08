@@ -91,7 +91,7 @@ public class AnimationEventSystem : SystemBase
             //Player only has a pistol
             if (GameVariables.Player.PlayerCurrentWeapons.Count <= 1) return;
             
-            int index = rnd.Next(GameVariables.Player.PlayerCurrentWeapons.Count) + 1;
+            int index = rnd.Next(1, GameVariables.Player.PlayerCurrentWeapons.Count);
             WeaponType weaponType = GameVariables.Player.PlayerCurrentWeapons[index];
             DropSystem.DropAmmunition(entityManager, trans.Value, weaponType);
         }

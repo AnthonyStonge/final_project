@@ -318,7 +318,6 @@ GameObject:
   - component: {fileID: 1088846762515231267}
   - component: {fileID: 5344407515573515308}
   - component: {fileID: 2394981899727621559}
-  - component: {fileID: 6038186154597442193}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -389,23 +388,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &6038186154597442193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178402707662033377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &1874865721394020486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2284,6 +2266,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 654224268359797998, guid: a8e1abf6859a8aa44abe004e3bcd33de,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -68.75244
+      objectReference: {fileID: 0}
     - target: {fileID: 671087618279866068, guid: a8e1abf6859a8aa44abe004e3bcd33de,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -3398,6 +3385,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109088738762631873, guid: a8e1abf6859a8aa44abe004e3bcd33de,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -68.75244
       objectReference: {fileID: 0}
     - target: {fileID: 8206198664172691478, guid: a8e1abf6859a8aa44abe004e3bcd33de,
         type: 3}

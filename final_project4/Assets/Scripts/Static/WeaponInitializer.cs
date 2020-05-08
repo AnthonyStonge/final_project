@@ -9,8 +9,7 @@ public class WeaponInitializer
 {
     public static void Initialize()
     {
-        if (Player.PlayerWeaponEntities.Count > 0)
-            Reset();
+        Reset();
 
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         Assert.IsNotNull(entityManager);
@@ -72,11 +71,18 @@ public class WeaponInitializer
     {
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-        foreach (var playerWeaponEntity in Player.PlayerWeaponEntities)
+        foreach (Entity e in Player.PlayerWeaponEntities.Values)
         {
-            entityManager.DestroyEntity(playerWeaponEntity.Value);
+            entityManager.DestroyEntity(e);
         }
+        foreach (Entity e in Player.PlayerHellWeaponEntities.Values)
+        {
+            entityManager.DestroyEntity(e);
+        }
+        
+        GameVariables.Player.PlayerWeaponEntities.Clear();
+        GameVariables.Player.PlayerHellWeaponEntities.Clear();
 
-        Player.PlayerWeaponEntities.Clear();
+        GameVariables.Player.PlayerCurrentWeapons.Clear();
     }
 }

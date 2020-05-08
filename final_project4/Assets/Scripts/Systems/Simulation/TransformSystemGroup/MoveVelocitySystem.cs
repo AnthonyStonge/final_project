@@ -32,12 +32,12 @@ public class MoveVelocitySystem : SystemBase
 
         JobHandle job = Entities.ForEach((Entity e, ref PhysicsVelocity velocity, in DirectionData direction, in SpeedData speed, in StateComponent state) =>
         {
-            velocity.Linear.xz = 0;
+            velocity.Linear = 0;
 
             if (state.CurrentState != State.Dying)
             {
                 velocity.Linear.xz = direction.Value * speed.Value * dt;
-                velocity.Linear.y = 0;
+                // velocity.Linear.y = -9.18f;
                 velocity.Angular.xz = 0;
             }
             

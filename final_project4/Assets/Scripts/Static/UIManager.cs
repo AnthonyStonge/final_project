@@ -108,6 +108,19 @@ public static class UIManager
         UI_Weapons[CurrentWeaponTypeHeld].BulletIndexAt++;
     }
 
+    public static void ReloadAllWeapons()
+    {
+        foreach (UI_WeaponLink link in UI_Weapons.Values)
+        {
+            for (int i = 0; i < link.BulletsImages.Count; i++)
+            {
+                link.BulletsImages[i].material = link.Lit;
+            }
+
+            link.BulletIndexAt = 0;
+        }
+    }
+
     public static void OnReload(int amountBulletsToReload)
     {
         if (DontUpdateUI)
@@ -131,7 +144,7 @@ public static class UIManager
     }
 
     //TODO REDUCE COST OF FUNCTION LOL
-    private static void RefreshBulletsText()
+    public static void RefreshBulletsText()
     {
         if (DontUpdateUI)
             return;
@@ -204,9 +217,7 @@ public static class UIManager
     {
         for (int i = 0; i < MonoGameVariables.Instance.Hearths.HearthImages.Count; i++)
         {
-            Color c = MonoGameVariables.Instance.Hearths.HearthImages[i].color;
-            c.a = 1;
-            MonoGameVariables.Instance.Hearths.HearthImages[i].color = c;
+            MonoGameVariables.Instance.Hearths.HearthImages[i].material = MonoGameVariables.Instance.Hearths.Lit;
         }
 
         MonoGameVariables.Instance.Hearths.HearthIndexAt =
@@ -215,6 +226,8 @@ public static class UIManager
 
     public static void ToggleHellTimers(bool activate)
     {
+        MonoGameVariables.Instance.Hell_Timer01.text = "30.00";
+        MonoGameVariables.Instance.Hell_Timer02.text = "30.00";
         MonoGameVariables.Instance.Hell_Timer01.gameObject.SetActive(activate);
         MonoGameVariables.Instance.Hell_Timer02.gameObject.SetActive(activate);
     }

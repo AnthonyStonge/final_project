@@ -1,12 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Entities;
 using UnityEngine;
 
+[UpdateInGroup(typeof(InitializationSystemGroup))]
 public class HellWorldSystem : SystemBase
 {
     public static float HellTimer;
-    private static float ResetHellTimer = 5;
+    private static float ResetHellTimer = 30;
+
+    private static float BeforeLevelStartTimer;
+    private static float ResetBeforeLevelStart = 5;
+
+    private static float AfterLevelTimer;
+    private static float ResetAfterLevel = 3;
+
+    private static ushort PreviousDisplayedNumber;
+
+    private static HellWorldStateType Type;
+    enum HellWorldStateType
+    {
+        OnPreLevel,
+        OnLevel,
+        OnEndLevel
+    }
 
     protected override void OnCreate()
     {
@@ -15,48 +33,136 @@ public class HellWorldSystem : SystemBase
 
     protected override void OnStartRunning()
     {
-#if UNITY_EDITOR
-        Debug.Log("Starting Hell World...");
-#endif
         //Reset Timer
         HellTimer = ResetHellTimer;
+        BeforeLevelStartTimer = ResetBeforeLevelStart;
+        PreviousDisplayedNumber = (ushort) (BeforeLevelStartTimer + 1);
+        
+        Type = HellWorldStateType.OnPreLevel;
+        MonoGameVariables.Instance.Hell_ExplainText.gameObject.SetActive(true);
+        MonoGameVariables.Instance.Hell_WaitingTimer.gameObject.SetActive(true);
+
+        World.GetExistingSystem<TemporaryEnemySpawnerSystem>().Enabled = false;
     }
 
     protected override void OnUpdate()
     {
-        //Decrease Timer
-        HellTimer -= Time.DeltaTime;
-
-        //Set UI timers
-        UIManager.SetTimeOnHellTimers(HellTimer);
-
-        //Look if end timer reached
-        if (HellTimer > 0)
+        if(Type == HellWorldStateType.OnPreLevel)
+        {
+            OnPreLevel();
             return;
-#if UNITY_EDITOR
-        Debug.Log("Player survived Hell World... Returning to previous map");
-#endif
-        OnHellWorldEnd();
+        }
 
-        Enabled = false;
+        if (Type == HellWorldStateType.OnLevel)
+        {
+            //Decrease Timer
+            HellTimer -= Time.DeltaTime;
+            
+            //Set UI timers
+            UIManager.SetTimeOnHellTimers(HellTimer);
+            
+            //Look if end timer reached
+            if (HellTimer > 0)
+                return;
+
+            Type = HellWorldStateType.OnEndLevel;
+
+            //Deactivate spawners
+            World.GetExistingSystem<TemporaryEnemySpawnerSystem>().Enabled = false;
+            
+            //Destroy all enemies
+            GlobalEvents.GameEvents.Destroy<EnemyTag>();
+            
+            //Make sure Timers are set o 0.00
+            UIManager.SetTimeOnHellTimers(0);
+            
+            //Toggle Win Text
+            MonoGameVariables.Instance.Hell_WinText.gameObject.SetActive(true);
+            MonoGameVariables.Instance.Hell_WaitingTimer.gameObject.SetActive(true);
+            
+            //Init Delay
+            AfterLevelTimer = ResetAfterLevel;
+            PreviousDisplayedNumber = (ushort)(AfterLevelTimer + 1);
+        }
+
+        if (Type == HellWorldStateType.OnEndLevel)
+        {
+            OnEndLevel();
+        }
     }
 
-    private static void OnHellWorldEnd()
+    //Used to display First timer
+    private void OnPreLevel()
     {
-        //Set UI timers
-        UIManager.SetTimeOnHellTimers(0);
-        //TODO DISPLAY END HELL LEVEL UI
+        BeforeLevelStartTimer -= Time.DeltaTime;
 
-        //Stop Spawner
-        //TODO
+        if (BeforeLevelStartTimer <= 0)
+        {
+            Type = HellWorldStateType.OnLevel;
+            //Toggle off first timer
+            MonoGameVariables.Instance.Hell_ExplainText.gameObject.SetActive(false);
+            MonoGameVariables.Instance.Hell_WaitingTimer.gameObject.SetActive(false);
+            
+            World.GetExistingSystem<TemporaryEnemySpawnerSystem>().Enabled = true;
+            return;
+        }
 
-        //Kill all enemies
-        //TODO
+        //Look if should create number
+        if (BeforeLevelStartTimer <= PreviousDisplayedNumber - 1)
+        {
+            PreviousDisplayedNumber--;
 
-        //Instantiate Teleport + vfx?
-        //TODO
+            //Reset text scale
+            MonoGameVariables.Instance.Hell_WaitingTimer.transform.localScale = new Vector3(1, 1, 1);
+            MonoGameVariables.Instance.Hell_WaitingTimer.text = PreviousDisplayedNumber.ToString();
+            MonoGameVariables.Instance.Hell_WaitingTimer.StartCoroutine(DecreaseTextSize(MonoGameVariables.Instance.Hell_WaitingTimer));
+        }
+    }
 
-        //End level / Go back to previous world
-        GlobalEventListenerSystem.OnExitHellLevel();
+    private void OnEndLevel()
+    {
+        AfterLevelTimer -= Time.DeltaTime;
+
+        if (AfterLevelTimer <= 0)
+        {
+            //Toggle off UI
+            MonoGameVariables.Instance.Hell_WinText.gameObject.SetActive(false);
+            MonoGameVariables.Instance.Hell_WaitingTimer.gameObject.SetActive(false);
+            
+            //Return to previous map
+            GlobalEventListenerSystem.OnExitHellLevel();
+            
+            //Disable self
+            Enabled = false;
+            
+            return;
+        }
+        
+        //Look if should create number
+        if (AfterLevelTimer <= PreviousDisplayedNumber - 1)
+        {
+            PreviousDisplayedNumber--;
+
+            //Reset text scale
+            MonoGameVariables.Instance.Hell_WaitingTimer.transform.localScale = new Vector3(1, 1, 1);
+            MonoGameVariables.Instance.Hell_WaitingTimer.text = PreviousDisplayedNumber.ToString();
+            MonoGameVariables.Instance.Hell_WaitingTimer.StartCoroutine(DecreaseTextSize(MonoGameVariables.Instance.Hell_WaitingTimer));
+        }
+    }
+
+    private IEnumerator DecreaseTextSize(TextMeshPro text)
+    {
+        float timer = 1;
+        float speed = 2;
+
+        while (timer > 0)
+        {
+            timer -= Time.DeltaTime;
+
+            float size = 1 * timer * speed;
+            text.transform.localScale = new Vector3(size, size, 1);
+
+            yield return null;
+        }
     }
 }

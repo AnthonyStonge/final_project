@@ -20,16 +20,20 @@ public static class GlobalEvents
 #if UNITY_EDITOR
             Debug.Log(TogglePauseGame);
 #endif
-            //world.GetOrCreateSystem<InitializeManager>().Enabled = TogglePauseGame;
-            world.GetOrCreateSystem<LateInitializeManager>().Enabled = TogglePauseGame;
-            world.GetOrCreateSystem<TransformSimulationManager>().Enabled = TogglePauseGame;
-            world.GetOrCreateSystem<LateSimulationManager>().Enabled = TogglePauseGame;
-            world.GetOrCreateSystem<PresentationManager>().Enabled = TogglePauseGame;
-            //world.GetOrCreateSystem<BuildPhysicsWorld>().Enabled = TogglePauseGame;
-
-            world.GetOrCreateSystem<SimulationSystemGroup>().Enabled = TogglePauseGame;
+            DisableGameLogic(TogglePauseGame);
 
             ShowPauseMenu();
+        }
+
+        public static void DisableGameLogic(bool deactivate)
+        {
+            var world = World.DefaultGameObjectInjectionWorld;
+            
+            world.GetOrCreateSystem<LateInitializeManager>().Enabled = !deactivate;
+            world.GetOrCreateSystem<TransformSimulationManager>().Enabled = !deactivate;
+            world.GetOrCreateSystem<LateSimulationManager>().Enabled = !deactivate;
+            world.GetOrCreateSystem<PresentationManager>().Enabled = !deactivate;
+            world.GetOrCreateSystem<SimulationSystemGroup>().Enabled = !deactivate;
         }
 
         private static void ShowPauseMenu()
@@ -64,7 +68,9 @@ public static class GlobalEvents
 
         public static void RestartGame()
         {
-            //Toggle UI YOU LOSE
+            EntityManager manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            
+            //Toggle UI YOU LOST
             //TODO
 
             //Toggle PlayerWeapons
@@ -77,8 +83,16 @@ public static class GlobalEvents
                 UIManager.ToggleHellTimers(false);
             };
 
-            //Reset Game Values
-
+            //Reset Life
+            LifeComponent playerLife = manager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
+            playerLife.Reset();
+            manager.SetComponentData(GameVariables.Player.Entity, playerLife);
+            //Reset Weapons ammo
+            WeaponInitializer.Initialize();
+            UIManager.ReloadAllWeapons();
+            UIManager.SetWeaponType(WeaponType.Pistol);
+            //Reset Death count
+            //TODO
             //Load Menu MapType
             MapEvents.LoadMap(MapType.LevelMenu, true);
         }
