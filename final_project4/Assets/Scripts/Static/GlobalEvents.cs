@@ -1,5 +1,4 @@
-﻿using System;
-using Enums;
+﻿using Enums;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -17,9 +16,7 @@ public static class GlobalEvents
             var world = World.DefaultGameObjectInjectionWorld;
 
             TogglePauseGame = !TogglePauseGame;
-#if UNITY_EDITOR
-            Debug.Log(TogglePauseGame);
-#endif
+            
             DisableGameLogic(!TogglePauseGame);
 
             ShowPauseMenu();
