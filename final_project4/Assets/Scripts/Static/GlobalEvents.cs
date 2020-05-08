@@ -10,7 +10,7 @@ public static class GlobalEvents
 {
     public static class GameEvents
     {
-        public static bool TogglePauseGame = true;
+        public static bool TogglePauseGame = false;
 
         public static void PauseGame()
         {
@@ -20,7 +20,7 @@ public static class GlobalEvents
 #if UNITY_EDITOR
             Debug.Log(TogglePauseGame);
 #endif
-            DisableGameLogic(TogglePauseGame);
+            DisableGameLogic(!TogglePauseGame);
 
             ShowPauseMenu();
         }
