@@ -63,12 +63,14 @@ public class SoundEventSystem : SystemBase
     
     public static void PlayDashSound()
     {
-        
+        List<int> sfx = SoundHolder.PlayerSounds[State.Dashing];
+        PlaySound(sfx[0]);
     }
 
     public static void PlayerDieSound()
     {
-        
+        List<int> sfx = SoundHolder.PlayerSounds[State.Dying];
+        PlaySound(sfx[0]);
     }
 
     public static void PlayerHitSound()

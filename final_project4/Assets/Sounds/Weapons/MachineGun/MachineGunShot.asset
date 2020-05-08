@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MachineGunShot
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: e0d68b7fc358d0542898f4505b284ac3, type: 3}
-  AudioSourceType: 3
+  AudioSourceType: 4
   Delay: 0
   Weapons:
   - WeaponType: 6
