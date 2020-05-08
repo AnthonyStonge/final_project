@@ -75,6 +75,7 @@ public class HellWorldSystem : SystemBase
             
             //Destroy all enemies
             GlobalEvents.GameEvents.Destroy<EnemyTag>();
+            GlobalEvents.GameEvents.Destroy<BulletTag>();
             
             //Make sure Timers are set o 0.00
             UIManager.SetTimeOnHellTimers(0);

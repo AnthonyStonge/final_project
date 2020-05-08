@@ -22,20 +22,26 @@ public class GlobalEventListenerSystem : SystemBase
         {
             //Get Current MapType
             MapType currentMapType = EventsHolder.LevelEvents.CurrentLevel;
-            
+
             SoundEventSystem.PlayerDieSound();
 
             if (currentMapType == MapType.Level_Hell)
             {
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 Debug.Log("Player died in Hell World... Returning to main menu.");
-                #endif
-                    
+#endif
+
                 //Stop HelloWorldSystem
                 World.GetExistingSystem<HellWorldSystem>().Enabled = false;
 
                 //Restart Game from beginning
                 GlobalEvents.GameEvents.RestartGame();
+
+                ChangeWorldDelaySystem.OnChangeWorld += () =>
+                {
+                    SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponType.Pistol, MapType.Level_Hell,
+                        MapType.LevelMenu);
+                };
 
                 return;
             }
@@ -46,7 +52,7 @@ public class GlobalEventListenerSystem : SystemBase
             //Load Hell Level
             OnLoadHellLevel(ref playerLife);
         }
-        
+
         if (playerLife.Invincibility == InvincibilityType.Hit)
         {
             GlobalEvents.CameraEvents.ShakeCam(.2f, 1, 1.5f);
@@ -65,7 +71,7 @@ public class GlobalEventListenerSystem : SystemBase
             SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponType.HellShotgun, LastMap,
                 MapType.Level_Hell);
         };
-        
+
         ChangeWorldDelaySystem.OnChangeWorld += () =>
         {
             //Start HellWorldSystem
@@ -76,8 +82,6 @@ public class GlobalEventListenerSystem : SystemBase
             UIManager.ToggleHellTimers(true);
             UIManager.SetWeaponType(WeaponType.HellShotgun);
         };
-        
-
 
         //Reset Player Life
         playerLife.Reset();
@@ -95,22 +99,21 @@ public class GlobalEventListenerSystem : SystemBase
         //Set UI info
         UIManager.ResetPlayerHealth();
         UIManager.ToggleHellTimers(false);
-        
+
         FadeSystem.OnFadeEnd += () =>
         {
             //Toggle PlayerWeapons
             SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponTypeToGoBackTo, MapType.Level_Hell, LastMap);
         };
-        
+
         ChangeWorldDelaySystem.OnChangeWorld += () =>
         {
             //Set UI info
             UIManager.ResetPlayerHealth();
             UIManager.SetWeaponType(WeaponTypeToGoBackTo);
         };
-        
+
         //Set new MapType
         MapEvents.LoadMap(LastMap, true);
-        
     }
 }

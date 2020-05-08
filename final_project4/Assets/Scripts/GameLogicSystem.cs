@@ -78,11 +78,12 @@ public class GameLogicSystem : SystemBase
 
             if (Input.GetKeyDown(KeyCode.Keypad4))
             {
-                MapEvents.LoadNextMap();
+                GlobalEvents.GameEvents.Destroy<EnemyTag>();
+                GlobalEvents.GameEvents.Destroy<BulletTag>();
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad5))
-                MapEvents.LoadPreviousMap();
+                World.GetExistingSystem<WinningSystem>().Enabled = true;
 
             //Normal Logic
             if (!gameStateComponent.IsChangeOfStateRequested())
