@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1320167522602264408}
   - component: {fileID: 8071145785662913970}
   m_Layer: 0
-  m_Name: Amunation
+  m_Name: AmmunitionShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,5 +230,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db15eb75b225b449f6f04593a60642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TypeAmunation: 0
-  AmunationQuantity: 1
+  TypeAmmunition: 1
+  AmmunitionQuantity: 8

@@ -128,7 +128,7 @@ MonoBehaviour:
   OnSwapDelayToShoot: 0.02
   MaxBulletInMagazine: 20
   MaxBulletOnPlayer: 0
-  ResetBetweenShotTime: 0.01
+  ResetBetweenShotTime: 0.05
   ResetReloadTime: 1
   BulletPrefab: {fileID: 1184732517643075236, guid: 475f52afc58080b4d9a1948cd4f064f0,
     type: 3}

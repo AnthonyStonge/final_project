@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c412270cb899a42897a996e4cf6483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 300
+  Value: 350
 --- !u!114 &8227971529083276615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +175,7 @@ MonoBehaviour:
   AttackDDistance: 0
   AgroDistance: 20
   FleeDistance: 0
+  CanAttack: 0
   IsInRange: 0
 --- !u!114 &3247000289918827036
 MonoBehaviour:
