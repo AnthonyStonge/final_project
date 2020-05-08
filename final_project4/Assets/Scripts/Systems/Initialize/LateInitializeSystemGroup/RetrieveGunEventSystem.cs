@@ -71,6 +71,8 @@ public class RetrieveGunEventSystem : SystemBase
 
         float deltaTime = Time.DeltaTime;
 
+        int boost = GameVariables.Boost;
+
         JobHandle gunJob = Entities.ForEach(
             (Entity e, int entityInQueryIndex, ref GunComponent gun, in LocalToWorld transform, in Parent parent) =>
             {
@@ -125,7 +127,7 @@ public class RetrieveGunEventSystem : SystemBase
                     if (TryShoot(ref gun))
                     {
                         weaponEventType = WeaponInfo.WeaponEventType.ON_SHOOT;
-                        Shoot(entityInQueryIndex, ecb, ref gun, transform, position.Value);
+                        Shoot(entityInQueryIndex, ecb, ref gun, transform, position.Value, boost);
                     }
 
                 //Add event to NativeQueue
@@ -236,7 +238,7 @@ public class RetrieveGunEventSystem : SystemBase
     }
 
     private static void Shoot(int jobIndex, EntityCommandBuffer.Concurrent ecb, ref GunComponent gun,
-        in LocalToWorld transform, float3 parentEntityPosition)
+        in LocalToWorld transform, float3 parentEntityPosition, int boost)
     {
         //Decrease bullets
         gun.CurrentAmountBulletInMagazine--;
@@ -253,7 +255,7 @@ public class RetrieveGunEventSystem : SystemBase
                 break;
             case WeaponType.Shotgun:
                 ShootShotgun(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation,
-                    parentEntityPosition);
+                    parentEntityPosition, boost);
                 break;
             case WeaponType.ChickenWeapon:
                 ShootChickenWeapon(jobIndex, ecb, gun.BulletPrefab, transform.Position, transform.Rotation, parentEntityPosition);
@@ -295,9 +297,9 @@ public class RetrieveGunEventSystem : SystemBase
     }
 
     private static void ShootShotgun(int jobIndex, EntityCommandBuffer.Concurrent ecb, Entity bulletPrefab,
-        float3 position, quaternion rotation, float3 parentEntityPosition)
+        float3 position, quaternion rotation, float3 parentEntityPosition, int boost)
     {
-        int nbBullet = 100;
+        int nbBullet = 100 * boost;
         float degreeFarShot = math.radians(nbBullet * 2);
         float angle = degreeFarShot / nbBullet;
         quaternion startRotation = math.mul(rotation, quaternion.RotateY(-(degreeFarShot / 2)));
