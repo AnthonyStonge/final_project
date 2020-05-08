@@ -133,7 +133,7 @@ MonoBehaviour:
   BulletPrefab: {fileID: 1184732517643075236, guid: 4fa5767ea3208384ca97feff7608f101,
     type: 3}
   CurrentAmountBulletInMagazine: 20
-  CurrentAmountBulletOnPlayer: 300
+  CurrentAmountBulletOnPlayer: 150
   BetweenShotTime: 0
   ReloadTime: 0
   SwapTimer: 0

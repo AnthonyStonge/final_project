@@ -131,7 +131,7 @@ public static class UIManager
     }
 
     //TODO REDUCE COST OF FUNCTION LOL
-    private static void RefreshBulletsText()
+    public static void RefreshBulletsText()
     {
         if (DontUpdateUI)
             return;

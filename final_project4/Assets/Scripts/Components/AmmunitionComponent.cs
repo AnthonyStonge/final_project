@@ -5,5 +5,5 @@ using Unity.Entities;
 public struct AmmunitionComponent : IComponentData
 {
     public WeaponType TypeAmmunition;
-    public int AmmunitionQuantity;
+    public int AmmunitionQuantity;    
 }

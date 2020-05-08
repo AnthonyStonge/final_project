@@ -2,6 +2,7 @@
 using Havok.Physics;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 
@@ -21,41 +22,40 @@ public class LootSystem : SystemBase
         HavokTriggerEvents triggerEvents = ((HavokSimulation) stepPhysicsWorld.Simulation).TriggerEvents;
 
         var amunitionComponents = GetComponentDataFromEntity<AmmunitionComponent>(true);
-        NativeList<Entity> entities = new NativeList<Entity>(Allocator.Temp);
+        NativeList<Entity> ammunitions = new NativeList<Entity>(Allocator.Temp);
 
         foreach (var triggerEvent in triggerEvents)
         {
             if (amunitionComponents.HasComponent(triggerEvent.Entities.EntityA))
             {
-                if (!entities.Contains(triggerEvent.Entities.EntityA))
-                    entities.Add(triggerEvent.Entities.EntityA);
+                if (!ammunitions.Contains(triggerEvent.Entities.EntityA))
+                    ammunitions.Add(triggerEvent.Entities.EntityA);
             }
 
             if (amunitionComponents.HasComponent(triggerEvent.Entities.EntityB))
             {
-                if (!entities.Contains(triggerEvent.Entities.EntityB))
-                    entities.Add(triggerEvent.Entities.EntityB);
+                if (!ammunitions.Contains(triggerEvent.Entities.EntityB))
+                    ammunitions.Add(triggerEvent.Entities.EntityB);
             }
+            
         }
 
-        foreach (var entity in entities)
+        foreach (var entity in ammunitions)
         {
             AmmunitionComponent ac = EntityManager.GetComponentData<AmmunitionComponent>(entity);
             EntityManager.DestroyEntity(entity);
-            if (GameVariables.Player.PlayerWeaponEntities.ContainsKey(GameVariables.Player.CurrentWeaponHeld))
-            {
-                gunComponent =
-                    EntityManager.GetComponentData<GunComponent>(
-                        GameVariables.Player.PlayerWeaponEntities[ac.TypeAmmunition]);
-                gunComponent.CurrentAmountBulletOnPlayer += ac.AmmunitionQuantity;
-                EntityManager.SetComponentData(GameVariables.Player.PlayerWeaponEntities[ac.TypeAmmunition],
-                    gunComponent);
-                
-                SoundEventSystem.PlayPickupSound(DropType.AmmunitionShotgun);
-                //TODO Play VFX
-            }
+            
+            
+            gunComponent = EntityManager.GetComponentData<GunComponent>(GameVariables.Player.PlayerWeaponEntities[ac.TypeAmmunition]);
+            gunComponent.CurrentAmountBulletOnPlayer = math.clamp(gunComponent.CurrentAmountBulletOnPlayer + ac.AmmunitionQuantity, 0, gunComponent.MaxBulletOnPlayer);
+            EntityManager.SetComponentData(GameVariables.Player.PlayerWeaponEntities[ac.TypeAmmunition],gunComponent);
+            
+            SoundEventSystem.PlayPickupSound(DropType.AmmunitionShotgun);
+            
+            UIManager.RefreshBulletsText();
+            //TODO Play VFX
         }
 
-        entities.Dispose();
+        ammunitions.Dispose();
     }
 }
