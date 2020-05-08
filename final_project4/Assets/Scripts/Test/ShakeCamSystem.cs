@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
+[UpdateInGroup(typeof(InitializationSystemGroup))]
 public class ShakeCamSystem : SystemBase
 {
     public delegate void ShakeEvent();

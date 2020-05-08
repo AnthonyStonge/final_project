@@ -20,7 +20,7 @@ public static class GlobalEvents
 #if UNITY_EDITOR
             Debug.Log(TogglePauseGame);
 #endif
-            DisableGameLogic(!TogglePauseGame);
+            DisableGameLogic(TogglePauseGame);
 
             ShowPauseMenu();
         }
@@ -38,7 +38,7 @@ public static class GlobalEvents
 
         private static void ShowPauseMenu()
         {
-            GameVariables.UI.PausedMenu.SetActive(!TogglePauseGame);
+            GameVariables.UI.PausedMenu.SetActive(TogglePauseGame);
         }
 
         public static void Destroy<T>() where T : IComponentData
