@@ -9,6 +9,7 @@ using Unity.Physics.Systems;
 using Unity.Transforms;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
+using RaycastHit = Unity.Physics.RaycastHit;
 using Type = Enums.Type;
 [DisableAutoCreation]
 [UpdateBefore(typeof(EnemyFollowSystem))]
@@ -45,11 +46,12 @@ public class PathFollowSystem : SystemBase
         double time = Time.ElapsedTime;
         float deltaTime = Time.DeltaTime;
         float3 posPlayer = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
+        var level = EventsHolder.LevelEvents.CurrentLevel;
         
-        Entities.ForEach((int nativeThreadIndex, DynamicBuffer<PathPosition> pathPos, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, ref Translation translation, ref BulletCollider filter, ref TypeData typeData) =>
+        Entities.ForEach((int nativeThreadIndex, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, ref Translation translation, ref BulletCollider filter, ref TypeData typeData) =>
         {
-            if (math.distance(posPlayer, translation.Value) > 20)
-                return;
+            //if (math.distance(posPlayer, translation.Value) > 25 && level != MapType.Level_Hell)
+            //    return;
             if (pathFollow.BeginWalk)
                 return;
             range.IsInRange = false;
@@ -60,8 +62,8 @@ public class PathFollowSystem : SystemBase
             {
                 RaycastInput raycastInput = new RaycastInput
                 {
-                    Start = translation.Value,
-                    End = posPlayer,
+                    Start = new float3(translation.Value.x, 0, translation.Value.z),
+                    End = new float3(posPlayer.x, 0, posPlayer.z),
                     Filter = new CollisionFilter()
                     {
                         BelongsTo = filter.BelongsTo.Value,
@@ -107,6 +109,7 @@ public class PathFollowSystem : SystemBase
     
     private static void WonderingFollow(ref PathFollowComponent pathFollow,ref PhysicsWorld physicsWorld, ref NativeArray<Random> RandomArray, in Translation translation, in float deltaTime, in int naticeThreadIndex)
     {
+        
         if (pathFollow.timeWonderingCounter <= 0)
         {
             //Get next seed
@@ -126,15 +129,20 @@ public class PathFollowSystem : SystemBase
             //Check if it collides with anything
             RaycastInput raycastInput = new RaycastInput
             {
-                Start = translation.Value,
-                End = new float3(pathFollow.WonderingPosition.x, 0.5f, pathFollow.WonderingPosition.y),
+                Start = new float3(translation.Value.x, 0, translation.Value.z),
+                End = new float3(pathFollow.WonderingPosition.x, 0, pathFollow.WonderingPosition.y),
                 Filter = Filter
             };
             //If collides, do not move
-            if (physicsWorld.CollisionWorld.CastRay(raycastInput))
+            if (physicsWorld.CollisionWorld.CastRay(raycastInput, out RaycastHit hit))
             {
+                
                 pathFollow.WonderingPosition = new int2(-1);
                 pathFollow.timeWonderingCounter = 0;
+            }
+            else
+            {
+                Debug.Log("lets go gorilla wonder");
             }
         }
         else

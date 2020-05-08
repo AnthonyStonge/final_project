@@ -10,7 +10,7 @@ public static class GlobalEvents
 {
     public static class GameEvents
     {
-        public static bool TogglePauseGame = true;
+        public static bool TogglePauseGame = false;
 
         public static void PauseGame()
         {

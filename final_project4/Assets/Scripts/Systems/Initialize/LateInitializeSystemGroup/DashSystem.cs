@@ -54,6 +54,7 @@ public class DashSystem : SystemBase
             Dash(ref dash, inputs, rotation);
             //Set Player invincibility
             GlobalEvents.PlayerEvents.SetInvincibility(InvincibilityType.Dash);
+            SoundEventSystem.PlayDashSound();
         }
 
         EntityManager.SetComponentData(playerEntity, dash);

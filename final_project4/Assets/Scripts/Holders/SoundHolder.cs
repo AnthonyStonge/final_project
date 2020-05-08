@@ -27,6 +27,7 @@ public static class SoundHolder
     public static Dictionary<int, AudioSourceType> SoundsToAudioSource;
     public static Dictionary<AudioSourceType, Source> AudioSources;
 
+    public static Dictionary<State, List<int>> PlayerSounds;
     public static Dictionary<SoundType, List<int>> GenericSounds;
     public static Dictionary<DropType, List<int>> PickupSounds;
     public static Dictionary<WeaponType, Dictionary<WeaponInfo.WeaponEventType, int>> WeaponSounds;
@@ -67,6 +68,13 @@ public static class SoundHolder
         for (int i = 0; i < Enum.GetNames(typeof(ProjectileType)).Length; i++)
         {
             BulletSounds.Add((ProjectileType) i, new Dictionary<BulletInfo.BulletCollisionType, int>());
+        }
+        
+        //Player
+        PlayerSounds = new Dictionary<State, List<int>>();
+        for (int i = 0; i < Enum.GetNames(typeof(State)).Length; i++)
+        {
+            PlayerSounds.Add((State)i, new List<int>());
         }
     }
 
@@ -136,6 +144,12 @@ public static class SoundHolder
             foreach (var i in links.GenericSounds)
             {
                 GenericSounds[i].Add(nextClipID);
+            }
+            
+            //Player Sounds
+            foreach (var i in links.Player)
+            {
+                PlayerSounds[i].Add(nextClipID);
             }
 
             //Increment ID

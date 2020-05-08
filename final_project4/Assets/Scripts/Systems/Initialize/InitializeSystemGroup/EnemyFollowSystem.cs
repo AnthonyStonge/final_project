@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Enums;
+using EventStruct;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
@@ -21,17 +22,18 @@ public class EnemyFollowSystem : SystemBase
     protected override void OnUpdate()
     {
         float3 playerPos = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
+        var level = EventsHolder.LevelEvents.CurrentLevel;
         Entities.ForEach((ref PathFollowComponent pathFollow, ref DirectionData direction, ref TargetData targetData,ref Translation translation,
             ref AttackRangeComponent range, in TypeData typeData, in StateComponent state) =>
         {
-            if (math.distance(playerPos, translation.Value) > 20)
+            direction.Value = float2.zero;
+            if (math.distance(playerPos, translation.Value) > 25 && level != MapType.Level_Hell)
                 return;
             if (state.CurrentState == State.Dying)
                 return;
-            direction.Value = new float2(0);
-        //Make sure enemy has no position to go to
-        if (pathFollow.WonderingPosition.Equals(new int2(-1)))
-                return;
+            //Make sure enemy has no position to go to
+            if (pathFollow.WonderingPosition.Equals(new int2(-1)))
+                    return;
             //Make sure enemy has reached 
             
             if (math.distancesq(pathFollow.WonderingPosition, translation.Value.xz) <= 1)
@@ -41,6 +43,7 @@ public class EnemyFollowSystem : SystemBase
                 pathFollow.EnemyState = EnemyState.Wondering;
                 return;
             }
+            
             float2 targetPos;
             if(pathFollow.EnemyState != EnemyState.Wondering)
                 if(pathFollow.BeginWalk)

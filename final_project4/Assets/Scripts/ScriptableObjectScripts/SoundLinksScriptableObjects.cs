@@ -25,6 +25,8 @@ public class SoundLinksScriptableObjects : ScriptableObject
     public List<SoundType> GenericSounds;
 
     public List<DropType> Drops;
+
+    public List<State> Player;
     
     [Serializable]
     public struct WeaponLinks
