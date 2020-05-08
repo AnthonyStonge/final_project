@@ -54,10 +54,26 @@ public class SoundEventSystem : SystemBase
             if (TryPlaySound(soundId))
                 PlaySound(soundId);
         }
+        
 
         //Decrement all sounds not available
         float deltaTime = Time.DeltaTime;
         SoundManager.DecrementNotAvailableSounds(deltaTime);
+    }
+    
+    public static void PlayDashSound()
+    {
+        
+    }
+
+    public static void PlayerDieSound()
+    {
+        
+    }
+
+    public static void PlayerHitSound()
+    {
+        
     }
 
     private static void PlayAmbienceSounds()

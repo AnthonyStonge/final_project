@@ -64,7 +64,7 @@ public static class GlobalEvents
 
         public static void RestartGame()
         {
-            //Toggle UI YOU LOST
+            //Toggle UI YOU LOSE
             //TODO
 
             //Toggle PlayerWeapons

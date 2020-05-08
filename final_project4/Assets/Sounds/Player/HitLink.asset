@@ -10,24 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74c61c0f72492d3458b569cabee886a5, type: 3}
-  m_Name: PlayerWeaponSwap
+  m_Name: HitLink
   m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: e753055d3a8b8f645841d32665fcfc12, type: 3}
-  AudioSourceType: 3
+  Clip: {fileID: 8300000, guid: d64f764c981730d42b78715e04b32599, type: 3}
+  AudioSourceType: 5
   Delay: 0
-  Weapons:
-  - WeaponType: 0
-    EventType: 2
-  - WeaponType: 1
-    EventType: 2
-  - WeaponType: 6
-    EventType: 2
-  - WeaponType: 7
-    EventType: 2
-  - WeaponType: 8
-    EventType: 2
-  - WeaponType: 9
-    EventType: 2
+  Weapons: []
   Bullets: []
   GenericSounds: 
   Drops: 
+  Player: 00000000

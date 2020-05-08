@@ -15,7 +15,9 @@ public class HellWorldSystem : SystemBase
 
     protected override void OnStartRunning()
     {
+#if UNITY_EDITOR
         Debug.Log("Starting Hell World...");
+#endif
         //Reset Timer
         HellTimer = ResetHellTimer;
     }

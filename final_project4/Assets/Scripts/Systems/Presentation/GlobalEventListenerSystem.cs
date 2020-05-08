@@ -22,12 +22,16 @@ public class GlobalEventListenerSystem : SystemBase
         {
             //Get Current MapType
             MapType currentMapType = EventsHolder.LevelEvents.CurrentLevel;
+            
+            SoundEventSystem.PlayerDieSound();
 
             if (currentMapType == MapType.Level_Hell)
             {
+                #if UNITY_EDITOR
                 Debug.Log("Player died in Hell World... Returning to main menu.");
-                
-                //Stop HellWorldSystem
+                #endif
+                    
+                //Stop HelloWorldSystem
                 World.GetExistingSystem<HellWorldSystem>().Enabled = false;
                 
                 //Restart Game from beginning
@@ -43,7 +47,6 @@ public class GlobalEventListenerSystem : SystemBase
             OnLoadHellLevel(ref playerLife);
         }
         
-        //TODO Implement differently lol it doesnt make sens here
         if (playerLife.Invincibility == InvincibilityType.Hit)
         {
             GlobalEvents.CameraEvents.ShakeCam(.2f, 1, 1.5f);

@@ -65,7 +65,7 @@ namespace Enums
         PlayerActions,    //Take damage, Die
         EnemyWeaponActions, //Shoot
         EnemyActions,    //Take damage, Die
-        BulletActionsPlay    //Hit
+        BulletActionsPlay //Hit
     }
     
 
@@ -80,7 +80,8 @@ namespace Enums
         Dying,
         Respawning,
         DoorOpening,
-        DoorClosing
+        DoorClosing,
+        Hit
     }
 
     public enum InteractableType
