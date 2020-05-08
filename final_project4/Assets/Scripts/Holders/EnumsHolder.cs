@@ -5,7 +5,7 @@ namespace Enums
 {
     public enum WeaponType
     {
-        Pistol,
+        Pistol = 0,
         Shotgun,
         RatWeapon,
         ChickenWeapon,
@@ -16,7 +16,11 @@ namespace Enums
         HellShotgun,
         HellMachinegun
     }
-
+    public enum DropType
+    {
+        AmmunitionShotgun = WeaponType.Shotgun,
+        AmmunitionMachinegun = WeaponType.Machinegun
+    }
     public enum ProjectileType
     {
         PistolBullet,
@@ -63,12 +67,7 @@ namespace Enums
         EnemyActions,    //Take damage, Die
         BulletActionsPlay    //Hit
     }
-    public enum DropType
-    {
-        //Life,
-        AmmunitionShotgun,
-        AmmunitionMachinegun
-    }
+    
 
     //Order is IMPORTANT (The bigger the value, the more important it is for the StateMachine)
     public enum State
