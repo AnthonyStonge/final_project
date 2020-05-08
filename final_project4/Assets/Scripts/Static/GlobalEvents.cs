@@ -48,7 +48,6 @@ public static class GlobalEvents
                 //Destroy entities with query
                 manager.DestroyEntity(entities);
             }
-            
         }
 
         public static void StartHellLevel(int difficulty, int deathCount)
@@ -65,17 +64,23 @@ public static class GlobalEvents
 
         public static void RestartGame()
         {
-            //Toggle PlayerWeapons
-            SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponType.Pistol, MapType.Level_Hell, MapType.LevelMenu);
+            //Toggle UI YOU LOST
+            //TODO
 
-            //Reset UI
-            UIManager.ResetPlayerHealth();
-            UIManager.ToggleHellTimers(false);
-            
+            //Toggle PlayerWeapons
+            ChangeWorldDelaySystem.OnChangeWorld += () =>
+            {
+                SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponType.Pistol, MapType.Level_Hell, MapType.LevelMenu);
+                
+                //Reset UI
+                UIManager.ResetPlayerHealth();
+                UIManager.ToggleHellTimers(false);
+            };
+
             //Reset Game Values
-            
+
             //Load Menu MapType
-            
+            MapEvents.LoadMap(MapType.LevelMenu, true);
         }
 
         public static void QuitApplication()
@@ -93,7 +98,6 @@ public static class GlobalEvents
 
     public static class PlayerEvents
     {
-
         public static void ResetPlayerHp()
         {
             Entity player = GameVariables.Player.Entity;
@@ -149,7 +153,7 @@ public static class GlobalEvents
         {
             EntityManager e = World.DefaultGameObjectInjectionWorld.EntityManager;
             Entity entity = GameVariables.Player.Entity;
-            
+
             //Get Player LifeComponent
             LifeComponent life = e.GetComponentData<LifeComponent>(entity);
             life.SetInvincibility(type);
@@ -159,7 +163,7 @@ public static class GlobalEvents
         public static void SetDelayOnPlayerWeapon()
         {
             EntityManager e = World.DefaultGameObjectInjectionWorld.EntityManager;
-            
+
             //Set delay on Player Weapon (Quick fix for bullets spawning at wrong spot)
             Entity weaponEntity = EventsHolder.LevelEvents.CurrentLevel != MapType.Level_Hell
                 ? GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]
