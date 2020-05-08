@@ -193,8 +193,6 @@ public static class GlobalEvents
         private static void SetFadeInfo(FadeObject.FadeType type, float startValue)
         {
             //Set fade component info
-            if (GameVariables.UI.FadeObject.FadeValue == startValue)
-                return;
             GameVariables.UI.FadeObject.FadeValue = startValue;
             GameVariables.UI.FadeObject.Type = type;
 
