@@ -20,7 +20,6 @@ public class SecretSystem : SystemBase
         float dt = Time.DeltaTime;
         Entities.WithStructuralChanges().WithoutBurst().ForEach((Entity entity, ref Boost boost) =>
         {
-            Debug.Log("wot");
             boost.Time -= dt;
             GameVariables.Boost = 10;
             var gun = GameVariables.Player.PlayerWeaponEntities[WeaponType.Shotgun];
