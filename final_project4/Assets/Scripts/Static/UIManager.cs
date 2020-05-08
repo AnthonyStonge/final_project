@@ -182,15 +182,12 @@ public static class UIManager
             return;
         }
 
-        //Get color
-        Color c = MonoGameVariables.Instance.Hearths.HearthImages[index].color;
-
-        //Set new color
+        //Set new Material
         if (hasLifeDecreased)
-            c.a = 0.15f;
+            MonoGameVariables.Instance.Hearths.HearthImages[index].material = MonoGameVariables.Instance.Hearths.UnLit;
         else
-            c.a = 1;
-        MonoGameVariables.Instance.Hearths.HearthImages[index].color = c;
+            MonoGameVariables.Instance.Hearths.HearthImages[index].material = MonoGameVariables.Instance.Hearths.Lit;
+
     }
 
     public static void OnPlayerHit()

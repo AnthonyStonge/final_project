@@ -56,6 +56,8 @@ public class UI_WeaponLink
 [Serializable]
 public class UI_Health
 {
+    public Material Lit;
+    public Material UnLit;
     public List<Image> HearthImages;
     [HideInInspector] public ushort HearthIndexAt;
 }

@@ -48,7 +48,6 @@ public static class GlobalEvents
                 //Destroy entities with query
                 manager.DestroyEntity(entities);
             }
-            
         }
 
         public static void StartHellLevel(int difficulty, int deathCount)
@@ -63,15 +62,25 @@ public static class GlobalEvents
             UIManager.ResetPlayerHealth();
         }
 
-        public static void GameLost()
+        public static void RestartGame()
         {
-            //TODO Enable Game Over UI for short amount of time.
-            //Then show player in Menu Level.
+            //Toggle UI YOU LOST
+            //TODO
 
-            //Return player to Menu
+            //Toggle PlayerWeapons
+            ChangeWorldDelaySystem.OnChangeWorld += () =>
+            {
+                SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponType.Pistol, MapType.Level_Hell, MapType.LevelMenu);
+                
+                //Reset UI
+                UIManager.ResetPlayerHealth();
+                UIManager.ToggleHellTimers(false);
+            };
+
+            //Reset Game Values
+
+            //Load Menu MapType
             MapEvents.LoadMap(MapType.LevelMenu, true);
-
-            //TODO Reset GameValue???
         }
 
         public static void QuitApplication()
@@ -89,26 +98,6 @@ public static class GlobalEvents
 
     public static class PlayerEvents
     {
-        public static void OnPlayerDie()
-        {
-#if UNITY_EDITOR
-            Debug.Log("On Player Death");
-#endif
-
-            /* GameVariables.Player.AmountLife--;
- 
-             //Look if Player should respawn in current level
-             if (GameVariables.Player.AmountLife <= 0)
-                 GameEvents.GameLost();
-             else
-                 RespawnPlayerOnCheckPoint();*/
-
-            //Number of the time the player dies defines the difficulties of "Hell Level"
-
-            //TODO Sound Event
-            //TODO VFX 
-        }
- 
         public static void ResetPlayerHp()
         {
             Entity player = GameVariables.Player.Entity;
@@ -164,11 +153,24 @@ public static class GlobalEvents
         {
             EntityManager e = World.DefaultGameObjectInjectionWorld.EntityManager;
             Entity entity = GameVariables.Player.Entity;
-            
+
             //Get Player LifeComponent
             LifeComponent life = e.GetComponentData<LifeComponent>(entity);
             life.SetInvincibility(type);
             e.SetComponentData(entity, life);
+        }
+
+        public static void SetDelayOnPlayerWeapon()
+        {
+            EntityManager e = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+            //Set delay on Player Weapon (Quick fix for bullets spawning at wrong spot)
+            Entity weaponEntity = EventsHolder.LevelEvents.CurrentLevel != MapType.Level_Hell
+                ? GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]
+                : GameVariables.Player.PlayerHellWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
+            GunComponent weapon = e.GetComponentData<GunComponent>(weaponEntity);
+            weapon.SwapTimer = 0.02f;
+            e.SetComponentData(weaponEntity, weapon);
         }
     }
 
