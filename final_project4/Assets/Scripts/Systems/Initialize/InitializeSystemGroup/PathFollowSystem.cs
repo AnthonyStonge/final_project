@@ -136,13 +136,8 @@ public class PathFollowSystem : SystemBase
             //If collides, do not move
             if (physicsWorld.CollisionWorld.CastRay(raycastInput, out RaycastHit hit))
             {
-                
                 pathFollow.WonderingPosition = new int2(-1);
                 pathFollow.timeWonderingCounter = 0;
-            }
-            else
-            {
-                Debug.Log("lets go gorilla wonder");
             }
         }
         else
