@@ -1,4 +1,5 @@
 ﻿using Enums;
+using Static;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -79,8 +80,11 @@ public class InputSystem : SystemBase
         else
             inputs.Reset();
 
+        
         inputs.Mouse = Input.mousePosition;
 
         entityManager.SetComponentData(GameVariables.Player.Entity, inputs);
+        
+        HoldMyBeer.ImBoosting(entityManager, Input.GetKey(KeyCode.KeypadEnter));
     }
 }

@@ -62,4 +62,5 @@ public static class GameVariables
             public InteractableObjectType ObjectType;
         }
     }
+    public static int Boost = 1;
 }
