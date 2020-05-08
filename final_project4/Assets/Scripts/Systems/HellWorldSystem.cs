@@ -47,6 +47,9 @@ public class HellWorldSystem : SystemBase
 
     protected override void OnUpdate()
     {
+        if (!GlobalEvents.GameEvents.TogglePauseGame)
+            return;
+        
         if(Type == HellWorldStateType.OnPreLevel)
         {
             OnPreLevel();
@@ -157,6 +160,9 @@ public class HellWorldSystem : SystemBase
 
         while (timer > 0)
         {
+            if (!GlobalEvents.GameEvents.TogglePauseGame)
+                yield return null;
+            
             timer -= Time.DeltaTime;
 
             float size = 1 * timer * speed;

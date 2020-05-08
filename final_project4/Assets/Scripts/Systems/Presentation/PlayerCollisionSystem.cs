@@ -61,9 +61,9 @@ public class PlayerCollisionSystem : SystemBase
 
             if (lifeComponent.DecrementLifeWithInvincibility())
             {
-                UIManager.OnPlayerHit();
                 SoundEventSystem.PlayerHitSound();
                 EntityManager.SetComponentData(playerEntity, lifeComponent);
+                UIManager.OnPlayerHit();
             }
         }
     }

@@ -42,9 +42,9 @@ public class SwapWeaponSystem : SystemBase
             if (inputs.SwapWeapon1)
                 TryGetWeaponType(out weaponDesired, WeaponType.Pistol);
             else if (inputs.SwapWeapon2)
-                TryGetWeaponType(out weaponDesired, WeaponType.Shotgun);
-            else if (inputs.SwapWeapon3)
                 TryGetWeaponType(out weaponDesired, WeaponType.Machinegun);
+            else if (inputs.SwapWeapon3)
+                TryGetWeaponType(out weaponDesired, WeaponType.Shotgun);
             else if (inputs.MouseWheel.y > 0)
                 GetPreviousWeapon(out weaponDesired);
             else if (inputs.MouseWheel.y < 0)
@@ -55,9 +55,9 @@ public class SwapWeaponSystem : SystemBase
             if (inputs.SwapWeapon1)
                 weaponDesired = WeaponType.HellPistol;
             else if (inputs.SwapWeapon2)
-                weaponDesired = WeaponType.HellShotgun;
-            else if (inputs.SwapWeapon3)
                 weaponDesired = WeaponType.HellMachinegun;
+            else if (inputs.SwapWeapon3)
+                weaponDesired = WeaponType.HellShotgun;
             /*else if (inputs.MouseWheel.y > 0)
                 GetPreviousWeapon(out weaponDesired);
             else if (inputs.MouseWheel.y < 0)
