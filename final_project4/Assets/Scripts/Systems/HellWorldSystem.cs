@@ -59,7 +59,6 @@ public class HellWorldSystem : SystemBase
         //Look if end timer reached
         if (HellTimer > 0)
             return;
-
 #if UNITY_EDITOR
         Debug.Log("Player survived Hell World... Returning to previous map");
 #endif

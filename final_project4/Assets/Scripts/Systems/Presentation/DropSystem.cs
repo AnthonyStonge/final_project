@@ -4,6 +4,7 @@ using EventStruct;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
 [DisableAutoCreation]
@@ -14,18 +15,17 @@ public class DropSystem : SystemBase
      
     }
 
-    public static void DropAmmunition(EntityManager em, float3 pos)
+    public static void DropAmmunition(EntityManager em, float3 pos, WeaponType dropType)
     {
-        Entity e = em.Instantiate(
-            AmmunitionDropHolder.DropItemPrefabDict[DropType.AmmunitionShotgun]);
+        Entity e = em.Instantiate(AmmunitionDropHolder.DropItemPrefabDict[(DropType)dropType]);
         em.SetComponentData(e, new Translation
         {
             Value = pos
         });
         em.SetComponentData(e, new AmmunitionComponent
         {
-            TypeAmmunition = (WeaponType) Random.Range(0, 2),
-            AmmunitionQuantity = Random.Range(1, 5)
+            TypeAmmunition = dropType,
+            AmmunitionQuantity = 100
         });
     }
     

@@ -329,7 +329,7 @@ public class RetrieveGunEventSystem : SystemBase
         float3 position, quaternion rotation, float3 parentEntityPosition)
     {
         int nbBullet = 3;
-        float degreeFarShot = math.radians(nbBullet * 10);
+        float degreeFarShot = math.radians(45);
         float angle = degreeFarShot / nbBullet;
         quaternion startRotation = math.mul(rotation, quaternion.RotateY(-(degreeFarShot / 2)));
 

@@ -88,7 +88,12 @@ public class AnimationEventSystem : SystemBase
         {
             var trans = entityManager.GetComponentData<Translation>(info.Entity);
             
-            DropSystem.DropAmmunition(entityManager, trans.Value);
+            //Player only has a pistol
+            if (GameVariables.Player.PlayerCurrentWeapons.Count <= 1) return;
+            
+            int index = rnd.Next(GameVariables.Player.PlayerCurrentWeapons.Count) + 1;
+            WeaponType weaponType = GameVariables.Player.PlayerCurrentWeapons[index];
+            DropSystem.DropAmmunition(entityManager, trans.Value, weaponType);
         }
         
         //Destroy entity

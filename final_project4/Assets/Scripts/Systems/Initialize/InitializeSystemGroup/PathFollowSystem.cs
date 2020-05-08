@@ -48,6 +48,8 @@ public class PathFollowSystem : SystemBase
         
         Entities.ForEach((int nativeThreadIndex, DynamicBuffer<PathPosition> pathPos, ref PathFollowComponent pathFollow, ref AttackRangeComponent range, ref Translation translation, ref BulletCollider filter, ref TypeData typeData) =>
         {
+            if (math.distance(posPlayer, translation.Value) > 20)
+                return;
             if (pathFollow.BeginWalk)
                 return;
             range.IsInRange = false;
