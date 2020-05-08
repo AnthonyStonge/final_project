@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1320167522602264408}
   - component: {fileID: 8071145785662913970}
   m_Layer: 0
-  m_Name: AmmunitionMahinegun
+  m_Name: AmmunitionMachinegun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,15 +144,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShapeType: 3
+  m_ShapeType: 0
   m_PrimitiveCenter:
     x: 0
     y: 0
     z: 0
   m_PrimitiveSize:
     x: 1
-    y: 1
-    z: 1.9999999
+    y: 0.5421729
+    z: 0.48391163
   m_PrimitiveOrientation:
     Value:
       x: -90
@@ -160,15 +160,15 @@ MonoBehaviour:
       z: 90
     RotationOrder: 4
   m_Capsule:
-    Height: 1.9999999
-    Radius: 0.5
-    Axis: 2
+    Height: 1
+    Radius: 0.27108645
+    Axis: 0
   m_Cylinder:
-    Height: 1.9999999
-    Radius: 0.5
-    Axis: 2
+    Height: 1
+    Radius: 0.27108645
+    Axis: 0
   m_CylinderSideCount: 20
-  m_SphereRadius: 0.99999994
+  m_SphereRadius: 0.5
   m_MinimumSkinnedVertexWeight: 0.1
   m_ConvexHullGenerationParameters:
     m_SimplificationTolerance: 0.029999997
