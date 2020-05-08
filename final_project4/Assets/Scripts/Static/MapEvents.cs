@@ -32,45 +32,28 @@ public static class MapEvents
         }
 
         //Complete all jobs
-        //entityManager.CompleteAllJobs();
+        entityManager.CompleteAllJobs();
 
-        //Fade out
-        GlobalEvents.CameraEvents.FadeOut();
-        //Lock player inputs
-        if (GameVariables.Player.Entity != Entity.Null)
-        {
-            //Set delay on Player Weapon (Quick fix for bullets spawning at wrong spot)
-            Entity weaponEntity = EventsHolder.LevelEvents.CurrentLevel != MapType.Level_Hell
-                ? GameVariables.Player.PlayerWeaponEntities[GameVariables.Player.CurrentWeaponHeld]
-                : GameVariables.Player.PlayerHellWeaponEntities[GameVariables.Player.CurrentWeaponHeld];
-            GunComponent weapon = entityManager.GetComponentData<GunComponent>(weaponEntity);
-            weapon.SwapTimer = 0.02f;
-            entityManager.SetComponentData(weaponEntity, weapon);
-            GlobalEvents.PlayerEvents.LockUserInputs();
-        }
-
-        EventsHolder.LevelEvents.CurrentLevel = type;
-     
-        OnSwapLevel();
-        TryUnloadMap();
-        //Load new map
-        CurrentTypeLoaded = type;
-        CurrentMapLoaded = entityManager.Instantiate(MapHolder.MapPrefabDict[type]);
-
-        //Set New Spawn Pos if Needed
+        //Subscribe to FadeOutEvent
+        FadeSystem.OnFadeEnd += TryUnloadMap;
+        FadeSystem.OnFadeEnd += () => { CurrentMapLoaded = entityManager.Instantiate(MapHolder.MapPrefabDict[type]); };
+        //Set Player position
         if (SetNewSpawnPos)
-        {
-            if (GameVariables.Player.Entity != Entity.Null)
+            FadeSystem.OnFadeEnd += () =>
             {
                 GlobalEvents.PlayerEvents.SetPlayerPosition(MapHolder.MapsInfo[type].SpawnPosition);
-            }
-        }
+            };
 
-        //Fade in
-        GlobalEvents.CameraEvents.FadeIn();
-        //Unlock player inputs
-        if (GameVariables.Player.Entity != Entity.Null)
-            GlobalEvents.PlayerEvents.UnlockUserInputs();
+        CurrentTypeLoaded = type;
+        EventsHolder.LevelEvents.CurrentLevel = type;
+
+        //Lock User inputs
+        GlobalEvents.PlayerEvents.LockUserInputs();
+
+        //Subscribe functions to ChangeWorldEvent
+        ChangeWorldDelaySystem.OnChangeWorld += OnSwapLevel;
+        ChangeWorldDelaySystem.OnChangeWorld += GlobalEvents.PlayerEvents.UnlockUserInputs;
+        ChangeWorldDelaySystem.ChangeWorld(1.5f);
     }
 
     private static void TryUnloadMap()

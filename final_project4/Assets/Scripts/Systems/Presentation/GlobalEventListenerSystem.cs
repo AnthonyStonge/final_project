@@ -9,63 +9,51 @@ using UnityEngine;
 [DisableAutoCreation]
 public class GlobalEventListenerSystem : SystemBase
 {
-    private float hellTimer = 30f;
-    private float currentHellTimer = 0f;
-    private MapType LastMap;
-    private WeaponType WeaponTypeToGoBackTo;
+    private static MapType LastMap;
+    private static WeaponType WeaponTypeToGoBackTo;
 
     protected override void OnUpdate()
     {
-        var playerLifeComponent = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
-        var levelEvents = EventsHolder.LevelEvents;
-        if (levelEvents.CurrentLevel == MapType.Level_Hell)
+        //Get Player Health
+        LifeComponent playerLife = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
+        
+        //Look if Player Died
+        if (playerLife.IsDead())
         {
-            if (currentHellTimer <= 0)
+            //Get Current MapType
+            MapType currentMapType = EventsHolder.LevelEvents.CurrentLevel;
+
+            if (currentMapType == MapType.Level_Hell)
             {
-                OnExitHellLevel();
+                Debug.Log("Player died in Hell World... Returning to main menu.");
+                
+                //Stop HellWorldSystem
+                World.GetExistingSystem<HellWorldSystem>().Enabled = false;
+                
+                //Restart Game from beginning
+                GlobalEvents.GameEvents.RestartGame();
+                
+                return;
             }
-            else
-            {
-                currentHellTimer -= Time.DeltaTime;
-                UIManager.SetTimeOnHellTimers(currentHellTimer);
-            }
+            
+            //Save current Level info
+            EventsHolder.LevelEvents.DeathCount++;
+            
+            //Load Hell Level
+            OnLoadHellLevel(ref playerLife);
         }
-        else if (levelEvents.CurrentLevel == MapType.LevelMenu)
-        {
-            //Default Menu Logic
-        }
-        else
-        {
-            //Default Level Logic
-        }
-      
-        if (playerLifeComponent.Invincibility == InvincibilityType.Hit)
+        
+        //TODO Implement differently lol it doesnt make sens here
+        if (playerLife.Invincibility == InvincibilityType.Hit)
         {
             GlobalEvents.CameraEvents.ShakeCam(.2f, 1, 1.5f);
         }
-        
-        //Look for player hp
-        if (playerLifeComponent.IsDead())
-        {
-            if (levelEvents.CurrentLevel != MapType.Level_Hell)
-            {
-                OnLoadHellLevel(ref playerLifeComponent, ref levelEvents);
-            }
-            else
-            {
-                currentHellTimer = hellTimer;    //??
-                GlobalEvents.GameEvents.GameLost();
-            }
-        }
     }
 
-    private void OnLoadHellLevel(ref LifeComponent playerLife, ref LevelInfo levelInfo)
+    private void OnLoadHellLevel(ref LifeComponent playerLife)
     {
-        //Reset Timer
-        currentHellTimer = hellTimer;
-        
-        //Increase Death
-        EventsHolder.LevelEvents.DeathCount++;
+        //Start HellWorldSystem
+        World.GetExistingSystem<HellWorldSystem>().Enabled = true;
         
         //Toggle PlayerWeapons
         WeaponTypeToGoBackTo = GameVariables.Player.CurrentWeaponHeld;
@@ -77,7 +65,6 @@ public class GlobalEventListenerSystem : SystemBase
         
         //Set new MapType
         LastMap = EventsHolder.LevelEvents.CurrentLevel;
-        levelInfo.CurrentLevel = MapType.Level_Hell;
         EventsHolder.LevelEvents.CurrentLevel = MapType.Level_Hell;
         MapEvents.LoadMap(MapType.Level_Hell, true);
 
@@ -90,7 +77,7 @@ public class GlobalEventListenerSystem : SystemBase
         EventsHolder.LevelEvents.LevelEvent = LevelInfo.LevelEventType.OnStart;
     }
 
-    private void OnExitHellLevel()
+    public static void OnExitHellLevel()
     {
         //Set UI info
         UIManager.ResetPlayerHealth();
