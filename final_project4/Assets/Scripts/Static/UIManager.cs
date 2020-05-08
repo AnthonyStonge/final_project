@@ -204,9 +204,7 @@ public static class UIManager
     {
         for (int i = 0; i < MonoGameVariables.Instance.Hearths.HearthImages.Count; i++)
         {
-            Color c = MonoGameVariables.Instance.Hearths.HearthImages[i].color;
-            c.a = 1;
-            MonoGameVariables.Instance.Hearths.HearthImages[i].color = c;
+            MonoGameVariables.Instance.Hearths.HearthImages[i].material = MonoGameVariables.Instance.Hearths.Lit;
         }
 
         MonoGameVariables.Instance.Hearths.HearthIndexAt =
