@@ -58,7 +58,7 @@ public class PathFollowSystem : SystemBase
             range.CanAttack = false;
             
             //State changer 
-            if (math.distancesq(translation.Value, posPlayer) <= range.AgroDistance * range.AgroDistance)
+            if (math.distancesq(translation.Value, posPlayer) <= range.AgroDistance * range.AgroDistance || level == MapType.Level_Hell)
             {
                 RaycastInput raycastInput = new RaycastInput
                 {
