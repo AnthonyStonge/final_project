@@ -16,8 +16,8 @@ public static class GlobalEvents
             var world = World.DefaultGameObjectInjectionWorld;
 
             TogglePauseGame = !TogglePauseGame;
-            
-            DisableGameLogic(!TogglePauseGame);
+
+            DisableGameLogic(TogglePauseGame);
 
             ShowPauseMenu();
         }
@@ -35,7 +35,7 @@ public static class GlobalEvents
 
         private static void ShowPauseMenu()
         {
-            GameVariables.UI.PausedMenu.SetActive(!TogglePauseGame);
+            GameVariables.UI.PausedMenu.SetActive(TogglePauseGame);
         }
 
         public static void Destroy<T>() where T : IComponentData
