@@ -23,11 +23,7 @@ public class DropSystem : SystemBase
         {
             Value = pos
         });
-        em.SetComponentData(e, new AmmunitionComponent
-        {
-            TypeAmmunition = dropType,
-            AmmunitionQuantity = 100
-        });
+
     }
     
 }

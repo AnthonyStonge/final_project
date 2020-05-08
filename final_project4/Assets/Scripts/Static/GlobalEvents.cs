@@ -25,7 +25,7 @@ public static class GlobalEvents
         public static void DisableGameLogic(bool deactivate)
         {
             var world = World.DefaultGameObjectInjectionWorld;
-            
+
             world.GetOrCreateSystem<LateInitializeManager>().Enabled = !deactivate;
             world.GetOrCreateSystem<TransformSimulationManager>().Enabled = !deactivate;
             world.GetOrCreateSystem<LateSimulationManager>().Enabled = !deactivate;
