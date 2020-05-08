@@ -20,7 +20,7 @@ public static class GlobalEvents
 #if UNITY_EDITOR
             Debug.Log(TogglePauseGame);
 #endif
-            DisableGameLogic(TogglePauseGame);
+            DisableGameLogic(!TogglePauseGame);
 
             ShowPauseMenu();
         }

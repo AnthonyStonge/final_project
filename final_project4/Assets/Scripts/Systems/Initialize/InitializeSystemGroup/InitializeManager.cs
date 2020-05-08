@@ -80,10 +80,10 @@ public class InitializeManager : ComponentSystemGroup
 #endif
             if(!GameVariables.Player.PlayerCurrentWeapons.Contains(WeaponType.Pistol))
                 GameVariables.Player.PlayerCurrentWeapons.Add(WeaponType.Pistol);
-            if(!GameVariables.Player.PlayerCurrentWeapons.Contains(WeaponType.Shotgun))
-                GameVariables.Player.PlayerCurrentWeapons.Add(WeaponType.Shotgun);
             if(!GameVariables.Player.PlayerCurrentWeapons.Contains(WeaponType.Machinegun))
                 GameVariables.Player.PlayerCurrentWeapons.Add(WeaponType.Machinegun);
+            if(!GameVariables.Player.PlayerCurrentWeapons.Contains(WeaponType.Shotgun))
+                GameVariables.Player.PlayerCurrentWeapons.Add(WeaponType.Shotgun);
         }
     }
 
