@@ -29,6 +29,8 @@ public struct GunComponent : IComponentData
     [Tooltip("The amount of bullet on the entity when it spawns")]
     public int CurrentAmountBulletOnPlayer;
     
+    
+    
     [HideInInspector] public float BetweenShotTime;
     [HideInInspector] public float ReloadTime;
     [HideInInspector] public float SwapTimer;

@@ -66,11 +66,11 @@ MonoBehaviour:
   BulletPrefab: {fileID: 1184732517643075236, guid: f3085b6cf9ee6ac488ff10b8cdf3fdf7,
     type: 3}
   CurrentAmountBulletInMagazine: 9999
-  CurrentAmountBulletOnPlayer: 9999
+  CurrentAmountBulletOnPlayer: 0
   BetweenShotTime: 0
   ReloadTime: 0
   SwapTimer: 0
-  HasInfiniteAmmo: 0
+  HasInfiniteAmmo: 1
 --- !u!1 &6815565024090479223
 GameObject:
   m_ObjectHideFlags: 0
