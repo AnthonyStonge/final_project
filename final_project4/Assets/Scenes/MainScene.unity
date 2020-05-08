@@ -1080,6 +1080,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1425743071 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1035088824644613687, guid: 8db7e48852df40a4e952a447b53aad2e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2155649932496736248}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1531675851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,7 +1489,7 @@ Camera:
     height: 1
   near clip plane: 1
   far clip plane: 300
-  field of view: 60
+  field of view: 12
   orthographic: 0
   orthographic size: 8.5
   m_Depth: -1
@@ -1727,6 +1739,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1020096458}
     m_Modifications:
+    - target: {fileID: 1647301537, guid: 8db7e48852df40a4e952a447b53aad2e, type: 3}
+      propertyPath: FadeImage
+      value: 
+      objectReference: {fileID: 1425743071}
     - target: {fileID: 2208394066015860, guid: 8db7e48852df40a4e952a447b53aad2e, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
@@ -1788,6 +1804,16 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1912010583}
+    - target: {fileID: 1035088824644613687, guid: 8db7e48852df40a4e952a447b53aad2e,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1088846762515231267, guid: 8db7e48852df40a4e952a447b53aad2e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1209027604219709082, guid: 8db7e48852df40a4e952a447b53aad2e,
         type: 3}
       propertyPath: m_AnchorMin.y
