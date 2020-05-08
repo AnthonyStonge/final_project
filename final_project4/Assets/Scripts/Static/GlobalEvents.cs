@@ -20,16 +20,20 @@ public static class GlobalEvents
 #if UNITY_EDITOR
             Debug.Log(TogglePauseGame);
 #endif
-            //world.GetOrCreateSystem<InitializeManager>().Enabled = TogglePauseGame;
-            world.GetOrCreateSystem<LateInitializeManager>().Enabled = TogglePauseGame;
-            world.GetOrCreateSystem<TransformSimulationManager>().Enabled = TogglePauseGame;
-            world.GetOrCreateSystem<LateSimulationManager>().Enabled = TogglePauseGame;
-            world.GetOrCreateSystem<PresentationManager>().Enabled = TogglePauseGame;
-            //world.GetOrCreateSystem<BuildPhysicsWorld>().Enabled = TogglePauseGame;
-
-            world.GetOrCreateSystem<SimulationSystemGroup>().Enabled = TogglePauseGame;
+            DisableGameLogic(TogglePauseGame);
 
             ShowPauseMenu();
+        }
+
+        public static void DisableGameLogic(bool deactivate)
+        {
+            var world = World.DefaultGameObjectInjectionWorld;
+            
+            world.GetOrCreateSystem<LateInitializeManager>().Enabled = !deactivate;
+            world.GetOrCreateSystem<TransformSimulationManager>().Enabled = !deactivate;
+            world.GetOrCreateSystem<LateSimulationManager>().Enabled = !deactivate;
+            world.GetOrCreateSystem<PresentationManager>().Enabled = !deactivate;
+            world.GetOrCreateSystem<SimulationSystemGroup>().Enabled = !deactivate;
         }
 
         private static void ShowPauseMenu()

@@ -54,6 +54,8 @@ public static class MapEvents
         ChangeWorldDelaySystem.OnChangeWorld += OnSwapLevel;
         ChangeWorldDelaySystem.OnChangeWorld += GlobalEvents.PlayerEvents.UnlockUserInputs;
         ChangeWorldDelaySystem.ChangeWorld(1.5f);
+        
+        GlobalEvents.GameEvents.DisableGameLogic(true);
     }
 
     private static void TryUnloadMap()

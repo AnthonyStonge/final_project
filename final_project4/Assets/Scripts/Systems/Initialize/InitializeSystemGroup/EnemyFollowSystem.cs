@@ -17,13 +17,15 @@ public class EnemyFollowSystem : SystemBase
         CollidesWith = 1 << 10 | 1 << 1,
         GroupIndex = 0
     };
-
+    
     protected override void OnUpdate()
     {
+        float3 playerPos = EntityManager.GetComponentData<Translation>(GameVariables.Player.Entity).Value;
         Entities.ForEach((ref PathFollowComponent pathFollow, ref DirectionData direction, ref TargetData targetData,ref Translation translation,
             ref AttackRangeComponent range, in TypeData typeData, in StateComponent state) =>
         {
-            
+            if (math.distance(playerPos, translation.Value) > 20)
+                return;
             if (state.CurrentState == State.Dying)
                 return;
             direction.Value = new float2(0);

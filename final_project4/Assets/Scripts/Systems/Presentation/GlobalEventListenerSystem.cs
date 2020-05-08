@@ -16,7 +16,7 @@ public class GlobalEventListenerSystem : SystemBase
     {
         //Get Player Health
         LifeComponent playerLife = EntityManager.GetComponentData<LifeComponent>(GameVariables.Player.Entity);
-        
+
         //Look if Player Died
         if (playerLife.IsDead())
         {
@@ -26,23 +26,23 @@ public class GlobalEventListenerSystem : SystemBase
             if (currentMapType == MapType.Level_Hell)
             {
                 Debug.Log("Player died in Hell World... Returning to main menu.");
-                
+
                 //Stop HellWorldSystem
                 World.GetExistingSystem<HellWorldSystem>().Enabled = false;
-                
+
                 //Restart Game from beginning
                 GlobalEvents.GameEvents.RestartGame();
-                
+
                 return;
             }
-            
+
             //Save current Level info
             EventsHolder.LevelEvents.DeathCount++;
-            
+
             //Load Hell Level
             OnLoadHellLevel(ref playerLife);
         }
-        
+
         //TODO Implement differently lol it doesnt make sens here
         if (playerLife.Invincibility == InvincibilityType.Hit)
         {
@@ -52,27 +52,37 @@ public class GlobalEventListenerSystem : SystemBase
 
     private void OnLoadHellLevel(ref LifeComponent playerLife)
     {
-        //Start HellWorldSystem
-        World.GetExistingSystem<HellWorldSystem>().Enabled = true;
-        
-        //Toggle PlayerWeapons
+        //Keep hand on CurrentWeapon / Map
         WeaponTypeToGoBackTo = GameVariables.Player.CurrentWeaponHeld;
-        SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponType.HellShotgun, EventsHolder.LevelEvents.CurrentLevel, MapType.Level_Hell);
+        LastMap = EventsHolder.LevelEvents.CurrentLevel;
+
+        FadeSystem.OnFadeEnd += () =>
+        {
+            //Toggle PlayerWeapons
+            SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponType.HellShotgun, LastMap,
+                MapType.Level_Hell);
+        };
+        
+        ChangeWorldDelaySystem.OnChangeWorld += () =>
+        {
+            //Start HellWorldSystem
+            World.GetExistingSystem<HellWorldSystem>().Enabled = true;
+
+            //Set UI info
+            UIManager.ResetPlayerHealth();
+            UIManager.ToggleHellTimers(true);
+            UIManager.SetWeaponType(WeaponType.HellShotgun);
+        };
+        
+
 
         //Reset Player Life
         playerLife.Reset();
         EntityManager.SetComponentData(GameVariables.Player.Entity, playerLife);
-        
+
         //Set new MapType
-        LastMap = EventsHolder.LevelEvents.CurrentLevel;
-        EventsHolder.LevelEvents.CurrentLevel = MapType.Level_Hell;
         MapEvents.LoadMap(MapType.Level_Hell, true);
 
-        //Set UI info
-        UIManager.ResetPlayerHealth();
-        UIManager.ToggleHellTimers(true);
-        UIManager.SetWeaponType(WeaponType.HellShotgun);
-        
         //??
         EventsHolder.LevelEvents.LevelEvent = LevelInfo.LevelEventType.OnStart;
     }
@@ -85,11 +95,11 @@ public class GlobalEventListenerSystem : SystemBase
 
         //Toggle PlayerWeapons
         SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponTypeToGoBackTo, MapType.Level_Hell, LastMap);
-        
+
         //Set new MapType
         EventsHolder.LevelEvents.CurrentLevel = LastMap;
         MapEvents.LoadMap(LastMap, true);
-        
+
         //Set more UI info
         UIManager.SetWeaponType(WeaponTypeToGoBackTo);
     }

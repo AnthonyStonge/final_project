@@ -204,9 +204,7 @@ public static class UIManager
     {
         for (int i = 0; i < MonoGameVariables.Instance.Hearths.HearthImages.Count; i++)
         {
-            Color c = MonoGameVariables.Instance.Hearths.HearthImages[i].color;
-            c.a = 1;
-            MonoGameVariables.Instance.Hearths.HearthImages[i].color = c;
+            MonoGameVariables.Instance.Hearths.HearthImages[i].material = MonoGameVariables.Instance.Hearths.Lit;
         }
 
         MonoGameVariables.Instance.Hearths.HearthIndexAt =
@@ -215,6 +213,8 @@ public static class UIManager
 
     public static void ToggleHellTimers(bool activate)
     {
+        MonoGameVariables.Instance.Hell_Timer01.text = "30.00";
+        MonoGameVariables.Instance.Hell_Timer02.text = "30.00";
         MonoGameVariables.Instance.Hell_Timer01.gameObject.SetActive(activate);
         MonoGameVariables.Instance.Hell_Timer02.gameObject.SetActive(activate);
     }
