@@ -36,6 +36,8 @@ public class MonoGameVariables : MonoBehaviour
 
     public TextMeshPro Hell_Timer01;
     public TextMeshPro Hell_Timer02;
+    public TextMeshPro Hell_ExplainText;
+    public TextMeshPro Hell_FirstTimer;
 
 }
 
