@@ -92,15 +92,22 @@ public class GlobalEventListenerSystem : SystemBase
         //Set UI info
         UIManager.ResetPlayerHealth();
         UIManager.ToggleHellTimers(false);
-
-        //Toggle PlayerWeapons
-        SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponTypeToGoBackTo, MapType.Level_Hell, LastMap);
-
+        
+        FadeSystem.OnFadeEnd += () =>
+        {
+            //Toggle PlayerWeapons
+            SwapWeaponSystem.SwapWeaponBetweenWorld(WeaponTypeToGoBackTo, MapType.Level_Hell, LastMap);
+        };
+        
+        ChangeWorldDelaySystem.OnChangeWorld += () =>
+        {
+            //Set UI info
+            UIManager.ResetPlayerHealth();
+            UIManager.SetWeaponType(WeaponTypeToGoBackTo);
+        };
+        
         //Set new MapType
-        EventsHolder.LevelEvents.CurrentLevel = LastMap;
         MapEvents.LoadMap(LastMap, true);
-
-        //Set more UI info
-        UIManager.SetWeaponType(WeaponTypeToGoBackTo);
+        
     }
 }
