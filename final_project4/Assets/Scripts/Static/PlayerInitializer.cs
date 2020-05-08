@@ -35,18 +35,4 @@ public static class PlayerInitializer
         Player.Entity = player;
         Player.CurrentWeaponHeld = WeaponType.Pistol;
     }
-    public static void SetPosition()
-    {
-        
-    }
-
-    
-    public static void SetDefault<T>(T Component)
-    {
-        
-    }
-
-    public static void ResetToDefault()
-    {
-    }
 }
