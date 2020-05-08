@@ -66,7 +66,8 @@ namespace Enums
     public enum DropType
     {
         //Life,
-        Ammunition
+        AmmunitionShotgun,
+        AmmunitionMachinegun
     }
 
     //Order is IMPORTANT (The bigger the value, the more important it is for the StateMachine)

@@ -17,7 +17,7 @@ public class DropSystem : SystemBase
     public static void DropAmmunition(EntityManager em, float3 pos)
     {
         Entity e = em.Instantiate(
-            AmmunitionDropHolder.DropItemPrefabDict[DropType.Ammunition]);
+            AmmunitionDropHolder.DropItemPrefabDict[DropType.AmmunitionShotgun]);
         em.SetComponentData(e, new Translation
         {
             Value = pos
