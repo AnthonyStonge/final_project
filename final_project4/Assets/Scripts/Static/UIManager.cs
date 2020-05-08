@@ -117,7 +117,7 @@ public static class UIManager
                 link.BulletsImages[i].material = link.Lit;
             }
 
-            link.BulletIndexAt = (ushort)(link.BulletsImages.Count - 1);
+            link.BulletIndexAt = 0;
         }
     }
 
