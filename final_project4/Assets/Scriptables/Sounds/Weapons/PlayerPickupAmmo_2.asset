@@ -18,4 +18,5 @@ MonoBehaviour:
   Weapons: []
   Bullets: []
   GenericSounds: 
-  Drops: 00000000
+  Drops: 01000000
+  Player: 

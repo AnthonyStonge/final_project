@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackDDistance: 0
-  AgroDistance: 20
+  AgroDistance: 35
   FleeDistance: 0
   CanAttack: 0
   IsInRange: 0

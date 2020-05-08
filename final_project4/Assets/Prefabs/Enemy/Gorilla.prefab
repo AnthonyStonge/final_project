@@ -173,8 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b77c5f35789e848a5bbc103f422bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackDDistance: 20
-  AgroDistance: 25
+  AttackDDistance: 30
+  AgroDistance: 35
   FleeDistance: 0
   CanAttack: 0
   IsInRange: 0
