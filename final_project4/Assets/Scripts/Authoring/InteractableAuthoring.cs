@@ -91,5 +91,19 @@ public class InteractableAuthoring : MonoBehaviour, IConvertGameObjectToEntity
                 WeaponType = WeaponType
             });
         }
+
+        if (ObjectType == InteractableObjectType.DoorClosing)
+        {
+            Entity door = conversionSystem.GetPrimaryEntity(DoorToOpen);
+            
+            dstManager.SetEnabled(door, false);
+            
+            dstManager.AddComponentData(entity, new InteractableComponent
+            {
+                Type = Type,
+                ObjectType = ObjectType,
+                DoorToOpen = door
+            });
+        }
     }
 }

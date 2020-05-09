@@ -205,12 +205,12 @@ public static class UIManager
 
     public static void OnPlayerHit()
     {
-        RefreshPlayerHp(true);
+        //RefreshPlayerHp(true);
     }
 
     public static void OnPlayerPickupHealth()
     {
-        RefreshPlayerHp(false);
+        //RefreshPlayerHp(false);
     }
 
     public static void ResetPlayerHealth()

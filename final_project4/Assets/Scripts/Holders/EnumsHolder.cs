@@ -98,7 +98,8 @@ namespace Enums
         Door,
         Weapon,
         DeepHole,
-        WinningPortal
+        WinningPortal,
+        DoorClosing
     }
     public enum EnemyState
     {

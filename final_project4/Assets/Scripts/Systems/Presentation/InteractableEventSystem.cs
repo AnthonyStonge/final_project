@@ -62,6 +62,9 @@ public class InteractableEventSystem : SystemBase
             case InteractableObjectType.Door:
                 OnEnterDoorTrigger(info);
                 break;
+            case InteractableObjectType.DoorClosing:
+                OnEnterDoorClosingTrigger(info);
+                break;
             case InteractableObjectType.Weapon:
                 OnWalkOverWeapon(info);
                 break;
@@ -196,6 +199,18 @@ public class InteractableEventSystem : SystemBase
 
         //TODO REMOVE UNDER
         manager.RemoveComponent<RenderMesh>(door);
+
+        //Remove Trigger (because its been use so...)
+        manager.DestroyEntity(info.TriggerEntity);
+    }
+    
+    private static void OnEnterDoorClosingTrigger(InteractableInfo info)
+    {
+        //Get Door Entity
+        Entity door = manager.GetComponentData<InteractableComponent>(info.TriggerEntity).DoorToOpen;
+
+        //Activate door
+        manager.SetEnabled(door, true);
 
         //Remove Trigger (because its been use so...)
         manager.DestroyEntity(info.TriggerEntity);

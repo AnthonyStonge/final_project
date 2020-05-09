@@ -56,6 +56,7 @@ public class GlobalEventListenerSystem : SystemBase
         if (playerLife.Invincibility == InvincibilityType.Hit)
         {
             GlobalEvents.CameraEvents.ShakeCam(.2f, 1, 1.5f);
+            UIManager.RefreshPlayerHp(true);
         }
     }
 
