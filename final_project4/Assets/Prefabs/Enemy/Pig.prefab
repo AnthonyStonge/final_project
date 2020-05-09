@@ -159,8 +159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Life:
     Min: 0
-    Max: 100
-    hiddenValue: 3
+    Max: 2
+    hiddenValue: 2
 --- !u!114 &-750876704245837785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  m_GravityFactor: 5
+  m_GravityFactor: 1
   m_OverrideDefaultMassDistribution: 0
   m_CenterOfMass:
     x: 0
@@ -243,10 +243,10 @@ MonoBehaviour:
   m_PrimitiveCenter:
     x: 0
     y: 0.91
-    z: 0.49
+    z: 0.28
   m_PrimitiveSize:
-    x: 3.2558868
-    y: 1.5005623
+    x: 1.7991487
+    y: 0.7845737
     z: 2
   m_PrimitiveOrientation:
     Value:
@@ -255,15 +255,15 @@ MonoBehaviour:
       z: 90
     RotationOrder: 4
   m_Capsule:
-    Height: 3.2558868
-    Radius: 1
-    Axis: 0
+    Height: 2
+    Radius: 0.89957434
+    Axis: 2
   m_Cylinder:
-    Height: 3.2558868
+    Height: 0.7845737
     Radius: 1
-    Axis: 0
+    Axis: 1
   m_CylinderSideCount: 20
-  m_SphereRadius: 1.6279434
+  m_SphereRadius: 1
   m_MinimumSkinnedVertexWeight: 0.1
   m_ConvexHullGenerationParameters:
     m_SimplificationTolerance: 0.015
@@ -280,8 +280,8 @@ MonoBehaviour:
     m_Friction:
       m_Override: 0
       m_Value:
-        Value: 0.5
-        CombineMode: 0
+        Value: 0
+        CombineMode: 1
     m_Restitution:
       m_Override: 0
       m_Value:

@@ -7,11 +7,6 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
-using BoxCollider = Unity.Physics.BoxCollider;
-using CapsuleCollider = Unity.Physics.CapsuleCollider;
-using Collider = Unity.Physics.Collider;
-using MeshCollider = Unity.Physics.MeshCollider;
-using SphereCollider = Unity.Physics.SphereCollider;
 
 struct EmptyEventQueueJob : IJob
 {
@@ -67,7 +62,6 @@ public class RetrieveGunEventSystem : SystemBase
         {
             Components = GetComponentDataFromEntity<Translation>()
         };
-        Entity player = GameVariables.Player.Entity;
 
         float deltaTime = Time.DeltaTime;
 
@@ -331,7 +325,7 @@ public class RetrieveGunEventSystem : SystemBase
         float3 position, quaternion rotation, float3 parentEntityPosition)
     {
         int nbBullet = 3;
-        float degreeFarShot = math.radians(45);
+        float degreeFarShot = math.radians(70);
         float angle = degreeFarShot / nbBullet;
         quaternion startRotation = math.mul(rotation, quaternion.RotateY(-(degreeFarShot / 2)));
 

@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 4
-  Speed: 5
+  Speed: 7
   Radius: 0.3
 --- !u!114 &6036781133103479221
 MonoBehaviour:
