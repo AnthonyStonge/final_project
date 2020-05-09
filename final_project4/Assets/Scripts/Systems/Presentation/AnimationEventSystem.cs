@@ -48,6 +48,8 @@ public class AnimationEventSystem : SystemBase
     private void SwapAnimation(ref AnimationInfo info)
     {
         if (!entityManager.Exists(info.Entity)) return;
+        if (!entityManager.HasComponent<TypeData>(info.Entity)) return;
+        
         //Get Type of Entity
         TypeData type = entityManager.GetComponentData<TypeData>(info.Entity);
 

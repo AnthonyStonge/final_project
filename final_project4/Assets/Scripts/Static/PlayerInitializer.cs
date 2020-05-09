@@ -32,6 +32,8 @@ public static class PlayerInitializer
         var buff = entityManager.GetBuffer<DynamicAnimator>(player);
         buff.Add(new DynamicAnimator() {State = State.Running});
         buff.Add(new DynamicAnimator() {State = State.Idle});
+        buff.Add(new DynamicAnimator() {State = State.Dashing});
+        buff.Add(new DynamicAnimator() {State = State.Dying});
         /*
         entityManager.SetComponentData(player, new Rotation
         {
